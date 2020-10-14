@@ -1,4 +1,4 @@
-package com.ssafy.bigdata.config;
+package com.ssafy.free.springback.config;
 
 import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;
