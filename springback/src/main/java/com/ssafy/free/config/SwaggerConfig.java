@@ -1,4 +1,4 @@
-package com.ssafy.free.springback.config;
+package com.ssafy.free.config;
 
 import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;
