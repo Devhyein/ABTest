@@ -14,12 +14,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_no")
     private int user_no; 
-
-    @Column(name = "gender")
-    private boolean gender;
-
-    @Column(name = "age")
-    private int age;
     
     @Column(name = "history")
     private String history;
@@ -27,10 +21,8 @@ public class User {
     public User() {
     }
 
-    public User(int user_no, boolean gender, int age, String history) {
+    public User(int user_no, String history) {
         this.user_no = user_no;
-        this.gender = gender;
-        this.age = age;
         this.history = history;
     }
 
@@ -40,22 +32,6 @@ public class User {
 
     public void setUser_no(int user_no) {
         this.user_no = user_no;
-    }
-
-    public boolean isGender() {
-        return gender;
-    }
-
-    public void setGender(boolean gender) {
-        this.gender = gender;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     public String getHistory() {
@@ -68,7 +44,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [age=" + age + ", gender=" + gender + ", history=" + history + ", user_no=" + user_no + "]";
+        return "User [history=" + history + ", user_no=" + user_no + "]";
     }
 
     

@@ -22,15 +22,16 @@ public class Product {
     private int product_price;
 
     @Column(name = "product_detail")
-    private int product_detail;
+    private String product_detail;
 
     @Column(name = "product_image")
-    private int product_image;
+    private String product_image;
 
     public Product() {
     }
 
-    public Product(int product_no, String product_name, int product_price, int product_detail, int product_image) {
+    public Product(int product_no, String product_name, int product_price, String product_detail,
+            String product_image) {
         this.product_no = product_no;
         this.product_name = product_name;
         this.product_price = product_price;
@@ -62,19 +63,19 @@ public class Product {
         this.product_price = product_price;
     }
 
-    public int getProduct_detail() {
+    public String getProduct_detail() {
         return product_detail;
     }
 
-    public void setProduct_detail(int product_detail) {
+    public void setProduct_detail(String product_detail) {
         this.product_detail = product_detail;
     }
 
-    public int getProduct_image() {
+    public String getProduct_image() {
         return product_image;
     }
 
-    public void setProduct_image(int product_image) {
+    public void setProduct_image(String product_image) {
         this.product_image = product_image;
     }
 
@@ -84,4 +85,5 @@ public class Product {
                 + product_name + ", product_no=" + product_no + ", product_price=" + product_price + "]";
     }
 
+  
 }

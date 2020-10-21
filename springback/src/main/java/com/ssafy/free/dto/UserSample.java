@@ -15,8 +15,8 @@ public class UserSample {
     @Column(name = "user_no")
     private int user_no; 
 
-    @Column(name = "email")
-    private String email; 
+    @Column(name = "id")
+    private String id; 
 
     @Column(name = "pw")
     private String pw; 
@@ -30,9 +30,9 @@ public class UserSample {
     public UserSample() {
     }
 
-    public UserSample(int user_no, String email, String pw, int age, int gender) {
+    public UserSample(int user_no, String id, String pw, int age, int gender) {
         this.user_no = user_no;
-        this.email = email;
+        this.id = id;
         this.pw = pw;
         this.age = age;
         this.gender = gender;
@@ -46,12 +46,12 @@ public class UserSample {
         this.user_no = user_no;
     }
 
-    public String getEmail() {
-        return email;
+    public String getId() {
+        return id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPw() {
@@ -80,7 +80,7 @@ public class UserSample {
 
     @Override
     public String toString() {
-        return "UserSample [age=" + age + ", email=" + email + ", gender=" + gender + ", pw=" + pw + ", user_no="
+        return "UserSample [age=" + age + ", id=" + id + ", gender=" + gender + ", pw=" + pw + ", user_no="
                 + user_no + "]";
     }
 

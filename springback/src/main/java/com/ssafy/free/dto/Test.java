@@ -32,14 +32,11 @@ public class Test {
     @Column(name = "end")
     private LocalDateTime end; 
 
-    @Column(name = "gender")
-    private int gender; 
+    @Column(name = "per_a")
+    private int per_a; 
 
-    @Column(name = "age")
-    private int age; 
-
-    @Column(name = "per")
-    private int per; 
+    @Column(name = "per_b")
+    private int per_b; 
 
     @Column(name = "status")
     private int status;
@@ -48,16 +45,15 @@ public class Test {
     }
 
     public Test(int test_no, String test_title, String test_a, String test_b, LocalDateTime start, LocalDateTime end,
-            int gender, int age, int per, int status) {
+            int per_a, int per_b, int status) {
         this.test_no = test_no;
         this.test_title = test_title;
         this.test_a = test_a;
         this.test_b = test_b;
         this.start = start;
         this.end = end;
-        this.gender = gender;
-        this.age = age;
-        this.per = per;
+        this.per_a = per_a;
+        this.per_b = per_b;
         this.status = status;
     }
 
@@ -109,28 +105,20 @@ public class Test {
         this.end = end;
     }
 
-    public int getGender() {
-        return gender;
+    public int getPer_a() {
+        return per_a;
     }
 
-    public void setGender(int gender) {
-        this.gender = gender;
+    public void setPer_a(int per_a) {
+        this.per_a = per_a;
     }
 
-    public int getAge() {
-        return age;
+    public int getPer_b() {
+        return per_b;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public int getPer() {
-        return per;
-    }
-
-    public void setPer(int per) {
-        this.per = per;
+    public void setPer_b(int per_b) {
+        this.per_b = per_b;
     }
 
     public int getStatus() {
@@ -143,10 +131,11 @@ public class Test {
 
     @Override
     public String toString() {
-        return "Test [age=" + age + ", end=" + end + ", gender=" + gender + ", per=" + per + ", start=" + start
-                + ", status=" + status + ", test_a=" + test_a + ", test_b=" + test_b + ", test_no=" + test_no
-                + ", test_title=" + test_title + "]";
+        return "Test [end=" + end + ", per_a=" + per_a + ", per_b=" + per_b + ", start=" + start + ", status=" + status
+                + ", test_a=" + test_a + ", test_b=" + test_b + ", test_no=" + test_no + ", test_title=" + test_title
+                + "]";
     }
 
+   
     
 }
