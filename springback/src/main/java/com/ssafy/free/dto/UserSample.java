@@ -8,15 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "UserSample")
+@Table(name = "usersample")
 public class UserSample {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_no")
-    private int user_no; 
+    private int userNo; 
 
-    @Column(name = "id")
-    private String id; 
+    @Column(name = "email")
+    private String email; 
 
     @Column(name = "pw")
     private String pw; 
@@ -25,33 +25,33 @@ public class UserSample {
     private int age; 
 
     @Column(name = "gender")
-    private int gender;
+    private String gender;
 
     public UserSample() {
     }
 
-    public UserSample(int user_no, String id, String pw, int age, int gender) {
-        this.user_no = user_no;
-        this.id = id;
+    public UserSample(int userNo, String email, String pw, int age, String gender) {
+        this.userNo = userNo;
+        this.email = email;
         this.pw = pw;
         this.age = age;
         this.gender = gender;
     }
 
-    public int getUser_no() {
-        return user_no;
+    public int getUserNo() {
+        return userNo;
     }
 
-    public void setUser_no(int user_no) {
-        this.user_no = user_no;
+    public void setUserNo(int userNo) {
+        this.userNo = userNo;
     }
 
-    public String getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPw() {
@@ -70,18 +70,18 @@ public class UserSample {
         this.age = age;
     }
 
-    public int getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
     @Override
     public String toString() {
-        return "UserSample [age=" + age + ", id=" + id + ", gender=" + gender + ", pw=" + pw + ", user_no="
-                + user_no + "]";
+        return "UserSample [age=" + age + ", emial=" + email + ", gender=" + gender + ", pw=" + pw + ", userNo="
+                + userNo + "]";
     }
 
 }

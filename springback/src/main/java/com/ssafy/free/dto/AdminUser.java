@@ -8,15 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "AdminUser")
+@Table(name = "adminuser")
 public class AdminUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "admin_no")
-    private int admin_no; 
+    private int adminNo; 
 
-    @Column(name = "id")
-    private String id; 
+    @Column(name = "email")
+    private String email; 
 
     @Column(name = "pw")
     private String pw;
@@ -24,26 +24,31 @@ public class AdminUser {
     public AdminUser() {
     }
 
-    public AdminUser(int admin_no, String id, String pw) {
-        this.admin_no = admin_no;
-        this.id = id;
+    public AdminUser(String email, String pw) {
+        this.email = email;
         this.pw = pw;
     }
 
-    public int getAdmin_no() {
-        return admin_no;
+    public AdminUser(int admin_no, String email, String pw) {
+        this.adminNo = admin_no;
+        this.email = email;
+        this.pw = pw;
     }
 
-    public void setAdmin_no(int admin_no) {
-        this.admin_no = admin_no;
+    public int getAdminNo() {
+        return adminNo;
     }
 
-    public String getId() {
-        return id;
+    public void setAdminNo(int admin_no) {
+        this.adminNo = admin_no;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPw() {
@@ -56,7 +61,7 @@ public class AdminUser {
 
     @Override
     public String toString() {
-        return "AdminUser [admin_no=" + admin_no + ", id=" + id + ", pw=" + pw + "]";
+        return "AdminUser [adminNo=" + adminNo + ", email=" + email + ", pw=" + pw + "]";
     }
 
     

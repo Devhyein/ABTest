@@ -12,85 +12,100 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Parent;
 
 @Entity
-@Table(name = "TestAttribute")
+@Table(name = "testattribute")
 public class TestAttribute {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "test_attribute_no")
-    private int test_attribute_no; 
+    private int testAttributeNo; 
 
-    @ManyToOne
-    @JoinColumn
-    @Parent
-    private Test test;
+    // @ManyToOne
+    // @JoinColumn
+    // @Parent
+    // private Test test;
+
+    @Column(name = "test_no")
+    private String testNo;
+
+    @Column(name = "admin_no")
+    private String adminNo;
 
     @Column(name = "attribute_name")
-    private String attribute_name;
+    private String attributeName;
 
     @Column(name = "attribute_type")
-    private String attribute_type;
+    private String attributeType;
     
     @Column(name = "attribute_value")
-    private String attribute_value;
+    private String attributeValue;
 
     public TestAttribute() {
     }
 
-    public TestAttribute(int test_attribute_no, Test test, String attribute_name, String attribute_type,
-            String attribute_value) {
-        this.test_attribute_no = test_attribute_no;
-        this.test = test;
-        this.attribute_name = attribute_name;
-        this.attribute_type = attribute_type;
-        this.attribute_value = attribute_value;
+    public TestAttribute(int testAttributeNo, String testNo, String adminNo, String attributeName, String attributeType,
+            String attributeValue) {
+        this.testAttributeNo = testAttributeNo;
+        this.testNo = testNo;
+        this.adminNo = adminNo;
+        this.attributeName = attributeName;
+        this.attributeType = attributeType;
+        this.attributeValue = attributeValue;
     }
 
-    public int getTest_attribute_no() {
-        return test_attribute_no;
+    public int getTestAttributeNo() {
+        return testAttributeNo;
     }
 
-    public void setTest_attribute_no(int test_attribute_no) {
-        this.test_attribute_no = test_attribute_no;
+    public void setTestAttributeNo(int testAttributeNo) {
+        this.testAttributeNo = testAttributeNo;
     }
 
-    public Test getTest() {
-        return test;
+    public String getTestNo() {
+        return testNo;
     }
 
-    public void setTest(Test test) {
-        this.test = test;
+    public void setTestNo(String testNo) {
+        this.testNo = testNo;
     }
 
-    public String getAttribute_name() {
-        return attribute_name;
+    public String getAdminNo() {
+        return adminNo;
     }
 
-    public void setAttribute_name(String attribute_name) {
-        this.attribute_name = attribute_name;
+    public void setAdminNo(String adminNo) {
+        this.adminNo = adminNo;
     }
 
-    public String getAttribute_type() {
-        return attribute_type;
+    public String getAttributeName() {
+        return attributeName;
     }
 
-    public void setAttribute_type(String attribute_type) {
-        this.attribute_type = attribute_type;
+    public void setAttributeName(String attributeName) {
+        this.attributeName = attributeName;
     }
 
-    public String getAttribute_value() {
-        return attribute_value;
+    public String getAttributeType() {
+        return attributeType;
     }
 
-    public void setAttribute_value(String attribute_value) {
-        this.attribute_value = attribute_value;
+    public void setAttributeType(String attributeType) {
+        this.attributeType = attributeType;
+    }
+
+    public String getAttributeValue() {
+        return attributeValue;
+    }
+
+    public void setAttributeValue(String attributeValue) {
+        this.attributeValue = attributeValue;
     }
 
     @Override
     public String toString() {
-        return "TestAttribute [attribute_name=" + attribute_name + ", attribute_type=" + attribute_type
-                + ", attribute_value=" + attribute_value + ", test=" + test + ", test_attribute_no=" + test_attribute_no
-                + "]";
+        return "TestAttribute [adminNo=" + adminNo + ", attributeName=" + attributeName + ", attributeType="
+                + attributeType + ", attributeValue=" + attributeValue + ", testAttributeNo=" + testAttributeNo
+                + ", testNo=" + testNo + "]";
     }
 
-    
+
 }
