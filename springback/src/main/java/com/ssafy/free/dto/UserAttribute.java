@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Parent;
 
 @Entity
-@Table(name = "UserAttribute")
+@Table(name = "userattribute")
 public class UserAttribute {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,34 +25,27 @@ public class UserAttribute {
     // private User user;
 
     @Column(name = "user_no")
-    private int user_no;
+    private int userNo;
 
     @Column(name = "attribute_name")
-    private String attribute_name;
+    private String attributeName;
 
     @Column(name = "attribute_type")
-    private String attribute_type;
+    private String attributeType;
     
     @Column(name = "attribute_value")
-    private String attribute_value;
+    private String attributeValue;
 
     public UserAttribute() {
     }
 
-    public UserAttribute(int user_attribute_no, int user_no, String attribute_name, String attribute_type,
-            String attribute_value) {
+    public UserAttribute(int user_attribute_no, int userNo, String attributeName, String attributeType,
+            String attributeValue) {
         this.user_attribute_no = user_attribute_no;
-        this.user_no = user_no;
-        this.attribute_name = attribute_name;
-        this.attribute_type = attribute_type;
-        this.attribute_value = attribute_value;
-    }
-
-    public UserAttribute(int user_no, String attribute_name, String attribute_type, String attribute_value) {
-        this.user_no = user_no;
-        this.attribute_name = attribute_name;
-        this.attribute_type = attribute_type;
-        this.attribute_value = attribute_value;
+        this.userNo = userNo;
+        this.attributeName = attributeName;
+        this.attributeType = attributeType;
+        this.attributeValue = attributeValue;
     }
 
     public int getUser_attribute_no() {
@@ -63,43 +56,45 @@ public class UserAttribute {
         this.user_attribute_no = user_attribute_no;
     }
 
-    public int getUser_no() {
-        return user_no;
+    public int getUserNo() {
+        return userNo;
     }
 
-    public void setUser_no(int user_no) {
-        this.user_no = user_no;
+    public void setUserNo(int userNo) {
+        this.userNo = userNo;
     }
 
-    public String getAttribute_name() {
-        return attribute_name;
+    public String getAttributeName() {
+        return attributeName;
     }
 
-    public void setAttribute_name(String attribute_name) {
-        this.attribute_name = attribute_name;
+    public void setAttributeName(String attributeName) {
+        this.attributeName = attributeName;
     }
 
-    public String getAttribute_type() {
-        return attribute_type;
+    public String getAttributeType() {
+        return attributeType;
     }
 
-    public void setAttribute_type(String attribute_type) {
-        this.attribute_type = attribute_type;
+    public void setAttributeType(String attributeType) {
+        this.attributeType = attributeType;
     }
 
-    public String getAttribute_value() {
-        return attribute_value;
+    public String getAttributeValue() {
+        return attributeValue;
     }
 
-    public void setAttribute_value(String attribute_value) {
-        this.attribute_value = attribute_value;
+    public void setAttributeValue(String attributeValue) {
+        this.attributeValue = attributeValue;
     }
 
     @Override
     public String toString() {
-        return "UserAttribute [attribute_name=" + attribute_name + ", attribute_type=" + attribute_type
-                + ", attribute_value=" + attribute_value + ", user_attribute_no=" + user_attribute_no + ", user_no="
-                + user_no + "]";
+        return "UserAttribute [attributeName=" + attributeName + ", attributeType=" + attributeType
+                + ", attributeValue=" + attributeValue + ", userNo=" + userNo + ", user_attribute_no="
+                + user_attribute_no + "]";
     }
+
+   
 
 }

@@ -8,12 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "User")
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_no")
-    private int user_no; 
+    private int userNo; 
 
     @Column(name = "email")
     private String email;
@@ -30,17 +30,17 @@ public class User {
     }
 
     public User(int user_no, String email, String history) {
-        this.user_no = user_no;
+        this.userNo = user_no;
         this.email = email;
         this.history = history;
     }
 
-    public int getUser_no() {
-        return user_no;
+    public int getUserNo() {
+        return userNo;
     }
 
-    public void setUser_no(int user_no) {
-        this.user_no = user_no;
+    public void setUserNo(int user_no) {
+        this.userNo = user_no;
     }
 
     public String getEmail() {
@@ -61,7 +61,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [email=" + email + ", history=" + history + ", user_no=" + user_no + "]";
+        return "User [email=" + email + ", history=" + history + ", user_no=" + userNo + "]";
     }
 
     

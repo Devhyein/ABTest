@@ -10,24 +10,24 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Test")
+@Table(name = "test")
 public class Test {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "test_no")
-    private int test_no; 
+    private int testNo; 
 
     @Column(name = "admin_no")
     private int adminNo; 
 
     @Column(name = "test_title")
-    private String test_title; 
+    private String testTitle; 
 
     @Column(name = "test_a")
-    private String test_a; 
+    private String testA; 
 
     @Column(name = "test_b")
-    private String test_b; 
+    private String testB; 
 
     @Column(name = "start")
     private LocalDate start; 
@@ -36,10 +36,10 @@ public class Test {
     private LocalDate end; 
 
     @Column(name = "per_a")
-    private int per_a; 
+    private int perA; 
 
     @Column(name = "per_b")
-    private int per_b; 
+    private int perB; 
 
     @Column(name = "status")
     private String status;
@@ -49,69 +49,69 @@ public class Test {
 
     public Test(int test_no, int admin_no, String test_title, String test_a, String test_b, LocalDate start,
             LocalDate end, int per_a, int per_b, String status) {
-        this.test_no = test_no;
+        this.testNo = test_no;
         this.adminNo = admin_no;
-        this.test_title = test_title;
-        this.test_a = test_a;
-        this.test_b = test_b;
+        this.testTitle = test_title;
+        this.testA = test_a;
+        this.testB = test_b;
         this.start = start;
         this.end = end;
-        this.per_a = per_a;
-        this.per_b = per_b;
+        this.perA = per_a;
+        this.perB = per_b;
         this.status = status;
     }
 
     public Test(int admin_no, String test_title, String test_a, String test_b, LocalDate start, LocalDate end,
             int per_a, int per_b, String status) {
         this.adminNo = admin_no;
-        this.test_title = test_title;
-        this.test_a = test_a;
-        this.test_b = test_b;
+        this.testTitle = test_title;
+        this.testA = test_a;
+        this.testB = test_b;
         this.start = start;
         this.end = end;
-        this.per_a = per_a;
-        this.per_b = per_b;
+        this.perA = per_a;
+        this.perB = per_b;
         this.status = status;
     }
 
-    public int getTest_no() {
-        return test_no;
+    public int getTestNo() {
+        return testNo;
     }
 
-    public void setTest_no(int test_no) {
-        this.test_no = test_no;
+    public void setTestNo(int test_no) {
+        this.testNo = test_no;
     }
 
-    public int getAdmin_no() {
+    public int getAdminNo() {
         return adminNo;
     }
 
-    public void setAdmin_no(int admin_no) {
+    public void setAdminNo(int admin_no) {
         this.adminNo = admin_no;
     }
 
-    public String getTest_title() {
-        return test_title;
+    public String getTestTitle() {
+        return testTitle;
     }
 
-    public void setTest_title(String test_title) {
-        this.test_title = test_title;
+    public void setTestTitle(String test_title) {
+        this.testTitle = test_title;
     }
 
-    public String getTest_a() {
-        return test_a;
+    public String getTestA() {
+        return testA;
     }
 
-    public void setTest_a(String test_a) {
-        this.test_a = test_a;
+    public void setTestA(String test_a) {
+        this.testA = test_a;
     }
 
-    public String getTest_b() {
-        return test_b;
+    public String getTestB() {
+        return testB;
     }
 
-    public void setTest_b(String test_b) {
-        this.test_b = test_b;
+    public void setTestB(String test_b) {
+        this.testB = test_b;
     }
 
     public LocalDate getStart() {
@@ -130,20 +130,20 @@ public class Test {
         this.end = end;
     }
 
-    public int getPer_a() {
-        return per_a;
+    public int getPerA() {
+        return perA;
     }
 
-    public void setPer_a(int per_a) {
-        this.per_a = per_a;
+    public void setPerA(int per_a) {
+        this.perA = per_a;
     }
 
-    public int getPer_b() {
-        return per_b;
+    public int getPerB() {
+        return perB;
     }
 
-    public void setPer_b(int per_b) {
-        this.per_b = per_b;
+    public void setPerB(int per_b) {
+        this.perB = per_b;
     }
 
     public String getStatus() {
@@ -156,9 +156,9 @@ public class Test {
 
     @Override
     public String toString() {
-        return "Test [admin_no=" + adminNo + ", end=" + end + ", per_a=" + per_a + ", per_b=" + per_b + ", start="
-                + start + ", status=" + status + ", test_a=" + test_a + ", test_b=" + test_b + ", test_no=" + test_no
-                + ", test_title=" + test_title + "]";
+        return "Test [admin_no=" + adminNo + ", end=" + end + ", per_a=" + perA + ", per_b=" + perB + ", start="
+                + start + ", status=" + status + ", test_a=" + testA + ", test_b=" + testB + ", test_no=" + testNo
+                + ", test_title=" + testTitle + "]";
     }
 
    
