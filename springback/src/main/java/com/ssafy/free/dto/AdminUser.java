@@ -15,8 +15,8 @@ public class AdminUser {
     @Column(name = "admin_no")
     private int admin_no; 
 
-    @Column(name = "id")
-    private String id; 
+    @Column(name = "email")
+    private String email; 
 
     @Column(name = "pw")
     private String pw;
@@ -24,9 +24,14 @@ public class AdminUser {
     public AdminUser() {
     }
 
-    public AdminUser(int admin_no, String id, String pw) {
+    public AdminUser(String email, String pw) {
+        this.email = email;
+        this.pw = pw;
+    }
+
+    public AdminUser(int admin_no, String email, String pw) {
         this.admin_no = admin_no;
-        this.id = id;
+        this.email = email;
         this.pw = pw;
     }
 
@@ -38,12 +43,12 @@ public class AdminUser {
         this.admin_no = admin_no;
     }
 
-    public String getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPw() {
@@ -56,7 +61,7 @@ public class AdminUser {
 
     @Override
     public String toString() {
-        return "AdminUser [admin_no=" + admin_no + ", id=" + id + ", pw=" + pw + "]";
+        return "AdminUser [admin_no=" + admin_no + ", email=" + email + ", pw=" + pw + "]";
     }
 
     

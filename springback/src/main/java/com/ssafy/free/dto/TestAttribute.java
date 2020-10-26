@@ -19,10 +19,16 @@ public class TestAttribute {
     @Column(name = "test_attribute_no")
     private int test_attribute_no; 
 
-    @ManyToOne
-    @JoinColumn
-    @Parent
-    private Test test;
+    // @ManyToOne
+    // @JoinColumn
+    // @Parent
+    // private Test test;
+
+    @Column(name = "test_no")
+    private String test_no;
+
+    @Column(name = "admin_no")
+    private String admin_no;
 
     @Column(name = "attribute_name")
     private String attribute_name;
@@ -36,10 +42,11 @@ public class TestAttribute {
     public TestAttribute() {
     }
 
-    public TestAttribute(int test_attribute_no, Test test, String attribute_name, String attribute_type,
-            String attribute_value) {
+    public TestAttribute(int test_attribute_no, String test_no, String admin_no, String attribute_name,
+            String attribute_type, String attribute_value) {
         this.test_attribute_no = test_attribute_no;
-        this.test = test;
+        this.test_no = test_no;
+        this.admin_no = admin_no;
         this.attribute_name = attribute_name;
         this.attribute_type = attribute_type;
         this.attribute_value = attribute_value;
@@ -53,12 +60,20 @@ public class TestAttribute {
         this.test_attribute_no = test_attribute_no;
     }
 
-    public Test getTest() {
-        return test;
+    public String getTest_no() {
+        return test_no;
     }
 
-    public void setTest(Test test) {
-        this.test = test;
+    public void setTest_no(String test_no) {
+        this.test_no = test_no;
+    }
+
+    public String getAdmin_no() {
+        return admin_no;
+    }
+
+    public void setAdmin_no(String admin_no) {
+        this.admin_no = admin_no;
     }
 
     public String getAttribute_name() {
@@ -87,10 +102,9 @@ public class TestAttribute {
 
     @Override
     public String toString() {
-        return "TestAttribute [attribute_name=" + attribute_name + ", attribute_type=" + attribute_type
-                + ", attribute_value=" + attribute_value + ", test=" + test + ", test_attribute_no=" + test_attribute_no
-                + "]";
+        return "TestAttribute [admin_no=" + admin_no + ", attribute_name=" + attribute_name + ", attribute_type="
+                + attribute_type + ", attribute_value=" + attribute_value + ", test_attribute_no=" + test_attribute_no
+                + ", test_no=" + test_no + "]";
     }
 
-    
 }

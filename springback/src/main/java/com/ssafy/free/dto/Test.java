@@ -1,6 +1,6 @@
 package com.ssafy.free.dto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +17,9 @@ public class Test {
     @Column(name = "test_no")
     private int test_no; 
 
+    @Column(name = "admin_no")
+    private int adminNo; 
+
     @Column(name = "test_title")
     private String test_title; 
 
@@ -27,10 +30,10 @@ public class Test {
     private String test_b; 
 
     @Column(name = "start")
-    private LocalDateTime start; 
+    private LocalDate start; 
 
     @Column(name = "end")
-    private LocalDateTime end; 
+    private LocalDate end; 
 
     @Column(name = "per_a")
     private int per_a; 
@@ -39,14 +42,28 @@ public class Test {
     private int per_b; 
 
     @Column(name = "status")
-    private int status;
+    private String status;
 
     public Test() {
     }
 
-    public Test(int test_no, String test_title, String test_a, String test_b, LocalDateTime start, LocalDateTime end,
-            int per_a, int per_b, int status) {
+    public Test(int test_no, int admin_no, String test_title, String test_a, String test_b, LocalDate start,
+            LocalDate end, int per_a, int per_b, String status) {
         this.test_no = test_no;
+        this.adminNo = admin_no;
+        this.test_title = test_title;
+        this.test_a = test_a;
+        this.test_b = test_b;
+        this.start = start;
+        this.end = end;
+        this.per_a = per_a;
+        this.per_b = per_b;
+        this.status = status;
+    }
+
+    public Test(int admin_no, String test_title, String test_a, String test_b, LocalDate start, LocalDate end,
+            int per_a, int per_b, String status) {
+        this.adminNo = admin_no;
         this.test_title = test_title;
         this.test_a = test_a;
         this.test_b = test_b;
@@ -63,6 +80,14 @@ public class Test {
 
     public void setTest_no(int test_no) {
         this.test_no = test_no;
+    }
+
+    public int getAdmin_no() {
+        return adminNo;
+    }
+
+    public void setAdmin_no(int admin_no) {
+        this.adminNo = admin_no;
     }
 
     public String getTest_title() {
@@ -89,19 +114,19 @@ public class Test {
         this.test_b = test_b;
     }
 
-    public LocalDateTime getStart() {
+    public LocalDate getStart() {
         return start;
     }
 
-    public void setStart(LocalDateTime start) {
+    public void setStart(LocalDate start) {
         this.start = start;
     }
 
-    public LocalDateTime getEnd() {
+    public LocalDate getEnd() {
         return end;
     }
 
-    public void setEnd(LocalDateTime end) {
+    public void setEnd(LocalDate end) {
         this.end = end;
     }
 
@@ -121,21 +146,20 @@ public class Test {
         this.per_b = per_b;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
     @Override
     public String toString() {
-        return "Test [end=" + end + ", per_a=" + per_a + ", per_b=" + per_b + ", start=" + start + ", status=" + status
-                + ", test_a=" + test_a + ", test_b=" + test_b + ", test_no=" + test_no + ", test_title=" + test_title
-                + "]";
+        return "Test [admin_no=" + adminNo + ", end=" + end + ", per_a=" + per_a + ", per_b=" + per_b + ", start="
+                + start + ", status=" + status + ", test_a=" + test_a + ", test_b=" + test_b + ", test_no=" + test_no
+                + ", test_title=" + test_title + "]";
     }
 
    
-    
 }

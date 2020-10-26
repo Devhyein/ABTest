@@ -19,10 +19,13 @@ public class UserAttribute {
     @Column(name = "user_attribute_no")
     private int user_attribute_no; 
 
-    @ManyToOne
-    @JoinColumn
-    @Parent
-    private User user;
+    // @ManyToOne
+    // @JoinColumn
+    // @Parent
+    // private User user;
+
+    @Column(name = "user_no")
+    private int user_no;
 
     @Column(name = "attribute_name")
     private String attribute_name;
@@ -36,10 +39,17 @@ public class UserAttribute {
     public UserAttribute() {
     }
 
-    public UserAttribute(int user_attribute_no, User user, String attribute_name, String attribute_type,
+    public UserAttribute(int user_attribute_no, int user_no, String attribute_name, String attribute_type,
             String attribute_value) {
         this.user_attribute_no = user_attribute_no;
-        this.user = user;
+        this.user_no = user_no;
+        this.attribute_name = attribute_name;
+        this.attribute_type = attribute_type;
+        this.attribute_value = attribute_value;
+    }
+
+    public UserAttribute(int user_no, String attribute_name, String attribute_type, String attribute_value) {
+        this.user_no = user_no;
         this.attribute_name = attribute_name;
         this.attribute_type = attribute_type;
         this.attribute_value = attribute_value;
@@ -53,12 +63,12 @@ public class UserAttribute {
         this.user_attribute_no = user_attribute_no;
     }
 
-    public User getUser() {
-        return user;
+    public int getUser_no() {
+        return user_no;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser_no(int user_no) {
+        this.user_no = user_no;
     }
 
     public String getAttribute_name() {
@@ -88,10 +98,8 @@ public class UserAttribute {
     @Override
     public String toString() {
         return "UserAttribute [attribute_name=" + attribute_name + ", attribute_type=" + attribute_type
-                + ", attribute_value=" + attribute_value + ", user=" + user + ", user_attribute_no=" + user_attribute_no
-                + "]";
+                + ", attribute_value=" + attribute_value + ", user_attribute_no=" + user_attribute_no + ", user_no="
+                + user_no + "]";
     }
 
-    
-    
 }
