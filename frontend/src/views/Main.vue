@@ -7,11 +7,11 @@
       </div>
       <div class="tabs">
         <b-tabs>
-          <b-tab title="전체실험">
+          <b-tab title="전체실험" @click="getAllTest()">
             <b-table hover :items="tests" :fields="fields">
-              <template #cell(name)="data">
+              <template #cell(test_title)="data">
                 <span class="status">
-                  {{ data.value.name }}
+                  {{ data.value.test_title }}
                   <b-icon
                     icon="circle-fill"
                     class="ml-2"
@@ -35,11 +35,11 @@
             </div>
           </b-tab>
 
-          <b-tab title="진행전">
+          <b-tab title="진행전" @click="getBeforeTest()">
             <b-table hover :items="tests" :fields="fields">
-              <template #cell(name)="data">
+              <template #cell(test_title)="data">
                 <span class="status">
-                  {{ data.value.name }}
+                  {{ data.value.test_title }}
                 </span>
               </template>
               <template #cell(icon)="data">
@@ -53,11 +53,11 @@
             </b-table>
           </b-tab>
 
-          <b-tab title="진행중">
+          <b-tab title="진행중" @click="getProgressTest()">
             <b-table hover :items="tests" :fields="fields">
-              <template #cell(name)="data">
+              <template #cell(test_title)="data">
                 <span class="status">
-                  {{ data.value.name }}
+                  {{ data.value.test_title }}
                 </span>
               </template>
               <template #cell(icon)="data">
@@ -71,11 +71,11 @@
             </b-table>
           </b-tab>
 
-          <b-tab title="진행완료">
+          <b-tab title="진행완료" @click="getCompleteTest()">
             <b-table hover :items="tests" :fields="fields">
-              <template #cell(name)="data">
+              <template #cell(test_title)="data">
                 <span class="status">
-                  {{ data.value.name }}
+                  {{ data.value.test_title }}
                 </span>
               </template>
               <template #cell(icon)="data">
@@ -90,13 +90,70 @@
           </b-tab>
         </b-tabs>
         <b-modal v-model="modalShow">
-          실험명 : <b-form-input v-model="inputs.name"/>
-          A URL : <b-form-input v-model="inputs.aURL" disabled/>
-          A 별칭 : <b-form-input v-model="inputs.aName"/>
-          B URL : <b-form-input v-model="inputs.bURL" disabled/>
-          B 별칭 : <b-form-input v-model="inputs.bName"/>
-          시작일 : <b-form-input v-model="inputs.startDate" type="date" disabled/>
-          종료일 : <b-form-input v-model="inputs.endDate" type="date"/>
+          <b-row class="my-1">
+            <b-col sm="3">
+              <label>실험명 :</label>
+            </b-col>
+            <b-col sm="9">
+              <b-form-input v-model="inputs.test_title" />
+            </b-col>
+          </b-row>
+          <b-row class="my-1">
+            <b-col sm="3">
+              <label>A URL :</label>
+            </b-col>
+            <b-col sm="9">
+              <b-form-input v-model="inputs.aURL" disabled />
+            </b-col>
+          </b-row>
+          <b-row class="my-1">
+            <b-col sm="3">
+              <label>A 별칭 :</label>
+            </b-col>
+            <b-col sm="9">
+              <b-form-input v-model="inputs.test_a" />
+            </b-col>
+          </b-row>
+          <b-row class="my-1">
+            <b-col sm="3">
+              <label>B URL :</label>
+            </b-col>
+            <b-col sm="9">
+              <b-form-input v-model="inputs.bURL" disabled />
+            </b-col>
+          </b-row>
+          <b-row class="my-1">
+            <b-col sm="3">
+              <label>B 별칭 :</label>
+            </b-col>
+            <b-col sm="9">
+              <b-form-input v-model="inputs.test_b" />
+            </b-col>
+          </b-row>
+          <b-row class="my-1">
+            <b-col sm="3">
+              <label>시작일 :</label>
+            </b-col>
+            <b-col sm="9">
+              <b-form-input v-model="inputs.startDate" type="date" disabled />
+            </b-col>
+          </b-row>
+          <b-row class="my-1">
+            <b-col sm="3">
+              <label>종료일 :</label>
+            </b-col>
+            <b-col sm="9">
+              <b-form-input v-model="inputs.endDate" type="date" />
+            </b-col>
+          </b-row>
+          <template #modal-footer>
+            <b-button @click="modalShow=false" variant="danger">
+              취소
+            </b-button>
+            <b-button @click="editTest()" variant="success">
+              수정
+            </b-button>
+          </template>
         </b-modal>
       </div>
     </div>
@@ -104,7 +161,9 @@
 </template>
 
 <script>
-// import API from '@/api/API';
+import API from '@/api/API';
+import swal from 'sweetalert';
+
 import encarHeader from "@/components/Header";
 
 export default {
@@ -113,56 +172,68 @@ export default {
   },
   data() {
     return {
-      modalShow:false,
-      inputs:{
-        name:"", 
-        aURL:"",
-        aName:"",
-        bURL:"",
-        bName:"",
-        startDate:"",
-        endDate:"",
+      modalShow: false,
+      inputs: {
+        test_title: "",
+        aURL: "",
+        test_a: "",
+        bURL: "",
+        test_b: "",
+        start: "",
+        end: "",
       },
       fields: [
         { key: "no", label: "No" },
         { key: "date", label: "기간" },
-        { key: "name", label: "실험명" },
-        { key: "a", label: "A 안" },
-        { key: "b", label: "B 안" },
+        { key: "test_title", label: "실험명" },
+        { key: "testA", label: "A 안" },
+        { key: "testB", label: "B 안" },
         { key: "icon", label: "" },
       ],
       tests: [
         {
           no: 1,
-          date: "20.10.14-20.10.25",
-          name: "버튼 테스트",
-          a: "A안별칭 (비율%)",
-          b: "B안별칭 (비율%)",
-          status: 2,
+          start: "2020.10.14",
+          end:"2020.10.25",
+          test_title: "버튼 테스트",
+          test_a: "A안별칭",
+          per_a:90,
+          test_b: "B안별칭",
+          per_b:10,
+          status: "진행완료",
         },
         {
           no: 2,
-          date: "20.10.31-20.11.13",
-          name: "색상 테스트",
-          a: "A안별칭 (비율%)",
-          b: "B안별칭 (비율%)",
-          status: 1,
+          start: "2020.10.31",
+          end:"2020.11.13",
+          test_title: "색상 테스트",
+          test_a: "A안별칭",
+          per_a:60,
+          test_b: "B안별칭",
+          per_b:40,
+          status: "진행전",
         },
         {
           no: 3,
-          date: "20.10.14-21.10.13",
-          name: "폼 테스트",
-          a: "A안별칭 (비율%)",
-          b: "B안별칭 (비율%)",
-          status: 3,
+          start: "2020.10.14",
+          end:"2021.10.13",
+          test_title: "폼 테스트",
+          test_a: "A안별칭",
+          per_a:70,
+          test_b: "B안별칭",
+          per_b:30,
+          status: "진행중",
         },
         {
           no: 4,
-          date: "20.10.14-20.10.21",
-          name: "집계 테스트",
-          a: "A안별칭 (비율%)",
-          b: "B안별칭 (비율%)",
-          status: 3,
+          start: "2020.10.14",
+          end:"2020.10.21",
+          test_title: "집계 테스트",
+          test_a: "A안별칭",
+          per_a:50,
+          test_b: "B안별칭",
+          per_b:50,
+          status: "진행완료",
         },
       ],
     };
@@ -170,10 +241,15 @@ export default {
   created() {
     for (let test of this.tests) {
       test.icon = test.no;
-      test.name = { name: test.name };
-      if (test.status == 1) test.name.color = "text-success";
-      else if (test.status == 2) test.name.color = "text-warning";
-      else test.name.color = "text-danger";
+      test.test_title = { test_title: test.test_title };
+      if (test.status == "진행전") test.test_title.color = "text-success";
+      else if (test.status == "진행중") test.test_title.color = "text-warning";
+      else test.test_title.color = "text-danger";
+
+      test.date = test.start+" - "+test.end;
+
+      test.testA = test.test_a+"("+test.per_a+"%)";
+      test.testB = test.test_b+"("+test.per_b+"%)";
     }
   },
   methods: {
@@ -183,6 +259,82 @@ export default {
     },
     deleteTest(id) {
       console.log(id);
+
+      API.deleteTest(
+        id,
+        res=>{
+          console.log(res);
+          swal("삭제 완료", "실험이 정상적으로 삭제되었습니다.", "success");
+        },
+        err=>{
+          console.log(err);
+           swal("삭제 실패", "실험삭제에 실패하였습니다.", "error");
+        }
+      )
+    },
+    editTest(){
+      let data = {};
+      data.id = this.id;
+      data.test_title = this.test_title;
+      data.test_a = this.test_a;
+      data.test_b = this.test_b;
+      data.end = this.end;
+
+      API.modifyTest(
+        data,
+        res=>{
+          console.log(res);
+          swal("수정 완료", "실험이 정상적으로 수정되었습니다.", "success");
+        },
+        err=>{
+          console.log(err);
+          swal("수정 실패", "실험수정에 실패하였습니다.", "error");
+        }
+      )
+    },
+    getAllTest(){
+      API.getTestList(
+        this.email,
+        res=>{
+          console.log(res);
+        },
+        err=>{
+          console.log(err);
+        }
+      )
+    },
+    getBeforeTest(){
+      API.getTestListBefore(
+        this.email,
+        res=>{
+          console.log(res);
+        },
+        err=>{
+          console.log(err);
+        }
+      )
+    },
+    getProgressTest(){
+      API.getTestListProgress(
+        this.email,
+        res=>{
+          console.log(res);
+        },
+        err=>{
+          console.log(err);
+        }
+      )
+    },
+    getCompleteTest(){
+      API.getTestListComplete(
+        this.email,
+        res=>{
+          console.log(res);
+        },
+        err=>{
+          console.log(err);
+        }
+      )
     },
   },
 };
