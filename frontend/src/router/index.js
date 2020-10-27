@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Main from '../views/Main.vue'
 import SampleA from '@/views/SampleA.vue'
+import Login from '../views/Login.vue'
+import Insert from '../views/Insert.vue'
 
 Vue.use(VueRouter)
 
