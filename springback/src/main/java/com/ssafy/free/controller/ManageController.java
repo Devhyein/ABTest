@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,6 +51,32 @@ public class ManageController {
 
         return response;
     }  
+
+    @ApiOperation(value = "테스트 수정")
+    @PutMapping("/modify/test")
+    public Object modifyTest(@RequestBody HashMap<String, Object> request) {
+        final RestResponse response = new RestResponse();
+        
+        response.status = false;
+        response.msg = "test 수정 실패";
+        response.data = null;
+        
+        try { 
+            int res = manageService.modifyTest(request);
+            if(res>0){
+                response.status = true;
+                response.msg = "success";
+            } else {
+                System.out.println("테스트 수정 실패");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return response;
+    }  
+
 
     @ApiOperation(value = "관리자의 테스트 목록 호출")
     @GetMapping("/testlist")
