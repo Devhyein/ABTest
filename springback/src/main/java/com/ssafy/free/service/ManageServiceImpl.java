@@ -80,6 +80,20 @@ public class ManageServiceImpl implements ManageService {
 		return testList;
 	}
 
+    @Override
+    public List<TestResponse> getTestListProgress(String email) {
+        int admin_no = adminDao.findOneByEmail(email).getAdminNo();
+        List<TestResponse> testList = testRepository.findAllByAdminNoAndStatus(admin_no, "진행중");
+		return testList;
+    }
+
+    @Override
+    public List<TestResponse> getTestListComplete(String email) {
+        int admin_no = adminDao.findOneByEmail(email).getAdminNo();
+        List<TestResponse> testList = testRepository.findAllByAdminNoAndStatus(admin_no, "진행완료");
+		return testList;
+    }
+
     
 
 

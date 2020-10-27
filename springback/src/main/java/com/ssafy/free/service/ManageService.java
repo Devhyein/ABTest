@@ -13,6 +13,8 @@ public interface ManageService {
 
 	List<TestResponse> getTestList(String email);
 	List<TestResponse> getTestListBefore(String email);
+	List<TestResponse> getTestListProgress(String email);
+	List<TestResponse> getTestListComplete(String email);
 
     
 }
