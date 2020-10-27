@@ -183,7 +183,7 @@ export default {
         end: "",
       },
       fields: [
-        { key: "no", label: "No" },
+        { key: "test_no", label: "No" },
         { key: "date", label: "기간" },
         { key: "test_title", label: "실험명" },
         { key: "testA", label: "A 안" },
@@ -192,7 +192,7 @@ export default {
       ],
       tests: [
         {
-          no: 1,
+          test_no: 1,
           start: "2020.10.14",
           end:"2020.10.25",
           test_title: "버튼 테스트",
@@ -203,7 +203,7 @@ export default {
           status: "진행완료",
         },
         {
-          no: 2,
+          test_no: 2,
           start: "2020.10.31",
           end:"2020.11.13",
           test_title: "색상 테스트",
@@ -214,7 +214,7 @@ export default {
           status: "진행전",
         },
         {
-          no: 3,
+          test_no: 3,
           start: "2020.10.14",
           end:"2021.10.13",
           test_title: "폼 테스트",
@@ -225,7 +225,7 @@ export default {
           status: "진행중",
         },
         {
-          no: 4,
+          test_no: 4,
           start: "2020.10.14",
           end:"2020.10.21",
           test_title: "집계 테스트",
@@ -240,7 +240,7 @@ export default {
   },
   created() {
     for (let test of this.tests) {
-      test.icon = test.no;
+      test.icon = test.test_no;
       test.test_title = { test_title: test.test_title };
       if (test.status == "진행전") test.test_title.color = "text-success";
       else if (test.status == "진행중") test.test_title.color = "text-warning";
