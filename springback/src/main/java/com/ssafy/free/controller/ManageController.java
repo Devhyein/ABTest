@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ssafy.free.dto.RestResponse;
 import com.ssafy.free.dto.Test;
+import com.ssafy.free.dto.TestResponse;
 import com.ssafy.free.service.ManageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +89,34 @@ public class ManageController {
         response.data = null;
         
         try { 
-            List<Test> testList = manageService.getTestList(email);
+            List<TestResponse> testList = manageService.getTestList(email);
+            if(!testList.isEmpty()){
+                response.status = true;
+                response.msg = "success";
+                response.data = testList;
+            } else {
+                response.status = true;
+                response.msg = "목록이 없습니다.";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return response;
+    }  
+
+    @ApiOperation(value = "진행전 테스트 목록 호출")
+    @GetMapping("/testlist/before")
+    public Object getTestListBefore(@RequestParam String email) {
+        final RestResponse response = new RestResponse();
+        
+        response.status = false;
+        response.msg = "test 목록 조회 실패";
+        response.data = null;
+        
+        try { 
+            List<TestResponse> testList = manageService.getTestListBefore(email);
             if(!testList.isEmpty()){
                 response.status = true;
                 response.msg = "success";

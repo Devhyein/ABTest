@@ -4,10 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
-import com.ssafy.free.dto.AdminUser;
 import com.ssafy.free.dto.Test;
+import com.ssafy.free.dto.TestResponse;
 import com.ssafy.free.repository.AdminUserRepository;
 import com.ssafy.free.repository.TestRepository;
 
@@ -59,7 +58,6 @@ public class ManageServiceImpl implements ManageService {
             
             LocalDate end = LocalDate.parse(request.get("end").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             test.setEnd(end);
-            System.out.println("수정 후 : "+test.toString());
             testRepository.save(test);
             return 1;
         } catch (Exception e) {
@@ -69,11 +67,20 @@ public class ManageServiceImpl implements ManageService {
     }
 
     @Override
-    public List<Test> getTestList(String email) {
+    public List<TestResponse> getTestList(String email) {
         int admin_no = adminDao.findOneByEmail(email).getAdminNo();
-        List<Test> testList = testRepository.findAllByAdminNo(admin_no);
+        List<TestResponse> testList = testRepository.findAllByAdminNo(admin_no);
         return testList;
     }
+
+	@Override
+	public List<TestResponse> getTestListBefore(String email) {
+        int admin_no = adminDao.findOneByEmail(email).getAdminNo();
+        List<TestResponse> testList = testRepository.findAllByAdminNoAndStatus(admin_no, "진행전");
+		return testList;
+	}
+
+    
 
 
 
