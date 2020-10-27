@@ -309,7 +309,7 @@ export default {
     },
     editTest() {
       let data = {};
-      data.id = this.id;
+      data.test_no = this.test_no;
       data.test_title = this.test_title;
       data.test_a = this.test_a;
       data.test_b = this.test_b;
