@@ -3,7 +3,7 @@
     <encar-header></encar-header>
     <div class="col-8 col-m-10 m-auto">
       <div>
-        <b-button pill class="createBtn">실험생성</b-button>
+        <b-button pill class="createBtn" v-bind:to="'insert'">실험생성</b-button>
       </div>
       <div class="tabs">
         <b-tabs>
