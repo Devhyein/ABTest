@@ -274,9 +274,9 @@ export default {
   methods: {
     linkClass(idx) {
       if (this.tabIndex === idx) {
-        return ["bg-primary", "text-light"];
+        return ["bg-danger", "text-light"];
       } else {
-        return ["bg-light", "text-info"];
+        return ["bg-light", "text-dark"];
       }
     },
     edit(id) {
@@ -369,8 +369,8 @@ export default {
 <style scoped>
 .createBtn {
   float: right;
-  background-color: tomato;
-}
+  background-color: red;
+  }
 
 .info {
   float: right;
