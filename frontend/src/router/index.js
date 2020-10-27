@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
-import Insert from '../views/Insert.vue'
+import Main from '../views/Main.vue'
+import SampleA from '@/views/SampleA.vue'
 
 Vue.use(VueRouter)
 
@@ -11,6 +11,15 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },{
+    path: '/main',
+    name: 'Main',
+    component: Main
+  },
+  {
+    path: '/sample/a',
+    name: 'SampleA',
+    component: SampleA
   },
   {
     path: '/login',
