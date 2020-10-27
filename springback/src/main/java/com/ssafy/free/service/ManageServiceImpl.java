@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.ssafy.free.dto.Test;
+import com.ssafy.free.dto.TestResponse;
 import com.ssafy.free.repository.AdminUserRepository;
 import com.ssafy.free.repository.TestRepository;
 
@@ -66,16 +67,16 @@ public class ManageServiceImpl implements ManageService {
     }
 
     @Override
-    public List<Test> getTestList(String email) {
+    public List<TestResponse> getTestList(String email) {
         int admin_no = adminDao.findOneByEmail(email).getAdminNo();
-        List<Test> testList = testRepository.findAllByAdminNo(admin_no);
+        List<TestResponse> testList = testRepository.findAllByAdminNo(admin_no);
         return testList;
     }
 
 	@Override
-	public List<Test> getTestListBefore(String email) {
+	public List<TestResponse> getTestListBefore(String email) {
         int admin_no = adminDao.findOneByEmail(email).getAdminNo();
-        List<Test> testList = testRepository.findAllByAdminNoAndStatus(admin_no, "진행전");
+        List<TestResponse> testList = testRepository.findAllByAdminNoAndStatus(admin_no, "진행전");
 		return testList;
 	}
 

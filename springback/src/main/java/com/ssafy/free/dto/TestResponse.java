@@ -17,6 +17,20 @@ public class TestResponse {
     public TestResponse() {
     }
 
+    public TestResponse(Test test) {
+        this.test_no = test.getTestNo();
+        this.admin_no = test.getAdminNo();
+        this.test_title = test.getTestTitle();
+        this.test_a = test.getTestA();
+        this.test_b = test.getTestB();
+        this.start = test.getStart();
+        this.end = test.getEnd();
+        this.per_a = test.getPerA();
+        this.per_b = test.getPerB();
+        this.status = test.getStatus();  
+    }
+
+
     public TestResponse(int test_no, int admin_no, String test_title, String test_a, String test_b, LocalDate start,
             LocalDate end, int per_a, int per_b, String status) {
         this.test_no = test_no;

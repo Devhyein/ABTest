@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ssafy.free.dto.RestResponse;
 import com.ssafy.free.dto.Test;
+import com.ssafy.free.dto.TestResponse;
 import com.ssafy.free.service.ManageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +89,7 @@ public class ManageController {
         response.data = null;
         
         try { 
-            List<Test> testList = manageService.getTestList(email);
+            List<TestResponse> testList = manageService.getTestList(email);
             if(!testList.isEmpty()){
                 response.status = true;
                 response.msg = "success";
@@ -106,7 +107,7 @@ public class ManageController {
     }  
 
     @ApiOperation(value = "진행전 테스트 목록 호출")
-    @GetMapping("/testlist/progress")
+    @GetMapping("/testlist/before")
     public Object getTestListBefore(@RequestParam String email) {
         final RestResponse response = new RestResponse();
         
@@ -115,7 +116,7 @@ public class ManageController {
         response.data = null;
         
         try { 
-            List<Test> testList = manageService.getTestListBefore(email);
+            List<TestResponse> testList = manageService.getTestListBefore(email);
             if(!testList.isEmpty()){
                 response.status = true;
                 response.msg = "success";
