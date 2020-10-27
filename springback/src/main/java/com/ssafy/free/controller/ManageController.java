@@ -104,4 +104,31 @@ public class ManageController {
 
         return response;
     }  
+
+    @ApiOperation(value = "진행전 테스트 목록 호출")
+    @GetMapping("/testlist/progress")
+    public Object getTestListBefore(@RequestParam String email) {
+        final RestResponse response = new RestResponse();
+        
+        response.status = false;
+        response.msg = "test 목록 조회 실패";
+        response.data = null;
+        
+        try { 
+            List<Test> testList = manageService.getTestListBefore(email);
+            if(!testList.isEmpty()){
+                response.status = true;
+                response.msg = "success";
+                response.data = testList;
+            } else {
+                response.status = true;
+                response.msg = "목록이 없습니다.";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return response;
+    }  
 }

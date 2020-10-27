@@ -11,6 +11,7 @@ public interface ManageService {
 	int modifyTest(HashMap<String, Object> request) throws Exception;
 
 	List<Test> getTestList(String email);
+	List<Test> getTestListBefore(String email);
 
     
 }
