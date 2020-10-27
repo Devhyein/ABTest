@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import com.ssafy.free.dto.AdminUser;
 import com.ssafy.free.dto.Test;
@@ -24,25 +25,15 @@ public class ManageServiceImpl implements ManageService {
 
     @Override
     public int createTest(HashMap<String, Object> request) {
-
-        // AdminUser user = new AdminUser("test", "password");
-        // adminDao.save(user);
-
-        System.out.println("EMAIL : " + request.get("email").toString());
-        System.out.println("FIND ALL : " + adminDao.findAll());
-        System.out.println("FIND BY EMAIL : " + adminDao.findOneByEmail(request.get("email").toString()));
-        System.out.println("ADMIN NO : " + adminDao.findOneByEmail(request.get("email").toString()).getAdminNo());
         int admin_no = adminDao.findOneByEmail(request.get("email").toString()).getAdminNo();
 
         // 혹시 시분초까지 필요하면 이걸 사용 LocalDateTime
         // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd
         // HH:mm:ss.SSS");
         try {
-            System.out.println("START STRING : " + request.get("start").toString());
             LocalDate start = LocalDate.parse(request.get("start").toString(),
                     DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             LocalDate end = LocalDate.parse(request.get("end").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            System.out.println("START LOCALDATETIME: " + start);
 
             Test test = new Test(admin_no, request.get("test_title").toString(), request.get("test_a").toString(),
                     request.get("test_b").toString(), start, end, Integer.parseInt(request.get("per_a").toString()),
@@ -57,11 +48,33 @@ public class ManageServiceImpl implements ManageService {
     }
 
     @Override
+    public int modifyTest(HashMap<String, Object> request) throws Exception{
+        // 테스트 번호로 기존 테스트 불러오기
+        try {
+            Test test = testRepository.getOne(Integer.parseInt(request.get("test_no").toString()));
+            System.out.println(test.toString());
+            test.setTestTitle(request.get("test_title").toString());
+            test.setTestA(request.get("test_a").toString());
+            test.setTestB(request.get("test_b").toString());
+            
+            LocalDate end = LocalDate.parse(request.get("end").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            test.setEnd(end);
+            System.out.println("수정 후 : "+test.toString());
+            testRepository.save(test);
+            return 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
     public List<Test> getTestList(String email) {
         int admin_no = adminDao.findOneByEmail(email).getAdminNo();
-        System.out.println("ADMIN NO : " + admin_no);
         List<Test> testList = testRepository.findAllByAdminNo(admin_no);
         return testList;
     }
+
+
 
 }
