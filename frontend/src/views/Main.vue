@@ -107,7 +107,7 @@
             </b-table>
           </b-tab>
         </b-tabs>
-        <b-modal v-model="modalShow">
+        <b-modal title="실험 수정" v-model="modalShow">
           <b-row class="my-1">
             <b-col sm="3">
               <label>실험명 :</label>
@@ -193,13 +193,21 @@ export default {
       tabIndex: 0,
       modalShow: false,
       inputs: {
-        test_title: "",
-        aURL: "",
-        test_a: "",
-        bURL: "",
-        test_b: "",
-        start: "",
-        end: "",
+        test_title: "테스트제목",
+        aURL: "A URL",
+        test_a: "A 별칭",
+        bURL: "B URL",
+        test_b: "B 별칭",
+        start: "2020.10.14",
+        end: "2020.10.31",
+
+        // test_title: "",
+        // aURL: "",
+        // test_a: "",
+        // bURL: "",
+        // test_b: "",
+        // start: "",
+        // end: "",
       },
       fields: [
         { key: "test_no", label: "No" },
@@ -258,6 +266,7 @@ export default {
     };
   },
   created() {
+    // getAllTest();
     for (let test of this.tests) {
       test.icon = test.test_no;
       test.test_title = { test_title: test.test_title };
@@ -322,6 +331,7 @@ export default {
       API.getTestList(
         this.email,
         (res) => {
+          this.tests = res;
           console.log(res);
         },
         (err) => {
