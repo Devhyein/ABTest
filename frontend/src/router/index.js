@@ -21,6 +21,16 @@ const routes = [
     name: 'SampleA',
     component: SampleA
   },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/insert',
+    name: 'Insert',
+    component: Insert
+  },
 ]
 
 const router = new VueRouter({
