@@ -30,6 +30,13 @@ public class UserSample {
     public UserSample() {
     }
 
+    public UserSample(String email, String pw, int age, String gender) {
+        this.email = email;
+        this.pw = pw;
+        this.age = age;
+        this.gender = gender;
+    }
+
     public UserSample(int userNo, String email, String pw, int age, String gender) {
         this.userNo = userNo;
         this.email = email;
