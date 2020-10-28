@@ -15,6 +15,7 @@ public interface ManageService {
 	List<TestResponse> getTestListBefore(String email);
 	List<TestResponse> getTestListProgress(String email);
 	List<TestResponse> getTestListComplete(String email);
+	int deleteTest(int test_no);
 
     
 }
