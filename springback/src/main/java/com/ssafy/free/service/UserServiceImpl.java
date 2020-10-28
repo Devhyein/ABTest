@@ -17,6 +17,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int join(HashMap<String, Object> request) {
+        // 이미 있는 아이디인지 먼저 확인
+        UserSample exist =userRepository.findByEmail(request.get("id").toString());
+        if(exist!=null){
+            return -1;
+        }
+
         UserSample user = new UserSample(request.get("id").toString(), request.get("pw").toString(), 
             Integer.parseInt(request.get("age").toString()), request.get("gender").toString());
         try {

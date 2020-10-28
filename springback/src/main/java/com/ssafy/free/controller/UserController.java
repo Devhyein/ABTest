@@ -33,9 +33,11 @@ public class UserController {
         
         try {
             int res = userService.join(request);
-            if(res>0) {
+            if(res > 0) {
                 response.status = true;
                 response.msg = "success";
+            } else if (res == -1){
+                response.msg = "이미 존재하는 아이디";
             } else {
                 response.data = "회원가입 실패";
             }
