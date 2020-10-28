@@ -94,6 +94,18 @@ public class ManageServiceImpl implements ManageService {
 		return testList;
     }
 
+	@Override
+	public int deleteTest(int test_no) {
+        try {
+            testRepository.deleteById(test_no);;
+            return 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+
+	}
+
     
 
 
