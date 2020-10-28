@@ -147,7 +147,7 @@
             </b-col>
           </b-row>
           <template #modal-footer>
-            <b-button @click="modalShow=false" variant="danger">
+            <b-button @click="modalShow = false" variant="danger">
               취소
             </b-button>
             <b-button @click="editTest()" variant="success">
@@ -161,8 +161,8 @@
 </template>
 
 <script>
-import API from '@/api/API';
-import swal from 'sweetalert';
+import API from "@/api/API";
+import swal from "sweetalert";
 
 import encarHeader from "@/components/Header";
 
@@ -194,45 +194,45 @@ export default {
         {
           no: 1,
           start: "2020.10.14",
-          end:"2020.10.25",
+          end: "2020.10.25",
           test_title: "버튼 테스트",
           test_a: "A안별칭",
-          per_a:90,
+          per_a: 90,
           test_b: "B안별칭",
-          per_b:10,
+          per_b: 10,
           status: "진행완료",
         },
         {
           no: 2,
           start: "2020.10.31",
-          end:"2020.11.13",
+          end: "2020.11.13",
           test_title: "색상 테스트",
           test_a: "A안별칭",
-          per_a:60,
+          per_a: 60,
           test_b: "B안별칭",
-          per_b:40,
+          per_b: 40,
           status: "진행전",
         },
         {
           no: 3,
           start: "2020.10.14",
-          end:"2021.10.13",
+          end: "2021.10.13",
           test_title: "폼 테스트",
           test_a: "A안별칭",
-          per_a:70,
+          per_a: 70,
           test_b: "B안별칭",
-          per_b:30,
+          per_b: 30,
           status: "진행중",
         },
         {
           no: 4,
           start: "2020.10.14",
-          end:"2020.10.21",
+          end: "2020.10.21",
           test_title: "집계 테스트",
           test_a: "A안별칭",
-          per_a:50,
+          per_a: 50,
           test_b: "B안별칭",
-          per_b:50,
+          per_b: 50,
           status: "진행완료",
         },
       ],
@@ -246,10 +246,10 @@ export default {
       else if (test.status == "진행중") test.test_title.color = "text-warning";
       else test.test_title.color = "text-danger";
 
-      test.date = test.start+" - "+test.end;
+      test.date = test.start + " - " + test.end;
 
-      test.testA = test.test_a+"("+test.per_a+"%)";
-      test.testB = test.test_b+"("+test.per_b+"%)";
+      test.testA = test.test_a + "(" + test.per_a + "%)";
+      test.testB = test.test_b + "(" + test.per_b + "%)";
     }
   },
   methods: {
@@ -262,17 +262,17 @@ export default {
 
       API.deleteTest(
         id,
-        res=>{
+        (res) => {
           console.log(res);
           swal("삭제 완료", "실험이 정상적으로 삭제되었습니다.", "success");
         },
-        err=>{
+        (err) => {
           console.log(err);
-           swal("삭제 실패", "실험삭제에 실패하였습니다.", "error");
+          swal("삭제 실패", "실험삭제에 실패하였습니다.", "error");
         }
-      )
+      );
     },
-    editTest(){
+    editTest() {
       let data = {};
       data.id = this.id;
       data.test_title = this.test_title;
@@ -282,59 +282,59 @@ export default {
 
       API.modifyTest(
         data,
-        res=>{
+        (res) => {
           console.log(res);
           swal("수정 완료", "실험이 정상적으로 수정되었습니다.", "success");
         },
-        err=>{
+        (err) => {
           console.log(err);
           swal("수정 실패", "실험수정에 실패하였습니다.", "error");
         }
-      )
+      );
     },
-    getAllTest(){
+    getAllTest() {
       API.getTestList(
         this.email,
-        res=>{
+        (res) => {
           console.log(res);
         },
-        err=>{
+        (err) => {
           console.log(err);
         }
-      )
+      );
     },
-    getBeforeTest(){
+    getBeforeTest() {
       API.getTestListBefore(
         this.email,
-        res=>{
+        (res) => {
           console.log(res);
         },
-        err=>{
+        (err) => {
           console.log(err);
         }
-      )
+      );
     },
-    getProgressTest(){
+    getProgressTest() {
       API.getTestListProgress(
         this.email,
-        res=>{
+        (res) => {
           console.log(res);
         },
-        err=>{
+        (err) => {
           console.log(err);
         }
-      )
+      );
     },
-    getCompleteTest(){
+    getCompleteTest() {
       API.getTestListComplete(
         this.email,
-        res=>{
+        (res) => {
           console.log(res);
         },
-        err=>{
+        (err) => {
           console.log(err);
         }
-      )
+      );
     },
   },
 };
