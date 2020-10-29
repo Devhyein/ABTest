@@ -214,4 +214,29 @@ public class ManageController {
 
         return response;
     }  
+
+    @ApiOperation(value = "관리자 로그인")
+    @PostMapping("/login")
+    public Object login(@RequestBody HashMap<String, Object> request) {
+        final RestResponse response = new RestResponse();
+        
+        response.status = false;
+        response.msg = "로그인 실패";
+        response.data = null;
+        
+        try {
+            String data = manageService.login(request);
+            if(data!=null){
+                response.status = true;
+                response.msg = "success";
+                response.data = data;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return response;
+    }  
+
 }
