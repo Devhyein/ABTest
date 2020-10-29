@@ -24,7 +24,7 @@ public class UserController {
 
     @ApiOperation(value = "회원가입")
     @PostMapping("/join")
-    public Object createTest(@RequestBody HashMap<String, Object> request) {
+    public Object join(@RequestBody HashMap<String, Object> request) {
         final RestResponse response = new RestResponse();
         
         response.status = false;
@@ -41,6 +41,30 @@ public class UserController {
             } else {
                 response.data = "회원가입 실패";
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return response;
+    }  
+
+    @ApiOperation(value = "로그인")
+    @PostMapping("/login")
+    public Object login(@RequestBody HashMap<String, Object> request) {
+        final RestResponse response = new RestResponse();
+        
+        response.status = false;
+        response.msg = "로그인 실패";
+        response.data = null;
+        
+        try {
+            String data = userService.login(request);
+            if(data!=null){
+                response.status = true;
+                response.msg = "success";
+                response.data = data;
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

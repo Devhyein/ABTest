@@ -1,6 +1,7 @@
 package com.ssafy.free.service;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 import com.ssafy.free.dto.UserSample;
 import com.ssafy.free.repository.UserRepository;
@@ -32,6 +33,24 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    @Override
+    public String login(HashMap<String, Object> request) {
+        // id pw 일치하는 UserSample이 있는지 확인
+        try {
+            Optional<UserSample> user = userRepository.findByEmailAndPw(request.get("id").toString(), request.get("pw").toString());
+            if(user.isPresent()){
+                return user.get().getEmail();
+            } else {
+                return null;
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return null;
     }
     
 }
