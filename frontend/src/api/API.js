@@ -148,6 +148,7 @@ const API = {
 
     login:(data,callback,errorCallback)=>postApi('/account/login',data,callback,errorCallback),
     join:(data,callback,errorCallback)=>postApi('/account/join',data,callback,errorCallback),
+    checkId:(data,callback,errorCallback)=>getApi('/account/checkId',data,callback,errorCallback),
 }
 
 export default API
