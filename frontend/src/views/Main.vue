@@ -3,11 +3,17 @@
     <encar-header></encar-header>
     <div class="col-8 col-m-10 m-auto">
       <div>
-        <b-button pill class="createBtn">실험생성</b-button>
+        <b-button pill class="createBtn" v-bind:to="'insert'"
+          >실험생성</b-button
+        >
       </div>
       <div class="tabs">
-        <b-tabs>
-          <b-tab title="전체실험" @click="getAllTest()">
+        <b-tabs v-model="tabIndex">
+          <b-tab
+            title="전체실험"
+            :title-link-class="linkClass(0)"
+            @click="getAllTest()"
+          >
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
                 <span class="status">
@@ -35,7 +41,11 @@
             </div>
           </b-tab>
 
-          <b-tab title="진행전" @click="getBeforeTest()">
+          <b-tab
+            title="진행전"
+            :title-link-class="linkClass(1)"
+            @click="getBeforeTest()"
+          >
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
                 <span class="status">
@@ -53,7 +63,11 @@
             </b-table>
           </b-tab>
 
-          <b-tab title="진행중" @click="getProgressTest()">
+          <b-tab
+            title="진행중"
+            :title-link-class="linkClass(2)"
+            @click="getProgressTest()"
+          >
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
                 <span class="status">
@@ -71,7 +85,11 @@
             </b-table>
           </b-tab>
 
-          <b-tab title="진행완료" @click="getCompleteTest()">
+          <b-tab
+            title="진행완료"
+            :title-link-class="linkClass(3)"
+            @click="getCompleteTest()"
+          >
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
                 <span class="status">
@@ -89,7 +107,7 @@
             </b-table>
           </b-tab>
         </b-tabs>
-        <b-modal v-model="modalShow">
+        <b-modal title="실험 수정" v-model="modalShow">
           <b-row class="my-1">
             <b-col sm="3">
               <label>실험명 :</label>
@@ -172,18 +190,27 @@ export default {
   },
   data() {
     return {
+      tabIndex: 0,
       modalShow: false,
       inputs: {
-        test_title: "",
-        aURL: "",
-        test_a: "",
-        bURL: "",
-        test_b: "",
-        start: "",
-        end: "",
+        test_title: "테스트제목",
+        aURL: "A URL",
+        test_a: "A 별칭",
+        bURL: "B URL",
+        test_b: "B 별칭",
+        start: "2020.10.14",
+        end: "2020.10.31",
+
+        // test_title: "",
+        // aURL: "",
+        // test_a: "",
+        // bURL: "",
+        // test_b: "",
+        // start: "",
+        // end: "",
       },
       fields: [
-        { key: "no", label: "No" },
+        { key: "test_no", label: "No" },
         { key: "date", label: "기간" },
         { key: "test_title", label: "실험명" },
         { key: "testA", label: "A 안" },
@@ -192,7 +219,7 @@ export default {
       ],
       tests: [
         {
-          no: 1,
+          test_no: 1,
           start: "2020.10.14",
           end: "2020.10.25",
           test_title: "버튼 테스트",
@@ -203,7 +230,7 @@ export default {
           status: "진행완료",
         },
         {
-          no: 2,
+          test_no: 2,
           start: "2020.10.31",
           end: "2020.11.13",
           test_title: "색상 테스트",
@@ -214,7 +241,7 @@ export default {
           status: "진행전",
         },
         {
-          no: 3,
+          test_no: 3,
           start: "2020.10.14",
           end: "2021.10.13",
           test_title: "폼 테스트",
@@ -225,7 +252,7 @@ export default {
           status: "진행중",
         },
         {
-          no: 4,
+          test_no: 4,
           start: "2020.10.14",
           end: "2020.10.21",
           test_title: "집계 테스트",
@@ -239,20 +266,32 @@ export default {
     };
   },
   created() {
-    for (let test of this.tests) {
-      test.icon = test.no;
-      test.test_title = { test_title: test.test_title };
-      if (test.status == "진행전") test.test_title.color = "text-success";
-      else if (test.status == "진행중") test.test_title.color = "text-warning";
-      else test.test_title.color = "text-danger";
-
-      test.date = test.start + " - " + test.end;
-
-      test.testA = test.test_a + "(" + test.per_a + "%)";
-      test.testB = test.test_b + "(" + test.per_b + "%)";
-    }
+    this.getAllTest();
   },
   methods: {
+    makeTableData() {
+      for (let test of this.tests) {
+        test.icon = test.test_no;
+        test.test_title = { test_title: test.test_title };
+        if (test.status == "진행전") test.test_title.color = "text-success";
+        else if (test.status == "진행중")
+          test.test_title.color = "text-warning";
+        else test.test_title.color = "text-danger";
+
+        test.date = test.start + " - " + test.end;
+
+        test.testA = test.test_a + "(" + test.per_a + "%)";
+        test.testB = test.test_b + "(" + test.per_b + "%)";
+      }
+    },
+
+    linkClass(idx) {
+      if (this.tabIndex === idx) {
+        return ["bg-danger", "text-light"];
+      } else {
+        return ["bg-light", "text-dark"];
+      }
+    },
     edit(id) {
       console.log(id);
       this.modalShow = !this.modalShow;
@@ -274,7 +313,7 @@ export default {
     },
     editTest() {
       let data = {};
-      data.id = this.id;
+      data.test_no = this.test_no;
       data.test_title = this.test_title;
       data.test_a = this.test_a;
       data.test_b = this.test_b;
@@ -296,7 +335,8 @@ export default {
       API.getTestList(
         this.email,
         (res) => {
-          console.log(res);
+          this.tests = res;
+          this.makeTableData();
         },
         (err) => {
           console.log(err);
@@ -307,10 +347,11 @@ export default {
       API.getTestListBefore(
         this.email,
         (res) => {
-          console.log(res);
+          this.tests = res;
+          this.makeTableData();
         },
         (err) => {
-          console.log(err);
+           console.log(err);
         }
       );
     },
@@ -318,10 +359,11 @@ export default {
       API.getTestListProgress(
         this.email,
         (res) => {
-          console.log(res);
+          this.tests = res;
+          this.makeTableData();
         },
         (err) => {
-          console.log(err);
+           console.log(err);
         }
       );
     },
@@ -329,10 +371,11 @@ export default {
       API.getTestListComplete(
         this.email,
         (res) => {
-          console.log(res);
+          this.tests = res;
+          this.makeTableData();
         },
         (err) => {
-          console.log(err);
+           console.log(err);
         }
       );
     },
@@ -343,7 +386,7 @@ export default {
 <style scoped>
 .createBtn {
   float: right;
-  background-color: tomato;
+  background-color: red;
 }
 
 .info {
