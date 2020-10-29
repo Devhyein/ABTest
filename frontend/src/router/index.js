@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from '../views/Main.vue'
 import SampleA from '@/views/SampleA.vue'
+import SampleB from '@/views/SampleB.vue'
 import Login from '../views/Login.vue'
 import Insert from '../views/Insert.vue'
 
@@ -17,6 +18,11 @@ const routes = [
     path: '/sample/a',
     name: 'SampleA',
     component: SampleA
+  },
+  {
+    path: '/sample/b',
+    name: 'SampleB',
+    component: SampleB
   },
   {
     path: '/login',
