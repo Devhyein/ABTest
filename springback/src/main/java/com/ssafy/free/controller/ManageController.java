@@ -10,6 +10,7 @@ import com.ssafy.free.service.ManageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -95,7 +96,7 @@ public class ManageController {
                 response.msg = "success";
                 response.data = testList;
             } else {
-                response.status = true;
+                response.status = false;
                 response.msg = "목록이 없습니다.";
             }
 
@@ -122,7 +123,7 @@ public class ManageController {
                 response.msg = "success";
                 response.data = testList;
             } else {
-                response.status = true;
+                response.status = false;
                 response.msg = "목록이 없습니다.";
             }
 
@@ -149,7 +150,7 @@ public class ManageController {
                 response.msg = "success";
                 response.data = testList;
             } else {
-                response.status = true;
+                response.status = false;
                 response.msg = "목록이 없습니다.";
             }
 
@@ -176,7 +177,7 @@ public class ManageController {
                 response.msg = "success";
                 response.data = testList;
             } else {
-                response.status = true;
+                response.status = false;
                 response.msg = "목록이 없습니다.";
             }
 
@@ -186,4 +187,56 @@ public class ManageController {
 
         return response;
     }  
+
+    @ApiOperation(value = "테스트 삭제")
+    @DeleteMapping("/delete/test")
+    public Object deleteTest(@RequestParam int test_no) {
+        final RestResponse response = new RestResponse();
+        
+        response.status = false;
+        response.msg = "test 조회 실패";
+        response.data = null;
+        
+        try { 
+            int res = manageService.deleteTest(test_no);
+            if(res>0){
+                response.status = true;
+                response.msg = "success";
+                response.data = null;
+            } else {
+                response.status = false;
+                response.msg = "삭제에 실패하였습니다.";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return response;
+    }  
+
+    @ApiOperation(value = "관리자 로그인")
+    @PostMapping("/login")
+    public Object login(@RequestBody HashMap<String, Object> request) {
+        final RestResponse response = new RestResponse();
+        
+        response.status = false;
+        response.msg = "로그인 실패";
+        response.data = null;
+        
+        try {
+            String data = manageService.login(request);
+            if(data!=null){
+                response.status = true;
+                response.msg = "success";
+                response.data = data;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return response;
+    }  
+
 }

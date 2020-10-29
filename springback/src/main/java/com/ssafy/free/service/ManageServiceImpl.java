@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
+import com.ssafy.free.dto.AdminUser;
 import com.ssafy.free.dto.Test;
 import com.ssafy.free.dto.TestResponse;
 import com.ssafy.free.repository.AdminUserRepository;
@@ -94,6 +96,35 @@ public class ManageServiceImpl implements ManageService {
 		return testList;
     }
 
+	@Override
+	public int deleteTest(int test_no) {
+        try {
+            testRepository.deleteById(test_no);;
+            return 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+
+	}
+
+    @Override
+    public String login(HashMap<String, Object> request) {
+        // id pw 일치하는 UserSample이 있는지 확인
+        try {
+            Optional<AdminUser> user = adminDao.findByEmailAndPw(request.get("id").toString(), request.get("pw").toString());
+            if(user.isPresent()){
+                return user.get().getEmail();
+            } else {
+                return null;
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
     
 
 
