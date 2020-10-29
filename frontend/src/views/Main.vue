@@ -266,21 +266,25 @@ export default {
     };
   },
   created() {
-    // getAllTest();
-    for (let test of this.tests) {
-      test.icon = test.test_no;
-      test.test_title = { test_title: test.test_title };
-      if (test.status == "진행전") test.test_title.color = "text-success";
-      else if (test.status == "진행중") test.test_title.color = "text-warning";
-      else test.test_title.color = "text-danger";
-
-      test.date = test.start + " - " + test.end;
-
-      test.testA = test.test_a + "(" + test.per_a + "%)";
-      test.testB = test.test_b + "(" + test.per_b + "%)";
-    }
+    this.getAllTest();
   },
   methods: {
+    makeTableData() {
+      for (let test of this.tests) {
+        test.icon = test.test_no;
+        test.test_title = { test_title: test.test_title };
+        if (test.status == "진행전") test.test_title.color = "text-success";
+        else if (test.status == "진행중")
+          test.test_title.color = "text-warning";
+        else test.test_title.color = "text-danger";
+
+        test.date = test.start + " - " + test.end;
+
+        test.testA = test.test_a + "(" + test.per_a + "%)";
+        test.testB = test.test_b + "(" + test.per_b + "%)";
+      }
+    },
+
     linkClass(idx) {
       if (this.tabIndex === idx) {
         return ["bg-danger", "text-light"];
@@ -332,7 +336,7 @@ export default {
         this.email,
         (res) => {
           this.tests = res;
-          console.log(res);
+          this.makeTableData();
         },
         (err) => {
           console.log(err);
@@ -343,10 +347,11 @@ export default {
       API.getTestListBefore(
         this.email,
         (res) => {
-          console.log(res);
+          this.tests = res;
+          this.makeTableData();
         },
         (err) => {
-          console.log(err);
+           console.log(err);
         }
       );
     },
@@ -354,10 +359,11 @@ export default {
       API.getTestListProgress(
         this.email,
         (res) => {
-          console.log(res);
+          this.tests = res;
+          this.makeTableData();
         },
         (err) => {
-          console.log(err);
+           console.log(err);
         }
       );
     },
@@ -365,10 +371,11 @@ export default {
       API.getTestListComplete(
         this.email,
         (res) => {
-          console.log(res);
+          this.tests = res;
+          this.makeTableData();
         },
         (err) => {
-          console.log(err);
+           console.log(err);
         }
       );
     },
@@ -380,7 +387,7 @@ export default {
 .createBtn {
   float: right;
   background-color: red;
-  }
+}
 
 .info {
   float: right;
