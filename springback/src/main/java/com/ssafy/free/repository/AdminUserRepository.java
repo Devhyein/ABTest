@@ -1,5 +1,7 @@
 package com.ssafy.free.repository;
 
+import java.util.Optional;
+
 import com.ssafy.free.dto.AdminUser;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,5 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface AdminUserRepository extends JpaRepository<AdminUser, Integer> {
 
 	AdminUser findOneByEmail(String email);
+
+	Optional<AdminUser> findByEmailAndPw(String string, String string2);
     
 }
