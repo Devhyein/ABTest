@@ -8,15 +8,15 @@
       </b-navbar-brand>
     </b-navbar>
 
-    <b-sidebar id="sidebar" title="로그인 해주세요" backdrop shadow>
+    <b-sidebar id="sidebar" title="로그인 해주세요" bg-variant="light" backdrop shadow>
       <template #footer>
-        <div class="d-flex justify-content-around py-3">
+        <div class="mysidefooter d-flex justify-content-around py-3">
           <small class="d-block">이벤트</small>
           <small class="d-block">공지사항</small>
           <small class="d-block">앱 다운로드</small>
         </div>
       </template>
-      <div class="d-flex justify-content-around mx-2 my-2">
+      <div class="d-flex justify-content-around px-2 pt-3 bg-white">
         <div>
           <b-icon-eye class="myicon mb-1"></b-icon-eye>
           <p>최근본차</p>
@@ -30,33 +30,35 @@
           <p>찜한차량</p>
         </div>
       </div>
-      <div class="text-left ml-3">
+      <div class="text-left ml-3 pt-3">
         <p>보험료 계산 <b-icon-calculator></b-icon-calculator></p>
       </div>
-      <div class="d-flex justify-content-around mx-3 my-4">
-        <h5><strong>차량검색</strong></h5>
-        <h5><strong>내차팔기</strong></h5>
+      <div class="mysidebar bg-white">
+        <div class="d-flex justify-content-around px-3 pt-4">
+          <h5><strong>차량검색</strong></h5>
+          <h5><strong>내차팔기</strong></h5>
+        </div>
+        <div class="text-left mx-4">
+          <hr />
+          <strong>내차사기 홈서비스</strong>
+          <hr />
+          <strong>금융</strong>
+          <hr />
+          <strong>신차</strong>
+          <hr />
+          <strong>전기차</strong>
+          <small class="text-secondary"> EV포스트</small>
+          <hr />
+        </div>
+        <small class="d-block text-secondary text-left mx-4 my-3">이차어때? 모카</small>
+        <small class="d-block text-secondary text-left mx-4 my-3">미디어</small>
+        <small class="d-block text-secondary text-left mx-4 my-3">진단등록 예약</small>
+        <small class="d-block text-secondary text-left mx-4 my-3">중고차 시세</small>
       </div>
-      <div class="text-left mx-4">
-        <hr />
-        <strong>내차사기 홈서비스</strong>
-        <hr />
-        <strong>금융</strong>
-        <hr />
-        <strong>신차</strong>
-        <hr />
-        <strong>전기차</strong>
-        <small class="text-secondary"> EV포스트</small>
-        <hr />
-      </div>
-      <small class="d-block text-secondary text-left mx-4 my-3">이차어때? 모카</small>
-      <small class="d-block text-secondary text-left mx-4 my-3">미디어</small>
-      <small class="d-block text-secondary text-left mx-4 my-3">진단등록 예약</small>
-      <small class="d-block text-secondary text-left mx-4 my-3">중고차 시세</small>
     </b-sidebar>
 
     <div class="mybody">  
-      <div class="text-left ml-3 mt-4">
+      <div class="text-left ml-3 mt-5">
         <strong>내 차를 사고 싶으신가요?</strong>
       </div>
       <b-input-group class="myinputgroup py-2 mx-3 my-3 sticky-top bg-white">
@@ -203,6 +205,12 @@ export default {
 .mylogo {
   height: 40px;
 }
+.mysidebar {
+  height: 565px;
+}
+.mysidefooter {
+  border-top: 1px solid lightgray;
+}
 .mybody {
   padding-bottom: 70px;
 }
@@ -222,7 +230,7 @@ export default {
   color: red;
 }
 .mydiv {
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
 }
 .myfooter {
   position: fixed;
