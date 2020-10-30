@@ -50,22 +50,20 @@ public class UserController {
 
     @ApiOperation(value = "아이디 중복 체크")
     @GetMapping("/checkId")
-    public Object getTestList(@RequestParam String id) {
+    public Object checkId(@RequestParam String id) {
         final RestResponse response = new RestResponse();
-        
         response.status = false;
         response.msg = "중복 체크 실패";
         response.data = null;
         
         try { 
             int res = userService.checkId(id);
-           
+           response.status = true;
+           response.msg = "success";
             if(res>0){
-                response.status = true;
-                response.msg = "success";
+                response.data = true;
             } else {
-                response.status = false;
-                response.msg = "이미 존재하는 아이디";
+                response.data = false;
             }
 
         } catch (Exception e) {
