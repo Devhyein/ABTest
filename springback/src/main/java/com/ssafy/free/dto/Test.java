@@ -44,74 +44,84 @@ public class Test {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "url_a")
+    private String urlA; 
+
+    @Column(name = "url_b")
+    private String urlB; 
+
     public Test() {
     }
 
-    public Test(int test_no, int admin_no, String test_title, String test_a, String test_b, LocalDate start,
-            LocalDate end, int per_a, int per_b, String status) {
-        this.testNo = test_no;
-        this.adminNo = admin_no;
-        this.testTitle = test_title;
-        this.testA = test_a;
-        this.testB = test_b;
+    public Test(int testNo, int adminNo, String testTitle, String testA, String testB, LocalDate start, LocalDate end,
+            int perA, int perB, String status, String urlA, String urlB) {
+        this.testNo = testNo;
+        this.adminNo = adminNo;
+        this.testTitle = testTitle;
+        this.testA = testA;
+        this.testB = testB;
         this.start = start;
         this.end = end;
-        this.perA = per_a;
-        this.perB = per_b;
+        this.perA = perA;
+        this.perB = perB;
         this.status = status;
+        this.urlA = urlA;
+        this.urlB = urlB;
     }
 
-    public Test(int admin_no, String test_title, String test_a, String test_b, LocalDate start, LocalDate end,
-            int per_a, int per_b, String status) {
-        this.adminNo = admin_no;
-        this.testTitle = test_title;
-        this.testA = test_a;
-        this.testB = test_b;
+    public Test(int adminNo, String testTitle, String testA, String testB, LocalDate start, LocalDate end, int perA,
+            int perB, String status, String urlA, String urlB) {
+        this.adminNo = adminNo;
+        this.testTitle = testTitle;
+        this.testA = testA;
+        this.testB = testB;
         this.start = start;
         this.end = end;
-        this.perA = per_a;
-        this.perB = per_b;
+        this.perA = perA;
+        this.perB = perB;
         this.status = status;
+        this.urlA = urlA;
+        this.urlB = urlB;
     }
 
     public int getTestNo() {
         return testNo;
     }
 
-    public void setTestNo(int test_no) {
-        this.testNo = test_no;
+    public void setTestNo(int testNo) {
+        this.testNo = testNo;
     }
 
     public int getAdminNo() {
         return adminNo;
     }
 
-    public void setAdminNo(int admin_no) {
-        this.adminNo = admin_no;
+    public void setAdminNo(int adminNo) {
+        this.adminNo = adminNo;
     }
 
     public String getTestTitle() {
         return testTitle;
     }
 
-    public void setTestTitle(String test_title) {
-        this.testTitle = test_title;
+    public void setTestTitle(String testTitle) {
+        this.testTitle = testTitle;
     }
 
     public String getTestA() {
         return testA;
     }
 
-    public void setTestA(String test_a) {
-        this.testA = test_a;
+    public void setTestA(String testA) {
+        this.testA = testA;
     }
 
     public String getTestB() {
         return testB;
     }
 
-    public void setTestB(String test_b) {
-        this.testB = test_b;
+    public void setTestB(String testB) {
+        this.testB = testB;
     }
 
     public LocalDate getStart() {
@@ -134,16 +144,16 @@ public class Test {
         return perA;
     }
 
-    public void setPerA(int per_a) {
-        this.perA = per_a;
+    public void setPerA(int perA) {
+        this.perA = perA;
     }
 
     public int getPerB() {
         return perB;
     }
 
-    public void setPerB(int per_b) {
-        this.perB = per_b;
+    public void setPerB(int perB) {
+        this.perB = perB;
     }
 
     public String getStatus() {
@@ -154,12 +164,29 @@ public class Test {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Test [admin_no=" + adminNo + ", end=" + end + ", per_a=" + perA + ", per_b=" + perB + ", start="
-                + start + ", status=" + status + ", test_a=" + testA + ", test_b=" + testB + ", test_no=" + testNo
-                + ", test_title=" + testTitle + "]";
+    public String getUrlA() {
+        return urlA;
     }
 
+    public void setUrlA(String urlA) {
+        this.urlA = urlA;
+    }
+
+    public String getUrlB() {
+        return urlB;
+    }
+
+    public void setUrlB(String urlB) {
+        this.urlB = urlB;
+    }
+
+    @Override
+    public String toString() {
+        return "Test [adminNo=" + adminNo + ", end=" + end + ", perA=" + perA + ", perB=" + perB + ", start=" + start
+                + ", status=" + status + ", testA=" + testA + ", testB=" + testB + ", testNo=" + testNo + ", testTitle="
+                + testTitle + ", urlA=" + urlA + ", urlB=" + urlB + "]";
+    }
+
+ 
    
 }

@@ -1,6 +1,6 @@
 <template>
     <b-container fluid class="container">
-        <b-card bg-variant="light">
+        <b-card bg-variant="light" @submit.stop.prevent="join">
             <img :src="encar" class="mylogo" alt="encar logo" />
             <b-row class="my-1">
                 <b-col sm="2">
@@ -46,8 +46,8 @@
                 </b-col>
             </b-row>
             
-            <b-button @click="join()" variant="primary">회원가입</b-button>
-            <b-button @click="reset()" variang="secondary">초기화</b-button>
+            <b-button class="joinBtn" @click="join()" variant="primary">회원가입</b-button>
+            <b-button class="resetBtn" @click="reset()" variang="secondary">초기화</b-button>
         </b-card>
     </b-container>
 </template>
@@ -87,29 +87,37 @@ import swal from "sweetalert";
     computed: {
         checkPw() {
             return this.form.pw == this.chpw ? true : false
-        }
+        },
     },
     methods: {
         checkId() {
             API.checkId(
-                this.form.id,
-                (res) => {
-                console.log(res);
-                if(res.msg == "이미 존재하는 아이디") {
+                "id="+this.form.id,
+                res => {
+                if(!res) {
                     swal("ERROR", "이미 존재하는 아이디입니다.", "error");
                     this.form.id = "";
                 } else {
                     swal("SUCCESS", "사용 가능한 아이디입니다.", "success");   
                     this.isChecked = true;
+                    document.getElementById("input-default").setAttribute('readonly',true);
                 }
                 },
-                (err) => {
+                err => {
                 console.log(err);
                 swal("ERROR", "중복 체크에 실패하였습니다.", "error");
                 }
             );
         },
         join() {
+            if(!this.isChecked) {
+                swal("ERROR", "중복 체크를 해주세요.", "error");
+                return;
+            }
+            if(this.chpw.length==0 || this.form.pw.length==0 || this.chpw!=this.form.pw) {
+                swal("ERROR", "비밀번호를 확인해주세요.", "error");
+                return;
+            }
             let data = {};
             data.id = this.form.id;
             data.pw = this.form.pw;
@@ -149,5 +157,11 @@ import swal from "sweetalert";
 .mylogo {
     height: 40px;
     margin: 40px;
+}
+.joinBtn {
+    margin-right: 10px;
+}
+.resetBtn {
+    margin-left: 10px;
 }
 </style>
