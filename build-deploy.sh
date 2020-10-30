@@ -8,11 +8,11 @@
 TITLE=abtest
 
 # Set name of images
-SPRING_IMG=${TITLE}/spring
+SPRING_IMG=${TITLE}/springback
 FRONT_IMG=${TITLE}/front
 
 # Set name of containers
-SPRING_DOCKER=${TITLE}-spring
+SPRING_DOCKER=${TITLE}-springback
 FRONT_DOCKER=${TITLE}-front
 
 ####################################################
