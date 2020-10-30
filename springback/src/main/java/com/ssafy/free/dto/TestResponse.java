@@ -130,7 +130,7 @@ public class TestResponse {
     }
 
     public String getUrl_a() {
-        return test_a;
+        return url_a;
     }
 
     public void setUrl_a(String url_a) {
@@ -138,7 +138,7 @@ public class TestResponse {
     }
 
     public String getUrl_b() {
-        return test_a;
+        return url_b;
     }
 
     public void setUrl_b(String url_b) {
