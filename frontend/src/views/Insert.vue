@@ -66,20 +66,20 @@
     <div>
       <div class="mx-3">
         <div class="d-flex justify-content-between">
-          <div class="mt-2">A안:{{input.per_a}}%</div>
+          <div class="mt-2">A안:{{ input.per_a }}%</div>
           <div class="mt-2">B안:{{ 100 - input.per_a }}%</div>
         </div>
         <b-form-input
           id="range"
           v-model="input.per_a"
           type="range"
-          min=0
-          max=100
-          step=10
+          min="0"
+          max="100"
+          step="10"
         ></b-form-input>
       </div>
     </div>
-    <b-button @click="createTest()" variant="success">
+    <b-button @click="dataCheck()" variant="success">
       생성
     </b-button>
     <b-button @click="reset()">
@@ -101,7 +101,6 @@ export default {
     return {
       email: "test",
       input: {
-        test_no: "",
         test_title: "",
         url_a: "",
         test_a: "",
@@ -115,6 +114,27 @@ export default {
     };
   },
   methods: {
+    dataCheck() {
+      let err = false;
+      let msg = "";
+      !this.input.test_title && ((msg = "실험제목 입력해주세요"), (err = true));
+      !err &&
+        !this.input.url_a &&
+        ((msg = "A URL을 입력해주세요"), (err = true));
+      !err &&
+        !this.input.test_a &&
+        ((msg = "A안의 별칭을 입력해주세요"), (err = true));
+      !err &&
+        !this.input.url_b &&
+        ((msg = "B URL을 입력해주세요"), (err = true));
+      !err &&
+        !this.input.test_b &&
+        ((msg = "B안의 별칭을 입력해주세요"), (err = true));
+      !err && !this.input.start && ((msg = "시작일을 설정해주세요"), (err = true));
+      !err && !this.input.end && ((msg = "종료일을  설정해주세요"), (err = true));
+      if (err) alert(msg);
+      else this.createTest();
+    },
     createTest() {
       var perA = parseInt(this.input.per_a);
       let data = {};
@@ -127,7 +147,7 @@ export default {
       data.start = this.input.start;
       data.end = this.input.end;
       data.per_a = perA;
-      data.per_b = 100-this.input.per_a;
+      data.per_b = 100 - this.input.per_a;
 
       console.log(data);
 
@@ -136,6 +156,7 @@ export default {
         (res) => {
           console.log(res);
           swal("생성 완료", "실험이 생성되었습니다.", "success");
+          location.href = "/main";
         },
         (err) => {
           console.log(err);
@@ -144,16 +165,16 @@ export default {
       );
     },
     reset() {
-        this.input.test_title = "",
-        this.input.test_a = "",
-        this.input.url_a = "",
-        this.input.test_b = "",
-        this.input.url_b = "",
-        this.input.start = "",
-        this.input.end = "",
-        this.input.per_a = 50,
-        this.input.per_b = 50
-    }
+      (this.input.test_title = ""),
+        (this.input.test_a = ""),
+        (this.input.url_a = ""),
+        (this.input.test_b = ""),
+        (this.input.url_b = ""),
+        (this.input.start = ""),
+        (this.input.end = ""),
+        (this.input.per_a = 50),
+        (this.input.per_b = 50);
+    },
   },
   created() {
     this.per_b = 100 - this.per_a;
