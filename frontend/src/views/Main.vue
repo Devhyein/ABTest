@@ -121,7 +121,7 @@
               <label>A URL :</label>
             </b-col>
             <b-col sm="9">
-              <b-form-input v-model="inputs.aURL" disabled />
+              <b-form-input v-model="inputs.url_a" disabled />
             </b-col>
           </b-row>
           <b-row class="my-1">
@@ -137,7 +137,7 @@
               <label>B URL :</label>
             </b-col>
             <b-col sm="9">
-              <b-form-input v-model="inputs.bURL" disabled />
+              <b-form-input v-model="inputs.url_b" disabled />
             </b-col>
           </b-row>
           <b-row class="my-1">
