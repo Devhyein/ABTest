@@ -299,7 +299,7 @@ export default {
         (res) => {
           console.log(res);
           swal("삭제 완료", "실험이 정상적으로 삭제되었습니다.", "success");
-          location.href = "/main";
+          this.$router.push("/main");
         },
         (err) => {
           console.log(err);
@@ -330,6 +330,7 @@ export default {
         (res) => {
           console.log(res);
           swal("수정 완료", "실험이 정상적으로 수정되었습니다.", "success");
+          this.modalShow = !this.modalShow;
           location.href = "/main";
         },
         (err) => {

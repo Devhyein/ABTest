@@ -156,7 +156,7 @@ export default {
         (res) => {
           console.log(res);
           swal("생성 완료", "실험이 생성되었습니다.", "success");
-          location.href = "/main";
+          this.$router.push("/main");
         },
         (err) => {
           console.log(err);
