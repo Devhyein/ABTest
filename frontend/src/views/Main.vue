@@ -168,7 +168,7 @@
             <b-button @click="modalShow = false" variant="danger">
               취소
             </b-button>
-            <b-button @click="editTest()" variant="success">
+            <b-button @click="dataCheck()" variant="success">
               수정
             </b-button>
           </template>
@@ -231,6 +231,23 @@ export default {
     this.getAllTest();
   },
   methods: {
+    dataCheck() {
+      let err = false;
+      let msg = "";
+      !this.inputs.test_title &&
+        ((msg = "실험제목 입력해주세요"), (err = true));
+      !err &&
+        !this.inputs.test_a &&
+        ((msg = "A안의 별칭을 입력해주세요"), (err = true));
+      !err &&
+        !this.inputs.test_b &&
+        ((msg = "B안의 별칭을 입력해주세요"), (err = true));
+      !err &&
+        !this.inputs.end &&
+        ((msg = "종료일을  설정해주세요"), (err = true));
+      if (err) alert(msg);
+      else this.editTest();
+    },
     makeTableData() {
       for (let test of this.tests) {
         test.icon = test.test_no;
@@ -257,10 +274,14 @@ export default {
     edit(id) {
       var thisTest;
       for (let test of this.tests) {
-        if (test.test_no == id) thisTest = test;
+        if (test.test_no == id) {
+          console.log(test);
+          thisTest = test;
+        }
       }
-      (this.inputs.test_no = thisTest.test_no),
-        (this.inputs.test_title = thisTest.test_title.test_title);
+      
+      this.inputs.test_no = thisTest.test_no;
+      this.inputs.test_title = thisTest.test_title.test_title;
       this.inputs.url_a = thisTest.url_a;
       this.inputs.test_a = thisTest.test_a;
       this.inputs.url_b = thisTest.url_b;
@@ -278,6 +299,7 @@ export default {
         (res) => {
           console.log(res);
           swal("삭제 완료", "실험이 정상적으로 삭제되었습니다.", "success");
+          location.href = "/main";
         },
         (err) => {
           console.log(err);
@@ -299,6 +321,8 @@ export default {
       data.test_title = this.inputs.test_title;
       data.test_a = this.inputs.test_a;
       data.test_b = this.inputs.test_b;
+      data.url_a = this.inputs.url_a;
+      data.url_b = this.inputs.url_b;
       data.end = this.inputs.end;
 
       API.modifyTest(
@@ -306,6 +330,7 @@ export default {
         (res) => {
           console.log(res);
           swal("수정 완료", "실험이 정상적으로 수정되었습니다.", "success");
+          location.href = "/main";
         },
         (err) => {
           console.log(err);
