@@ -138,7 +138,7 @@ const putApi = (url, data, callback, errorCallback) => {
 }
 
 const deleteApi = (url, data, callback, errorCallback) => {
-    http.delete(url + '/' + data, header())
+    http.delete(url + '?' + data, header())
         .then(res => {
             // RestAPI 서버가 null 을 응답하는 경우
             if(res == null) {
