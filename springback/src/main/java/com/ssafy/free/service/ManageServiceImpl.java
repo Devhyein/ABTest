@@ -1,5 +1,6 @@
 package com.ssafy.free.service;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -36,9 +37,14 @@ public class ManageServiceImpl implements ManageService {
                     DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             LocalDate end = LocalDate.parse(request.get("end").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
+            String status = "진행전";
+            LocalDate today = LocalDate.now();
+
+            if(start.isEqual(today)) { status = "진행중"; }
+
             Test test = new Test(admin_no, request.get("test_title").toString(), request.get("test_a").toString(),
                     request.get("test_b").toString(), start, end, Integer.parseInt(request.get("per_a").toString()),
-                    Integer.parseInt(request.get("per_b").toString()), request.get("status").toString(), 
+                    Integer.parseInt(request.get("per_b").toString()), status, 
                     request.get("url_a").toString(), request.get("url_b").toString());
             testRepository.save(test);
 
