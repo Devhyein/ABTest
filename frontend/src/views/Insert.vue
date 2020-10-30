@@ -15,7 +15,7 @@
         <label>A안 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.test_aURL" />
+        <b-form-input v-model="input.url_a" />
       </b-col>
     </b-row>
 
@@ -33,7 +33,7 @@
         <label>B안 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.test_bURL" />
+        <b-form-input v-model="input.url_b" />
       </b-col>
     </b-row>
 
@@ -66,23 +66,23 @@
     <div>
       <div class="mx-3">
         <div class="d-flex justify-content-between">
-          <div class="mt-2">A안: {{ input.per_a }}%</div>
+          <div class="mt-2">A안:{{input.per_a}}%</div>
           <div class="mt-2">B안:{{ 100 - input.per_a }}%</div>
         </div>
         <b-form-input
           id="range"
           v-model="input.per_a"
           type="range"
-          min="0"
-          max="100"
-          step="10"
+          min=0
+          max=100
+          step=10
         ></b-form-input>
       </div>
     </div>
     <b-button @click="createTest()" variant="success">
       생성
     </b-button>
-    <b-button @click="reSet()">
+    <b-button @click="reset()">
       초기화
     </b-button>
   </div>
@@ -90,44 +90,46 @@
 
 <script>
 import API from "@/api/API";
-
 import EncarHeader from "@/components/Header";
 import swal from "sweetalert";
 
 export default {
-  name: "Home",
   components: {
     EncarHeader,
   },
   data() {
     return {
+      email: "test",
       input: {
-        email: "",
+        test_no: "",
         test_title: "",
+        url_a: "",
         test_a: "",
-        test_aURL: "",
+        url_b: "",
         test_b: "",
-        test_bURL: "",
         start: "",
         end: "",
         per_a: 50,
-        per_b: "",
-        status: "",
+        per_b: 50,
       },
     };
   },
   methods: {
     createTest() {
+      var perA = parseInt(this.input.per_a);
       let data = {};
       data.email = this.email;
-      data.test_title = this.test_title;
-      data.test_a = this.test_a;
-      data.test_b = this.test_b;
-      data.start = this.start;
-      data.end = this.end;
-      data.per_a = this.per_a;
-      data.per_b = this.per_b;
-      data.status = this.status;
+      data.test_title = this.input.test_title;
+      data.test_a = this.input.test_a;
+      data.url_a = this.input.url_a;
+      data.test_b = this.input.test_b;
+      data.url_b = this.input.url_b;
+      data.start = this.input.start;
+      data.end = this.input.end;
+      data.per_a = perA;
+      data.per_b = 100-this.input.per_a;
+
+      console.log(data);
 
       API.createTest(
         data,
@@ -141,19 +143,17 @@ export default {
         }
       );
     },
-    reSet() {
-      (this.email = ""),
-        (this.test_title = ""),
-        (this.teat_a = ""),
-        (this.test_aURL = ""),
-        (this.test_b = ""),
-        (this.test_bURL = ""),
-        (this.start = ""),
-        (this.end = ""),
-        (this.per_a = ""),
-        (this.per_b = ""),
-        (this.status = "");
-    },
+    reset() {
+        this.input.test_title = "",
+        this.input.test_a = "",
+        this.input.url_a = "",
+        this.input.test_b = "",
+        this.input.url_b = "",
+        this.input.start = "",
+        this.input.end = "",
+        this.input.per_a = 50,
+        this.input.per_b = 50
+    }
   },
   created() {
     this.per_b = 100 - this.per_a;
