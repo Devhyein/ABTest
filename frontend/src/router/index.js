@@ -10,6 +10,11 @@ import Join from '../views/Join.vue'
 Vue.use(VueRouter)
 
 const routes = [
+  
+  {
+    path: '/',
+    redirect: 'main',
+  },
   {
     path: '/main',
     name: 'Main',
