@@ -16,4 +16,4 @@ RUN yarn install
 RUN yarn run build
 
 EXPOSE 8081
-ENTRYPOINT [ "http-server", "-p", "8901", "/app/dist" ]
+ENTRYPOINT [ "http-server", "-p", "8081", "/app/dist" ]
