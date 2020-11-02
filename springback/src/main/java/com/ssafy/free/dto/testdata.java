@@ -10,54 +10,60 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "testdata")
+public class testdata {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_no")
-    private int userNo; 
+    @Column(name = "data_no")
+    private int dataNo; 
 
     @Column(name = "test_no")
-    private int testNo; 
-
+    private int testNo;
+    
     @Column(name = "admin_no")
     private int adminNo; 
 
-    @Column(name = "email")
-    private String email;
-    
     @Column(name = "page_type")
     private String pageType;
 
     @Column(name = "date")
     private LocalDate date; 
     
-    public User() {
+    @Column(name = "total_page_cnt")
+    private int totalPageCnt; 
+
+    @Column(name = "next_page_cnt")
+    private int nextPageCnt;
+
+    public testdata() {
     }
 
-    public User(int userNo, int testNo, int adminNo, String email, String pageType, LocalDate date) {
-        this.userNo = userNo;
+    public testdata(int dataNo, int testNo, int adminNo, String pageType, LocalDate date, int totalPageCnt,
+            int nextPageCnt) {
+        this.dataNo = dataNo;
         this.testNo = testNo;
         this.adminNo = adminNo;
-        this.email = email;
         this.pageType = pageType;
         this.date = date;
+        this.totalPageCnt = totalPageCnt;
+        this.nextPageCnt = nextPageCnt;
     }
 
-    public User(int testNo, int adminNo, String email, String pageType, LocalDate date) {
+    public testdata(int testNo, int adminNo, String pageType, LocalDate date, int totalPageCnt, int nextPageCnt) {
         this.testNo = testNo;
         this.adminNo = adminNo;
-        this.email = email;
         this.pageType = pageType;
         this.date = date;
+        this.totalPageCnt = totalPageCnt;
+        this.nextPageCnt = nextPageCnt;
     }
 
-    public int getUserNo() {
-        return userNo;
+    public int getDataNo() {
+        return dataNo;
     }
 
-    public void setUserNo(int userNo) {
-        this.userNo = userNo;
+    public void setDataNo(int dataNo) {
+        this.dataNo = dataNo;
     }
 
     public int getTestNo() {
@@ -76,14 +82,6 @@ public class User {
         this.adminNo = adminNo;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPageType() {
         return pageType;
     }
@@ -100,10 +98,26 @@ public class User {
         this.date = date;
     }
 
+    public int getTotalPageCnt() {
+        return totalPageCnt;
+    }
+
+    public void setTotalPageCnt(int totalPageCnt) {
+        this.totalPageCnt = totalPageCnt;
+    }
+
+    public int getNextPageCnt() {
+        return nextPageCnt;
+    }
+
+    public void setNextPageCnt(int nextPageCnt) {
+        this.nextPageCnt = nextPageCnt;
+    }
+
     @Override
     public String toString() {
-        return "User [adminNo=" + adminNo + ", email=" + email + ", pageType=" + pageType + ", testNo=" + testNo
-                + ", userNo=" + userNo + ", date="+date+"]";
+        return "testdata [adminNo=" + adminNo + ", dataNo=" + dataNo + ", date=" + date + ", nextPageCnt=" + nextPageCnt
+                + ", pageType=" + pageType + ", testNo=" + testNo + ", totalPageCnt=" + totalPageCnt + "]";
     }
 
 }

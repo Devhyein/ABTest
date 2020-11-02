@@ -1,5 +1,7 @@
 package com.ssafy.free.dto;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +17,12 @@ public class UserSample {
     @Column(name = "user_no")
     private int userNo; 
 
+    @Column(name = "test_no")
+    private int testNo; 
+
+    @Column(name = "admin_no")
+    private int adminNo; 
+
     @Column(name = "email")
     private String email; 
 
@@ -27,23 +35,39 @@ public class UserSample {
     @Column(name = "gender")
     private String gender;
 
+    @Column(name = "page_type")
+    private String pageType; 
+
+    @Column(name = "join_date")
+    private LocalDate joinDate;
+
     public UserSample() {
     }
 
-    public UserSample(String email, String pw, int age, String gender) {
+    public UserSample(int userNo, int testNo, int adminNo, String email, String pw, int age, String gender,
+            String pageType, LocalDate joinDate) {
+        this.userNo = userNo;
+        this.testNo = testNo;
+        this.adminNo = adminNo;
         this.email = email;
         this.pw = pw;
         this.age = age;
         this.gender = gender;
+        this.pageType = pageType;
+        this.joinDate = joinDate;
     }
 
-    public UserSample(int userNo, String email, String pw, int age, String gender) {
-        this.userNo = userNo;
+    public UserSample(int testNo, int adminNo, String email, String pw, int age, String gender,
+    String pageType, LocalDate joinDate) {
+        this.testNo = testNo;
+        this.adminNo = adminNo;
         this.email = email;
         this.pw = pw;
         this.age = age;
         this.gender = gender;
-    }
+        this.pageType = pageType;
+        this.joinDate = joinDate;
+        }
 
     public int getUserNo() {
         return userNo;
@@ -85,10 +109,42 @@ public class UserSample {
         this.gender = gender;
     }
 
+    public int getTestNo() {
+        return testNo;
+    }
+
+    public void setTestNo(int testNo) {
+        this.testNo = testNo;
+    }
+
+    public int getAdminNo() {
+        return adminNo;
+    }
+
+    public void setAdminNo(int adminNo) {
+        this.adminNo = adminNo;
+    }
+
+    public String getPageType() {
+        return pageType;
+    }
+
+    public void setPageType(String pageType) {
+        this.pageType = pageType;
+    }
+
+    public LocalDate getJoinDate() {
+        return joinDate;
+    }
+
+    public void setJoinDate(LocalDate joinDate) {
+        this.joinDate = joinDate;
+    }
+
     @Override
     public String toString() {
-        return "UserSample [age=" + age + ", emial=" + email + ", gender=" + gender + ", pw=" + pw + ", userNo="
-                + userNo + "]";
+        return "UserSample [adminNo=" + adminNo + ", age=" + age + ", email=" + email + ", gender=" + gender
+                + ", pageType=" + pageType + ", pw=" + pw + ", testNo=" + testNo + ", userNo=" + userNo + ", joinDate="+joinDate+"]";
     }
 
 }
