@@ -6,7 +6,7 @@
         <label>실험명 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.test_title" />
+        <b-form-input v-model="input.test_title" placeholder="실험명을 입력해주세요"/>
       </b-col>
     </b-row>
 
@@ -24,7 +24,7 @@
         <label>A 별칭 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.test_a" />
+        <b-form-input v-model="input.test_a" placeholder="A안의 별칭을 입력해주세요"/>
       </b-col>
     </b-row>
 
@@ -42,7 +42,7 @@
         <label>B안 별칭 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.test_b" />
+        <b-form-input v-model="input.test_b" placeholder="B안의 별칭을 입력해주세요"/>
       </b-col>
     </b-row>
 
