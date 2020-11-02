@@ -121,7 +121,7 @@
               <label>A URL :</label>
             </b-col>
             <b-col sm="9">
-              <b-form-input v-model="inputs.aURL" disabled />
+              <b-form-input v-model="inputs.url_a" disabled />
             </b-col>
           </b-row>
           <b-row class="my-1">
@@ -137,7 +137,7 @@
               <label>B URL :</label>
             </b-col>
             <b-col sm="9">
-              <b-form-input v-model="inputs.bURL" disabled />
+              <b-form-input v-model="inputs.url_b" disabled />
             </b-col>
           </b-row>
           <b-row class="my-1">
@@ -153,7 +153,7 @@
               <label>시작일 :</label>
             </b-col>
             <b-col sm="9">
-              <b-form-input v-model="inputs.startDate" type="date" disabled />
+              <b-form-input v-model="inputs.start" disabled />
             </b-col>
           </b-row>
           <b-row class="my-1">
@@ -161,14 +161,14 @@
               <label>종료일 :</label>
             </b-col>
             <b-col sm="9">
-              <b-form-input v-model="inputs.endDate" type="date" />
+              <b-form-input v-model="inputs.end" type="date" />
             </b-col>
           </b-row>
           <template #modal-footer>
             <b-button @click="modalShow = false" variant="danger">
               취소
             </b-button>
-            <b-button @click="editTest()" variant="success">
+            <b-button @click="dataCheck()" variant="success">
               수정
             </b-button>
           </template>
@@ -192,22 +192,16 @@ export default {
     return {
       tabIndex: 0,
       modalShow: false,
+      email: "test",
       inputs: {
-        test_title: "테스트제목",
-        aURL: "A URL",
-        test_a: "A 별칭",
-        bURL: "B URL",
-        test_b: "B 별칭",
-        start: "2020.10.14",
-        end: "2020.10.31",
-
-        // test_title: "",
-        // aURL: "",
-        // test_a: "",
-        // bURL: "",
-        // test_b: "",
-        // start: "",
-        // end: "",
+        test_no: "",
+        test_title: "",
+        url_a: "",
+        test_a: "",
+        url_b: "",
+        test_b: "",
+        start: "",
+        end: "",
       },
       fields: [
         { key: "test_no", label: "No" },
@@ -219,48 +213,16 @@ export default {
       ],
       tests: [
         {
-          test_no: 1,
-          start: "2020.10.14",
-          end: "2020.10.25",
-          test_title: "버튼 테스트",
-          test_a: "A안별칭",
-          per_a: 90,
-          test_b: "B안별칭",
-          per_b: 10,
-          status: "진행완료",
-        },
-        {
-          test_no: 2,
-          start: "2020.10.31",
-          end: "2020.11.13",
-          test_title: "색상 테스트",
-          test_a: "A안별칭",
-          per_a: 60,
-          test_b: "B안별칭",
-          per_b: 40,
-          status: "진행전",
-        },
-        {
-          test_no: 3,
-          start: "2020.10.14",
-          end: "2021.10.13",
-          test_title: "폼 테스트",
-          test_a: "A안별칭",
-          per_a: 70,
-          test_b: "B안별칭",
-          per_b: 30,
-          status: "진행중",
-        },
-        {
-          test_no: 4,
-          start: "2020.10.14",
-          end: "2020.10.21",
-          test_title: "집계 테스트",
-          test_a: "A안별칭",
-          per_a: 50,
-          test_b: "B안별칭",
-          per_b: 50,
-          status: "진행완료",
+          test_no: "",
+          test_title: "",
+          url_a: "",
+          test_a: "",
+          url_b: "",
+          test_b: "",
+          start: "",
+          end: "",
+          per_a: "",
+          per_b: "",
         },
       ],
     };
@@ -269,6 +231,23 @@ export default {
     this.getAllTest();
   },
   methods: {
+    dataCheck() {
+      let err = false;
+      let msg = "";
+      !this.inputs.test_title &&
+        ((msg = "실험제목 입력해주세요"), (err = true));
+      !err &&
+        !this.inputs.test_a &&
+        ((msg = "A안의 별칭을 입력해주세요"), (err = true));
+      !err &&
+        !this.inputs.test_b &&
+        ((msg = "B안의 별칭을 입력해주세요"), (err = true));
+      !err &&
+        !this.inputs.end &&
+        ((msg = "종료일을  설정해주세요"), (err = true));
+      if (err) alert(msg);
+      else this.editTest();
+    },
     makeTableData() {
       for (let test of this.tests) {
         test.icon = test.test_no;
@@ -293,37 +272,66 @@ export default {
       }
     },
     edit(id) {
-      console.log(id);
+      var thisTest;
+      for (let test of this.tests) {
+        if (test.test_no == id) {
+          console.log(test);
+          thisTest = test;
+        }
+      }
+      
+      this.inputs.test_no = thisTest.test_no;
+      this.inputs.test_title = thisTest.test_title.test_title;
+      this.inputs.url_a = thisTest.url_a;
+      this.inputs.test_a = thisTest.test_a;
+      this.inputs.url_b = thisTest.url_b;
+      this.inputs.test_b = thisTest.test_b;
+      this.inputs.start = thisTest.start;
+      this.inputs.end = thisTest.end;
+
+      console.log(thisTest);
       this.modalShow = !this.modalShow;
     },
     deleteTest(id) {
       console.log(id);
-
       API.deleteTest(
-        id,
+        "test_no=" + id,
         (res) => {
           console.log(res);
           swal("삭제 완료", "실험이 정상적으로 삭제되었습니다.", "success");
+          this.$router.push("/main");
         },
         (err) => {
           console.log(err);
           swal("삭제 실패", "실험삭제에 실패하였습니다.", "error");
         }
       );
+
+      var remainTests = [];
+      for (var index in this.tests) {
+        if (this.tests[index].test_no != id) {
+          remainTests.push(this.tests[index]);
+        }
+      }
+      this.tests = remainTests;
     },
     editTest() {
       let data = {};
-      data.test_no = this.test_no;
-      data.test_title = this.test_title;
-      data.test_a = this.test_a;
-      data.test_b = this.test_b;
-      data.end = this.end;
+      data.test_no = this.inputs.test_no;
+      data.test_title = this.inputs.test_title;
+      data.test_a = this.inputs.test_a;
+      data.test_b = this.inputs.test_b;
+      data.url_a = this.inputs.url_a;
+      data.url_b = this.inputs.url_b;
+      data.end = this.inputs.end;
 
       API.modifyTest(
         data,
         (res) => {
           console.log(res);
           swal("수정 완료", "실험이 정상적으로 수정되었습니다.", "success");
+          this.modalShow = !this.modalShow;
+          location.href = "/main";
         },
         (err) => {
           console.log(err);
@@ -332,52 +340,56 @@ export default {
       );
     },
     getAllTest() {
-      API.getTestList(
-        this.email,
-        (res) => {
-          this.tests = res;
-          this.makeTableData();
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+      (this.tests = []),
+        API.getTestList(
+          "email=" + this.email,
+          (res) => {
+            this.tests = res;
+            this.makeTableData();
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
     },
     getBeforeTest() {
-      API.getTestListBefore(
-        this.email,
-        (res) => {
-          this.tests = res;
-          this.makeTableData();
-        },
-        (err) => {
-           console.log(err);
-        }
-      );
+      (this.tests = []),
+        API.getTestListBefore(
+          "email=" + this.email,
+          (res) => {
+            this.tests = res;
+            this.makeTableData();
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
     },
     getProgressTest() {
-      API.getTestListProgress(
-        this.email,
-        (res) => {
-          this.tests = res;
-          this.makeTableData();
-        },
-        (err) => {
-           console.log(err);
-        }
-      );
+      (this.tests = []),
+        API.getTestListProgress(
+          "email=" + this.email,
+          (res) => {
+            this.tests = res;
+            this.makeTableData();
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
     },
     getCompleteTest() {
-      API.getTestListComplete(
-        this.email,
-        (res) => {
-          this.tests = res;
-          this.makeTableData();
-        },
-        (err) => {
-           console.log(err);
-        }
-      );
+      (this.tests = []),
+        API.getTestListComplete(
+          "email=" + this.email,
+          (res) => {
+            this.tests = res;
+            this.makeTableData();
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
     },
   },
 };
