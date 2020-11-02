@@ -191,7 +191,6 @@ export default {
     return {
       tabIndex: 0,
       modalShow: false,
-      email: "test",
       inputs: {
         test_no: "",
         test_title: "",
@@ -226,6 +225,11 @@ export default {
       ],
     };
   },
+  computed: {
+    email(){
+      return this.$store.state.email;
+    }
+  },
   created() {
     this.getAllTest();
   },
@@ -234,7 +238,7 @@ export default {
       let err = false;
       let msg = "";
       !this.inputs.test_title &&
-        ((msg = "실험제목 입력해주세요"), (err = true));
+        ((msg = "실험명을 입력해주세요"), (err = true));
       !err &&
         !this.inputs.test_a &&
         ((msg = "A안의 별칭을 입력해주세요"), (err = true));
@@ -243,8 +247,8 @@ export default {
         ((msg = "B안의 별칭을 입력해주세요"), (err = true));
       !err &&
         !this.inputs.end &&
-        ((msg = "종료일을  설정해주세요"), (err = true));
-      if (err) alert(msg);
+        ((msg = "종료일을 설정해주세요"), (err = true));
+      if (err) swal(msg);
       else this.editTest();
     },
     makeTableData() {
@@ -330,7 +334,7 @@ export default {
           console.log(res);
           swal("수정 완료", "실험이 정상적으로 수정되었습니다.", "success");
           this.modalShow = !this.modalShow;
-          this.$router.push("/main");
+          location.reload();
         },
         (err) => {
           console.log(err);
