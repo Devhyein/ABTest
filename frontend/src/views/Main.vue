@@ -4,8 +4,7 @@
     <div class="col-8 col-m-10 m-auto">
       <div>
         <b-button pill class="createBtn" v-bind:to="'insert'"
-          >실험생성</b-button
-        >
+          >실험생성</b-button>
       </div>
       <div class="tabs">
         <b-tabs v-model="tabIndex">
@@ -279,7 +278,7 @@ export default {
           thisTest = test;
         }
       }
-      
+
       this.inputs.test_no = thisTest.test_no;
       this.inputs.test_title = thisTest.test_title.test_title;
       this.inputs.url_a = thisTest.url_a;
@@ -331,7 +330,7 @@ export default {
           console.log(res);
           swal("수정 완료", "실험이 정상적으로 수정되었습니다.", "success");
           this.modalShow = !this.modalShow;
-          location.href = "/main";
+          this.$router.push("/main");
         },
         (err) => {
           console.log(err);
