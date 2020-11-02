@@ -30,6 +30,18 @@
       </template>
     </b-modal>
 
+    <b-modal title="로그아웃" v-model="logoutShow">
+      로그아웃 하시겠습니까?
+      <template #modal-footer>
+        <b-button @click="close()" variant="danger">
+          취소
+        </b-button>
+        <b-button @click="logout()" variant="success">
+          로그아웃
+        </b-button>
+      </template>
+    </b-modal>
+
     <div class="a"></div>
   </div>
 </template>
@@ -43,13 +55,15 @@ export default {
   data() {
     return {
       modalShow: false,
+      logoutShow: false,
       id: "",
       pw: "",
     };
   },
   methods: {
     loginModal() {
-      this.modalShow = !this.modalShow;
+      if ( this.$store.state.email != "")  this.logoutShow = !this.logoutShow;
+      else this.modalShow = !this.modalShow;
     },
     login() {
       let data = {};
@@ -60,8 +74,11 @@ export default {
         (res) => {
           console.log(res);
           swal("로그인 완료", "정상적으로 로그인 되었습니다.", "success");
+          this.$store.commit("addUserInfo", res);
+
           this.modalShow = !this.modalShow;
           this.$router.push("/main");
+          location.reload();
         },
         (err) => {
           console.log(err);
@@ -70,9 +87,19 @@ export default {
         }
       );
     },
+    logout(){
+       this.$store.commit("deleteUserInfo");
+       this.id = "";
+       this.pw = "";
+       this.logoutShow = !this.logoutShow;
+       location.reload();
+    },
     reset() {
       (this.id = ""), (this.pw = "");
-       this.modalShow = !this.modalShow;
+      this.modalShow = !this.modalShow;
+    },
+    close(){
+      this.logoutShow = !this.logoutShow;
     },
     main() {
       this.$router.push("/main");
