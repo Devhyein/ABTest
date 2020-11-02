@@ -19,9 +19,6 @@ public class TestData {
 
     @Column(name = "test_no")
     private int testNo;
-    
-    @Column(name = "admin_no")
-    private int adminNo; 
 
     @Column(name = "page_type")
     private String pageType;
@@ -35,23 +32,21 @@ public class TestData {
     @Column(name = "next_page_cnt")
     private int nextPageCnt;
 
-    public testdata() {
+    public TestData() {
     }
 
-    public testdata(int dataNo, int testNo, int adminNo, String pageType, LocalDate date, int totalPageCnt,
+    public TestData(int dataNo, int testNo, String pageType, LocalDate date, int totalPageCnt,
             int nextPageCnt) {
         this.dataNo = dataNo;
         this.testNo = testNo;
-        this.adminNo = adminNo;
         this.pageType = pageType;
         this.date = date;
         this.totalPageCnt = totalPageCnt;
         this.nextPageCnt = nextPageCnt;
     }
 
-    public testdata(int testNo, int adminNo, String pageType, LocalDate date, int totalPageCnt, int nextPageCnt) {
+    public TestData(int testNo, String pageType, LocalDate date, int totalPageCnt, int nextPageCnt) {
         this.testNo = testNo;
-        this.adminNo = adminNo;
         this.pageType = pageType;
         this.date = date;
         this.totalPageCnt = totalPageCnt;
@@ -72,14 +67,6 @@ public class TestData {
 
     public void setTestNo(int testNo) {
         this.testNo = testNo;
-    }
-
-    public int getAdminNo() {
-        return adminNo;
-    }
-
-    public void setAdminNo(int adminNo) {
-        this.adminNo = adminNo;
     }
 
     public String getPageType() {
@@ -116,7 +103,7 @@ public class TestData {
 
     @Override
     public String toString() {
-        return "testdata [adminNo=" + adminNo + ", dataNo=" + dataNo + ", date=" + date + ", nextPageCnt=" + nextPageCnt
+        return "testdata [dataNo=" + dataNo + ", date=" + date + ", nextPageCnt=" + nextPageCnt
                 + ", pageType=" + pageType + ", testNo=" + testNo + ", totalPageCnt=" + totalPageCnt + "]";
     }
 

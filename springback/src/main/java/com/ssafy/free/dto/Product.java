@@ -18,9 +18,6 @@ public class Product {
     @Column(name = "test_no")
     private int testNo;
 
-    @Column(name = "admin_no")
-    private int adminNo;
-
     @Column(name = "product_name")
     private String productName;
 
@@ -36,11 +33,10 @@ public class Product {
     public Product() {
     }
 
-    public Product(int productNo, int testNo, int adminNo, String productName, int productPrice, String productDetail,
+    public Product(int productNo, int testNo, String productName, int productPrice, String productDetail,
             String productImage) {
         this.productNo = productNo;
         this.testNo = testNo;
-        this.adminNo = adminNo;
         this.productName = productName;
         this.productPrice = productPrice;
         this.productDetail = productDetail;
@@ -61,14 +57,6 @@ public class Product {
 
     public void setTestNo(int testNo) {
         this.testNo = testNo;
-    }
-
-    public int getAdminNo() {
-        return adminNo;
-    }
-
-    public void setAdminNo(int adminNo) {
-        this.adminNo = adminNo;
     }
 
     public String getProductName() {
@@ -105,7 +93,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product [adminNo=" + adminNo + ", productDetail=" + productDetail + ", productImage=" + productImage
+        return "Product [ productDetail=" + productDetail + ", productImage=" + productImage
                 + ", productName=" + productName + ", productNo=" + productNo + ", productPrice=" + productPrice
                 + ", testNo=" + testNo + "]";
     }

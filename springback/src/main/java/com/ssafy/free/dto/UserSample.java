@@ -18,10 +18,7 @@ public class UserSample {
     private int userNo; 
 
     @Column(name = "test_no")
-    private int testNo; 
-
-    @Column(name = "admin_no")
-    private int adminNo; 
+    private int testNo;  
 
     @Column(name = "email")
     private String email; 
@@ -44,11 +41,10 @@ public class UserSample {
     public UserSample() {
     }
 
-    public UserSample(int userNo, int testNo, int adminNo, String email, String pw, int age, String gender,
+    public UserSample(int userNo, int testNo, String email, String pw, int age, String gender,
             String pageType, LocalDate joinDate) {
         this.userNo = userNo;
         this.testNo = testNo;
-        this.adminNo = adminNo;
         this.email = email;
         this.pw = pw;
         this.age = age;
@@ -57,10 +53,9 @@ public class UserSample {
         this.joinDate = joinDate;
     }
 
-    public UserSample(int testNo, int adminNo, String email, String pw, int age, String gender,
+    public UserSample(int testNo, String email, String pw, int age, String gender,
     String pageType, LocalDate joinDate) {
         this.testNo = testNo;
-        this.adminNo = adminNo;
         this.email = email;
         this.pw = pw;
         this.age = age;
@@ -117,14 +112,6 @@ public class UserSample {
         this.testNo = testNo;
     }
 
-    public int getAdminNo() {
-        return adminNo;
-    }
-
-    public void setAdminNo(int adminNo) {
-        this.adminNo = adminNo;
-    }
-
     public String getPageType() {
         return pageType;
     }
@@ -143,7 +130,7 @@ public class UserSample {
 
     @Override
     public String toString() {
-        return "UserSample [adminNo=" + adminNo + ", age=" + age + ", email=" + email + ", gender=" + gender
+        return "UserSample [ age=" + age + ", email=" + email + ", gender=" + gender
                 + ", pageType=" + pageType + ", pw=" + pw + ", testNo=" + testNo + ", userNo=" + userNo + ", joinDate="+joinDate+"]";
     }
 

@@ -20,9 +20,6 @@ public class User {
     @Column(name = "test_no")
     private int testNo; 
 
-    @Column(name = "admin_no")
-    private int adminNo; 
-
     @Column(name = "email")
     private String email;
     
@@ -35,18 +32,16 @@ public class User {
     public User() {
     }
 
-    public User(int userNo, int testNo, int adminNo, String email, String pageType, LocalDate date) {
+    public User(int userNo, int testNo, String email, String pageType, LocalDate date) {
         this.userNo = userNo;
         this.testNo = testNo;
-        this.adminNo = adminNo;
         this.email = email;
         this.pageType = pageType;
         this.date = date;
     }
 
-    public User(int testNo, int adminNo, String email, String pageType, LocalDate date) {
+    public User(int testNo, String email, String pageType, LocalDate date) {
         this.testNo = testNo;
-        this.adminNo = adminNo;
         this.email = email;
         this.pageType = pageType;
         this.date = date;
@@ -66,14 +61,6 @@ public class User {
 
     public void setTestNo(int testNo) {
         this.testNo = testNo;
-    }
-
-    public int getAdminNo() {
-        return adminNo;
-    }
-
-    public void setAdminNo(int adminNo) {
-        this.adminNo = adminNo;
     }
 
     public String getEmail() {
@@ -102,7 +89,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [adminNo=" + adminNo + ", email=" + email + ", pageType=" + pageType + ", testNo=" + testNo
+        return "User [email=" + email + ", pageType=" + pageType + ", testNo=" + testNo
                 + ", userNo=" + userNo + ", date="+date+"]";
     }
 

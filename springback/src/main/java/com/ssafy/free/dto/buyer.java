@@ -32,10 +32,10 @@ public class Buyer {
     @Column(name = "page_type")
     private String pageType;
 
-    public buyer() {
+    public Buyer() {
     }
 
-    public buyer(int buyerNo, int productNo, int testNo, int userNo, LocalDate date, String pageType) {
+    public Buyer(int buyerNo, int productNo, int testNo, int userNo, LocalDate date, String pageType) {
         this.buyerNo = buyerNo;
         this.productNo = productNo;
         this.testNo = testNo;

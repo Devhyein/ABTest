@@ -1,10 +1,11 @@
 package com.ssafy.free.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Optional;
 
 import com.ssafy.free.dto.UserSample;
-import com.ssafy.free.repository.UserRepository;
 import com.ssafy.free.repository.UserSampleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public int join(HashMap<String, Object> request) {
 
-        UserSample user = new UserSample(request.get("id").toString(), request.get("pw").toString(), 
-            Integer.parseInt(request.get("age").toString()), request.get("gender").toString());
+        LocalDate date = LocalDate.parse(request.get("join_date").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        UserSample user = new UserSample(
+            Integer.parseInt(request.get("test_no").toString()),
+            request.get("id").toString(), request.get("pw").toString(), 
+            Integer.parseInt(request.get("age").toString()), request.get("gender").toString(), 
+            request.get("page_type").toString(), date);
         try {
             userRepository.save(user);
             return 1;
