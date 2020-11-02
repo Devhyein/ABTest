@@ -27,9 +27,6 @@ public class UserAttribute {
     @Column(name = "user_no")
     private int userNo;
 
-    @Column(name = "admin_no")
-    private int adminNo; 
-
     @Column(name = "attribute_name")
     private String attributeName;
 
@@ -42,11 +39,10 @@ public class UserAttribute {
     public UserAttribute() {
     }
 
-    public UserAttribute(int user_attribute_no, int userNo, int adminNo, String attributeName,
-            String attributeType, String attributeValue) {
+    public UserAttribute(int user_attribute_no, int userNo, String attributeName, String attributeType,
+            String attributeValue) {
         this.user_attribute_no = user_attribute_no;
         this.userNo = userNo;
-        this.adminNo = adminNo;
         this.attributeName = attributeName;
         this.attributeType = attributeType;
         this.attributeValue = attributeValue;
@@ -66,14 +62,6 @@ public class UserAttribute {
 
     public void setUserNo(int userNo) {
         this.userNo = userNo;
-    }
-
-    public int getAdminNo() {
-        return adminNo;
-    }
-
-    public void setAdminNo(int adminNo) {
-        this.adminNo = adminNo;
     }
 
     public String getAttributeName() {
@@ -102,11 +90,11 @@ public class UserAttribute {
 
     @Override
     public String toString() {
-        return "UserAttribute [adminNo=" + adminNo + ", attributeName=" + attributeName + ", attributeType="
-                + attributeType + ", attributeValue=" + attributeValue + ", userNo=" + userNo
-                + ", user_attribute_no=" + user_attribute_no + "]";
+        return "UserAttribute [attributeName=" + attributeName + ", attributeType=" + attributeType
+                + ", attributeValue=" + attributeValue + ", userNo=" + userNo + ", user_attribute_no="
+                + user_attribute_no + "]";
     }
 
-  
+   
 
 }
