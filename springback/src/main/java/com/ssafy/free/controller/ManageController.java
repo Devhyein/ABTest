@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.ssafy.free.dto.RestResponse;
+import com.ssafy.free.dto.Test;
 import com.ssafy.free.dto.TestResponse;
 import com.ssafy.free.service.ManageService;
 
