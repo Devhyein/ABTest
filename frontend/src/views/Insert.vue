@@ -6,7 +6,7 @@
         <label>실험명 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.test_title" />
+        <b-form-input v-model="input.test_title" placeholder="실험명을 입력해주세요"/>
       </b-col>
     </b-row>
 
@@ -15,7 +15,7 @@
         <label>A안 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.test_aURL" />
+        <b-form-input v-model="input.url_a" placeholder="A안의 URL을 입력해주세요"/>
       </b-col>
     </b-row>
 
@@ -24,7 +24,7 @@
         <label>A 별칭 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.test_a" />
+        <b-form-input v-model="input.test_a" placeholder="A안의 별칭을 입력해주세요"/>
       </b-col>
     </b-row>
 
@@ -33,7 +33,7 @@
         <label>B안 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.test_bURL" />
+        <b-form-input v-model="input.url_b" placeholder="B안의 URL을 입력해주세요"/>
       </b-col>
     </b-row>
 
@@ -42,7 +42,7 @@
         <label>B안 별칭 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.test_b" />
+        <b-form-input v-model="input.test_b" placeholder="B안의 별칭을 입력해주세요"/>
       </b-col>
     </b-row>
 
@@ -66,7 +66,7 @@
     <div>
       <div class="mx-3">
         <div class="d-flex justify-content-between">
-          <div class="mt-2">A안: {{ input.per_a }}%</div>
+          <div class="mt-2">A안:{{ input.per_a }}%</div>
           <div class="mt-2">B안:{{ 100 - input.per_a }}%</div>
         </div>
         <b-form-input
@@ -79,10 +79,10 @@
         ></b-form-input>
       </div>
     </div>
-    <b-button @click="createTest()" variant="success">
+    <b-button @click="dataCheck()" variant="success">
       생성
     </b-button>
-    <b-button @click="reSet()">
+    <b-button @click="reset()">
       초기화
     </b-button>
   </div>
@@ -90,69 +90,90 @@
 
 <script>
 import API from "@/api/API";
-
 import EncarHeader from "@/components/Header";
 import swal from "sweetalert";
 
 export default {
-  name: "Home",
   components: {
     EncarHeader,
   },
   data() {
     return {
+      email: "test",
       input: {
-        email: "",
         test_title: "",
+        url_a: "",
         test_a: "",
-        test_aURL: "",
+        url_b: "",
         test_b: "",
-        test_bURL: "",
         start: "",
         end: "",
         per_a: 50,
-        per_b: "",
-        status: "",
+        per_b: 50,
       },
     };
   },
   methods: {
+    dataCheck() {
+      let err = false;
+      let msg = "";
+      !this.input.test_title && ((msg = "실험명을 입력해주세요"), (err = true));
+      !err &&
+        !this.input.url_a &&
+        ((msg = "A안의 URL을 입력해주세요"), (err = true));
+      !err &&
+        !this.input.test_a &&
+        ((msg = "A안의 별칭을 입력해주세요"), (err = true));
+      !err &&
+        !this.input.url_b &&
+        ((msg = "B안의 URL을 입력해주세요"), (err = true));
+      !err &&
+        !this.input.test_b &&
+        ((msg = "B안의 별칭을 입력해주세요"), (err = true));
+      !err && !this.input.start && ((msg = "시작일을 설정해주세요"), (err = true));
+      !err && !this.input.end && ((msg = "종료일을 설정해주세요"), (err = true));
+      if (err) swal(msg);
+      else this.createTest();
+    },
     createTest() {
+      var perA = parseInt(this.input.per_a);
       let data = {};
       data.email = this.email;
-      data.test_title = this.test_title;
-      data.test_a = this.test_a;
-      data.test_b = this.test_b;
-      data.start = this.start;
-      data.end = this.end;
-      data.per_a = this.per_a;
-      data.per_b = this.per_b;
-      data.status = this.status;
+      data.test_title = this.input.test_title;
+      data.test_a = this.input.test_a;
+      data.url_a = this.input.url_a;
+      data.test_b = this.input.test_b;
+      data.url_b = this.input.url_b;
+      data.start = this.input.start;
+      data.end = this.input.end;
+      data.per_a = perA;
+      data.per_b = 100 - this.input.per_a;
+
+      console.log(data);
 
       API.createTest(
         data,
         (res) => {
           console.log(res);
           swal("생성 완료", "실험이 생성되었습니다.", "success");
+          this.$router.push("/main");
         },
         (err) => {
           console.log(err);
-          swal("생성 실패", "실험 생성에 실패하였습니다.", "error");
+          swal("생성 실패", "실험생성에 실패하였습니다.", "error");
         }
       );
     },
-    reSet() {
-      (this.email = ""),
-        (this.test_title = ""),
-        (this.teat_a = ""),
-        (this.test_aURL = ""),
-        (this.test_b = ""),
-        (this.test_bURL = ""),
-        (this.start = ""),
-        (this.end = ""),
-        (this.per_a = ""),
-        (this.per_b = ""),
-        (this.status = "");
+    reset() {
+      (this.input.test_title = ""),
+        (this.input.test_a = ""),
+        (this.input.url_a = ""),
+        (this.input.test_b = ""),
+        (this.input.url_b = ""),
+        (this.input.start = ""),
+        (this.input.end = ""),
+        (this.input.per_a = 50),
+        (this.input.per_b = 50);
     },
   },
   created() {

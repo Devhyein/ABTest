@@ -2,7 +2,7 @@ import http from "./http-common.js";
 import header from "./header.js"
 
 const getApi = (url, data, callback, errorCallback) => {
-    http.get(url + '/' + data, header())
+    http.get(url + '?' + data, header())
         .then(res => {
             // RestAPI 서버가 null 을 응답하는 경우
             if(res == null) {
@@ -104,7 +104,7 @@ const putApi = (url, data, callback, errorCallback) => {
 }
 
 const deleteApi = (url, data, callback, errorCallback) => {
-    http.delete(url + '/' + data, header())
+    http.delete(url + '?' + data, header())
         .then(res => {
             // RestAPI 서버가 null 을 응답하는 경우
             if(res == null) {
@@ -145,9 +145,11 @@ const API = {
     getTestListComplete:(data,callback,errorCallback)=>getApi('/spring/testlist/complete',data,callback,errorCallback),
     modifyTest:(data,callback,errorCallback)=>putApi('/spring/modify/test',data,callback,errorCallback),
     deleteTest:(data,callback,errorCallback)=>deleteApi('/spring/delete/test',data,callback,errorCallback),
+    manageLogin:(data,callback,errorCallback)=>postApi('/spring/login',data,callback,errorCallback),
 
     login:(data,callback,errorCallback)=>postApi('/account/login',data,callback,errorCallback),
     join:(data,callback,errorCallback)=>postApi('/account/join',data,callback,errorCallback),
+    checkId:(data,callback,errorCallback)=>getApi('/account/checkId',data,callback,errorCallback),
 }
 
 export default API
