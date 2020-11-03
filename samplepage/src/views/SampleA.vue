@@ -196,51 +196,51 @@ export default {
 </script>
 
 <style scoped>
-.mynavbar {
-  height: 50px;
-}
-.myicon {
-  font-size: x-large;
-}
-.mylogo {
-  height: 40px;
-}
-.mysidebar {
-  height: 565px;
-}
-.mysidefooter {
-  border-top: 1px solid lightgray;
-}
-.mybody {
-  padding-bottom: 70px;
-}
-.myinputgroup {
-  border: 1px solid red;
-  border-radius: 0.25rem;
-  width: auto;
-}
-.mysearch {
-  border: none;
-  color: red;
-}
-.myinputtext {
-  border: none;
-}
-.myarrow {
-  color: red;
-}
-.mydiv {
-  border-radius: 0.25rem;
-}
-.myfooter {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-.mytab {
-  font-size: x-small;
-}
-a.nav-link {
-  padding: 0;
-}
+  .mynavbar {
+    height: 50px;
+  }
+  .myicon {
+    font-size: x-large;
+  }
+  .mylogo {
+    height: 40px;
+  }
+  .mysidebar {
+    height: 565px;
+  }
+  .mysidefooter {
+    border-top: 1px solid lightgray;
+  }
+  .mybody {
+    padding-bottom: 70px;
+  }
+  .myinputgroup {
+    border: 1px solid red;
+    border-radius: 0.25rem;
+    width: auto;
+  }
+  .mysearch {
+    border: none;
+    color: red;
+  }
+  .myinputtext {
+    border: none;
+  }
+  .myarrow {
+    color: red;
+  }
+  .mydiv {
+    border-radius: 0.25rem;
+  }
+  .myfooter {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  .mytab {
+    font-size: x-small;
+  }
+  a.nav-link {
+    padding: 0;
+  }
 </style>
