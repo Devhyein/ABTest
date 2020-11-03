@@ -9,9 +9,10 @@ COPY . .
 # build app for production with minification
 RUN yarn run build
 
+
 # production stage
 FROM nginx:stable-alpine as production-stage
 COPY  ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 EXPOSE 8081
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT [ "nginx", "-p", "8081", "/app/dist" ]
