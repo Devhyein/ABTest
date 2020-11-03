@@ -30,7 +30,7 @@
           <p>찜한차량</p>
         </div>
       </div>
-      <!-- <div class="text-left font-weight-bold ml-3 py-3">
+      <div class="text-left font-weight-bold ml-3 py-3">
         차량 구매
       </div>
       <div class="text-left pl-3 py-3 bg-white">
@@ -39,7 +39,7 @@
         <p>이 차 어때?</p>
         <p>신차 시세</p>
         <p>중고차 시세</p>
-        <p>보험료 계산 <b-icon-calculator></b-icon-calculator></p>
+        <p>보험료 계산</p>
         <p class="m-0">금융</p>
       </div>
       <div class="text-left font-weight-bold ml-3 py-3">
@@ -54,36 +54,6 @@
       <div class="text-left pl-3 py-3 bg-white">
         <p>전기<b-icon-dot></b-icon-dot>친환경차</p>
         <p class="m-0">미디어</p>
-      </div> -->
-      <div class="mysidebar bg-white">
-        <div class="text-left ml-4 pt-3">
-          <h5><strong>차량 구매</strong></h5>
-        </div>
-        <div class="text-left mx-4">
-          <p class="font-weight-bold py-1 m-0">차량 검색</p>
-          <p class="font-weight-bold py-1 m-0">홈 서비스</p>
-          <p class="font-weight-bold py-1 m-0">이 차 어때?</p>
-          <p class="font-weight-bold py-1 m-0">신차 시세</p>
-          <p class="font-weight-bold py-1 m-0">중고차 시세</p>
-          <p class="font-weight-bold py-1 m-0">보험료 계산</p>
-          <p class="font-weight-bold py-1 m-0">금융</p>
-          <hr />
-        </div>
-        <div class="text-left ml-4">
-          <h5><strong>차량 판매</strong></h5>
-        </div>
-        <div class="text-left mx-4">
-          <p class="font-weight-bold py-1 m-0">진단 등록 예약</p>
-          <hr />
-        </div>
-        <div class="text-left ml-4">
-          <h5><strong>정보</strong></h5>
-        </div>
-        <div class="text-left mx-4">
-          <p class="font-weight-bold py-1 m-0">전기<b-icon-dot></b-icon-dot>친환경차</p>
-          <p class="font-weight-bold py-1 m-0">미디어</p>
-          <hr />
-        </div>
       </div>
     </b-sidebar>
 
