@@ -5,12 +5,13 @@
             <b-row class="my-1">
                 <b-col sm="2">
                 <label for="input-default">아이디</label>
+                <b-button v-if="!isChecked" @click="checkId()" variant="success">중복체크</b-button>
+                <b-button v-else disabled variant="success">체크완료</b-button>
                 </b-col>
                 <b-col sm="8">
                 <b-form-input id="input-default" v-model="form.id" placeholder="Enter Id"></b-form-input>
                 </b-col>
-                <b-button v-if="!isChecked" @click="checkId()" variant="success">중복체크</b-button>
-                <b-button v-else disabled variant="success">체크완료</b-button>
+                
             </b-row>
             <b-row class="my-2">
                 <b-col sm="2">
@@ -32,10 +33,12 @@
                 <b-col sm="2">
                 <label for="input-gender">성별</label>
                 </b-col>
+                <b-col sm="2">
                 <b-form-radio-group
                     v-model="form.gender"
                     :options="gender_options"
                 ></b-form-radio-group>
+                </b-col>
             </b-row>
             <b-row class="my-5">
                 <b-col sm="2">
@@ -62,6 +65,8 @@ import swal from "sweetalert";
     data() {
         return {
             encar,
+            test_no:2,
+            page_type:"A",
             form: {
                 id:'',
                 pw:'',
@@ -118,7 +123,12 @@ import swal from "sweetalert";
                 swal("ERROR", "비밀번호를 확인해주세요.", "error");
                 return;
             }
+            var date = new Date();
+            var join_date = date.getFullYear()+"-"+String(date.getMonth()+1)+"-"+String(date.getDate());
             let data = {};
+            data.test_no = this.test_no;
+            data.page_type = this.page_type;
+            data.join_date = join_date;
             data.id = this.form.id;
             data.pw = this.form.pw;
             data.age = this.form.age;
@@ -129,6 +139,7 @@ import swal from "sweetalert";
                 (res) => {
                 console.log(res);
                 swal("SUCCESS", "회원가입이 완료되었습니다.", "success");
+                this.$router.push("/login");
                 },
                 (err) => {
                 console.log(err);
