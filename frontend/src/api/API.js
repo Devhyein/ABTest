@@ -145,7 +145,10 @@ const API = {
     getTestListComplete:(data,callback,errorCallback)=>getApi('/spring/testlist/complete',data,callback,errorCallback),
     modifyTest:(data,callback,errorCallback)=>putApi('/spring/modify/test',data,callback,errorCallback),
     deleteTest:(data,callback,errorCallback)=>deleteApi('/spring/delete/test',data,callback,errorCallback),
+    getDetailTest:(data,callback,errorCallback)=>getApi('/spring/detail/test',data,callback,errorCallback),
+
     manageLogin:(data,callback,errorCallback)=>postApi('/spring/login',data,callback,errorCallback),
+
 
     login:(data,callback,errorCallback)=>postApi('/account/login',data,callback,errorCallback),
     join:(data,callback,errorCallback)=>postApi('/account/join',data,callback,errorCallback),
