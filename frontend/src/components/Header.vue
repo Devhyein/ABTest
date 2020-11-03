@@ -17,7 +17,7 @@
           <label>PW : </label>
         </b-col>
         <b-col sm="9">
-          <b-form-input v-model="pw" />
+          <b-form-input v-model="pw" type="password"/>
         </b-col>
       </b-row>
       <template #modal-footer>
