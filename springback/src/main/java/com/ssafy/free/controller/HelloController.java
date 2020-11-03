@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 
-//주석
 @CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/spring")
