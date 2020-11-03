@@ -160,7 +160,7 @@
               <label>종료일 :</label>
             </b-col>
             <b-col sm="9">
-              <b-form-input v-model="inputs.end" type="date" />
+              <b-form-input v-model="inputs.end" type="date" :min="today"/>
             </b-col>
           </b-row>
           <template #modal-footer>
@@ -191,6 +191,7 @@ export default {
     return {
       tabIndex: 0,
       modalShow: false,
+      today: new Date(),
       inputs: {
         test_no: "",
         test_title: "",
@@ -232,6 +233,21 @@ export default {
   },
   created() {
     this.getAllTest();
+
+    let month = "";
+    if (new Date().getMonth() + 1 < 10) {
+      month = "0" + (new Date().getMonth() + 1);
+    } else {
+      month = new Date().getMonth() + 1;
+    }
+    let day = "";
+    if (new Date().getDate() < 10) {
+      day = "0" + new Date().getDate();
+    } else {
+      day = new Date().getDate();
+    }
+
+    this.today = new Date().getFullYear() + "-" + month + "-" + day;
   },
   methods: {
     dataCheck() {
