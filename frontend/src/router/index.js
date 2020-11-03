@@ -4,6 +4,7 @@ import Main from '../views/Main.vue'
 import SampleA from '@/views/SampleA.vue'
 import Login from '../views/Login.vue'
 import Insert from '../views/Insert.vue'
+import Detail from '../views/Detail.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/insert',
     name: 'Insert',
     component: Insert
+  },
+  {
+    path: '/detail',
+    name: 'Detail',
+    component: Detail
   },
 ]
 
