@@ -15,8 +15,8 @@
           >
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
-                <span class="status">
-                  {{ data.value.test_title }}
+                <span class="status" @click="detail(data.value)">
+                  {{ data.value.test_title }} 
                   <b-icon
                     icon="circle-fill"
                     class="ml-2"
@@ -47,7 +47,7 @@
           >
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
-                <span class="status">
+                <span class="status" @click="detail(data.value)">
                   {{ data.value.test_title }}
                 </span>
               </template>
@@ -69,7 +69,7 @@
           >
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
-                <span class="status">
+                <span class="status" @click="detail(data.value)">
                   {{ data.value.test_title }}
                 </span>
               </template>
@@ -91,7 +91,7 @@
           >
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
-                <span class="status">
+                <span class="status" @click="detail(data.value)">
                   {{ data.value.test_title }}
                 </span>
               </template>
@@ -310,6 +310,19 @@ export default {
 
       console.log(thisTest);
       this.modalShow = !this.modalShow;
+    },
+    detail(id){
+      this.$router.push("/detail");
+      console.log(id);
+      API.getDetailTest(
+        "test_no=" + id,
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
     },
     deleteTest(id) {
       console.log(id);
