@@ -6,7 +6,7 @@
         <label>실험명 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.test_title" />
+        <b-form-input v-model="input.test_title" placeholder="실험명을 입력해주세요"/>
       </b-col>
     </b-row>
 
@@ -15,7 +15,7 @@
         <label>A안 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.url_a" />
+        <b-form-input v-model="input.url_a" placeholder="A안의 URL을 입력해주세요"/>
       </b-col>
     </b-row>
 
@@ -24,7 +24,7 @@
         <label>A 별칭 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.test_a" />
+        <b-form-input v-model="input.test_a" placeholder="A안의 별칭을 입력해주세요"/>
       </b-col>
     </b-row>
 
@@ -33,7 +33,7 @@
         <label>B안 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.url_b" />
+        <b-form-input v-model="input.url_b" placeholder="B안의 URL을 입력해주세요"/>
       </b-col>
     </b-row>
 
@@ -42,7 +42,7 @@
         <label>B안 별칭 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.test_b" />
+        <b-form-input v-model="input.test_b" placeholder="B안의 별칭을 입력해주세요"/>
       </b-col>
     </b-row>
 
@@ -117,22 +117,22 @@ export default {
     dataCheck() {
       let err = false;
       let msg = "";
-      !this.input.test_title && ((msg = "실험제목 입력해주세요"), (err = true));
+      !this.input.test_title && ((msg = "실험명을 입력해주세요"), (err = true));
       !err &&
         !this.input.url_a &&
-        ((msg = "A URL을 입력해주세요"), (err = true));
+        ((msg = "A안의 URL을 입력해주세요"), (err = true));
       !err &&
         !this.input.test_a &&
         ((msg = "A안의 별칭을 입력해주세요"), (err = true));
       !err &&
         !this.input.url_b &&
-        ((msg = "B URL을 입력해주세요"), (err = true));
+        ((msg = "B안의 URL을 입력해주세요"), (err = true));
       !err &&
         !this.input.test_b &&
         ((msg = "B안의 별칭을 입력해주세요"), (err = true));
       !err && !this.input.start && ((msg = "시작일을 설정해주세요"), (err = true));
-      !err && !this.input.end && ((msg = "종료일을  설정해주세요"), (err = true));
-      if (err) alert(msg);
+      !err && !this.input.end && ((msg = "종료일을 설정해주세요"), (err = true));
+      if (err) swal(msg);
       else this.createTest();
     },
     createTest() {
@@ -160,7 +160,7 @@ export default {
         },
         (err) => {
           console.log(err);
-          swal("생성 실패", "실험 생성에 실패하였습니다.", "error");
+          swal("생성 실패", "실험생성에 실패하였습니다.", "error");
         }
       );
     },

@@ -4,8 +4,7 @@
     <div class="col-8 col-m-10 m-auto">
       <div>
         <b-button pill class="createBtn" v-bind:to="'insert'"
-          >실험생성</b-button
-        >
+          >실험생성</b-button>
       </div>
       <div class="tabs">
         <b-tabs v-model="tabIndex">
@@ -192,7 +191,6 @@ export default {
     return {
       tabIndex: 0,
       modalShow: false,
-      email: "test",
       inputs: {
         test_no: "",
         test_title: "",
@@ -227,6 +225,11 @@ export default {
       ],
     };
   },
+  computed: {
+    email(){
+      return this.$store.state.email;
+    }
+  },
   created() {
     this.getAllTest();
   },
@@ -235,7 +238,7 @@ export default {
       let err = false;
       let msg = "";
       !this.inputs.test_title &&
-        ((msg = "실험제목 입력해주세요"), (err = true));
+        ((msg = "실험명을 입력해주세요"), (err = true));
       !err &&
         !this.inputs.test_a &&
         ((msg = "A안의 별칭을 입력해주세요"), (err = true));
@@ -244,8 +247,8 @@ export default {
         ((msg = "B안의 별칭을 입력해주세요"), (err = true));
       !err &&
         !this.inputs.end &&
-        ((msg = "종료일을  설정해주세요"), (err = true));
-      if (err) alert(msg);
+        ((msg = "종료일을 설정해주세요"), (err = true));
+      if (err) swal(msg);
       else this.editTest();
     },
     makeTableData() {
@@ -279,7 +282,7 @@ export default {
           thisTest = test;
         }
       }
-      
+
       this.inputs.test_no = thisTest.test_no;
       this.inputs.test_title = thisTest.test_title.test_title;
       this.inputs.url_a = thisTest.url_a;
@@ -331,7 +334,7 @@ export default {
           console.log(res);
           swal("수정 완료", "실험이 정상적으로 수정되었습니다.", "success");
           this.modalShow = !this.modalShow;
-          location.href = "/main";
+          location.reload();
         },
         (err) => {
           console.log(err);
