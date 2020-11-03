@@ -26,30 +26,30 @@ public class TestData {
     @Column(name = "date")
     private LocalDate date;
 
-    @Column(name = "total_page_cnt")
-    private int totalPageCnt;
+    @Column(name = "url_cnt")
+    private int urlCnt;
 
-    @Column(name = "next_page_cnt")
-    private int nextPageCnt;
+    @Column(name = "url")
+    private String url;
 
     public TestData() {
     }
 
-    public TestData(int dataNo, int testNo, String pageType, LocalDate date, int totalPageCnt, int nextPageCnt) {
+    public TestData(int dataNo, int testNo, String pageType, LocalDate date, int urlCnt, String url) {
         this.dataNo = dataNo;
         this.testNo = testNo;
         this.pageType = pageType;
         this.date = date;
-        this.totalPageCnt = totalPageCnt;
-        this.nextPageCnt = nextPageCnt;
+        this.urlCnt = urlCnt;
+        this.url = url;
     }
 
-    public TestData(int testNo, String pageType, LocalDate date, int totalPageCnt, int nextPageCnt) {
+    public TestData(int testNo, String pageType, LocalDate date, int urlCnt, String url) {
         this.testNo = testNo;
         this.pageType = pageType;
         this.date = date;
-        this.totalPageCnt = totalPageCnt;
-        this.nextPageCnt = nextPageCnt;
+        this.urlCnt = urlCnt;
+        this.url = url;
     }
 
     public int getDataNo() {
@@ -84,26 +84,26 @@ public class TestData {
         this.date = date;
     }
 
-    public int getTotalPageCnt() {
-        return totalPageCnt;
+    public int getUrlCnt() {
+        return urlCnt;
     }
 
-    public void setTotalPageCnt(int totalPageCnt) {
-        this.totalPageCnt = totalPageCnt;
+    public void setUrlCnt(int urlCnt) {
+        this.urlCnt = urlCnt;
     }
 
-    public int getNextPageCnt() {
-        return nextPageCnt;
+    public String getUrl() {
+        return url;
     }
 
-    public void setNextPageCnt(int nextPageCnt) {
-        this.nextPageCnt = nextPageCnt;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Override
     public String toString() {
-        return "testdata [dataNo=" + dataNo + ", date=" + date + ", nextPageCnt=" + nextPageCnt + ", pageType="
-                + pageType + ", testNo=" + testNo + ", totalPageCnt=" + totalPageCnt + "]";
+        return "testdata [dataNo=" + dataNo + ", date=" + date + ", urlCnt=" + urlCnt + ", pageType=" + pageType
+                + ", testNo=" + testNo + ", url=" + url + "]";
     }
 
 }
