@@ -13,7 +13,10 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "product_no")
-    private int productNo; 
+    private int productNo;
+
+    @Column(name = "test_no")
+    private int testNo;
 
     @Column(name = "product_name")
     private String productName;
@@ -30,13 +33,14 @@ public class Product {
     public Product() {
     }
 
-    public Product(int product_no, String product_name, int product_price, String product_detail,
-            String product_image) {
-        this.productNo = product_no;
-        this.productName = product_name;
-        this.productPrice = product_price;
-        this.productDetail = product_detail;
-        this.productImage = product_image;
+    public Product(int productNo, int testNo, String productName, int productPrice, String productDetail,
+            String productImage) {
+        this.productNo = productNo;
+        this.testNo = testNo;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productDetail = productDetail;
+
     }
 
     public int getProductNo() {
@@ -79,11 +83,19 @@ public class Product {
         this.productImage = product_image;
     }
 
-    @Override
-    public String toString() {
-        return "Product [product_detail=" + productDetail + ", product_image=" + productImage + ", product_name="
-                + productName + ", product_no=" + productNo + ", product_price=" + productPrice + "]";
+    public int getTestNo() {
+        return testNo;
     }
 
-  
+    public void setTestNo(int testNo) {
+        this.testNo = testNo;
+    }
+
+    @Override
+    public String toString() {
+        return "Product [productDetail=" + productDetail + ", productImage=" + productImage + ", productName="
+                + productName + ", productNo=" + productNo + ", productPrice=" + productPrice + ", testNo=" + testNo
+                + "]";
+    }
+
 }

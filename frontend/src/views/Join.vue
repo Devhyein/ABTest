@@ -96,6 +96,10 @@ import swal from "sweetalert";
     },
     methods: {
         checkId() {
+            if(this.form.id.length<1) {
+                swal("ERROR", "아이디가 비어있습니다.", "error");
+                return;
+            }
             API.checkId(
                 "id="+this.form.id,
                 res => {
@@ -124,7 +128,11 @@ import swal from "sweetalert";
                 return;
             }
             var date = new Date();
-            var join_date = date.getFullYear()+"-"+String(date.getMonth()+1)+"-"+String(date.getDate());
+            var join_date;
+            if(date.getDate()<10) {
+                join_date = date.getFullYear()+"-"+String(date.getMonth()+1)+"-0"+String(date.getDate());
+            }
+            else join_date = date.getFullYear()+"-"+String(date.getMonth()+1)+"-"+String(date.getDate());
             let data = {};
             data.test_no = this.test_no;
             data.page_type = this.page_type;
