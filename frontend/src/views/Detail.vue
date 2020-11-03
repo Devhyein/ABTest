@@ -17,30 +17,30 @@
             <b-dropdown-item>회원가입율</b-dropdown-item>
             <b-dropdown-item>구매율</b-dropdown-item>
           </b-dropdown> -->
-          <b-form-select v-model="selected" :options="options1">
+          <b-form-select v-model="selected1" :options="options1">
           </b-form-select>
-          <div>Selected: {{ selected }}</div>
+          <div>Selected: {{ selected1 }}</div>
           <div>
             <b-table hover :items="items"></b-table>
           </div>
         </b-tab>
         <b-tab title="성별">
           <p>성별탭</p>
-          <b-form-select v-model="selected" :options="options2">
+          <b-form-select v-model="selected2" :options="options2">
           </b-form-select>
-          <div>Selected: {{ selected }}</div>
+          <div>Selected: {{ selected2 }}</div>
         </b-tab>
         <b-tab title="나이"
           ><p>나이탭</p>
-          <b-form-select v-model="selected" :options="options2">
+          <b-form-select v-model="selected3" :options="options2">
           </b-form-select>
-          <div>Selected: {{ selected }}</div>
+          <div>Selected: {{ selected3 }}</div>
         </b-tab>
         <b-tab title="사용자지정"
           ><p>상자지정</p>
-          <b-form-select v-model="selected" :options="options1">
+          <b-form-select v-model="selected4" :options="options1">
           </b-form-select>
-          <div>Selected: {{ selected }}</div>
+          <div>Selected: {{ selected4 }}</div>
         </b-tab>
       </b-tabs>
     </div>
@@ -56,7 +56,10 @@ export default {
   },
   data() {
     return {
-      selected: "null",
+      selected1: "null",
+      selected2: "null",
+      selected3: "null",
+      selected4: "null",
       options1: [
         { value: null, text: "구분" },
         { value: "전환율", text: "전환율" },
