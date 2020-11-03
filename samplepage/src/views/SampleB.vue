@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="sample">
     <!-- Header -->
     <b-navbar class="mynavbar d-flex justify-content-between">
       <b-navbar-brand href="#">
@@ -31,7 +31,7 @@
         </div>
       </div>
       <div class="text-left font-weight-bold ml-3 py-3">
-        차량 구매
+        <h5 class="m-0">차량 구매</h5>
       </div>
       <div class="text-left pl-3 py-3 bg-white">
         <p>차량 검색</p>
@@ -43,13 +43,13 @@
         <p class="m-0">금융</p>
       </div>
       <div class="text-left font-weight-bold ml-3 py-3">
-        차량 판매
+        <h5 class="m-0">차량 판매</h5>
       </div>
       <div class="text-left pl-3 py-3 bg-white">
         <p>진단 등록 예약</p>
       </div>
       <div class="text-left font-weight-bold ml-3 py-3">
-        정보
+        <h5 class="m-0">정보</h5>
       </div>
       <div class="text-left pl-3 py-3 bg-white">
         <p>전기<b-icon-dot></b-icon-dot>친환경차</p>
@@ -100,7 +100,7 @@
           <div class="d-flex">
             <b-avatar icon="house" variant="light" class="mr-3"></b-avatar>
             <div class="text-left">
-              <small>7일간 타보고 결정!</small>
+              <small class="text-secondary">7일간 타보고 결정!</small>
               <small class="d-block"><strong>엔카홈서비스 차량</strong></small>
             </div>
           </div>
@@ -112,7 +112,7 @@
           <div class="d-flex">
             <b-avatar icon="award" variant="light" class="mr-3"></b-avatar>
             <div class="text-left">
-              <small>보증수리까지 제공되는 안심차량</small>
+              <small class="text-secondary">보증수리까지 제공되는 안심차량</small>
               <small class="d-block"><strong>엔카보증 차량</strong></small>
             </div>
           </div>
@@ -124,7 +124,7 @@
           <div class="d-flex">
             <b-avatar icon="check2-circle" variant="light" class="mr-3"></b-avatar>
             <div class="text-left">
-              <small>진단마스터가 직접 진단한 무사고</small>
+              <small class="text-secondary">진단마스터가 직접 진단한 무사고</small>
               <small class="d-block"><strong>엔카진단 차량</strong></small>
             </div>
           </div>
@@ -136,7 +136,7 @@
           <div class="d-flex">
             <b-avatar icon="gift" variant="light" class="mr-3"></b-avatar>
             <div class="text-left">
-              <small>믿고 방문할 수 있는</small>
+              <small class="text-secondary">믿고 방문할 수 있는</small>
               <small class="d-block"><strong>헛걸음보상 차량</strong></small>
             </div>
           </div>
@@ -196,51 +196,54 @@ export default {
 </script>
 
 <style scoped>
-.mynavbar {
-  height: 50px;
-}
-.myicon {
-  font-size: x-large;
-}
-.mylogo {
-  height: 40px;
-}
-.mysidebar {
-  height: 620px;
-}
-.mysidefooter {
-  border-top: 1px solid lightgray;
-}
-.mybody {
-  padding-bottom: 70px;
-}
-.myinputgroup {
-  border: 1px solid red;
-  border-radius: 0.25rem;
-  width: auto;
-}
-.mysearch {
-  border: none;
-  color: red;
-}
-.myinputtext {
-  border: none;
-}
-.myarrow {
-  color: red;
-}
-.mydiv {
-  border-radius: 0.5rem;
-}
-.myfooter {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-.mytab {
-  font-size: x-small;
-}
-a.nav-link {
-  padding: 0;
-}
+  #sample {
+    font-family: 'IBMPlexSansKR-SemiBold';
+  }
+  .mynavbar {
+    height: 50px;
+  }
+  .myicon {
+    font-size: x-large;
+  }
+  .mylogo {
+    height: 40px;
+  }
+  .mysidebar {
+    height: 620px;
+  }
+  .mysidefooter {
+    border-top: 1px solid lightgray;
+  }
+  .mybody {
+    padding-bottom: 70px;
+  }
+  .myinputgroup {
+    border: 1px solid red;
+    border-radius: 0.25rem;
+    width: auto;
+  }
+  .mysearch {
+    border: none;
+    color: red;
+  }
+  .myinputtext {
+    border: none;
+  }
+  .myarrow {
+    color: red;
+  }
+  .mydiv {
+    border-radius: 0.5rem;
+  }
+  .myfooter {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  .mytab {
+    font-size: x-small;
+  }
+  a.nav-link {
+    padding: 0;
+  }
 </style>
