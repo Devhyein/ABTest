@@ -1,6 +1,7 @@
 package com.ssafy.free.service;
 
 import java.time.LocalDate;
+import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Optional;
@@ -23,10 +24,16 @@ public class UserServiceImpl implements UserService {
         LocalDate date = LocalDate.parse(request.get("join_date").toString(),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
+        LocalDate birth = LocalDate.parse(request.get("birth").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        int year = Year.now().getValue();
+
+        int age = year - birth.getYear();
+
+        age = age / 10 * 10;
+
         UserSample user = new UserSample(Integer.parseInt(request.get("test_no").toString()),
-                request.get("id").toString(), request.get("pw").toString(),
-                Integer.parseInt(request.get("age").toString()), request.get("gender").toString(),
-                request.get("page_type").toString(), date);
+                request.get("id").toString(), request.get("pw").toString(), birth, age,
+                request.get("gender").toString(), request.get("page_type").toString(), date);
         try {
             userRepository.save(user);
             return 1;
