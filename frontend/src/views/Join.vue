@@ -45,7 +45,7 @@
                 <label for="input-gender">연령대</label>
                 </b-col>
                 <b-col sm="9">
-                <b-form-select v-model="form.age" :options="age_options"></b-form-select>
+                <b-form-input v-model="birth" type="date" />
                 </b-col>
             </b-row>
             
@@ -67,6 +67,7 @@ import swal from "sweetalert";
             encar,
             test_no:2,
             page_type:"A",
+            birth:"",
             form: {
                 id:'',
                 pw:'',
@@ -78,14 +79,14 @@ import swal from "sweetalert";
                 {text: '남성', value: '남성'},
                 {text: '여성', value: '여성'}
             ],
-            age_options: [
-                {text: '20대', value: 20},
-                {text: '30대', value: 30},
-                {text: '40대', value: 40},
-                {text: '50대', value: 50},
-                {text: '60대', value: 60},
-                {text: '70대 이상', value: 70},
-            ],
+            // age_options: [
+            //     {text: '20대', value: 20},
+            //     {text: '30대', value: 30},
+            //     {text: '40대', value: 40},
+            //     {text: '50대', value: 50},
+            //     {text: '60대', value: 60},
+            //     {text: '70대 이상', value: 70},
+            // ],
             isChecked : false,
         };
     },
@@ -139,7 +140,7 @@ import swal from "sweetalert";
             data.join_date = join_date;
             data.id = this.form.id;
             data.pw = this.form.pw;
-            data.age = this.form.age;
+            data.birth = this.birth;
             data.gender = this.form.gender;
 
             API.join(

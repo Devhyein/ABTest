@@ -26,6 +26,9 @@ public class UserSample {
     @Column(name = "pw")
     private String pw;
 
+    @Column(name = "birth")
+    private LocalDate birth;
+
     @Column(name = "age")
     private int age;
 
@@ -41,23 +44,25 @@ public class UserSample {
     public UserSample() {
     }
 
-    public UserSample(int userNo, int testNo, String email, String pw, int age, String gender, String pageType,
-            LocalDate joinDate) {
+    public UserSample(int userNo, int testNo, String email, String pw, LocalDate birth, int age, String gender,
+            String pageType, LocalDate joinDate) {
         this.userNo = userNo;
         this.testNo = testNo;
         this.email = email;
         this.pw = pw;
+        this.birth = birth;
         this.age = age;
         this.gender = gender;
         this.pageType = pageType;
         this.joinDate = joinDate;
     }
 
-    public UserSample(int testNo, String email, String pw, int age, String gender, String pageType,
+    public UserSample(int testNo, String email, String pw, LocalDate birth, int age, String gender, String pageType,
             LocalDate joinDate) {
         this.testNo = testNo;
         this.email = email;
         this.pw = pw;
+        this.birth = birth;
         this.age = age;
         this.gender = gender;
         this.pageType = pageType;
@@ -126,6 +131,14 @@ public class UserSample {
 
     public void setJoinDate(LocalDate joinDate) {
         this.joinDate = joinDate;
+    }
+
+    public LocalDate getBirth() {
+        return birth;
+    }
+
+    public void setBirth(LocalDate birth) {
+        this.birth = birth;
     }
 
     @Override
