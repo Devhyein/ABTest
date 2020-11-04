@@ -17,7 +17,7 @@ public class TestAttribute {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "test_attribute_no")
-    private int testAttributeNo; 
+    private int testAttributeNo;
 
     // @ManyToOne
     // @JoinColumn
@@ -30,23 +30,27 @@ public class TestAttribute {
     @Column(name = "admin_no")
     private String adminNo;
 
+    @Column(name = "page_type")
+    private String pageType;
+
     @Column(name = "attribute_name")
     private String attributeName;
 
     @Column(name = "attribute_type")
     private String attributeType;
-    
+
     @Column(name = "attribute_value")
     private String attributeValue;
 
     public TestAttribute() {
     }
 
-    public TestAttribute(int testAttributeNo, String testNo, String adminNo, String attributeName, String attributeType,
-            String attributeValue) {
+    public TestAttribute(int testAttributeNo, String testNo, String adminNo, String pageType, String attributeName,
+            String attributeType, String attributeValue) {
         this.testAttributeNo = testAttributeNo;
         this.testNo = testNo;
         this.adminNo = adminNo;
+        this.pageType = pageType;
         this.attributeName = attributeName;
         this.attributeType = attributeType;
         this.attributeValue = attributeValue;
@@ -76,6 +80,14 @@ public class TestAttribute {
         this.adminNo = adminNo;
     }
 
+    public String getPageType() {
+        return pageType;
+    }
+
+    public void setPageType(String pageType) {
+        this.pageType = pageType;
+    }
+
     public String getAttributeName() {
         return attributeName;
     }
@@ -103,9 +115,8 @@ public class TestAttribute {
     @Override
     public String toString() {
         return "TestAttribute [adminNo=" + adminNo + ", attributeName=" + attributeName + ", attributeType="
-                + attributeType + ", attributeValue=" + attributeValue + ", testAttributeNo=" + testAttributeNo
-                + ", testNo=" + testNo + "]";
+                + attributeType + ", attributeValue=" + attributeValue + ", pageType=" + pageType + ", testAttributeNo="
+                + testAttributeNo + ", testNo=" + testNo + "]";
     }
-
 
 }

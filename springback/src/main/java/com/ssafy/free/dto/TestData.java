@@ -17,8 +17,14 @@ public class TestData {
     @Column(name = "data_no")
     private int dataNo;
 
+    @Column(name = "url_no")
+    private int urlNo;
+
     @Column(name = "test_no")
     private int testNo;
+
+    @Column(name = "user_no")
+    private int userNo;
 
     @Column(name = "page_type")
     private String pageType;
@@ -26,30 +32,29 @@ public class TestData {
     @Column(name = "date")
     private LocalDate date;
 
-    @Column(name = "url_cnt")
-    private int urlCnt;
+    @Column(name = "isJoined")
+    private boolean isJoined;
 
-    @Column(name = "url")
-    private String url;
+    @Column(name = "gender")
+    private String gender;
+
+    @Column(name = "age")
+    private int age;
 
     public TestData() {
     }
 
-    public TestData(int dataNo, int testNo, String pageType, LocalDate date, int urlCnt, String url) {
+    public TestData(int dataNo, int urlNo, int testNo, int userNo, String pageType, LocalDate date, boolean isJoined,
+            String gender, int age) {
         this.dataNo = dataNo;
+        this.urlNo = urlNo;
         this.testNo = testNo;
+        this.userNo = userNo;
         this.pageType = pageType;
         this.date = date;
-        this.urlCnt = urlCnt;
-        this.url = url;
-    }
-
-    public TestData(int testNo, String pageType, LocalDate date, int urlCnt, String url) {
-        this.testNo = testNo;
-        this.pageType = pageType;
-        this.date = date;
-        this.urlCnt = urlCnt;
-        this.url = url;
+        this.isJoined = isJoined;
+        this.gender = gender;
+        this.age = age;
     }
 
     public int getDataNo() {
@@ -60,12 +65,28 @@ public class TestData {
         this.dataNo = dataNo;
     }
 
+    public int getUrlNo() {
+        return urlNo;
+    }
+
+    public void setUrlNo(int urlNo) {
+        this.urlNo = urlNo;
+    }
+
     public int getTestNo() {
         return testNo;
     }
 
     public void setTestNo(int testNo) {
         this.testNo = testNo;
+    }
+
+    public int getUserNo() {
+        return userNo;
+    }
+
+    public void setUserNo(int userNo) {
+        this.userNo = userNo;
     }
 
     public String getPageType() {
@@ -84,26 +105,35 @@ public class TestData {
         this.date = date;
     }
 
-    public int getUrlCnt() {
-        return urlCnt;
+    public boolean isJoined() {
+        return isJoined;
     }
 
-    public void setUrlCnt(int urlCnt) {
-        this.urlCnt = urlCnt;
+    public void setJoined(boolean isJoined) {
+        this.isJoined = isJoined;
     }
 
-    public String getUrl() {
-        return url;
+    public String getGender() {
+        return gender;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override
     public String toString() {
-        return "testdata [dataNo=" + dataNo + ", date=" + date + ", urlCnt=" + urlCnt + ", pageType=" + pageType
-                + ", testNo=" + testNo + ", url=" + url + "]";
+        return "TestData [age=" + age + ", dataNo=" + dataNo + ", date=" + date + ", gender=" + gender + ", isJoined="
+                + isJoined + ", pageType=" + pageType + ", testNo=" + testNo + ", urlNo=" + urlNo + ", userNo=" + userNo
+                + "]";
     }
 
 }
