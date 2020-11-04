@@ -24,6 +24,11 @@ public class UrlAttribute {
     public UrlAttribute() {
     }
 
+    public UrlAttribute(int testNo, String urlName) {
+        this.testNo = testNo;
+        this.urlName = urlName;
+    }
+
     public UrlAttribute(int urlNo, int testNo, String urlName) {
         this.urlNo = urlNo;
         this.testNo = testNo;
