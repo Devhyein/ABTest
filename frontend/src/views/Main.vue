@@ -91,7 +91,7 @@
           >
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
-                <span class="status" @click="detail(data.value)">
+                <span class="status" @click="detail(data.value.test_no)">
                   {{ data.value.test_title }}
                 </span>
               </template>
@@ -270,7 +270,7 @@ export default {
     makeTableData() {
       for (let test of this.tests) {
         test.icon = test.test_no;
-        test.test_title = { test_title: test.test_title };
+        test.test_title = { test_title: test.test_title, test_no: test.test_no};
         if (test.status == "진행전") test.test_title.color = "text-success";
         else if (test.status == "진행중")
           test.test_title.color = "text-warning";
@@ -317,6 +317,7 @@ export default {
         "test_no=" + id,
         (res) => {
           console.log(res);
+          this.$store.commit("addDetail", res);
           this.$router.push("/detail");
         },
         (err) => {
