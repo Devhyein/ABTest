@@ -312,15 +312,16 @@ export default {
       this.modalShow = !this.modalShow;
     },
     detail(id){
-      this.$router.push("/detail");
       console.log(id);
       API.getDetailTest(
         "test_no=" + id,
         (res) => {
           console.log(res);
+          this.$router.push("/detail");
         },
         (err) => {
           console.log(err);
+          swal("페이지 조회 실패", "분석페이지 조회에 실패하였습니다.", "error");
         }
       );
     },
