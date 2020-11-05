@@ -5,7 +5,9 @@
       <!-- 이 부분 예쁘게 해주세요(와이어프레임 참고해주세요) -->
       <h3>
         {{ detail.test_title }}
-        <b-button pill disabled :variant="detail.color">{{detail.status}}</b-button>
+        <b-button pill disabled :variant="detail.color">{{
+          detail.status
+        }}</b-button>
       </h3>
 
       {{ detail.start }} - {{ detail.end }}
@@ -13,7 +15,9 @@
         <b-tab title="전체" :title-link-class="linkClass(0)">
           <b-form-select v-model="selected1" :options="options1" />
           <div>
-             <b-button :variant="information">페이지별 전환율 상세보기</b-button>
+            <b-button :variant="information" @click="urlModal()"
+              >페이지별 전환율 상세보기</b-button
+            >
             <b-table hover :items="tableData" :fields="fields"> </b-table>
           </div>
         </b-tab>
@@ -36,6 +40,9 @@
           </div>
         </b-tab>
       </b-tabs>
+      <b-modal title="URL별 페이지 전환율" v-model="modalShow"> 
+        <!-- 모달에 들어 갈 테이블 추가 -->
+      </b-modal>
     </div>
   </div>
 </template>
@@ -51,6 +58,7 @@ export default {
   },
   data() {
     return {
+      modalShow: false,
       tabIndex: 0,
       tableData: [],
       tableDataGender: [],
@@ -314,6 +322,9 @@ export default {
     else this.detail.color = "danger";
   },
   methods: {
+    urlModal() {
+      this.modalShow = !this.modalShow;
+    },
     linkClass(idx) {
       if (this.tabIndex === idx) {
         return ["bg-danger", "text-light"];
@@ -323,7 +334,7 @@ export default {
     },
   },
   watch: {
-    // 드롭다운 보고있다가 selected에 변화가 생겼을때 API부르기 
+    // 드롭다운 보고있다가 selected에 변화가 생겼을때 API부르기
     // chart에 넣기(어떻게 가져와서 각각 라인,바 차트에 넣을지 고민쓰)
     selected1(val) {
       if (val == "전환율") {
