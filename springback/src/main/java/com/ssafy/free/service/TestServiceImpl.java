@@ -8,6 +8,7 @@ import com.ssafy.free.dto.Analysis.*;
 import com.ssafy.free.dto.PageCnt;
 import com.ssafy.free.dto.Test;
 import com.ssafy.free.dto.UrlAttribute;
+import com.ssafy.free.repository.BuyerRepository;
 import com.ssafy.free.repository.PageCntRepository;
 import com.ssafy.free.repository.TestDataRepository;
 import com.ssafy.free.repository.TestRepository;
@@ -38,6 +39,9 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     UserSampleRepository userSampleRepo;
+
+    @Autowired
+    BuyerRepository buyerRepo;
 
     @Override
     public Analysis getDetailTest(int test_no) {
@@ -94,26 +98,39 @@ public class TestServiceImpl implements TestService {
                 analysis.setBounceA(bounceA);
                 analysis.setBounceB(bounceB);
 
-                // 가입률 계산
+                // 가입률, 구매율 계산
+                // (근데 구매율이란게 구매페이지에 간 유저 중 산 비율이야? 아님 전체 유저 중 산 비율이야..)
+
                 List<Float> joinA = new ArrayList<>();
                 List<Float> joinB = new ArrayList<>();
-
+                List<Float> purchaseA = new ArrayList<>();
+                List<Float> purchaseB = new ArrayList<>();
                 start = test.getStart();
                 while (!start.minusDays(1).equals(test.getEnd())) {
                     float userA = userRepo.countByTestNoAndPageTypeAndDate(test_no, "A", start);
                     float userB = userRepo.countByTestNoAndPageTypeAndDate(test_no, "B", start);
+
+                    // 가입률
                     float joinUserA = userSampleRepo.countByTestNoAndPageTypeAndJoinDate(test_no, "A", start);
                     float joinUserB = userSampleRepo.countByTestNoAndPageTypeAndJoinDate(test_no, "B", start);
 
                     joinA.add((float) (Math.round((joinUserA / userA) * 100) / 100.0));
                     joinB.add((float) (Math.round((joinUserB / userB) * 100) / 100.0));
+
+                    // 구매율
+                    float purUserA = buyerRepo.countByTestNoAndPageTypeAndDate(test_no, "A", start);
+                    float purUserB = buyerRepo.countByTestNoAndPageTypeAndDate(test_no, "B", start);
+
+                    purchaseA.add((float) (Math.round((purUserA / userA) * 100) / 100.0));
+                    purchaseB.add((float) (Math.round((purUserB / userB) * 100) / 100.0));
+
                     start = start.plusDays(1);
                 }
 
                 analysis.setJoinA(joinA);
                 analysis.setJoinB(joinB);
-
-                // 구매율 계산
+                analysis.setPurchaseA(purchaseA);
+                analysis.setPurchaseB(purchaseB);
 
                 return analysis;
             } else {
