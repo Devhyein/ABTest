@@ -74,7 +74,18 @@ public class TestServiceImpl implements TestService {
                 analysis.setConversionA(conversionA);
                 analysis.setConversionB(conversionB);
 
-                // 이탈률 계산
+                // 이탈률 계산 (1 - 전환률)
+                List<Float> bounceA = new ArrayList<Float>();
+                List<Float> bounceB = new ArrayList<Float>();
+
+                for (float a : conversionA) {
+                    bounceA.add(1 - a);
+                }
+                for (float b : conversionB) {
+                    bounceB.add(1 - b);
+                }
+                analysis.setBounceA(bounceA);
+                analysis.setBounceB(bounceB);
 
                 // 가입률 계산
 

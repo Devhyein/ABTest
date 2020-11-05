@@ -12,14 +12,14 @@ public class Analysis {
     private List<Float> conversionA;
     private List<Float> conversionB;
     private float con_rate;
-    private float bounceA;
-    private float bounceB;
+    private List<Float> bounceA;
+    private List<Float> bounceB;
     private float bo_rate;
-    private float joinA;
-    private float joinB;
+    private List<Float> joinA;
+    private List<Float> joinB;
     private float jo_rate;
-    private float purchaseA;
-    private float purchaseB;
+    private List<Float> purchaseA;
+    private List<Float> purchaseB;
     private float pur_rate;
 
     public Analysis() {
@@ -34,8 +34,9 @@ public class Analysis {
     }
 
     public Analysis(int test_no, String test_title, LocalDate start, LocalDate end, String status,
-            List<Float> conversionA, List<Float> conversionB, float con_rate, float bounceA, float bounceB,
-            float bo_rate, float joinA, float joinB, float jo_rate, float purchaseA, float purchaseB, float pur_rate) {
+            List<Float> conversionA, List<Float> conversionB, float con_rate, List<Float> bounceA, List<Float> bounceB,
+            float bo_rate, List<Float> joinA, List<Float> joinB, float jo_rate, List<Float> purchaseA,
+            List<Float> purchaseB, float pur_rate) {
         this.test_no = test_no;
         this.test_title = test_title;
         this.start = start;
@@ -119,19 +120,19 @@ public class Analysis {
         this.con_rate = con_rate;
     }
 
-    public float getBounceA() {
+    public List<Float> getBounceA() {
         return bounceA;
     }
 
-    public void setBounceA(float bounceA) {
+    public void setBounceA(List<Float> bounceA) {
         this.bounceA = bounceA;
     }
 
-    public float getBounceB() {
+    public List<Float> getBounceB() {
         return bounceB;
     }
 
-    public void setBounceB(float bounceB) {
+    public void setBounceB(List<Float> bounceB) {
         this.bounceB = bounceB;
     }
 
@@ -143,19 +144,19 @@ public class Analysis {
         this.bo_rate = bo_rate;
     }
 
-    public float getJoinA() {
+    public List<Float> getJoinA() {
         return joinA;
     }
 
-    public void setJoinA(float joinA) {
+    public void setJoinA(List<Float> joinA) {
         this.joinA = joinA;
     }
 
-    public float getJoinB() {
+    public List<Float> getJoinB() {
         return joinB;
     }
 
-    public void setJoinB(float joinB) {
+    public void setJoinB(List<Float> joinB) {
         this.joinB = joinB;
     }
 
@@ -167,19 +168,19 @@ public class Analysis {
         this.jo_rate = jo_rate;
     }
 
-    public float getPurchaseA() {
+    public List<Float> getPurchaseA() {
         return purchaseA;
     }
 
-    public void setPurchaseA(float purchaseA) {
+    public void setPurchaseA(List<Float> purchaseA) {
         this.purchaseA = purchaseA;
     }
 
-    public float getPurchaseB() {
+    public List<Float> getPurchaseB() {
         return purchaseB;
     }
 
-    public void setPurchaseB(float purchaseB) {
+    public void setPurchaseB(List<Float> purchaseB) {
         this.purchaseB = purchaseB;
     }
 
