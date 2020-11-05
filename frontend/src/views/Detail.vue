@@ -332,6 +332,17 @@ export default {
   },
   methods: {
     urlModal() {
+      API.getDetailTestConversionWithUrl(
+        "test_no=" + this.detail.test_no,
+        (res) => {
+          console.log(res);
+          // 값들 테이블에 넣어줘야함 
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+
       this.modalShow = !this.modalShow;
     },
     linkClass(idx) {
