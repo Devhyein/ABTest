@@ -1,8 +1,7 @@
 package com.ssafy.free.controller;
 
 import com.ssafy.free.dto.RestResponse;
-import com.ssafy.free.dto.Analysis;
-import com.ssafy.free.dto.AnalysisConversionWithUrl;
+import com.ssafy.free.dto.Analysis.*;
 import com.ssafy.free.service.TestService;
 
 import org.springframework.beans.factory.annotation.Autowired;

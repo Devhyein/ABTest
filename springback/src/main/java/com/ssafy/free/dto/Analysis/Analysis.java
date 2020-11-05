@@ -1,7 +1,9 @@
-package com.ssafy.free.dto;
+package com.ssafy.free.dto.Analysis;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import com.ssafy.free.dto.Test;
 
 public class Analysis {
     private int test_no;

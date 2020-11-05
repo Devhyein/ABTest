@@ -1,7 +1,6 @@
 package com.ssafy.free.service;
 
-import com.ssafy.free.dto.Analysis;
-import com.ssafy.free.dto.AnalysisConversionWithUrl;
+import com.ssafy.free.dto.Analysis.*;
 
 public interface TestService {
 
