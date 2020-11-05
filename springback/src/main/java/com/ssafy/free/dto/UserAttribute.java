@@ -5,11 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Parent;
 
 @Entity
 @Table(name = "userattribute")
@@ -18,11 +14,6 @@ public class UserAttribute {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_attribute_no")
     private int userAttributeNo;
-
-    // @ManyToOne
-    // @JoinColumn
-    // @Parent
-    // private User user;
 
     @Column(name = "user_no")
     private int userNo;

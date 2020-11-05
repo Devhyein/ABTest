@@ -1,6 +1,5 @@
 package com.ssafy.free.repository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import com.ssafy.free.dto.Test;
@@ -13,8 +12,8 @@ public interface TestRepository extends JpaRepository<Test, Integer> {
 
 	List<TestResponse> findAllByAdminNo(int adminno);
 
-	List<TestResponse> findAllByAdminNoAndStatus(int admin_no, String status);
+	List<TestResponse> findAllByAdminNoAndStatus(int adminNo, String status);
 
-	Test findByAdminNoAndTestTitle(int admin_no, String testTitle);
+	Test findByAdminNoAndTestTitle(int adminNo, String testTitle);
 
 }

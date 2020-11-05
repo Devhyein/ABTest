@@ -1,15 +1,12 @@
 package com.ssafy.free.service;
 
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import com.ssafy.free.dto.Analysis;
 import com.ssafy.free.dto.PageCnt;
 import com.ssafy.free.dto.Test;
-import com.ssafy.free.dto.TestData;
 import com.ssafy.free.repository.PageCntRepository;
 import com.ssafy.free.repository.TestDataRepository;
 import com.ssafy.free.repository.TestRepository;
@@ -86,6 +83,11 @@ public class TestServiceImpl implements TestService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    @Override
+    public Analysis getDetailTestConversionWithUrl(int testno) {
         return null;
     }
 

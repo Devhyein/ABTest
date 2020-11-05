@@ -1,9 +1,7 @@
 package com.ssafy.free.service;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -35,9 +33,6 @@ public class ManageServiceImpl implements ManageService {
     public int createTest(HashMap<String, Object> request) {
         int admin_no = adminDao.findOneByEmail(request.get("email").toString()).getAdminNo();
 
-        // 혹시 시분초까지 필요하면 이걸 사용 LocalDateTime
-        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd
-        // HH:mm:ss.SSS");
         try {
             LocalDate start = LocalDate.parse(request.get("start").toString(),
                     DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -76,7 +71,6 @@ public class ManageServiceImpl implements ManageService {
         // 테스트 번호로 기존 테스트 불러오기
         try {
             Test test = testRepository.getOne(Integer.parseInt(request.get("test_no").toString()));
-            System.out.println(test.toString());
             test.setTestTitle(request.get("test_title").toString());
             test.setTestA(request.get("test_a").toString());
             test.setTestB(request.get("test_b").toString());

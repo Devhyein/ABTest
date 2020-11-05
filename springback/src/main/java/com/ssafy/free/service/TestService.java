@@ -4,6 +4,8 @@ import com.ssafy.free.dto.Analysis;
 
 public interface TestService {
 
-    Analysis getDetailTest(int test_no);
+    Analysis getDetailTest(int testno);
+
+    Analysis getDetailTestConversionWithUrl(int testno);
 
 }
