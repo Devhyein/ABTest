@@ -12,6 +12,8 @@ import com.ssafy.free.repository.PageCntRepository;
 import com.ssafy.free.repository.TestDataRepository;
 import com.ssafy.free.repository.TestRepository;
 import com.ssafy.free.repository.UrlAttributeRepository;
+import com.ssafy.free.repository.UserRepository;
+import com.ssafy.free.repository.UserSampleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,12 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     UrlAttributeRepository urlRepo;
+
+    @Autowired
+    UserRepository userRepo;
+
+    @Autowired
+    UserSampleRepository userSampleRepo;
 
     @Override
     public Analysis getDetailTest(int test_no) {
@@ -87,6 +95,23 @@ public class TestServiceImpl implements TestService {
                 analysis.setBounceB(bounceB);
 
                 // 가입률 계산
+                List<Float> joinA = new ArrayList<>();
+                List<Float> joinB = new ArrayList<>();
+
+                start = test.getStart();
+                while (!start.minusDays(1).equals(test.getEnd())) {
+                    float userA = userRepo.countByTestNoAndPageTypeAndDate(test_no, "A", start);
+                    float userB = userRepo.countByTestNoAndPageTypeAndDate(test_no, "B", start);
+                    float joinUserA = userSampleRepo.countByTestNoAndPageTypeAndJoinDate(test_no, "A", start);
+                    float joinUserB = userSampleRepo.countByTestNoAndPageTypeAndJoinDate(test_no, "B", start);
+
+                    joinA.add((float) (Math.round((joinUserA / userA) * 100) / 100.0));
+                    joinB.add((float) (Math.round((joinUserB / userB) * 100) / 100.0));
+                    start = start.plusDays(1);
+                }
+
+                analysis.setJoinA(joinA);
+                analysis.setJoinB(joinB);
 
                 // 구매율 계산
 
