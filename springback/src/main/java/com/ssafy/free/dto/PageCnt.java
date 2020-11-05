@@ -1,5 +1,7 @@
 package com.ssafy.free.dto;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,14 +26,18 @@ public class PageCnt {
     @Column(name = "cntB")
     private int cntB;
 
+    @Column(name = "date")
+    private LocalDate date;
+
     public PageCnt() {
     }
 
-    public PageCnt(int pageNo, int testNo, int cntA, int cntB) {
+    public PageCnt(int pageNo, int testNo, int cntA, int cntB, LocalDate date) {
         this.pageNo = pageNo;
         this.testNo = testNo;
         this.cntA = cntA;
         this.cntB = cntB;
+        this.date = date;
     }
 
     public int getPageNo() {
@@ -66,9 +72,18 @@ public class PageCnt {
         this.cntB = cntB;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     @Override
     public String toString() {
-        return "PageCnt [cntA=" + cntA + ", cntB=" + cntB + ", pageNo=" + pageNo + ", testNo=" + testNo + "]";
+        return "PageCnt [cntA=" + cntA + ", cntB=" + cntB + ", date=" + date + ", pageNo=" + pageNo + ", testNo="
+                + testNo + "]";
     }
 
 }

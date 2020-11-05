@@ -1,12 +1,16 @@
 package com.ssafy.free.service;
 
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.ssafy.free.dto.Analysis;
+import com.ssafy.free.dto.PageCnt;
 import com.ssafy.free.dto.Test;
 import com.ssafy.free.dto.TestData;
+import com.ssafy.free.repository.PageCntRepository;
 import com.ssafy.free.repository.TestDataRepository;
 import com.ssafy.free.repository.TestRepository;
 
@@ -22,23 +26,51 @@ public class TestServiceImpl implements TestService {
     @Autowired
     TestDataRepository testDataRepository;
 
+    @Autowired
+    PageCntRepository pageRepo;
+
     @Override
     public Analysis getDetailTest(int test_no) {
         try {
             Test test = testRepository.getOne(test_no);
             if (test != null) {
                 Analysis analysis = new Analysis(test);
-                DecimalFormat form = new DecimalFormat("#.#");
+                LocalDate start = test.getStart();
+                // 전체 전환율 계산
+                List<Float> conversionA = new ArrayList<Float>();
+                List<Float> conversionB = new ArrayList<Float>();
+                // 전체 페이지 제공 회수
+                List<PageCnt> pagecnt = pageRepo.findByTestNoOrderByDateAsc(test_no);
+                for (PageCnt page : pagecnt) {
+                    // 각 날짜의 전체 페이지 제공 횟수
+                    LocalDate date = page.getDate();
+                    while (!start.equals(date)) {
+                        conversionA.add((float) 0);
+                        conversionB.add((float) 0);
+                        start = start.plusDays(1);
+                    }
+                    float cntA = page.getCntA();
+                    float cntB = page.getCntB();
 
-                // 테스트 데이터 전체 가져오기 PAGE TYPE별로...
-                List<TestData> dataA = testDataRepository.findAllByTestNoAndPageType(test_no, "A");
-                List<TestData> dataB = testDataRepository.findAllByTestNoAndPageType(test_no, "B");
+                    // 각 날짜의 전체 페이지 전환 횟수
+                    float clickA = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "A", date);
+                    float clickB = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "B", date);
+                    float A = clickA / cntA;
+                    conversionA.add((float) (Math.round(A * 100) / 100.0));
+                    float B = clickB / cntB;
+                    conversionB.add((float) (Math.round(B * 100) / 100.0));
+                    start = start.plusDays(1);
+                }
+                start = start.minusDays(1);
+                while (!start.equals(test.getEnd())) {
+                    conversionA.add((float) 0);
+                    conversionB.add((float) 0);
+                    start = start.plusDays(1);
+                }
 
-                // // 전환율 계산
-                // float conversionA = 0;
-                // for (TestData data : dataA) {
-                // data.getTotalPageCnt()
-                // }
+                analysis.setConversionA(conversionA);
+                analysis.setConversionB(conversionB);
+                // 날짜별 페이지 제공 회수
 
                 // 이탈률 계산
 

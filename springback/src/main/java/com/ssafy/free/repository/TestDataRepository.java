@@ -1,5 +1,6 @@
 package com.ssafy.free.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.ssafy.free.dto.TestData;
@@ -10,5 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface TestDataRepository extends JpaRepository<TestData, Integer> {
 
 	List<TestData> findAllByTestNoAndPageType(int no, String pageType);
+
+	int countByTestNoAndPageTypeAndDate(int test_no, String string, LocalDate date);
 
 }

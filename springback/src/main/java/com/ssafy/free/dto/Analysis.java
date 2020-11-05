@@ -1,46 +1,66 @@
 package com.ssafy.free.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Analysis {
+    private int test_no;
     private String test_title;
     private LocalDate start;
     private LocalDate end;
     private String status;
-    private float conversionA;
-    private float conversionB;
+    private List<Float> conversionA;
+    private List<Float> conversionB;
+    private float con_rate;
     private float bounceA;
     private float bounceB;
+    private float bo_rate;
     private float joinA;
     private float joinB;
+    private float jo_rate;
     private float purchaseA;
     private float purchaseB;
+    private float pur_rate;
 
     public Analysis() {
     }
 
     public Analysis(Test test) {
+        this.test_no = test.getTestNo();
         this.test_title = test.getTestTitle();
         this.start = test.getStart();
         this.end = test.getEnd();
         this.status = test.getStatus();
     }
 
-    public Analysis(String test_title, LocalDate start, LocalDate end, String status, float conversionA,
-            float conversionB, float bounceA, float bounceB, float joinA, float joinB, float purchaseA,
-            float purchaseB) {
+    public Analysis(int test_no, String test_title, LocalDate start, LocalDate end, String status,
+            List<Float> conversionA, List<Float> conversionB, float con_rate, float bounceA, float bounceB,
+            float bo_rate, float joinA, float joinB, float jo_rate, float purchaseA, float purchaseB, float pur_rate) {
+        this.test_no = test_no;
         this.test_title = test_title;
         this.start = start;
         this.end = end;
         this.status = status;
         this.conversionA = conversionA;
         this.conversionB = conversionB;
+        this.con_rate = con_rate;
         this.bounceA = bounceA;
         this.bounceB = bounceB;
+        this.bo_rate = bo_rate;
         this.joinA = joinA;
         this.joinB = joinB;
+        this.jo_rate = jo_rate;
         this.purchaseA = purchaseA;
         this.purchaseB = purchaseB;
+        this.pur_rate = pur_rate;
+    }
+
+    public int getTest_no() {
+        return test_no;
+    }
+
+    public void setTest_no(int test_no) {
+        this.test_no = test_no;
     }
 
     public String getTest_title() {
@@ -75,20 +95,28 @@ public class Analysis {
         this.status = status;
     }
 
-    public float getConversionA() {
+    public List<Float> getConversionA() {
         return conversionA;
     }
 
-    public void setConversionA(float conversionA) {
+    public void setConversionA(List<Float> conversionA) {
         this.conversionA = conversionA;
     }
 
-    public float getConversionB() {
+    public List<Float> getConversionB() {
         return conversionB;
     }
 
-    public void setConversionB(float conversionB) {
+    public void setConversionB(List<Float> conversionB) {
         this.conversionB = conversionB;
+    }
+
+    public float getCon_rate() {
+        return con_rate;
+    }
+
+    public void setCon_rate(float con_rate) {
+        this.con_rate = con_rate;
     }
 
     public float getBounceA() {
@@ -107,6 +135,14 @@ public class Analysis {
         this.bounceB = bounceB;
     }
 
+    public float getBo_rate() {
+        return bo_rate;
+    }
+
+    public void setBo_rate(float bo_rate) {
+        this.bo_rate = bo_rate;
+    }
+
     public float getJoinA() {
         return joinA;
     }
@@ -121,6 +157,14 @@ public class Analysis {
 
     public void setJoinB(float joinB) {
         this.joinB = joinB;
+    }
+
+    public float getJo_rate() {
+        return jo_rate;
+    }
+
+    public void setJo_rate(float jo_rate) {
+        this.jo_rate = jo_rate;
     }
 
     public float getPurchaseA() {
@@ -139,12 +183,21 @@ public class Analysis {
         this.purchaseB = purchaseB;
     }
 
+    public float getPur_rate() {
+        return pur_rate;
+    }
+
+    public void setPur_rate(float pur_rate) {
+        this.pur_rate = pur_rate;
+    }
+
     @Override
     public String toString() {
-        return "Analysis [bounceA=" + bounceA + ", bounceB=" + bounceB + ", conversionA=" + conversionA
-                + ", conversionB=" + conversionB + ", end=" + end + ", joinA=" + joinA + ", joinB=" + joinB
+        return "Analysis [bo_rate=" + bo_rate + ", bounceA=" + bounceA + ", bounceB=" + bounceB + ", con_rate="
+                + con_rate + ", conversionA=" + conversionA + ", conversionB=" + conversionB + ", end=" + end
+                + ", jo_rate=" + jo_rate + ", joinA=" + joinA + ", joinB=" + joinB + ", pur_rate=" + pur_rate
                 + ", purchaseA=" + purchaseA + ", purchaseB=" + purchaseB + ", start=" + start + ", status=" + status
-                + ", test_title=" + test_title + "]";
+                + ", test_no=" + test_no + ", test_title=" + test_title + "]";
     }
 
 }
