@@ -15,32 +15,41 @@
         <b-tab title="전체" :title-link-class="linkClass(0)">
           <b-form-select v-model="selected1" :options="options1" />
           <div>
-            <b-button :variant="information" @click="urlModal()"
-              >페이지별 전환율 상세보기</b-button
-            >
+            <b-button :variant="information" @click="urlModal()">
+              페이지별 전환율 상세보기
+            </b-button>
             <b-table hover :items="tableData" :fields="fields"> </b-table>
           </div>
         </b-tab>
         <b-tab title="성별" :title-link-class="linkClass(1)">
           <b-form-select v-model="selected2" :options="options2" />
           <div>
+            <b-button :variant="information" @click="urlModal()">
+              페이지별 전환율 상세보기
+            </b-button>
             <b-table hover :items="tableDataGender" :fields="fields"> </b-table>
           </div>
         </b-tab>
         <b-tab title="나이" :title-link-class="linkClass(2)">
           <b-form-select v-model="selected3" :options="options2" />
           <div>
+            <b-button :variant="information" @click="urlModal()">
+              페이지별 전환율 상세보기
+            </b-button>
             <b-table hover :items="tableDataAge" :fields="fields"> </b-table>
           </div>
         </b-tab>
         <b-tab title="사용자 지정" :title-link-class="linkClass(3)">
           <b-form-select v-model="selected4" :options="options1" />
           <div>
+            <b-button :variant="information" @click="urlModal()">
+              페이지별 전환율 상세보기
+            </b-button>
             <b-table hover :items="tableDataCustom" :fields="fields"> </b-table>
           </div>
         </b-tab>
       </b-tabs>
-      <b-modal title="URL별 페이지 전환율" v-model="modalShow"> 
+      <b-modal title="URL별 페이지 전환율" v-model="modalShow">
         <!-- 모달에 들어 갈 테이블 추가 -->
       </b-modal>
     </div>
