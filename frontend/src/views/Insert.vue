@@ -6,7 +6,10 @@
         <label>실험명 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.test_title" placeholder="실험명을 입력해주세요"/>
+        <b-form-input
+          v-model="input.test_title"
+          placeholder="실험명을 입력해주세요"
+        />
       </b-col>
     </b-row>
 
@@ -15,7 +18,10 @@
         <label>A안 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.url_a" placeholder="A안의 URL을 입력해주세요"/>
+        <b-form-input
+          v-model="input.url_a"
+          placeholder="A안의 URL을 입력해주세요"
+        />
       </b-col>
     </b-row>
 
@@ -24,7 +30,10 @@
         <label>A 별칭 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.test_a" placeholder="A안의 별칭을 입력해주세요"/>
+        <b-form-input
+          v-model="input.test_a"
+          placeholder="A안의 별칭을 입력해주세요"
+        />
       </b-col>
     </b-row>
 
@@ -33,7 +42,10 @@
         <label>B안 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.url_b" placeholder="B안의 URL을 입력해주세요"/>
+        <b-form-input
+          v-model="input.url_b"
+          placeholder="B안의 URL을 입력해주세요"
+        />
       </b-col>
     </b-row>
 
@@ -42,7 +54,10 @@
         <label>B안 별칭 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.test_b" placeholder="B안의 별칭을 입력해주세요"/>
+        <b-form-input
+          v-model="input.test_b"
+          placeholder="B안의 별칭을 입력해주세요"
+        />
       </b-col>
     </b-row>
 
@@ -51,7 +66,7 @@
         <label>시작일 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.start" type="date" />
+        <b-form-input v-model="input.start" type="date" :max="input.end" :min="today"/>
       </b-col>
     </b-row>
     <b-row class="my-1">
@@ -59,7 +74,7 @@
         <label>종료일 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.end" type="date" />
+        <b-form-input v-model="input.end" type="date" :min="input.start" />
       </b-col>
     </b-row>
 
@@ -99,7 +114,7 @@ export default {
   },
   data() {
     return {
-      email: "test",
+      today: new Date(),
       input: {
         test_title: "",
         url_a: "",
@@ -112,6 +127,11 @@ export default {
         per_b: 50,
       },
     };
+  },
+   computed: {
+    email(){
+      return this.$store.state.email;
+    }
   },
   methods: {
     dataCheck() {
@@ -178,6 +198,22 @@ export default {
   },
   created() {
     this.per_b = 100 - this.per_a;
+
+    let month = "";
+    if (new Date().getMonth() + 1 < 10) {
+      month = "0" + (new Date().getMonth() + 1);
+    } else {
+      month = new Date().getMonth() + 1;
+    }
+    let day = "";
+    if (new Date().getDate() < 10) {
+      day = "0" + new Date().getDate();
+    } else {
+      day = new Date().getDate();
+    }
+
+    this.today = new Date().getFullYear() + "-" + month + "-" + day;
+
   },
 };
 </script>

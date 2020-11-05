@@ -15,8 +15,8 @@
           >
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
-                <span class="status">
-                  {{ data.value.test_title }}
+                <span class="status" @click="detail(data.value)">
+                  {{ data.value.test_title }} 
                   <b-icon
                     icon="circle-fill"
                     class="ml-2"
@@ -47,7 +47,7 @@
           >
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
-                <span class="status">
+                <span class="status" @click="detail(data.value)">
                   {{ data.value.test_title }}
                 </span>
               </template>
@@ -69,7 +69,7 @@
           >
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
-                <span class="status">
+                <span class="status" @click="detail(data.value)">
                   {{ data.value.test_title }}
                 </span>
               </template>
@@ -91,7 +91,7 @@
           >
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
-                <span class="status">
+                <span class="status" @click="detail(data.value.test_no)">
                   {{ data.value.test_title }}
                 </span>
               </template>
@@ -160,7 +160,7 @@
               <label>종료일 :</label>
             </b-col>
             <b-col sm="9">
-              <b-form-input v-model="inputs.end" type="date" />
+              <b-form-input v-model="inputs.end" type="date" :min="today"/>
             </b-col>
           </b-row>
           <template #modal-footer>
@@ -191,6 +191,7 @@ export default {
     return {
       tabIndex: 0,
       modalShow: false,
+      today: new Date(),
       inputs: {
         test_no: "",
         test_title: "",
@@ -232,6 +233,21 @@ export default {
   },
   created() {
     this.getAllTest();
+
+    let month = "";
+    if (new Date().getMonth() + 1 < 10) {
+      month = "0" + (new Date().getMonth() + 1);
+    } else {
+      month = new Date().getMonth() + 1;
+    }
+    let day = "";
+    if (new Date().getDate() < 10) {
+      day = "0" + new Date().getDate();
+    } else {
+      day = new Date().getDate();
+    }
+
+    this.today = new Date().getFullYear() + "-" + month + "-" + day;
   },
   methods: {
     dataCheck() {
@@ -254,7 +270,7 @@ export default {
     makeTableData() {
       for (let test of this.tests) {
         test.icon = test.test_no;
-        test.test_title = { test_title: test.test_title };
+        test.test_title = { test_title: test.test_title, test_no: test.test_no};
         if (test.status == "진행전") test.test_title.color = "text-success";
         else if (test.status == "진행중")
           test.test_title.color = "text-warning";
@@ -294,6 +310,21 @@ export default {
 
       console.log(thisTest);
       this.modalShow = !this.modalShow;
+    },
+    detail(id){
+      console.log(id);
+      API.getDetailTest(
+        "test_no=" + id,
+        (res) => {
+          console.log(res);
+          this.$store.commit("addDetail", res);
+          this.$router.push("/detail");
+        },
+        (err) => {
+          console.log(err);
+          swal("페이지 조회 실패", "분석페이지 조회에 실패하였습니다.", "error");
+        }
+      );
     },
     deleteTest(id) {
       console.log(id);
