@@ -2,6 +2,7 @@ package com.ssafy.free.controller;
 
 import com.ssafy.free.dto.RestResponse;
 import com.ssafy.free.dto.Analysis;
+import com.ssafy.free.dto.AnalysisConversionWithUrl;
 import com.ssafy.free.service.TestService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,7 @@ public class TestController {
         response.data = null;
 
         try {
-            Analysis detail = testService.getDetailTestConversionWithUrl(test_no);
+            AnalysisConversionWithUrl detail = testService.getDetailTestConversionWithUrl(test_no);
             if (detail != null) {
                 response.status = true;
                 response.msg = "success";
