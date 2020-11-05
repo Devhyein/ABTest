@@ -151,6 +151,9 @@ const API = {
     getDetailTestAge:(data,callback,errorCallback)=>getApi('/spring/detail/age/test',data,callback,errorCallback),
     getDetailTestCustom:(data,callback,errorCallback)=>getApi('/spring/detail/custom/test',data,callback,errorCallback),
 
+    getDetailTestConversionWithUrl:(data,callback,errorCallback)=>getApi('/spring/detail/conversion/url',data,callback,errorCallback),
+
+
     getChartConversion:(data,callback,errorCallback)=>getApi('/spring/chart/test/conversion',data,callback,errorCallback),
     getChartBounce:(data,callback,errorCallback)=>getApi('/spring/chart/test/bounce',data,callback,errorCallback),
     getChartJoin:(data,callback,errorCallback)=>getApi('/spring/chart/test/join',data,callback,errorCallback),
