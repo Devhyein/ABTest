@@ -13,6 +13,7 @@
         <b-tab title="전체" :title-link-class="linkClass(0)">
           <b-form-select v-model="selected1" :options="options1" />
           <div>
+             <b-button :variant="information">페이지별 전환율 상세보기</b-button>
             <b-table hover :items="tableData" :fields="fields"> </b-table>
           </div>
         </b-tab>
