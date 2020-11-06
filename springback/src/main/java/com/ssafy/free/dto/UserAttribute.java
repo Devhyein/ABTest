@@ -5,11 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Parent;
 
 @Entity
 @Table(name = "userattribute")
@@ -17,47 +13,42 @@ public class UserAttribute {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_attribute_no")
-    private int user_attribute_no; 
-
-    // @ManyToOne
-    // @JoinColumn
-    // @Parent
-    // private User user;
+    private int userAttributeNo;
 
     @Column(name = "user_no")
     private int userNo;
 
-    @Column(name = "admin_no")
-    private int adminNo; 
+    @Column(name = "page_type")
+    private String pageType;
 
     @Column(name = "attribute_name")
     private String attributeName;
 
     @Column(name = "attribute_type")
     private String attributeType;
-    
+
     @Column(name = "attribute_value")
     private String attributeValue;
 
     public UserAttribute() {
     }
 
-    public UserAttribute(int user_attribute_no, int userNo, int adminNo, String attributeName,
-            String attributeType, String attributeValue) {
-        this.user_attribute_no = user_attribute_no;
+    public UserAttribute(int userAttributeNo, int userNo, String pageType, String attributeName, String attributeType,
+            String attributeValue) {
+        this.userAttributeNo = userAttributeNo;
         this.userNo = userNo;
-        this.adminNo = adminNo;
+        this.pageType = pageType;
         this.attributeName = attributeName;
         this.attributeType = attributeType;
         this.attributeValue = attributeValue;
     }
 
-    public int getUser_attribute_no() {
-        return user_attribute_no;
+    public int getUserAttributeNo() {
+        return userAttributeNo;
     }
 
-    public void setUser_attribute_no(int user_attribute_no) {
-        this.user_attribute_no = user_attribute_no;
+    public void setUserAttributeNo(int userAttributeNo) {
+        this.userAttributeNo = userAttributeNo;
     }
 
     public int getUserNo() {
@@ -68,12 +59,12 @@ public class UserAttribute {
         this.userNo = userNo;
     }
 
-    public int getAdminNo() {
-        return adminNo;
+    public String getPageType() {
+        return pageType;
     }
 
-    public void setAdminNo(int adminNo) {
-        this.adminNo = adminNo;
+    public void setPageType(String pageType) {
+        this.pageType = pageType;
     }
 
     public String getAttributeName() {
@@ -102,11 +93,9 @@ public class UserAttribute {
 
     @Override
     public String toString() {
-        return "UserAttribute [adminNo=" + adminNo + ", attributeName=" + attributeName + ", attributeType="
-                + attributeType + ", attributeValue=" + attributeValue + ", userNo=" + userNo
-                + ", user_attribute_no=" + user_attribute_no + "]";
+        return "UserAttribute [attributeName=" + attributeName + ", attributeType=" + attributeType
+                + ", attributeValue=" + attributeValue + ", pageType=" + pageType + ", userAttributeNo="
+                + userAttributeNo + ", userNo=" + userNo + "]";
     }
-
-  
 
 }

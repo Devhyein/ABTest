@@ -15,20 +15,20 @@ public class Buyer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "buyer_no")
-    private int buyerNo; 
+    private int buyerNo;
 
     @Column(name = "product_no")
-    private int productNo; 
+    private int productNo;
 
     @Column(name = "test_no")
-    private int testNo; 
+    private int testNo;
 
     @Column(name = "user_no")
     private int userNo;
-    
+
     @Column(name = "date")
     private LocalDate date;
-    
+
     @Column(name = "page_type")
     private String pageType;
 
@@ -98,6 +98,4 @@ public class Buyer {
                 + ", testNo=" + testNo + ", userNo=" + userNo + "]";
     }
 
-
 }
-

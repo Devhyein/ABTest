@@ -15,25 +15,31 @@ public class UserSample {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_no")
-    private int userNo; 
+    private int userNo;
 
     @Column(name = "test_no")
-    private int testNo;  
+    private int testNo;
+
+    @Column(name = "session_id")
+    private String sessionId;
 
     @Column(name = "email")
-    private String email; 
+    private String email;
 
     @Column(name = "pw")
-    private String pw; 
+    private String pw;
+
+    @Column(name = "birth")
+    private LocalDate birth;
 
     @Column(name = "age")
-    private int age; 
+    private int age;
 
     @Column(name = "gender")
     private String gender;
 
     @Column(name = "page_type")
-    private String pageType; 
+    private String pageType;
 
     @Column(name = "join_date")
     private LocalDate joinDate;
@@ -41,28 +47,32 @@ public class UserSample {
     public UserSample() {
     }
 
-    public UserSample(int userNo, int testNo, String email, String pw, int age, String gender,
-            String pageType, LocalDate joinDate) {
+    public UserSample(int userNo, int testNo, String sessionId, String email, String pw, LocalDate birth, int age,
+            String gender, String pageType, LocalDate joinDate) {
         this.userNo = userNo;
         this.testNo = testNo;
+        this.sessionId = sessionId;
         this.email = email;
         this.pw = pw;
+        this.birth = birth;
         this.age = age;
         this.gender = gender;
         this.pageType = pageType;
         this.joinDate = joinDate;
     }
 
-    public UserSample(int testNo, String email, String pw, int age, String gender,
-    String pageType, LocalDate joinDate) {
+    public UserSample(int testNo, String sessionId, String email, String pw, LocalDate birth, int age, String gender,
+            String pageType, LocalDate joinDate) {
         this.testNo = testNo;
+        this.sessionId = sessionId;
         this.email = email;
         this.pw = pw;
+        this.birth = birth;
         this.age = age;
         this.gender = gender;
         this.pageType = pageType;
         this.joinDate = joinDate;
-        }
+    }
 
     public int getUserNo() {
         return userNo;
@@ -70,6 +80,14 @@ public class UserSample {
 
     public void setUserNo(int userNo) {
         this.userNo = userNo;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
     public String getEmail() {
@@ -128,10 +146,19 @@ public class UserSample {
         this.joinDate = joinDate;
     }
 
+    public LocalDate getBirth() {
+        return birth;
+    }
+
+    public void setBirth(LocalDate birth) {
+        this.birth = birth;
+    }
+
     @Override
     public String toString() {
-        return "UserSample [ age=" + age + ", email=" + email + ", gender=" + gender
-                + ", pageType=" + pageType + ", pw=" + pw + ", testNo=" + testNo + ", userNo=" + userNo + ", joinDate="+joinDate+"]";
+        return "UserSample [age=" + age + ", birth=" + birth + ", email=" + email + ", gender=" + gender + ", joinDate="
+                + joinDate + ", pageType=" + pageType + ", pw=" + pw + ", sessionId=" + sessionId + ", testNo=" + testNo
+                + ", userNo=" + userNo + "]";
     }
 
 }

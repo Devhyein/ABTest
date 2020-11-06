@@ -1,4 +1,3 @@
-
 package com.ssafy.free.dto;
 
 import java.time.LocalDate;
@@ -16,42 +15,46 @@ public class TestData {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "data_no")
-    private int dataNo; 
+    private int dataNo;
+
+    @Column(name = "url_no")
+    private int urlNo;
 
     @Column(name = "test_no")
     private int testNo;
+
+    @Column(name = "user_no")
+    private int userNo;
 
     @Column(name = "page_type")
     private String pageType;
 
     @Column(name = "date")
-    private LocalDate date; 
-    
-    @Column(name = "total_page_cnt")
-    private int totalPageCnt; 
+    private LocalDate date;
 
-    @Column(name = "next_page_cnt")
-    private int nextPageCnt;
+    @Column(name = "isJoined")
+    private boolean isJoined;
+
+    @Column(name = "gender")
+    private String gender;
+
+    @Column(name = "age")
+    private int age;
 
     public TestData() {
     }
 
-    public TestData(int dataNo, int testNo, String pageType, LocalDate date, int totalPageCnt,
-            int nextPageCnt) {
+    public TestData(int dataNo, int urlNo, int testNo, int userNo, String pageType, LocalDate date, boolean isJoined,
+            String gender, int age) {
         this.dataNo = dataNo;
+        this.urlNo = urlNo;
         this.testNo = testNo;
+        this.userNo = userNo;
         this.pageType = pageType;
         this.date = date;
-        this.totalPageCnt = totalPageCnt;
-        this.nextPageCnt = nextPageCnt;
-    }
-
-    public TestData(int testNo, String pageType, LocalDate date, int totalPageCnt, int nextPageCnt) {
-        this.testNo = testNo;
-        this.pageType = pageType;
-        this.date = date;
-        this.totalPageCnt = totalPageCnt;
-        this.nextPageCnt = nextPageCnt;
+        this.isJoined = isJoined;
+        this.gender = gender;
+        this.age = age;
     }
 
     public int getDataNo() {
@@ -62,12 +65,28 @@ public class TestData {
         this.dataNo = dataNo;
     }
 
+    public int getUrlNo() {
+        return urlNo;
+    }
+
+    public void setUrlNo(int urlNo) {
+        this.urlNo = urlNo;
+    }
+
     public int getTestNo() {
         return testNo;
     }
 
     public void setTestNo(int testNo) {
         this.testNo = testNo;
+    }
+
+    public int getUserNo() {
+        return userNo;
+    }
+
+    public void setUserNo(int userNo) {
+        this.userNo = userNo;
     }
 
     public String getPageType() {
@@ -86,26 +105,35 @@ public class TestData {
         this.date = date;
     }
 
-    public int getTotalPageCnt() {
-        return totalPageCnt;
+    public boolean isJoined() {
+        return isJoined;
     }
 
-    public void setTotalPageCnt(int totalPageCnt) {
-        this.totalPageCnt = totalPageCnt;
+    public void setJoined(boolean isJoined) {
+        this.isJoined = isJoined;
     }
 
-    public int getNextPageCnt() {
-        return nextPageCnt;
+    public String getGender() {
+        return gender;
     }
 
-    public void setNextPageCnt(int nextPageCnt) {
-        this.nextPageCnt = nextPageCnt;
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override
     public String toString() {
-        return "testdata [dataNo=" + dataNo + ", date=" + date + ", nextPageCnt=" + nextPageCnt
-                + ", pageType=" + pageType + ", testNo=" + testNo + ", totalPageCnt=" + totalPageCnt + "]";
+        return "TestData [age=" + age + ", dataNo=" + dataNo + ", date=" + date + ", gender=" + gender + ", isJoined="
+                + isJoined + ", pageType=" + pageType + ", testNo=" + testNo + ", urlNo=" + urlNo + ", userNo=" + userNo
+                + "]";
     }
 
 }
