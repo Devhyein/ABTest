@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Optional;
 
-import com.ssafy.free.dto.UserSample;
+import com.ssafy.free.dto.sample.UserSample;
 import com.ssafy.free.repository.UserSampleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,7 @@ package com.ssafy.free.repository;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import com.ssafy.free.dto.UserSample;
+import com.ssafy.free.dto.sample.UserSample;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

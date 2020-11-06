@@ -2,7 +2,7 @@ package com.ssafy.free.repository;
 
 import java.time.LocalDate;
 
-import com.ssafy.free.dto.Buyer;
+import com.ssafy.free.dto.sample.Buyer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
