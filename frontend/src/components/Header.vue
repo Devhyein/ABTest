@@ -1,7 +1,11 @@
 <template>
   <div class="headerdiv">
-    <img src="/img/logo.png" class="ml-5" @click="main()" />
-    <b-icon icon="person-circle" scale="2" @click="loginModal()" />
+    <div class="d-flex justify-content-between align-items-center mb-3 py-2">
+      <img src="/img/logo.png" class="ml-3" @click="main()" />
+      <div class="myprofile mr-4" @click="loginModal()">
+        <b-icon icon="person-circle" scale="2" />
+      </div>
+    </div>
 
     <b-modal title="로그인" v-model="modalShow">
       <b-row class="my-1">
@@ -17,7 +21,7 @@
           <label>PW : </label>
         </b-col>
         <b-col sm="9">
-          <b-form-input v-model="pw" />
+          <b-form-input v-model="pw" type="password"/>
         </b-col>
       </b-row>
       <template #modal-footer>
@@ -110,17 +114,16 @@ export default {
 <style scoped>
 img {
   width: 150px;
-  height: 80px;
-  float: left;
-}
-b-icon {
-  float: right;
+  height: auto;
 }
 .a {
   clear: both;
 }
 .headerdiv {
   background-color: lightgray;
-  margin-bottom: 20px;
+}
+.myprofile {
+  cursor: pointer;
+  width: 50px;
 }
 </style>

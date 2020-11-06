@@ -6,7 +6,10 @@
         <label>실험명 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.test_title" placeholder="실험명을 입력해주세요"/>
+        <b-form-input
+          v-model="input.test_title"
+          placeholder="실험명을 입력해주세요"
+        />
       </b-col>
     </b-row>
 
@@ -15,7 +18,16 @@
         <label>A안 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.url_a" placeholder="A안의 URL을 입력해주세요"/>
+        <b-form-input
+          v-for="a in listA"
+          :key="a"
+          style="display:block"
+          placeholder="A안의 URL을 입력해주세요"
+        />
+
+        <b-button @click="addUrlA(listA.length)">
+          url추가
+        </b-button>
       </b-col>
     </b-row>
 
@@ -24,7 +36,10 @@
         <label>A 별칭 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.test_a" placeholder="A안의 별칭을 입력해주세요"/>
+        <b-form-input
+          v-model="input.test_a"
+          placeholder="A안의 별칭을 입력해주세요"
+        />
       </b-col>
     </b-row>
 
@@ -33,7 +48,15 @@
         <label>B안 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.url_b" placeholder="B안의 URL을 입력해주세요"/>
+        <b-form-input
+          v-for="b in listB"
+          :key="b"
+          style="display:block"
+          placeholder="B안의 URL을 입력해주세요"
+        />
+        <b-button @click="addUrlB(listB.length)">
+          url추가
+        </b-button>
       </b-col>
     </b-row>
 
@@ -42,7 +65,10 @@
         <label>B안 별칭 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.test_b" placeholder="B안의 별칭을 입력해주세요"/>
+        <b-form-input
+          v-model="input.test_b"
+          placeholder="B안의 별칭을 입력해주세요"
+        />
       </b-col>
     </b-row>
 
@@ -51,7 +77,12 @@
         <label>시작일 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.start" type="date" />
+        <b-form-input
+          v-model="input.start"
+          type="date"
+          :max="input.end"
+          :min="today"
+        />
       </b-col>
     </b-row>
     <b-row class="my-1">
@@ -59,7 +90,7 @@
         <label>종료일 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input v-model="input.end" type="date" />
+        <b-form-input v-model="input.end" type="date" :min="input.start" />
       </b-col>
     </b-row>
 
@@ -99,7 +130,7 @@ export default {
   },
   data() {
     return {
-      email: "test",
+      today: new Date(),
       input: {
         test_title: "",
         url_a: "",
@@ -111,9 +142,22 @@ export default {
         per_a: 50,
         per_b: 50,
       },
+      listA: [],
+      listB: [],
     };
   },
+  computed: {
+    email() {
+      return this.$store.state.email;
+    },
+  },
   methods: {
+    addUrlA(a) {
+      this.listA.push(a);
+    },
+    addUrlB(b) {
+      this.listB.push(b);
+    },
     dataCheck() {
       let err = false;
       let msg = "";
@@ -130,8 +174,12 @@ export default {
       !err &&
         !this.input.test_b &&
         ((msg = "B안의 별칭을 입력해주세요"), (err = true));
-      !err && !this.input.start && ((msg = "시작일을 설정해주세요"), (err = true));
-      !err && !this.input.end && ((msg = "종료일을 설정해주세요"), (err = true));
+      !err &&
+        !this.input.start &&
+        ((msg = "시작일을 설정해주세요"), (err = true));
+      !err &&
+        !this.input.end &&
+        ((msg = "종료일을 설정해주세요"), (err = true));
       if (err) swal(msg);
       else this.createTest();
     },
@@ -148,6 +196,8 @@ export default {
       data.end = this.input.end;
       data.per_a = perA;
       data.per_b = 100 - this.input.per_a;
+      data.listA = this.listA;
+      data.listB = this.listB;
 
       console.log(data);
 
@@ -173,11 +223,31 @@ export default {
         (this.input.start = ""),
         (this.input.end = ""),
         (this.input.per_a = 50),
-        (this.input.per_b = 50);
+        (this.input.per_b = 50),
+        (this.listA = "");
+    },
+    add() {
+      this.urls.push(this.url_a);
+      this.url_a = {};
     },
   },
   created() {
     this.per_b = 100 - this.per_a;
+
+    let month = "";
+    if (new Date().getMonth() + 1 < 10) {
+      month = "0" + (new Date().getMonth() + 1);
+    } else {
+      month = new Date().getMonth() + 1;
+    }
+    let day = "";
+    if (new Date().getDate() < 10) {
+      day = "0" + new Date().getDate();
+    } else {
+      day = new Date().getDate();
+    }
+
+    this.today = new Date().getFullYear() + "-" + month + "-" + day;
   },
 };
 </script>

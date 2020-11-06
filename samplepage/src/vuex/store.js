@@ -10,7 +10,6 @@ Vue.use(Vuex)
 
 const state = {
     email: "",
-    detail:{},
 }
 
 export default new Vuex.Store({
