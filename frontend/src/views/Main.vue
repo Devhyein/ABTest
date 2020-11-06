@@ -2,21 +2,28 @@
   <div>
     <encar-header></encar-header>
     <div class="col-8 col-m-10 m-auto">
-      <div>
+      <!-- <div>
         <b-button pill class="createBtn" v-bind:to="'insert'"
           >실험생성</b-button>
+      </div> -->
+      <div class="infoBox my-2">
+        <div class="d-flex justify-content-end">
+          <small class="d-flex align-items-center"><b-icon icon="circle-fill" class="ml-2 mr-1 text-success" /> 진행 전</small>
+          <small class="d-flex align-items-center"><b-icon icon="circle-fill" class="ml-2 mr-1 text-warning" /> 진행 중</small>
+          <small class="d-flex align-items-center"><b-icon icon="circle-fill" class="ml-2 mr-1 text-danger" /> 진행 완료</small>
+        </div>
       </div>
       <div class="tabs">
         <b-tabs v-model="tabIndex">
           <b-tab
-            title="전체실험"
+            title="전체 실험"
             :title-link-class="linkClass(0)"
             @click="getAllTest()"
           >
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
-                <span class="status">
-                  {{ data.value.test_title }}
+                <span class="status" @click="detail(data.value)">
+                  {{ data.value.test_title }} 
                   <b-icon
                     icon="circle-fill"
                     class="ml-2"
@@ -33,21 +40,21 @@
                 </span>
               </template>
             </b-table>
-            <div class="info">
+            <!-- <div class="info">
               <b-icon icon="circle-fill" class="ml-2 text-danger" /> 진행 완료
               <b-icon icon="circle-fill" class="ml-2 text-warning" /> 진행 중
               <b-icon icon="circle-fill" class="ml-2 text-success" /> 진행 전
-            </div>
+            </div> -->
           </b-tab>
 
           <b-tab
-            title="진행전"
+            title="진행 전"
             :title-link-class="linkClass(1)"
             @click="getBeforeTest()"
           >
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
-                <span class="status">
+                <span class="status" @click="detail(data.value)">
                   {{ data.value.test_title }}
                 </span>
               </template>
@@ -63,13 +70,13 @@
           </b-tab>
 
           <b-tab
-            title="진행중"
+            title="진행 중"
             :title-link-class="linkClass(2)"
             @click="getProgressTest()"
           >
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
-                <span class="status">
+                <span class="status" @click="detail(data.value)">
                   {{ data.value.test_title }}
                 </span>
               </template>
@@ -85,13 +92,13 @@
           </b-tab>
 
           <b-tab
-            title="진행완료"
+            title="진행 완료"
             :title-link-class="linkClass(3)"
             @click="getCompleteTest()"
           >
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
-                <span class="status">
+                <span class="status" @click="detail(data.value.test_no)">
                   {{ data.value.test_title }}
                 </span>
               </template>
@@ -160,7 +167,7 @@
               <label>종료일 :</label>
             </b-col>
             <b-col sm="9">
-              <b-form-input v-model="inputs.end" type="date" />
+              <b-form-input v-model="inputs.end" type="date" :min="today"/>
             </b-col>
           </b-row>
           <template #modal-footer>
@@ -172,6 +179,10 @@
             </b-button>
           </template>
         </b-modal>
+      </div>
+      <div>
+        <b-button pill class="createBtn" v-bind:to="'insert'"
+          >실험생성</b-button>
       </div>
     </div>
   </div>
@@ -191,6 +202,7 @@ export default {
     return {
       tabIndex: 0,
       modalShow: false,
+      today: new Date(),
       inputs: {
         test_no: "",
         test_title: "",
@@ -232,6 +244,21 @@ export default {
   },
   created() {
     this.getAllTest();
+
+    let month = "";
+    if (new Date().getMonth() + 1 < 10) {
+      month = "0" + (new Date().getMonth() + 1);
+    } else {
+      month = new Date().getMonth() + 1;
+    }
+    let day = "";
+    if (new Date().getDate() < 10) {
+      day = "0" + new Date().getDate();
+    } else {
+      day = new Date().getDate();
+    }
+
+    this.today = new Date().getFullYear() + "-" + month + "-" + day;
   },
   methods: {
     dataCheck() {
@@ -254,7 +281,7 @@ export default {
     makeTableData() {
       for (let test of this.tests) {
         test.icon = test.test_no;
-        test.test_title = { test_title: test.test_title };
+        test.test_title = { test_title: test.test_title, test_no: test.test_no};
         if (test.status == "진행전") test.test_title.color = "text-success";
         else if (test.status == "진행중")
           test.test_title.color = "text-warning";
@@ -269,7 +296,18 @@ export default {
 
     linkClass(idx) {
       if (this.tabIndex === idx) {
-        return ["bg-danger", "text-light"];
+        if (idx === 0) {
+          return ["bg-info", "text-light"];
+        }
+        else if (idx === 1) {
+          return ["bg-success", "text-light"];
+        }
+        else if (idx === 2) {
+          return ["bg-warning", "text-light"];
+        }
+        else {
+          return ["bg-danger", "text-light"];
+        }
       } else {
         return ["bg-light", "text-dark"];
       }
@@ -294,6 +332,21 @@ export default {
 
       console.log(thisTest);
       this.modalShow = !this.modalShow;
+    },
+    detail(id){
+      console.log(id);
+      API.getDetailTest(
+        "test_no=" + id,
+        (res) => {
+          console.log(res);
+          this.$store.commit("addDetail", res);
+          this.$router.push("/detail");
+        },
+        (err) => {
+          console.log(err);
+          swal("페이지 조회 실패", "분석페이지 조회에 실패하였습니다.", "error");
+        }
+      );
     },
     deleteTest(id) {
       console.log(id);
@@ -402,13 +455,15 @@ export default {
 .createBtn {
   float: right;
   background-color: red;
+  border: none;
 }
-
-.info {
-  float: right;
-}
-
 .tabs {
   clear: both;
+  /* height: ; */
 }
+.infoBox {
+  overflow: hidden;
+  width: 100%;
+}
+
 </style>

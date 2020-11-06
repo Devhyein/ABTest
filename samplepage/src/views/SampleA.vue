@@ -1,14 +1,14 @@
 <template>
   <div>
     <!-- Header -->
-    <b-navbar class="mynavbar d-flex justify-content-between">
+    <b-navbar class="mynavbar">
+      <b-icon-list v-b-toggle.sidebar class="myicon mr-3 mt-3"></b-icon-list>
       <b-navbar-brand href="#">
         <img :src="encar" class="mylogo" alt="encar logo" />
       </b-navbar-brand>
-      <b-icon-list v-b-toggle.sidebar class="myicon mt-3"></b-icon-list>
     </b-navbar>
 
-    <b-sidebar id="sidebar" title="로그인 해주세요 :)" bg-variant="light" right backdrop shadow>
+    <b-sidebar id="sidebar" title="로그인 해주세요" bg-variant="light" backdrop shadow>
       <template #footer>
         <div class="mysidefooter d-flex justify-content-around py-3">
           <small class="d-block">이벤트</small>
@@ -30,66 +30,36 @@
           <p>찜한차량</p>
         </div>
       </div>
-      <!-- <div class="text-left font-weight-bold ml-3 py-3">
-        차량 구매
-      </div>
-      <div class="text-left pl-3 py-3 bg-white">
-        <p>차량 검색</p>
-        <p>홈 서비스</p>
-        <p>이 차 어때?</p>
-        <p>신차 시세</p>
-        <p>중고차 시세</p>
+      <div class="text-left ml-3 pt-3">
         <p>보험료 계산 <b-icon-calculator></b-icon-calculator></p>
-        <p class="m-0">금융</p>
       </div>
-      <div class="text-left font-weight-bold ml-3 py-3">
-        차량 판매
-      </div>
-      <div class="text-left pl-3 py-3 bg-white">
-        <p>진단 등록 예약</p>
-      </div>
-      <div class="text-left font-weight-bold ml-3 py-3">
-        정보
-      </div>
-      <div class="text-left pl-3 py-3 bg-white">
-        <p>전기<b-icon-dot></b-icon-dot>친환경차</p>
-        <p class="m-0">미디어</p>
-      </div> -->
       <div class="mysidebar bg-white">
-        <div class="text-left ml-4 pt-3">
-          <h5><strong>차량 구매</strong></h5>
+        <div class="d-flex justify-content-around px-3 pt-4">
+          <h5><strong>차량검색</strong></h5>
+          <h5><strong>내차팔기</strong></h5>
         </div>
         <div class="text-left mx-4">
-          <p class="font-weight-bold py-1 m-0">차량 검색</p>
-          <p class="font-weight-bold py-1 m-0">홈 서비스</p>
-          <p class="font-weight-bold py-1 m-0">이 차 어때?</p>
-          <p class="font-weight-bold py-1 m-0">신차 시세</p>
-          <p class="font-weight-bold py-1 m-0">중고차 시세</p>
-          <p class="font-weight-bold py-1 m-0">보험료 계산</p>
-          <p class="font-weight-bold py-1 m-0">금융</p>
+          <hr />
+          <strong>내차사기 홈서비스</strong>
+          <hr />
+          <strong>금융</strong>
+          <hr />
+          <strong>신차</strong>
+          <hr />
+          <strong>전기차</strong>
+          <small class="text-secondary"> EV포스트</small>
           <hr />
         </div>
-        <div class="text-left ml-4">
-          <h5><strong>차량 판매</strong></h5>
-        </div>
-        <div class="text-left mx-4">
-          <p class="font-weight-bold py-1 m-0">진단 등록 예약</p>
-          <hr />
-        </div>
-        <div class="text-left ml-4">
-          <h5><strong>정보</strong></h5>
-        </div>
-        <div class="text-left mx-4">
-          <p class="font-weight-bold py-1 m-0">전기<b-icon-dot></b-icon-dot>친환경차</p>
-          <p class="font-weight-bold py-1 m-0">미디어</p>
-          <hr />
-        </div>
+        <small class="d-block text-secondary text-left mx-4 my-3">이차어때? 모카</small>
+        <small class="d-block text-secondary text-left mx-4 my-3">미디어</small>
+        <small class="d-block text-secondary text-left mx-4 my-3">진단등록 예약</small>
+        <small class="d-block text-secondary text-left mx-4 my-3">중고차 시세</small>
       </div>
     </b-sidebar>
 
     <div class="mybody">  
-      <div class="text-left ml-3 mt-4">
-        <strong>내 차를 마련하고 싶으신가요?</strong>
+      <div class="text-left ml-3 mt-5">
+        <strong>내 차를 사고 싶으신가요?</strong>
       </div>
       <b-input-group class="myinputgroup py-2 mx-3 my-3 sticky-top bg-white">
         <b-input-group-prepend>
@@ -216,7 +186,7 @@
 import encar from "@/assets/encar.png";
 
 export default {
-  name: "SampleB",
+  name: "SampleA",
   data() {
     return {
       encar,
@@ -226,51 +196,51 @@ export default {
 </script>
 
 <style scoped>
-.mynavbar {
-  height: 50px;
-}
-.myicon {
-  font-size: x-large;
-}
-.mylogo {
-  height: 40px;
-}
-.mysidebar {
-  height: 620px;
-}
-.mysidefooter {
-  border-top: 1px solid lightgray;
-}
-.mybody {
-  padding-bottom: 70px;
-}
-.myinputgroup {
-  border: 1px solid red;
-  border-radius: 0.25rem;
-  width: auto;
-}
-.mysearch {
-  border: none;
-  color: red;
-}
-.myinputtext {
-  border: none;
-}
-.myarrow {
-  color: red;
-}
-.mydiv {
-  border-radius: 0.5rem;
-}
-.myfooter {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-.mytab {
-  font-size: x-small;
-}
-a.nav-link {
-  padding: 0;
-}
+  .mynavbar {
+    height: 50px;
+  }
+  .myicon {
+    font-size: x-large;
+  }
+  .mylogo {
+    height: 40px;
+  }
+  .mysidebar {
+    height: 565px;
+  }
+  .mysidefooter {
+    border-top: 1px solid lightgray;
+  }
+  .mybody {
+    padding-bottom: 70px;
+  }
+  .myinputgroup {
+    border: 1px solid red;
+    border-radius: 0.25rem;
+    width: auto;
+  }
+  .mysearch {
+    border: none;
+    color: red;
+  }
+  .myinputtext {
+    border: none;
+  }
+  .myarrow {
+    color: red;
+  }
+  .mydiv {
+    border-radius: 0.25rem;
+  }
+  .myfooter {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  .mytab {
+    font-size: x-small;
+  }
+  a.nav-link {
+    padding: 0;
+  }
 </style>
