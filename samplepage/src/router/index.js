@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import SampleA from '@/views/SampleA.vue'
 import SampleB from '@/views/SampleB.vue'
-import Join from '@/views/join.vue'
+import Join from '@/views/Join.vue'
 
 Vue.use(VueRouter)
 
@@ -13,11 +13,6 @@ const routes = [
     component: SampleA
   },
   {
-    path: '/sample/b',
-    name: 'SampleB',
-    component: SampleB
-  },
-    {
     path: '/sample/b',
     name: 'SampleB',
     component: SampleB
