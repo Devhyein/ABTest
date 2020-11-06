@@ -1,19 +1,19 @@
-FROM node:lts-alpine
-
-# install simple http server for serving static content
-RUN npm install -g http-server
-
+FROM node as build-stage
 # make the 'app' folder the current working directory
 WORKDIR /app
-
-# copy project files and folders to the current working directory (i.e. 'app' folder)
-COPY . .
-
+COPY package*.json ./
 # install project dependencies
 RUN yarn install
-
+# copy project files and folders to the current working directory (i.e. 'app' folder)
+COPY . .
 # build app for production with minification
 RUN yarn run build
 
+
+# production stage
+FROM nginx:stable-alpine as production-stage
+COPY  ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=build-stage /app/dist /usr/share/nginx/html
 EXPOSE 8081
-ENTRYPOINT [ "http-server", "-p", "8081", "/app/dist" ]
+CMD ["nginx", "-g", "daemon off;"]

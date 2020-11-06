@@ -1,5 +1,7 @@
 package com.ssafy.free.dto;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,57 +15,82 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_no")
-    private int userNo; 
+    private int userNo;
 
-    @Column(name = "email")
-    private String email;
-    
-    @Column(name = "history")
-    private String history;
+    @Column(name = "test_no")
+    private int testNo;
+
+    @Column(name = "session_id")
+    private String sessionId;
+
+    @Column(name = "page_type")
+    private String pageType;
+
+    @Column(name = "date")
+    private LocalDate date;
 
     public User() {
     }
 
-    public User(String email, String history) {
-        this.email = email;
-        this.history = history;
+    public User(int userNo, int testNo, String sessionId, String pageType, LocalDate date) {
+        this.userNo = userNo;
+        this.testNo = testNo;
+        this.sessionId = sessionId;
+        this.pageType = pageType;
+        this.date = date;
     }
 
-    public User(int user_no, String email, String history) {
-        this.userNo = user_no;
-        this.email = email;
-        this.history = history;
+    public User(int testNo, String sessionId, String pageType, LocalDate date) {
+        this.testNo = testNo;
+        this.sessionId = sessionId;
+        this.pageType = pageType;
+        this.date = date;
     }
 
     public int getUserNo() {
         return userNo;
     }
 
-    public void setUserNo(int user_no) {
-        this.userNo = user_no;
+    public void setUserNo(int userNo) {
+        this.userNo = userNo;
     }
 
-    public String getEmail() {
-        return email;
+    public int getTestNo() {
+        return testNo;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setTestNo(int testNo) {
+        this.testNo = testNo;
     }
 
-    public String getHistory() {
-        return history;
+    public String getSessionId() {
+        return sessionId;
     }
 
-    public void setHistory(String history) {
-        this.history = history;
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public String getPageType() {
+        return pageType;
+    }
+
+    public void setPageType(String pageType) {
+        this.pageType = pageType;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     @Override
     public String toString() {
-        return "User [email=" + email + ", history=" + history + ", user_no=" + userNo + "]";
+        return "User [sessionId=" + sessionId + ", pageType=" + pageType + ", testNo=" + testNo + ", userNo=" + userNo
+                + ", date=" + date + "]";
     }
-
-    
 
 }
