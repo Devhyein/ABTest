@@ -42,6 +42,10 @@ public class ManageController {
             if (res > 0) {
                 response.status = true;
                 response.msg = "success";
+            } else if (res == -1) {
+                response.msg = "URL A 중복";
+            } else if (res == -2) {
+                response.msg = "URL B 중복";
             } else {
                 System.out.println("테스트 저장 실패");
             }
