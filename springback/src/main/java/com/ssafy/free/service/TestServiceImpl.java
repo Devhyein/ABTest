@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ssafy.free.dto.Analysis.*;
-import com.ssafy.free.dto.PageCnt;
-import com.ssafy.free.dto.Test;
-import com.ssafy.free.dto.UrlAttribute;
+import com.ssafy.free.dto.Admin.*;
 import com.ssafy.free.repository.BuyerRepository;
 import com.ssafy.free.repository.PageCntRepository;
 import com.ssafy.free.repository.TestDataRepository;

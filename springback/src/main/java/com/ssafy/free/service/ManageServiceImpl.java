@@ -6,10 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-import com.ssafy.free.dto.AdminUser;
-import com.ssafy.free.dto.Test;
-import com.ssafy.free.dto.TestResponse;
-import com.ssafy.free.dto.UrlAttribute;
+import com.ssafy.free.dto.Admin.*;
 import com.ssafy.free.repository.AdminUserRepository;
 import com.ssafy.free.repository.TestRepository;
 import com.ssafy.free.repository.UrlAttributeRepository;

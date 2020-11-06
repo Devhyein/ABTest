@@ -1,10 +1,10 @@
-package com.ssafy.free.controller;
+package com.ssafy.free.controller.Admin;
 
 import java.util.HashMap;
 import java.util.List;
 
 import com.ssafy.free.dto.RestResponse;
-import com.ssafy.free.dto.TestResponse;
+import com.ssafy.free.dto.Admin.TestResponse;
 import com.ssafy.free.service.ManageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
