@@ -43,6 +43,15 @@
 
 		<!-- dependecies added from below -->
 
+		<!-- 로그 -->
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+
+
 		<!-- Swagger -->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -57,21 +66,21 @@
 
 		<!-- db -->
 		<dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 
 		<!-- JPA -->
 
 		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		
+
 		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 
 
@@ -82,13 +91,29 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- lombok -->
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.12</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- API -->
+		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>29.0-jre</version>
+		</dependency>
 
 	</dependencies>
 
 	<build>
 		<finalName>abtest</finalName>
 		<!-- 도커 안에 jar 파일로 빌드 후 실행시키면 오류나서 쓰는 방법 -->
-		<resources>  
+		<resources>
 			<resource>
 				<directory>${basedir}/src/main/resources</directory>
 				<filtering>true</filtering>

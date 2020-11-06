@@ -20,8 +20,8 @@ public class User {
     @Column(name = "test_no")
     private int testNo;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "session_id")
+    private String sessionId;
 
     @Column(name = "page_type")
     private String pageType;
@@ -32,17 +32,17 @@ public class User {
     public User() {
     }
 
-    public User(int userNo, int testNo, String email, String pageType, LocalDate date) {
+    public User(int userNo, int testNo, String sessionId, String pageType, LocalDate date) {
         this.userNo = userNo;
         this.testNo = testNo;
-        this.email = email;
+        this.sessionId = sessionId;
         this.pageType = pageType;
         this.date = date;
     }
 
-    public User(int testNo, String email, String pageType, LocalDate date) {
+    public User(int testNo, String sessionId, String pageType, LocalDate date) {
         this.testNo = testNo;
-        this.email = email;
+        this.sessionId = sessionId;
         this.pageType = pageType;
         this.date = date;
     }
@@ -63,12 +63,12 @@ public class User {
         this.testNo = testNo;
     }
 
-    public String getEmail() {
-        return email;
+    public String getSessionId() {
+        return sessionId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
     public String getPageType() {
@@ -89,7 +89,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [email=" + email + ", pageType=" + pageType + ", testNo=" + testNo + ", userNo=" + userNo
+        return "User [sessionId=" + sessionId + ", pageType=" + pageType + ", testNo=" + testNo + ", userNo=" + userNo
                 + ", date=" + date + "]";
     }
 
