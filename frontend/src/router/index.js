@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import Main from '../views/Main.vue'
 import Insert from '../views/Insert.vue'
 import Detail from '../views/Detail.vue'
-import Join from '../views/Join.vue'
 
 Vue.use(VueRouter)
 
@@ -22,11 +21,6 @@ const routes = [
     path: '/insert',
     name: 'Insert',
     component: Insert
-  },  
-  {
-    path: '/join',
-    name: 'Join',
-    component: Join
   },
   {
     path: '/detail',
