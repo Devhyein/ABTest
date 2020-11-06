@@ -23,9 +23,10 @@ public class ApiController {
 
     @ApiOperation(value = "A or B 할당")
     @GetMapping("/assign")
-    public Object getTestList(HttpSession session) {
+    public Object getTestList(HttpSession session,String url) {
         final RestResponse response = new RestResponse();
         apiService.convert(session.getId());
+        
 
         response.status = false;
         response.msg = "Fail to produce A/B ";

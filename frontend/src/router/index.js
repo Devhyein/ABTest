@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from '../views/Main.vue'
-import SampleA from '@/views/SampleA.vue'
-import SampleB from '@/views/SampleB.vue'
 import Insert from '../views/Insert.vue'
 import Detail from '../views/Detail.vue'
 import Join from '../views/Join.vue'
@@ -19,16 +17,6 @@ const routes = [
     path: '/main',
     name: 'Main',
     component: Main
-  },
-  {
-    path: '/sample/a',
-    name: 'SampleA',
-    component: SampleA
-  },
-  {
-    path: '/sample/b',
-    name: 'SampleB',
-    component: SampleB
   },
   {
     path: '/insert',

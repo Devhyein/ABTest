@@ -145,6 +145,34 @@ const API = {
     getTestListComplete:(data,callback,errorCallback)=>getApi('/spring/testlist/complete',data,callback,errorCallback),
     modifyTest:(data,callback,errorCallback)=>putApi('/spring/modify/test',data,callback,errorCallback),
     deleteTest:(data,callback,errorCallback)=>deleteApi('/spring/delete/test',data,callback,errorCallback),
+   
+    getDetailTest:(data,callback,errorCallback)=>getApi('/spring/detail/test',data,callback,errorCallback),
+    getDetailTestGender:(data,callback,errorCallback)=>getApi('/spring/detail/gender/test',data,callback,errorCallback),
+    getDetailTestAge:(data,callback,errorCallback)=>getApi('/spring/detail/age/test',data,callback,errorCallback),
+    getDetailTestCustom:(data,callback,errorCallback)=>getApi('/spring/detail/custom/test',data,callback,errorCallback),
+
+    getDetailTestConversionWithUrl:(data,callback,errorCallback)=>getApi('/spring/detail/conversion/url',data,callback,errorCallback),
+
+
+    getChartConversion:(data,callback,errorCallback)=>getApi('/spring/chart/test/conversion',data,callback,errorCallback),
+    getChartBounce:(data,callback,errorCallback)=>getApi('/spring/chart/test/bounce',data,callback,errorCallback),
+    getChartJoin:(data,callback,errorCallback)=>getApi('/spring/chart/test/join',data,callback,errorCallback),
+    getChartPurchase:(data,callback,errorCallback)=>getApi('/spring/chart/test/purchase',data,callback,errorCallback),
+
+    getChartGenderConversion:(data,callback,errorCallback)=>getApi('/spring/chart/gender/conversion',data,callback,errorCallback),
+    getChartGenderBounce:(data,callback,errorCallback)=>getApi('/spring/chart/gender/bounce',data,callback,errorCallback),
+    getChartGenderPurchase:(data,callback,errorCallback)=>getApi('/spring/chart/gender/purchase',data,callback,errorCallback),
+    
+    getChartAgeConversion:(data,callback,errorCallback)=>getApi('/spring/chart/age/conversion',data,callback,errorCallback),
+    getChartAgeBounce:(data,callback,errorCallback)=>getApi('/spring/chart/age/bounce',data,callback,errorCallback),
+    getChartAgePurchase:(data,callback,errorCallback)=>getApi('/spring/chart/age/purchase',data,callback,errorCallback),
+
+    
+    getChartCustomConversion:(data,callback,errorCallback)=>getApi('/spring/chart/custom/conversion',data,callback,errorCallback),
+    getChartCustomBounce:(data,callback,errorCallback)=>getApi('/spring/chart/custom/bounce',data,callback,errorCallback),
+    getChartCustomJoin:(data,callback,errorCallback)=>getApi('/spring/chart/custom/join',data,callback,errorCallback),
+    getChartCustomPurchase:(data,callback,errorCallback)=>getApi('/spring/chart/custom/purchase',data,callback,errorCallback),
+   
     manageLogin:(data,callback,errorCallback)=>postApi('/spring/login',data,callback,errorCallback),
 
     login:(data,callback,errorCallback)=>postApi('/account/login',data,callback,errorCallback),
