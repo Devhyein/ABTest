@@ -1,17 +1,17 @@
-package com.ssafy.free.dto;
+package com.ssafy.free.dto.Admin;
 
 import java.time.LocalDate;
 
 public class TestResponse {
-    private int test_no; 
-    private int admin_no; 
-    private String test_title; 
-    private String test_a; 
-    private String test_b; 
-    private LocalDate start; 
-    private LocalDate end; 
-    private int per_a; 
-    private int per_b; 
+    private int test_no;
+    private int admin_no;
+    private String test_title;
+    private String test_a;
+    private String test_b;
+    private LocalDate start;
+    private LocalDate end;
+    private int per_a;
+    private int per_b;
     private String status;
     private String url_a;
     private String url_b;
@@ -29,11 +29,10 @@ public class TestResponse {
         this.end = test.getEnd();
         this.per_a = test.getPerA();
         this.per_b = test.getPerB();
-        this.status = test.getStatus();  
+        this.status = test.getStatus();
         this.url_a = test.getUrlA();
         this.url_b = test.getUrlB();
     }
-
 
     public TestResponse(int test_no, int admin_no, String test_title, String test_a, String test_b, LocalDate start,
             LocalDate end, int per_a, int per_b, String status) {
@@ -152,5 +151,4 @@ public class TestResponse {
                 + test_no + ", test_title=" + test_title + "]";
     }
 
-    
 }

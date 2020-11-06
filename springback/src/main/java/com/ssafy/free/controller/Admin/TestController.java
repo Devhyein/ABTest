@@ -1,4 +1,4 @@
-package com.ssafy.free.controller;
+package com.ssafy.free.controller.Admin;
 
 import com.ssafy.free.dto.RestResponse;
 import com.ssafy.free.dto.Analysis.*;

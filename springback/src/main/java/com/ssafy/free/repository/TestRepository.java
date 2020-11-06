@@ -2,8 +2,7 @@ package com.ssafy.free.repository;
 
 import java.util.List;
 
-import com.ssafy.free.dto.Test;
-import com.ssafy.free.dto.TestResponse;
+import com.ssafy.free.dto.Admin.*;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

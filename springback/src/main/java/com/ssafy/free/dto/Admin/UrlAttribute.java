@@ -1,4 +1,4 @@
-package com.ssafy.free.dto;
+package com.ssafy.free.dto.Admin;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
