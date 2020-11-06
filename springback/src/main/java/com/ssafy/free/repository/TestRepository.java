@@ -15,4 +15,12 @@ public interface TestRepository extends JpaRepository<Test, Integer> {
 
 	Test findByAdminNoAndTestTitle(int adminNo, String testTitle);
 
+	int countByUrlAAndStatus(String urlA, String string);
+
+	int countByUrlBAndStatus(String urlB, String string);
+
+	Test FindByurlAAndStatus(String urlA, String Status);
+
+	Test FindByurlBAndStatus(String urlB, String Status);
+
 }

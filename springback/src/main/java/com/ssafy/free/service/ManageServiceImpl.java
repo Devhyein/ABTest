@@ -42,6 +42,20 @@ public class ManageServiceImpl implements ManageService {
                 status = "진행중";
             }
 
+            // url이 그 테스트기간 내에 일치하는게 있으면 막아
+            String urlA = request.get("url_a").toString();
+            String urlB = request.get("url_b").toString();
+
+            if (testRepository.countByUrlAAndStatus(urlA, "진행전")
+                    + testRepository.countByUrlAAndStatus(urlA, "진행중") > 0) {
+                return -1;
+            }
+
+            if (testRepository.countByUrlBAndStatus(urlB, "진행전")
+                    + testRepository.countByUrlBAndStatus(urlB, "진행중") > 0) {
+                return -2;
+            }
+
             Test test = new Test(admin_no, request.get("test_title").toString(), request.get("test_a").toString(),
                     request.get("test_b").toString(), start, end, Integer.parseInt(request.get("per_a").toString()),
                     Integer.parseInt(request.get("per_b").toString()), status, request.get("url_a").toString(),
