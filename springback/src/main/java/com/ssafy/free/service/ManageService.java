@@ -3,7 +3,6 @@ package com.ssafy.free.service;
 import java.util.HashMap;
 import java.util.List;
 
-import com.ssafy.free.dto.Test;
 import com.ssafy.free.dto.TestResponse;
 
 public interface ManageService {

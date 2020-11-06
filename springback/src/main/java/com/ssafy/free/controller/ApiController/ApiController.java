@@ -1,9 +1,9 @@
-package com.ssafy.free.controller;
+package com.ssafy.free.controller.ApiController;
 
 import javax.servlet.http.HttpSession;
 
 import com.ssafy.free.dto.RestResponse;
-import com.ssafy.free.service.ApiService;
+import com.ssafy.free.service.ApiService.ApiService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
