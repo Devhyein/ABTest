@@ -2,14 +2,21 @@
   <div>
     <encar-header></encar-header>
     <div class="col-8 col-m-10 m-auto">
-      <div>
+      <!-- <div>
         <b-button pill class="createBtn" v-bind:to="'insert'"
           >실험생성</b-button>
+      </div> -->
+      <div class="infoBox my-2">
+        <div class="d-flex justify-content-end">
+          <small class="d-flex align-items-center"><b-icon icon="circle-fill" class="ml-2 mr-1 text-success" /> 진행 전</small>
+          <small class="d-flex align-items-center"><b-icon icon="circle-fill" class="ml-2 mr-1 text-warning" /> 진행 중</small>
+          <small class="d-flex align-items-center"><b-icon icon="circle-fill" class="ml-2 mr-1 text-danger" /> 진행 완료</small>
+        </div>
       </div>
       <div class="tabs">
         <b-tabs v-model="tabIndex">
           <b-tab
-            title="전체실험"
+            title="전체 실험"
             :title-link-class="linkClass(0)"
             @click="getAllTest()"
           >
@@ -33,15 +40,15 @@
                 </span>
               </template>
             </b-table>
-            <div class="info">
+            <!-- <div class="info">
               <b-icon icon="circle-fill" class="ml-2 text-danger" /> 진행 완료
               <b-icon icon="circle-fill" class="ml-2 text-warning" /> 진행 중
               <b-icon icon="circle-fill" class="ml-2 text-success" /> 진행 전
-            </div>
+            </div> -->
           </b-tab>
 
           <b-tab
-            title="진행전"
+            title="진행 전"
             :title-link-class="linkClass(1)"
             @click="getBeforeTest()"
           >
@@ -63,7 +70,7 @@
           </b-tab>
 
           <b-tab
-            title="진행중"
+            title="진행 중"
             :title-link-class="linkClass(2)"
             @click="getProgressTest()"
           >
@@ -85,7 +92,7 @@
           </b-tab>
 
           <b-tab
-            title="진행완료"
+            title="진행 완료"
             :title-link-class="linkClass(3)"
             @click="getCompleteTest()"
           >
@@ -172,6 +179,10 @@
             </b-button>
           </template>
         </b-modal>
+      </div>
+      <div>
+        <b-button pill class="createBtn" v-bind:to="'insert'"
+          >실험생성</b-button>
       </div>
     </div>
   </div>
@@ -285,7 +296,18 @@ export default {
 
     linkClass(idx) {
       if (this.tabIndex === idx) {
-        return ["bg-danger", "text-light"];
+        if (idx === 0) {
+          return ["bg-info", "text-light"];
+        }
+        else if (idx === 1) {
+          return ["bg-success", "text-light"];
+        }
+        else if (idx === 2) {
+          return ["bg-warning", "text-light"];
+        }
+        else {
+          return ["bg-danger", "text-light"];
+        }
       } else {
         return ["bg-light", "text-dark"];
       }
@@ -433,13 +455,15 @@ export default {
 .createBtn {
   float: right;
   background-color: red;
+  border: none;
 }
-
-.info {
-  float: right;
-}
-
 .tabs {
   clear: both;
+  /* height: ; */
 }
+.infoBox {
+  overflow: hidden;
+  width: 100%;
+}
+
 </style>
