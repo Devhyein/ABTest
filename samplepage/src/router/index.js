@@ -14,6 +14,16 @@ const routes = [
     component: SampleA
   },
   {
+    path: '/sample',
+    name: 'SampleA',
+    component: SampleA
+  },
+  {
+    path: '/sample/a',
+    name: 'SampleA',
+    component: SampleA
+  },
+  {
     path: '/sample/b',
     name: 'SampleB',
     component: SampleB
