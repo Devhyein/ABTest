@@ -9,7 +9,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/sample/a',
+    path: '/sample',
     name: 'SampleA',
     component: SampleA
   },
@@ -19,12 +19,12 @@ const routes = [
     component: SampleB
   },
   {
-    path: '/join',
+    path: 'sample/join',
     name: 'Join',
     component: Join
   },
   {
-    path: '/login',
+    path: 'sample/login',
     name: 'Login',
     component: Login
   },
