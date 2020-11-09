@@ -19,15 +19,9 @@
       </b-col>
       <b-col sm="9">
         <b-form-input
-          v-for="a in listA"
-          :key="a"
-          style="display:block"
+          v-model="input.url_a"
           placeholder="A안의 URL을 입력해주세요"
         />
-
-        <b-button @click="addUrlA(listA.length)">
-          url추가
-        </b-button>
       </b-col>
     </b-row>
 
@@ -49,14 +43,9 @@
       </b-col>
       <b-col sm="9">
         <b-form-input
-          v-for="b in listB"
-          :key="b"
-          style="display:block"
+          v-model="input.url_b"
           placeholder="B안의 URL을 입력해주세요"
         />
-        <b-button @click="addUrlB(listB.length)">
-          url추가
-        </b-button>
       </b-col>
     </b-row>
 
@@ -91,6 +80,24 @@
       </b-col>
       <b-col sm="9">
         <b-form-input v-model="input.end" type="date" :min="input.start" />
+      </b-col>
+    </b-row>
+
+    <b-row class="my-1">
+      <b-col sm="3">
+        <label>전환율 분석페이지 :</label>
+      </b-col>
+      <b-col sm="9">
+        <b-form-input
+          v-for="u in list"
+          :key="u"
+          style="display:block"
+          placeholder="URL을 입력해주세요"
+        />
+
+        <b-button @click="addUrl(list.length)">
+          url추가
+        </b-button>
       </b-col>
     </b-row>
 
@@ -142,8 +149,7 @@ export default {
         per_a: 50,
         per_b: 50,
       },
-      listA: [],
-      listB: [],
+      list: [],
     };
   },
   computed: {
@@ -152,11 +158,8 @@ export default {
     },
   },
   methods: {
-    addUrlA(a) {
-      this.listA.push(a);
-    },
-    addUrlB(b) {
-      this.listB.push(b);
+    addUrl(u) {
+      this.list.push(u);
     },
     dataCheck() {
       let err = false;
@@ -196,8 +199,7 @@ export default {
       data.end = this.input.end;
       data.per_a = perA;
       data.per_b = 100 - this.input.per_a;
-      data.listA = this.listA;
-      data.listB = this.listB;
+      data.list = this.list;
 
       console.log(data);
 
@@ -224,11 +226,7 @@ export default {
         (this.input.end = ""),
         (this.input.per_a = 50),
         (this.input.per_b = 50),
-        (this.listA = "");
-    },
-    add() {
-      this.urls.push(this.url_a);
-      this.url_a = {};
+        (this.list = "");
     },
   },
   created() {

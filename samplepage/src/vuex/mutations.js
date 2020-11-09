@@ -1,8 +1,11 @@
 export default {
-    addUserInfo(state, email) {
-        state.email = email;
+    addUserInfo(state, user) {
+        state.user = user;
     },
     deleteUserInfo(state) {
-        state.email = "";
+        state.user = "";
+    },
+    addSampleInfo(state, sample){
+        state.sample = sample;
     }
 }
