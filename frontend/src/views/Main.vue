@@ -335,7 +335,7 @@ export default {
     detail(id){
       console.log(id);
       API.getDetailTest(
-        "test_no=" + id,
+        "test_no=" + id.test_no,
         (res) => {
           console.log(res);
           this.$store.commit("addDetail", res);

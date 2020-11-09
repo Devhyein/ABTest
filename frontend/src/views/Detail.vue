@@ -15,7 +15,7 @@
         <b-tab title="전체" :title-link-class="linkClass(0)">
           <b-form-select v-model="selected1" :options="options1" />
           <div>
-            <b-button :variant="information" @click="urlModal()">
+            <b-button variant="info" @click="urlModal()">
               페이지별 전환율 상세보기
             </b-button>
             <b-table hover :items="tableData" :fields="fields"> </b-table>
@@ -24,7 +24,7 @@
         <b-tab title="성별" :title-link-class="linkClass(1)">
           <b-form-select v-model="selected2" :options="options2" />
           <div>
-            <b-button :variant="information" @click="urlModal()">
+            <b-button variant="info" @click="urlModal()">
               페이지별 전환율 상세보기
             </b-button>
             <b-table hover :items="tableDataGender" :fields="fields"> </b-table>
@@ -33,7 +33,7 @@
         <b-tab title="나이" :title-link-class="linkClass(2)">
           <b-form-select v-model="selected3" :options="options2" />
           <div>
-            <b-button :variant="information" @click="urlModal()">
+            <b-button variant="info" @click="urlModal()">
               페이지별 전환율 상세보기
             </b-button>
             <b-table hover :items="tableDataAge" :fields="fields"> </b-table>
@@ -42,7 +42,7 @@
         <b-tab title="사용자 지정" :title-link-class="linkClass(3)">
           <b-form-select v-model="selected4" :options="options1" />
           <div>
-            <b-button :variant="information" @click="urlModal()">
+            <b-button variant="info" @click="urlModal()">
               페이지별 전환율 상세보기
             </b-button>
             <b-table hover :items="tableDataCustom" :fields="fields"> </b-table>
@@ -51,6 +51,11 @@
       </b-tabs>
       <b-modal title="URL별 페이지 전환율" v-model="modalShow">
         <!-- 모달에 들어 갈 테이블 추가 -->
+        <b-table hover :items="detailTableData" :fields="detailFields">
+        </b-table>
+        <template #modal-footer> 
+          <div></div>
+        </template>
       </b-modal>
     </div>
   </div>
@@ -73,6 +78,7 @@ export default {
       tableDataGender: [],
       tableDataAge: [],
       tableDataCustom: [],
+      detailTableData: [],
       // chart어떤식으로 받아야할지 공부
       //chart:[],
       fields: [
@@ -81,32 +87,13 @@ export default {
         { key: "testB", label: "B 안" },
         { key: "rate", label: "증감률" },
       ],
+      detailFields: [],
       //백엔드 연동했을땐 여기있는거 주석 해제해서 사용하고 샘플 지우기
-      // detail: {},
       // detailGender: {},
       // detailAge: {},
       // detailCustom: {},
 
       // 아래는 샘플 값 넣어놓은 거예요 나중에 지우기
-      detail: {
-        test_no: 2,
-        test_title: "버튼테스트",
-        start: "2020.10.12",
-        end: "2020.11.11",
-        status: "진행중",
-        conversionA: 30.6,
-        conversionB: 40,
-        con_rate: 33,
-        bounceA: 40,
-        bounceB: 30,
-        bo_rate: -33,
-        joinA: 20,
-        joinB: 40,
-        jo_rate: 100,
-        purchaseA: 40,
-        purchaseB: 10,
-        pur_rate: -75,
-      },
       detailGender: {
         test_no: 2,
         test_title: "버튼테스트",
@@ -187,37 +174,36 @@ export default {
     };
   },
   created() {
-    API.getDetailTestGender(
-      "test_no=" + this.detail.test_no,
-      (res) => {
-        console.log(res);
-        this.detailGender = res;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-    API.getDetailTestAge(
-      "test_no=" + this.detail.test_no,
-      (res) => {
-        console.log(res);
-        this.detailAge = res;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-    API.getDetailTestCustom(
-      "test_no=" + this.detail.test_no,
-      (res) => {
-        console.log(res);
-        this.detailCustom = res;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-
+    // API.getDetailTestGender(
+    //   "test_no=" + this.$store.state.detail.test_no,
+    //   (res) => {
+    //     console.log(res);
+    //     this.detailGender = res;
+    //   },
+    //   (err) => {
+    //     console.log(err);
+    //   }
+    // );
+    // API.getDetailTestAge(
+    //   "test_no=" + this.$store.state.detail.test_no,
+    //   (res) => {
+    //     console.log(res);
+    //     this.detailAge = res;
+    //   },
+    //   (err) => {
+    //     console.log(err);
+    //   }
+    // );
+    // API.getDetailTestCustom(
+    //   "test_no=" + this.$store.state.detail.test_no,
+    //   (res) => {
+    //     console.log(res);
+    //     this.detailCustom = res;
+    //   },
+    //   (err) => {
+    //     console.log(err);
+    //   }
+    // );
     this.tableData = [
       {
         assortment: "전환율",
@@ -336,7 +322,31 @@ export default {
         "test_no=" + this.detail.test_no,
         (res) => {
           console.log(res);
-          // 값들 테이블에 넣어줘야함 
+          this.detailFields = res.urls;
+          this.detailFields = this.detailFields.map((value) => {
+            return {
+              key: value,
+              label: value,
+            };
+          });
+          this.detailFields.unshift({ key: "name", label: "" });
+          var arr = [];
+          var obj = {};
+          obj.name = "A";
+          for (var idx in res.urls) {
+            obj[res.urls[idx]] = res.conversionA[idx];
+          }
+
+          arr.push(obj);
+          obj = {};
+          obj.name = "B";
+          for (var idx2 in res.urls) {
+            obj[res.urls[idx2]] = res.conversionB[idx2];
+          }
+          arr.push(obj);
+          this.detailTableData = arr;
+          console.log(this.detailFields);
+          console.log(this.detailTableData);
         },
         (err) => {
           console.log(err);
@@ -538,10 +548,9 @@ export default {
     },
   },
   computed: {
-    //백엔드에서 가져온 값
-    // detail() {
-    //   return this.$store.state.detail;
-    // },
+    detail() {
+      return this.$store.state.detail;
+    },
   },
 };
 </script>
