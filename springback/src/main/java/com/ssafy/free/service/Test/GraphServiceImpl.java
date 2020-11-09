@@ -90,4 +90,65 @@ public class GraphServiceImpl implements GraphService {
         return null;
     }
 
+    @Override
+    public GraphData getChartBounce(int test_no) {
+
+        GraphData data = new GraphData();
+        try {
+            Test test = testRepository.getOne(test_no);
+            if (test != null) {
+                LocalDate start = test.getStart();
+                LocalDate today = LocalDate.parse(LocalDate.now().toString(),
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                // 전체 전환율 계산
+                List<Float> AChartData = new ArrayList<Float>();
+                List<Float> BChartData = new ArrayList<Float>();
+                List<String> date = new ArrayList<String>();
+                // 전체 페이지 제공 회수
+                List<PageCnt> pagecnt = pageRepo.findByTestNoOrderByDateAsc(test_no);
+                for (PageCnt page : pagecnt) {
+                    // 각 날짜의 전체 페이지 제공 횟수
+                    LocalDate pageDate = page.getDate();
+                    while (!start.equals(pageDate)) {
+                        AChartData.add((float) 100);
+                        BChartData.add((float) 100);
+                        date.add(start.getMonthValue() + "/" + start.getDayOfMonth());
+                        start = start.plusDays(1);
+                    }
+                    float cntA = page.getCntA();
+                    float cntB = page.getCntB();
+
+                    // 각 날짜의 전체 페이지 전환 횟수
+                    float clickA = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "A", pageDate);
+                    float clickB = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "B", pageDate);
+                    float A = clickA / cntA;
+                    AChartData.add((float) (Math.round((1 - A) * 1000) / 10.0));
+                    float B = clickB / cntB;
+                    BChartData.add((float) (Math.round((1 - B) * 1000) / 10.0));
+                    date.add(start.getMonthValue() + "/" + start.getDayOfMonth());
+                    start = start.plusDays(1);
+                }
+                start = start.minusDays(1);
+                while (!start.equals(test.getEnd()) && !start.equals(today)) {
+                    AChartData.add((float) 100);
+                    BChartData.add((float) 100);
+                    start = start.plusDays(1);
+                    date.add(start.getMonthValue() + "/" + start.getDayOfMonth());
+                }
+
+                data.setAChartData(AChartData);
+                data.setBChartData(BChartData);
+                data.setDate(date);
+
+                return data;
+            } else {
+                return null;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

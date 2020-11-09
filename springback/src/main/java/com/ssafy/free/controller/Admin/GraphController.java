@@ -28,7 +28,7 @@ public class GraphController {
     GraphService graphService;
 
     @ApiOperation(value = "그래프 조회 - 전체전환율")
-    @PostMapping("/chart/test/conversion")
+    @GetMapping("/chart/test/conversion")
     public Object getChartConversion(@RequestParam int test_no) {
         final RestResponse response = new RestResponse();
 
@@ -38,6 +38,27 @@ public class GraphController {
 
         try {
             GraphData data = graphService.getChartConversion(test_no);
+            response.status = true;
+            response.msg = "success";
+            response.data = data;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return response;
+    }
+
+    @ApiOperation(value = "그래프 조회 - 전체이탈률")
+    @GetMapping("/chart/test/bounce")
+    public Object getChartBounce(@RequestParam int test_no) {
+        final RestResponse response = new RestResponse();
+
+        response.status = false;
+        response.msg = "이탈률 조회 실패";
+        response.data = null;
+
+        try {
+            GraphData data = graphService.getChartBounce(test_no);
             response.status = true;
             response.msg = "success";
             response.data = data;
