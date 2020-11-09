@@ -88,16 +88,6 @@
         <label>전환율 분석페이지 :</label>
       </b-col>
       <b-col sm="9">
-        <!-- <b-form-input
-          v-for="u in list"
-          :key="u"
-          style="display:block"
-          placeholder="URL을 입력해주세요"
-        />
-
-        <b-button @click="addUrl(list.length)">
-          url추가
-        </b-button> -->
         <table>
           <tbody>
             <tr v-for="(row, idx) in rows" :key="idx">
@@ -108,7 +98,6 @@
             </tr>
           </tbody>
         </table>
-        <!-- <b-button @click="addRow"><b-icon-plus-circle /></b-button> -->
         <b-icon-plus-circle @click="addRow" />
       </b-col>
     </b-row>
