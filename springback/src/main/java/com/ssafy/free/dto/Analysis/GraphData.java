@@ -4,24 +4,24 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class GraphData {
-    private List<LocalDate> Date;
+    private List<String> Date;
     private List<Float> AChartData;
     private List<Float> BChartData;
 
     public GraphData() {
     }
 
-    public GraphData(List<LocalDate> date, List<Float> aChartData, List<Float> bChartData) {
+    public GraphData(List<String> date, List<Float> aChartData, List<Float> bChartData) {
         Date = date;
         AChartData = aChartData;
         BChartData = bChartData;
     }
 
-    public List<LocalDate> getDate() {
+    public List<String> getDate() {
         return Date;
     }
 
-    public void setDate(List<LocalDate> date) {
+    public void setDate(List<String> date) {
         Date = date;
     }
 
