@@ -1,8 +1,11 @@
 package com.ssafy.free.controller;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 import com.ssafy.free.dto.RestResponse;
+import com.ssafy.free.dto.UserSample;
 import com.ssafy.free.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +31,14 @@ public class UserController {
     @PostMapping("/join")
     public Object join(@RequestBody HashMap<String, Object> request) {
         final RestResponse response = new RestResponse();
-        
+
         response.status = false;
         response.msg = "회원가입 실패";
         response.data = null;
-        
+
         try {
             int res = userService.join(request);
-            if(res > 0) {
+            if (res > 0) {
                 response.status = true;
                 response.msg = "success";
             } else {
@@ -46,7 +49,7 @@ public class UserController {
         }
 
         return response;
-    }  
+    }
 
     @ApiOperation(value = "아이디 중복 체크")
     @GetMapping("/checkId")
@@ -55,12 +58,12 @@ public class UserController {
         response.status = false;
         response.msg = "중복 체크 실패";
         response.data = null;
-        
-        try { 
+
+        try {
             int res = userService.checkId(id);
-           response.status = true;
-           response.msg = "success";
-            if(res>0){
+            response.status = true;
+            response.msg = "success";
+            if (res > 0) {
                 response.data = true;
             } else {
                 response.data = false;
@@ -71,20 +74,26 @@ public class UserController {
         }
 
         return response;
-    }  
+    }
 
     @ApiOperation(value = "로그인")
     @PostMapping("/login")
     public Object login(@RequestBody HashMap<String, Object> request) {
         final RestResponse response = new RestResponse();
-        
+
         response.status = false;
         response.msg = "로그인 실패";
         response.data = null;
-        
+
         try {
-            String data = userService.login(request);
-            if(data!=null){
+            Optional<UserSample> usersample = userService.login(request);
+            if (usersample.isPresent()) {
+                HashMap<String, Object> data = new HashMap<>();
+                HashMap<String, Object> user = new HashMap<>();
+                user.put("email", usersample.get().getEmail());
+                user.put("gender", usersample.get().getGender());
+                user.put("age", usersample.get().getAge());
+                data.put("user", user);
                 response.status = true;
                 response.msg = "success";
                 response.data = data;
@@ -95,5 +104,5 @@ public class UserController {
         }
 
         return response;
-    }  
+    }
 }
