@@ -214,7 +214,6 @@ export default {
         end: "",
       },
       fields: [
-        { key: "test_no", label: "No" },
         { key: "test_title", label: "실험명" },
         { key: "testA", label: "A 안" },
         { key: "testB", label: "B 안" },
