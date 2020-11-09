@@ -90,4 +90,25 @@ public class GraphController {
         return response;
     }
 
+    @ApiOperation(value = "그래프 조회 - 전체구매율")
+    @GetMapping("/chart/test/purchase")
+    public Object getChartPurchase(@RequestParam int test_no) {
+        final RestResponse response = new RestResponse();
+
+        response.status = false;
+        response.msg = "이탈률 조회 실패";
+        response.data = null;
+
+        try {
+            GraphData data = graphService.getChartPurchase(test_no);
+            response.status = true;
+            response.msg = "success";
+            response.data = data;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return response;
+    }
+
 }

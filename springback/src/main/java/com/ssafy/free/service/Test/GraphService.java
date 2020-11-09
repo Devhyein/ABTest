@@ -10,4 +10,6 @@ public interface GraphService {
 
     public GraphData getChartJoin(int test_no);
 
+    public GraphData getChartPurchase(int test_no);
+
 }
