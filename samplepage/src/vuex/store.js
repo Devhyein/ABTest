@@ -9,7 +9,9 @@ import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex)
 
 const state = {
-    email: "",
+    user:{
+
+    },
     sample:{
     },
 }
