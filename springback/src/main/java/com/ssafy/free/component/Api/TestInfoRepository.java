@@ -10,6 +10,7 @@ import java.util.stream.IntStream;
 
 import javax.annotation.PostConstruct;
 
+import com.ssafy.free.dto.Admin.Test;
 import com.ssafy.free.dto.Api.Context;
 import com.ssafy.free.dto.Api.TestInfo;
 
@@ -17,31 +18,27 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class TestInfoRepository {
-    private final Map<String, TestInfo> map = new ConcurrentHashMap<>();
 
-    @PostConstruct
-    public void init() {
+    // TODO: 리팩토링(매직넘버, Stream API 구문 개선 등)
+    public static Context getTestInfoByBucketNumber(Context ctx, Test testInfo) {
+        Map<String, TestInfo> map = new ConcurrentHashMap<>();
 
-        // A는 0~94, B는 95~99
-        map.put("A", TestInfo.builder().name("A").rate(95).components(Arrays.asList("blogTextComponent")).build());
-        map.put("B", TestInfo.builder().name("B").rate(5).components(Arrays.asList("blogImageComponent")).build());
-    }
+        int aNum = testInfo.getPerA();
+        int bNum = testInfo.getPerB();
+        map.put("A", TestInfo.builder().name("A").rate(aNum).components(Arrays.asList("blogTextComponent")).build());
+        map.put("B", TestInfo.builder().name("B").rate(bNum).components(Arrays.asList("blogImageComponent")).build());
 
-    // 리팩토링(매직넘버, Stream API 구문 개선 등)
-    public List<String> getTestInfoByBucketNumber(Context ctx) {
-
-        if (IntStream.rangeClosed(0, 94).boxed().collect(Collectors.toList()).contains(ctx.getBucketNumber())) {
-            ctx.setVariant("A");
-            return map.get("A").getComponents();
-        } else if (IntStream.rangeClosed(95, 99).boxed().collect(Collectors.toList()).contains(ctx.getBucketNumber())) {
-            ctx.setVariant("B");
-            return map.get("B").getComponents();
+        if (IntStream.rangeClosed(0, aNum - 1).boxed().collect(Collectors.toList()).contains(ctx.getBucketNumber())) {
+            ctx.setPage_type("A");
+        } else if (IntStream.rangeClosed(aNum, 99).boxed().collect(Collectors.toList())
+                .contains(ctx.getBucketNumber())) {
+            ctx.setPage_type("B");
         }
 
-        return Collections.emptyList();
+        return ctx;
     }
 
     private void updateTestInfo() {
-        // 테스트 정보 업데이트
+        // TODO: 테스트 정보 업데이트
     }
 }

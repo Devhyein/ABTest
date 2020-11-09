@@ -1,4 +1,4 @@
-package com.ssafy.free.dto;
+package com.ssafy.free.dto.Admin;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,10 +13,10 @@ public class AdminUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "admin_no")
-    private int adminNo; 
+    private int adminNo;
 
     @Column(name = "email")
-    private String email; 
+    private String email;
 
     @Column(name = "pw")
     private String pw;
@@ -64,5 +64,4 @@ public class AdminUser {
         return "AdminUser [adminNo=" + adminNo + ", email=" + email + ", pw=" + pw + "]";
     }
 
-    
 }

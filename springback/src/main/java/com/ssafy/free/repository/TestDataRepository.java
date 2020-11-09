@@ -3,7 +3,7 @@ package com.ssafy.free.repository;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.ssafy.free.dto.TestData;
+import com.ssafy.free.dto.Admin.TestData;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -15,5 +15,7 @@ public interface TestDataRepository extends JpaRepository<TestData, Integer> {
 	int countByTestNoAndPageTypeAndDate(int test_no, String string, LocalDate date);
 
 	int countByTestNoAndPageTypeAndUrlNo(int testno, String string, int urlNo);
+
+	int countByTestNoAndPageType(int testNo, String string);
 
 }

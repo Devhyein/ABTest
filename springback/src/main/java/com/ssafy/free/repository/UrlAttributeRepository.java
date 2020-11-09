@@ -2,7 +2,7 @@ package com.ssafy.free.repository;
 
 import java.util.List;
 
-import com.ssafy.free.dto.UrlAttribute;
+import com.ssafy.free.dto.Admin.UrlAttribute;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

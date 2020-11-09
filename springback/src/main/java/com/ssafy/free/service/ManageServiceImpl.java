@@ -6,10 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-import com.ssafy.free.dto.AdminUser;
-import com.ssafy.free.dto.Test;
-import com.ssafy.free.dto.TestResponse;
-import com.ssafy.free.dto.UrlAttribute;
+import com.ssafy.free.dto.Admin.*;
 import com.ssafy.free.repository.AdminUserRepository;
 import com.ssafy.free.repository.TestRepository;
 import com.ssafy.free.repository.UrlAttributeRepository;
@@ -43,6 +40,20 @@ public class ManageServiceImpl implements ManageService {
 
             if (start.isEqual(today)) {
                 status = "진행중";
+            }
+
+            // url이 그 테스트기간 내에 일치하는게 있으면 막아
+            String urlA = request.get("url_a").toString();
+            String urlB = request.get("url_b").toString();
+
+            if (testRepository.countByUrlAAndStatus(urlA, "진행전")
+                    + testRepository.countByUrlAAndStatus(urlA, "진행중") > 0) {
+                return -1;
+            }
+
+            if (testRepository.countByUrlBAndStatus(urlB, "진행전")
+                    + testRepository.countByUrlBAndStatus(urlB, "진행중") > 0) {
+                return -2;
             }
 
             Test test = new Test(admin_no, request.get("test_title").toString(), request.get("test_a").toString(),

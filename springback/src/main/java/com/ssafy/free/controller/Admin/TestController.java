@@ -1,4 +1,4 @@
-package com.ssafy.free.controller;
+package com.ssafy.free.controller.Admin;
 
 import com.ssafy.free.dto.RestResponse;
 import com.ssafy.free.dto.Analysis.*;
@@ -31,6 +31,7 @@ public class TestController {
 
         try {
             Analysis detail = testService.getDetailTest(test_no);
+
             if (detail != null) {
                 response.status = true;
                 response.msg = "success";

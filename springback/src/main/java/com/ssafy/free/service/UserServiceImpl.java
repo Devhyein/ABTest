@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Optional;
 
-import com.ssafy.free.dto.UserSample;
+import com.ssafy.free.dto.sample.UserSample;
 import com.ssafy.free.repository.UserSampleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService {
         age = age / 10 * 10;
 
         UserSample user = new UserSample(Integer.parseInt(request.get("test_no").toString()),
-                request.get("session_id").toString(), request.get("id").toString(), request.get("pw").toString(), birth,
-                age, request.get("gender").toString(), request.get("page_type").toString(), date);
+                request.get("id").toString(), request.get("pw").toString(), birth, age,
+                request.get("gender").toString(), request.get("page_type").toString(), date);
         try {
             userRepository.save(user);
             return 1;
@@ -44,13 +44,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String login(HashMap<String, Object> request) {
+    public Optional<UserSample> login(HashMap<String, Object> request) {
         // id pw 일치하는 UserSample이 있는지 확인
         try {
             Optional<UserSample> user = userRepository.findByEmailAndPw(request.get("id").toString(),
                     request.get("pw").toString());
             if (user.isPresent()) {
-                return user.get().getEmail();
+                return user;
             } else {
                 return null;
             }
