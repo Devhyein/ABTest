@@ -69,4 +69,25 @@ public class GraphController {
         return response;
     }
 
+    @ApiOperation(value = "그래프 조회 - 전체가입률")
+    @GetMapping("/chart/test/join")
+    public Object getChartJoin(@RequestParam int test_no) {
+        final RestResponse response = new RestResponse();
+
+        response.status = false;
+        response.msg = "이탈률 조회 실패";
+        response.data = null;
+
+        try {
+            GraphData data = graphService.getChartJoin(test_no);
+            response.status = true;
+            response.msg = "success";
+            response.data = data;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return response;
+    }
+
 }

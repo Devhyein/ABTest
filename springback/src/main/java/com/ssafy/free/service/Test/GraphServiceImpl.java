@@ -11,6 +11,8 @@ import com.ssafy.free.dto.Analysis.GraphData;
 import com.ssafy.free.repository.PageCntRepository;
 import com.ssafy.free.repository.TestDataRepository;
 import com.ssafy.free.repository.TestRepository;
+import com.ssafy.free.repository.UserRepository;
+import com.ssafy.free.repository.UserSampleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,12 @@ public class GraphServiceImpl implements GraphService {
 
     @Autowired
     TestDataRepository testDataRepository;
+
+    @Autowired
+    UserRepository userRepo;
+
+    @Autowired
+    UserSampleRepository userSampleRepo;
 
     @Override
     public GraphData getChartConversion(int test_no) {
@@ -134,6 +142,51 @@ public class GraphServiceImpl implements GraphService {
                     BChartData.add((float) 100);
                     start = start.plusDays(1);
                     date.add(start.getMonthValue() + "/" + start.getDayOfMonth());
+                }
+
+                data.setAChartData(AChartData);
+                data.setBChartData(BChartData);
+                data.setDate(date);
+
+                return data;
+            } else {
+                return null;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public GraphData getChartJoin(int test_no) {
+        GraphData data = new GraphData();
+        try {
+            Test test = testRepository.getOne(test_no);
+            if (test != null) {
+                LocalDate start = test.getStart();
+                LocalDate today = LocalDate.parse(LocalDate.now().toString(),
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                // 전체 전환율 계산
+                List<Float> AChartData = new ArrayList<Float>();
+                List<Float> BChartData = new ArrayList<Float>();
+                List<String> date = new ArrayList<String>();
+
+                while (!start.minusDays(1).equals(test.getEnd()) && !start.minusDays(1).equals(today)) {
+                    float userA = userRepo.countByTestNoAndPageTypeAndDate(test_no, "A", start);
+                    float userB = userRepo.countByTestNoAndPageTypeAndDate(test_no, "B", start);
+
+                    // 가입률
+                    float joinUserA = userSampleRepo.countByTestNoAndPageTypeAndJoinDate(test_no, "A", start);
+                    float joinUserB = userSampleRepo.countByTestNoAndPageTypeAndJoinDate(test_no, "B", start);
+
+                    AChartData.add((float) (Math.round((joinUserA / userA) * 1000) / 1000.0) * 100);
+                    BChartData.add((float) (Math.round((joinUserB / userB) * 1000) / 1000.0) * 100);
+                    date.add(start.getMonthValue() + "/" + start.getDayOfMonth());
+
+                    start = start.plusDays(1);
                 }
 
                 data.setAChartData(AChartData);
