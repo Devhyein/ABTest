@@ -99,6 +99,10 @@ public class ManageServiceImpl implements ManageService {
     public List<TestResponse> getTestList(String email) {
         int admin_no = adminDao.findOneByEmail(email).getAdminNo();
         List<TestResponse> testList = testRepository.findAllByAdminNoOrderByTestNoDesc(admin_no);
+        for (TestResponse test : testList) {
+            List<UrlAttribute> urls = urlRepository.findByTestNo(test.getTest_no());
+            test.setUrls(urls);
+        }
         return testList;
     }
 
@@ -106,6 +110,10 @@ public class ManageServiceImpl implements ManageService {
     public List<TestResponse> getTestListBefore(String email) {
         int admin_no = adminDao.findOneByEmail(email).getAdminNo();
         List<TestResponse> testList = testRepository.findAllByAdminNoAndStatusOrderByTestNoDesc(admin_no, "진행전");
+        for (TestResponse test : testList) {
+            List<UrlAttribute> urls = urlRepository.findByTestNo(test.getTest_no());
+            test.setUrls(urls);
+        }
         return testList;
     }
 
@@ -113,6 +121,10 @@ public class ManageServiceImpl implements ManageService {
     public List<TestResponse> getTestListProgress(String email) {
         int admin_no = adminDao.findOneByEmail(email).getAdminNo();
         List<TestResponse> testList = testRepository.findAllByAdminNoAndStatusOrderByTestNoDesc(admin_no, "진행중");
+        for (TestResponse test : testList) {
+            List<UrlAttribute> urls = urlRepository.findByTestNo(test.getTest_no());
+            test.setUrls(urls);
+        }
         return testList;
     }
 
@@ -120,6 +132,10 @@ public class ManageServiceImpl implements ManageService {
     public List<TestResponse> getTestListComplete(String email) {
         int admin_no = adminDao.findOneByEmail(email).getAdminNo();
         List<TestResponse> testList = testRepository.findAllByAdminNoAndStatusOrderByTestNoDesc(admin_no, "진행완료");
+        for (TestResponse test : testList) {
+            List<UrlAttribute> urls = urlRepository.findByTestNo(test.getTest_no());
+            test.setUrls(urls);
+        }
         return testList;
     }
 
