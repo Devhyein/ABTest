@@ -42,10 +42,7 @@
         <label>URL :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input
-          v-model="input.url_a"
-          placeholder="URL을 입력해주세요"
-        />
+        <b-form-input v-model="input.url_a" placeholder="URL을 입력해주세요" />
       </b-col>
     </b-row>
 
@@ -122,6 +119,7 @@ export default {
   },
   data() {
     return {
+      urls:[],
       today: new Date(),
       input: {
         test_title: "",
@@ -155,6 +153,15 @@ export default {
       console.log(this.rows);
     },
     removeRow(idx) {
+       if (this.rows.length == 1) {
+        swal(
+          "삭제 실패",
+          "최소 1개의 전환율 분석페이지가 필요합니다.",
+          "error"
+        );
+        return;
+      }
+
       this.rows.splice(idx, 1);
       console.log(this.rows);
     },
@@ -162,9 +169,7 @@ export default {
       let err = false;
       let msg = "";
       !this.input.test_title && ((msg = "실험명을 입력해주세요"), (err = true));
-      !err &&
-        !this.input.url_a &&
-        ((msg = "URL을 입력해주세요"), (err = true));
+      !err && !this.input.url_a && ((msg = "URL을 입력해주세요"), (err = true));
       !err &&
         !this.input.test_a &&
         ((msg = "A안의 별칭을 입력해주세요"), (err = true));
@@ -177,6 +182,14 @@ export default {
       !err &&
         !this.input.end &&
         ((msg = "종료일을 설정해주세요"), (err = true));
+      var urls = [];
+      this.rows.forEach((element) => {
+        urls.push(element.url);
+      });
+      this.urls = urls;
+      !err &&
+        urls[0].length == 0 &&
+        ((msg = "하나의 분석 URL를 설정해주세요"), (err = true));
       if (err) swal(msg);
       else this.createTest();
     },
@@ -192,7 +205,7 @@ export default {
       data.end = this.input.end;
       data.per_a = perA;
       data.per_b = 100 - this.input.per_a;
-      data.list = this.list;
+      data.urls = this.urls;
 
       console.log(data);
 
@@ -219,7 +232,7 @@ export default {
         (this.input.end = ""),
         (this.input.per_a = 50),
         (this.input.per_b = 50),
-        (this.list = "");
+        (this.rows = {url:""});
     },
   },
   created() {
