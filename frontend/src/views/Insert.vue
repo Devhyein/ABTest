@@ -15,36 +15,12 @@
 
     <b-row class="my-1">
       <b-col sm="3">
-        <label>A안 :</label>
-      </b-col>
-      <b-col sm="9">
-        <b-form-input
-          v-model="input.url_a"
-          placeholder="A안의 URL을 입력해주세요"
-        />
-      </b-col>
-    </b-row>
-
-    <b-row class="my-1">
-      <b-col sm="3">
-        <label>A 별칭 :</label>
+        <label>A안 별칭 :</label>
       </b-col>
       <b-col sm="9">
         <b-form-input
           v-model="input.test_a"
           placeholder="A안의 별칭을 입력해주세요"
-        />
-      </b-col>
-    </b-row>
-
-    <b-row class="my-1">
-      <b-col sm="3">
-        <label>B안 :</label>
-      </b-col>
-      <b-col sm="9">
-        <b-form-input
-          v-model="input.url_b"
-          placeholder="B안의 URL을 입력해주세요"
         />
       </b-col>
     </b-row>
@@ -57,6 +33,18 @@
         <b-form-input
           v-model="input.test_b"
           placeholder="B안의 별칭을 입력해주세요"
+        />
+      </b-col>
+    </b-row>
+
+    <b-row class="my-1">
+      <b-col sm="3">
+        <label>URL :</label>
+      </b-col>
+      <b-col sm="9">
+        <b-form-input
+          v-model="input.url_a"
+          placeholder="URL을 입력해주세요"
         />
       </b-col>
     </b-row>
@@ -139,7 +127,6 @@ export default {
         test_title: "",
         url_a: "",
         test_a: "",
-        url_b: "",
         test_b: "",
         start: "",
         end: "",
@@ -157,7 +144,11 @@ export default {
   methods: {
     addRow() {
       if (this.rows.length >= 5) {
-         swal("추가 실패", "전환율 분석페이지는 최대 5개까지 설정 가능합니다.", "error");
+        swal(
+          "추가 실패",
+          "전환율 분석페이지는 최대 5개까지 설정 가능합니다.",
+          "error"
+        );
         return;
       }
       this.rows.push({ url: "" });
@@ -173,13 +164,10 @@ export default {
       !this.input.test_title && ((msg = "실험명을 입력해주세요"), (err = true));
       !err &&
         !this.input.url_a &&
-        ((msg = "A안의 URL을 입력해주세요"), (err = true));
+        ((msg = "URL을 입력해주세요"), (err = true));
       !err &&
         !this.input.test_a &&
         ((msg = "A안의 별칭을 입력해주세요"), (err = true));
-      !err &&
-        !this.input.url_b &&
-        ((msg = "B안의 URL을 입력해주세요"), (err = true));
       !err &&
         !this.input.test_b &&
         ((msg = "B안의 별칭을 입력해주세요"), (err = true));
@@ -200,7 +188,6 @@ export default {
       data.test_a = this.input.test_a;
       data.url_a = this.input.url_a;
       data.test_b = this.input.test_b;
-      data.url_b = this.input.url_b;
       data.start = this.input.start;
       data.end = this.input.end;
       data.per_a = perA;
