@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.ssafy.free.dto.RestResponse;
-import com.ssafy.free.dto.UserSample;
+import com.ssafy.free.dto.sample.UserSample;
 import com.ssafy.free.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
