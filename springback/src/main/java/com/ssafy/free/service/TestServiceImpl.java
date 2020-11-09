@@ -20,8 +20,6 @@ import com.ssafy.free.repository.UserSampleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jdk.vm.ci.meta.Local;
-
 @Service
 public class TestServiceImpl implements TestService {
 
@@ -256,12 +254,6 @@ public class TestServiceImpl implements TestService {
         result.setConversionB(conversionB);
 
         return result;
-    }
-
-    @Override
-    public Analysis getDetailRate(Analysis detail) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
 }
