@@ -1,6 +1,5 @@
 package com.ssafy.free.dto.Analysis;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class GraphData {

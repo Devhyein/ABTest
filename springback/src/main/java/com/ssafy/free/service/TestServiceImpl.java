@@ -143,4 +143,10 @@ public class TestServiceImpl implements TestService {
         return result;
     }
 
+    @Override
+    public Analysis getDetailTestGender(int test_no) {
+
+        return null;
+    }
+
 }
