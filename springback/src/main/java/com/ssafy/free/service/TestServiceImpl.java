@@ -68,9 +68,9 @@ public class TestServiceImpl implements TestService {
                     float clickA = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "A", date);
                     float clickB = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "B", date);
                     float A = clickA / cntA;
-                    conversionA.add((float) (Math.round(A * 100) / 100.0));
+                    conversionA.add((float) (Math.round(A * 1000) / 1000.0) * 100);
                     float B = clickB / cntB;
-                    conversionB.add((float) (Math.round(B * 100) / 100.0));
+                    conversionB.add((float) (Math.round(B * 1000) / 1000.0) * 100);
                     start = start.plusDays(1);
                 }
                 start = start.minusDays(1);
@@ -88,10 +88,10 @@ public class TestServiceImpl implements TestService {
                 List<Float> bounceB = new ArrayList<Float>();
 
                 for (float a : conversionA) {
-                    bounceA.add(1 - a);
+                    bounceA.add((float) (Math.round((100 - a) * 1000) / 1000.0));
                 }
                 for (float b : conversionB) {
-                    bounceB.add(1 - b);
+                    bounceB.add((float) (Math.round((100 - b) * 1000) / 1000.0));
                 }
                 analysis.setBounceA(bounceA);
                 analysis.setBounceB(bounceB);
@@ -112,15 +112,15 @@ public class TestServiceImpl implements TestService {
                     float joinUserA = userSampleRepo.countByTestNoAndPageTypeAndJoinDate(test_no, "A", start);
                     float joinUserB = userSampleRepo.countByTestNoAndPageTypeAndJoinDate(test_no, "B", start);
 
-                    joinA.add((float) (Math.round((joinUserA / userA) * 100) / 100.0));
-                    joinB.add((float) (Math.round((joinUserB / userB) * 100) / 100.0));
+                    joinA.add((float) (Math.round((joinUserA / userA) * 1000) / 1000.0) * 100);
+                    joinB.add((float) (Math.round((joinUserB / userB) * 1000) / 1000.0) * 100);
 
                     // 구매율
                     float purUserA = buyerRepo.countByTestNoAndPageTypeAndDate(test_no, "A", start);
                     float purUserB = buyerRepo.countByTestNoAndPageTypeAndDate(test_no, "B", start);
 
-                    purchaseA.add((float) (Math.round((purUserA / userA) * 100) / 100.0));
-                    purchaseB.add((float) (Math.round((purUserB / userB) * 100) / 100.0));
+                    purchaseA.add((float) (Math.round((purUserA / userA) * 1000) / 1000.0) * 100);
+                    purchaseB.add((float) (Math.round((purUserB / userB) * 1000) / 1000.0) * 100);
 
                     start = start.plusDays(1);
                 }
