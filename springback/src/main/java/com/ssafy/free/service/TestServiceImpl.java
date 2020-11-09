@@ -1,7 +1,10 @@
 package com.ssafy.free.service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.ssafy.free.dto.Analysis.*;
@@ -16,6 +19,8 @@ import com.ssafy.free.repository.UserSampleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import jdk.vm.ci.meta.Local;
 
 @Service
 public class TestServiceImpl implements TestService {
@@ -41,8 +46,70 @@ public class TestServiceImpl implements TestService {
     @Autowired
     BuyerRepository buyerRepo;
 
+    // 표에 들어갈 데이터
     @Override
     public Analysis getDetailTest(int test_no) {
+        try {
+            Test test = testRepository.getOne(test_no);
+            if (test != null) {
+                Analysis analysis = new Analysis(test);
+
+                // 전환율
+                // test_no를 가진 testdata를 모두 가져와서
+                float conA = testDataRepository.countByTestNoAndPageType(test.getTestNo(), "A");
+                float conB = testDataRepository.countByTestNoAndPageType(test.getTestNo(), "B");
+
+                List<PageCnt> totalPage = pageRepo.findAllByTestNo(test.getTestNo());
+                float totalA = 1;
+                float totalB = 1;
+
+                for (PageCnt page : totalPage) {
+                    totalA += page.getCntA();
+                    totalB += page.getCntB();
+                }
+                totalA--;
+                totalB--;
+
+                analysis.setConversionA((float) (Math.round((conA / totalA) * 1000) / 10.0));
+                analysis.setConversionB((float) (Math.round((conB / totalB) * 1000) / 10.0));
+
+                analysis.setCon_rate((float) (Math.round((conB / totalB - conA / totalA) * 1000) / 10.0));
+
+                // 이탈률
+                analysis.setBounceA((float) (Math.round((1 - (conA / totalA)) * 1000) / 10.0));
+                analysis.setBounceB((float) (Math.round((1 - (conA / totalB)) * 1000) / 10.0));
+                analysis.setBo_rate(
+                        (float) (Math.round(((1 - (conB / totalB)) - (1 - (conA / totalA))) * 1000) / 10.0));
+
+                // 가입률
+                totalA = userRepo.countByTestNoAndPageType(test.getTestNo(), "A");
+                totalB = userRepo.countByTestNoAndPageType(test.getTestNo(), "B");
+
+                float joinA = userSampleRepo.countByTestNoAndPageType(test.getTestNo(), "A");
+                float joinB = userSampleRepo.countByTestNoAndPageType(test.getTestNo(), "B");
+
+                analysis.setJoinA((float) (Math.round((joinA / totalA) * 1000) / 10.0));
+                analysis.setJoinB((float) (Math.round((joinB / totalB) * 1000) / 10.0));
+                analysis.setJo_rate((float) (Math.round((joinB / totalB - joinA / totalA) * 1000) / 10.0));
+
+                // 구매율
+                // 구매율의 기준은 상품 조회 페이지에 넘어간 유저들 기준인가? 아니면 이 사이트에 접속한 모든 시용자 기준인가?
+                // 아니면 회원가입한 유저 기준인가...
+
+                return analysis;
+            } else {
+                return null;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // 그래프 - 전체 전환율
+    @Override
+    public Analysis getChartConversion(int test_no) {
         try {
             Test test = testRepository.getOne(test_no);
             if (test != null) {
@@ -181,6 +248,12 @@ public class TestServiceImpl implements TestService {
         result.setConversionB(conversionB);
 
         return result;
+    }
+
+    @Override
+    public Analysis getDetailRate(Analysis detail) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
