@@ -15,36 +15,12 @@
 
     <b-row class="my-1">
       <b-col sm="3">
-        <label>A안 :</label>
-      </b-col>
-      <b-col sm="9">
-        <b-form-input
-          v-model="input.url_a"
-          placeholder="A안의 URL을 입력해주세요"
-        />
-      </b-col>
-    </b-row>
-
-    <b-row class="my-1">
-      <b-col sm="3">
-        <label>A 별칭 :</label>
+        <label>A안 별칭 :</label>
       </b-col>
       <b-col sm="9">
         <b-form-input
           v-model="input.test_a"
           placeholder="A안의 별칭을 입력해주세요"
-        />
-      </b-col>
-    </b-row>
-
-    <b-row class="my-1">
-      <b-col sm="3">
-        <label>B안 :</label>
-      </b-col>
-      <b-col sm="9">
-        <b-form-input
-          v-model="input.url_b"
-          placeholder="B안의 URL을 입력해주세요"
         />
       </b-col>
     </b-row>
@@ -58,6 +34,15 @@
           v-model="input.test_b"
           placeholder="B안의 별칭을 입력해주세요"
         />
+      </b-col>
+    </b-row>
+
+    <b-row class="my-1">
+      <b-col sm="3">
+        <label>URL :</label>
+      </b-col>
+      <b-col sm="9">
+        <b-form-input v-model="input.url_a" placeholder="URL을 입력해주세요" />
       </b-col>
     </b-row>
 
@@ -88,16 +73,6 @@
         <label>전환율 분석페이지 :</label>
       </b-col>
       <b-col sm="9">
-        <!-- <b-form-input
-          v-for="u in list"
-          :key="u"
-          style="display:block"
-          placeholder="URL을 입력해주세요"
-        />
-
-        <b-button @click="addUrl(list.length)">
-          url추가
-        </b-button> -->
         <table>
           <tbody>
             <tr v-for="(row, idx) in rows" :key="idx">
@@ -108,7 +83,6 @@
             </tr>
           </tbody>
         </table>
-        <!-- <b-button @click="addRow"><b-icon-plus-circle /></b-button> -->
         <b-icon-plus-circle @click="addRow" />
       </b-col>
     </b-row>
@@ -145,12 +119,12 @@ export default {
   },
   data() {
     return {
+      urls:[],
       today: new Date(),
       input: {
         test_title: "",
         url_a: "",
         test_a: "",
-        url_b: "",
         test_b: "",
         start: "",
         end: "",
@@ -168,13 +142,26 @@ export default {
   methods: {
     addRow() {
       if (this.rows.length >= 5) {
-        alert("최대 5개 까지만 가능합니다.");
+        swal(
+          "추가 실패",
+          "전환율 분석페이지는 최대 5개까지 설정 가능합니다.",
+          "error"
+        );
         return;
       }
       this.rows.push({ url: "" });
       console.log(this.rows);
     },
     removeRow(idx) {
+       if (this.rows.length == 1) {
+        swal(
+          "삭제 실패",
+          "최소 1개의 전환율 분석페이지가 필요합니다.",
+          "error"
+        );
+        return;
+      }
+
       this.rows.splice(idx, 1);
       console.log(this.rows);
     },
@@ -182,15 +169,10 @@ export default {
       let err = false;
       let msg = "";
       !this.input.test_title && ((msg = "실험명을 입력해주세요"), (err = true));
-      !err &&
-        !this.input.url_a &&
-        ((msg = "A안의 URL을 입력해주세요"), (err = true));
+      !err && !this.input.url_a && ((msg = "URL을 입력해주세요"), (err = true));
       !err &&
         !this.input.test_a &&
         ((msg = "A안의 별칭을 입력해주세요"), (err = true));
-      !err &&
-        !this.input.url_b &&
-        ((msg = "B안의 URL을 입력해주세요"), (err = true));
       !err &&
         !this.input.test_b &&
         ((msg = "B안의 별칭을 입력해주세요"), (err = true));
@@ -200,6 +182,14 @@ export default {
       !err &&
         !this.input.end &&
         ((msg = "종료일을 설정해주세요"), (err = true));
+      var urls = [];
+      this.rows.forEach((element) => {
+        urls.push(element.url);
+      });
+      this.urls = urls;
+      !err &&
+        urls[0].length == 0 &&
+        ((msg = "하나의 분석 URL를 설정해주세요"), (err = true));
       if (err) swal(msg);
       else this.createTest();
     },
@@ -211,12 +201,11 @@ export default {
       data.test_a = this.input.test_a;
       data.url_a = this.input.url_a;
       data.test_b = this.input.test_b;
-      data.url_b = this.input.url_b;
       data.start = this.input.start;
       data.end = this.input.end;
       data.per_a = perA;
       data.per_b = 100 - this.input.per_a;
-      data.list = this.list;
+      data.urls = this.urls;
 
       console.log(data);
 
@@ -243,7 +232,7 @@ export default {
         (this.input.end = ""),
         (this.input.per_a = 50),
         (this.input.per_b = 50),
-        (this.list = "");
+        (this.rows = {url:""});
     },
   },
   created() {

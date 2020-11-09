@@ -2,15 +2,20 @@
   <div>
     <encar-header></encar-header>
     <div class="col-8 col-m-10 m-auto">
-      <!-- <div>
-        <b-button pill class="createBtn" v-bind:to="'insert'"
-          >실험생성</b-button>
-      </div> -->
       <div class="infoBox my-2">
         <div class="d-flex justify-content-end">
-          <small class="d-flex align-items-center"><b-icon icon="circle-fill" class="ml-2 mr-1 text-success" /> 진행 전</small>
-          <small class="d-flex align-items-center"><b-icon icon="circle-fill" class="ml-2 mr-1 text-warning" /> 진행 중</small>
-          <small class="d-flex align-items-center"><b-icon icon="circle-fill" class="ml-2 mr-1 text-danger" /> 진행 완료</small>
+          <small class="d-flex align-items-center"
+            ><b-icon icon="circle-fill" class="ml-2 mr-1 text-success" /> 진행
+            전</small
+          >
+          <small class="d-flex align-items-center"
+            ><b-icon icon="circle-fill" class="ml-2 mr-1 text-warning" /> 진행
+            중</small
+          >
+          <small class="d-flex align-items-center"
+            ><b-icon icon="circle-fill" class="ml-2 mr-1 text-danger" /> 진행
+            완료</small
+          >
         </div>
       </div>
       <div class="tabs">
@@ -23,7 +28,7 @@
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
                 <span class="status" @click="detail(data.value)">
-                  {{ data.value.test_title }} 
+                  {{ data.value.test_title }}
                   <b-icon
                     icon="circle-fill"
                     class="ml-2"
@@ -40,11 +45,6 @@
                 </span>
               </template>
             </b-table>
-            <!-- <div class="info">
-              <b-icon icon="circle-fill" class="ml-2 text-danger" /> 진행 완료
-              <b-icon icon="circle-fill" class="ml-2 text-warning" /> 진행 중
-              <b-icon icon="circle-fill" class="ml-2 text-success" /> 진행 전
-            </div> -->
           </b-tab>
 
           <b-tab
@@ -124,15 +124,7 @@
           </b-row>
           <b-row class="my-1">
             <b-col sm="3">
-              <label>A URL :</label>
-            </b-col>
-            <b-col sm="9">
-              <b-form-input v-model="inputs.url_a" disabled />
-            </b-col>
-          </b-row>
-          <b-row class="my-1">
-            <b-col sm="3">
-              <label>A 별칭 :</label>
+              <label>A안 별칭 :</label>
             </b-col>
             <b-col sm="9">
               <b-form-input v-model="inputs.test_a" />
@@ -140,18 +132,26 @@
           </b-row>
           <b-row class="my-1">
             <b-col sm="3">
-              <label>B URL :</label>
+              <label>B안 별칭 :</label>
             </b-col>
             <b-col sm="9">
-              <b-form-input v-model="inputs.url_b" disabled />
+              <b-form-input v-model="inputs.test_b" />
             </b-col>
           </b-row>
           <b-row class="my-1">
             <b-col sm="3">
-              <label>B 별칭 :</label>
+              <label>URL :</label>
             </b-col>
             <b-col sm="9">
-              <b-form-input v-model="inputs.test_b" />
+              <b-form-input v-model="inputs.url_a" disabled />
+            </b-col>
+          </b-row>
+           <b-row class="my-1">
+            <b-col sm="3">
+              <label>전환율 분석 페이지 :</label>
+            </b-col>
+            <b-col sm="9">
+              <b-form-input v-model="inputs.urls" disabled />
             </b-col>
           </b-row>
           <b-row class="my-1">
@@ -167,7 +167,7 @@
               <label>종료일 :</label>
             </b-col>
             <b-col sm="9">
-              <b-form-input v-model="inputs.end" type="date" :min="today"/>
+              <b-form-input v-model="inputs.end" type="date" :min="today" />
             </b-col>
           </b-row>
           <template #modal-footer>
@@ -182,7 +182,8 @@
       </div>
       <div>
         <b-button pill class="createBtn" v-bind:to="'insert'"
-          >실험생성</b-button>
+          >실험생성</b-button
+        >
       </div>
     </div>
   </div>
@@ -208,10 +209,10 @@ export default {
         test_title: "",
         url_a: "",
         test_a: "",
-        url_b: "",
         test_b: "",
         start: "",
         end: "",
+        urls: "",
       },
       fields: [
         { key: "test_title", label: "실험명" },
@@ -226,7 +227,6 @@ export default {
           test_title: "",
           url_a: "",
           test_a: "",
-          url_b: "",
           test_b: "",
           start: "",
           end: "",
@@ -237,9 +237,9 @@ export default {
     };
   },
   computed: {
-    email(){
+    email() {
       return this.$store.state.email;
-    }
+    },
   },
   created() {
     this.getAllTest();
@@ -280,7 +280,10 @@ export default {
     makeTableData() {
       for (let test of this.tests) {
         test.icon = test.test_no;
-        test.test_title = { test_title: test.test_title, test_no: test.test_no};
+        test.test_title = {
+          test_title: test.test_title,
+          test_no: test.test_no,
+        };
         if (test.status == "진행전") test.test_title.color = "text-success";
         else if (test.status == "진행중")
           test.test_title.color = "text-warning";
@@ -297,14 +300,11 @@ export default {
       if (this.tabIndex === idx) {
         if (idx === 0) {
           return ["bg-info", "text-light"];
-        }
-        else if (idx === 1) {
+        } else if (idx === 1) {
           return ["bg-success", "text-light"];
-        }
-        else if (idx === 2) {
+        } else if (idx === 2) {
           return ["bg-warning", "text-light"];
-        }
-        else {
+        } else {
           return ["bg-danger", "text-light"];
         }
       } else {
@@ -324,18 +324,19 @@ export default {
       this.inputs.test_title = thisTest.test_title.test_title;
       this.inputs.url_a = thisTest.url_a;
       this.inputs.test_a = thisTest.test_a;
-      this.inputs.url_b = thisTest.url_b;
       this.inputs.test_b = thisTest.test_b;
       this.inputs.start = thisTest.start;
       this.inputs.end = thisTest.end;
+      // 백 연동해서 주석 풀어서 쓰기
+      // this.inputs.urls = thisTest.urls.join();
 
       console.log(thisTest);
       this.modalShow = !this.modalShow;
     },
-    detail(id){
+    detail(id) {
       console.log(id);
       API.getDetailTest(
-        "test_no=" + id,
+        "test_no=" + id.test_no,
         (res) => {
           console.log(res);
           this.$store.commit("addDetail", res);
@@ -343,7 +344,11 @@ export default {
         },
         (err) => {
           console.log(err);
-          swal("페이지 조회 실패", "분석페이지 조회에 실패하였습니다.", "error");
+          swal(
+            "페이지 조회 실패",
+            "분석페이지 조회에 실패하였습니다.",
+            "error"
+          );
         }
       );
     },
@@ -386,7 +391,21 @@ export default {
           console.log(res);
           swal("수정 완료", "실험이 정상적으로 수정되었습니다.", "success");
           this.modalShow = !this.modalShow;
-          location.reload();
+          var temp = [];
+          for (var index in this.tests) {
+            if (this.tests[index].test_no == data.test_no) {
+              this.tests[index].test_a = data.test_a;
+              this.tests[index].test_b = data.test_b;
+              this.tests[index].end = data.end;
+              this.tests[index].test_title = {
+                test_title: data.test_title,
+                test_no: data.test_no,
+              };
+            }
+            temp.push(this.tests[index]);
+          }
+          this.tests = temp;
+          console.log(temp);
         },
         (err) => {
           console.log(err);
@@ -464,5 +483,4 @@ export default {
   overflow: hidden;
   width: 100%;
 }
-
 </style>

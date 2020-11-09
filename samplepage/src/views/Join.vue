@@ -1,85 +1,87 @@
 <template>
   <div id="sample">
-      <!-- <b-card bg-variant="light" @submit.stop.prevent="join"> -->
-        <img :src="encar" class="mylogo my-5" alt="encar logo" />
-        <div class="mx-4 mb-5">
-          <h2 class="mb-5">회원가입</h2>
-        <b-row class="align-items-center">
-          <b-col cols="4" class="text-left my-3">
-            <label for="input-id" class="m-0">아이디</label>
-          </b-col>
-          <b-col cols="8" class="pl-0">
-            <b-form-input
-              id="input-id"
-              class="mytext"
-              v-model="form.id"
-              placeholder="아이디를 입력하세요."
-            ></b-form-input>
-          </b-col>
-        </b-row>
-        <b-row class="justify-content-end mr-0">
-          <b-button size="sm" v-if="!isChecked" @click="checkId()" variant="dark"
-              >중복 체크</b-button
-            >
-          <b-button size="sm" v-else disabled variant="secondary">체크 완료</b-button>
-        </b-row>
-        <b-row class="align-items-center">
-          <b-col cols="4" class="text-left my-3">
-            <label for="input-pw" class="m-0">비밀번호</label>
-          </b-col>
-          <b-col cols="8" class="pl-0">
-            <b-form-input
-              class="mytext"
-              id="input-pw"
-              v-model="form.pw"
-              placeholder="비밀번호를 입력하세요."
-              type="password"
-            ></b-form-input>
-          </b-col>
-        </b-row>
-        <b-row class="align-items-center">
-          <b-col cols="4" class="text-left my-3">
-            <label for="input-chpw" class="m-0">비밀번호 확인</label>
-          </b-col>
-          <b-col cols="8" class="pl-0">
-            <b-form-input
-              class="mytext"
-              id="input-chpw"
-              :state="checkPw"
-              v-model="chpw"
-              placeholder="비밀번호를 다시 입력하세요."
-              type="password"
-            ></b-form-input>
-          </b-col>
-        </b-row>
-        <b-row class="align-items-center">
-          <b-col cols="4" class="text-left my-3">
-            <label for="input-gender" class="m-0">성별</label>
-          </b-col>
-          <b-col cols="8" class="pl-0">
-            <b-form-radio-group
-              v-model="form.gender"
-              :options="gender_options"
-            ></b-form-radio-group>
-          </b-col>
-        </b-row>
-        <b-row class="align-items-center">
-          <b-col cols="4" class="text-left my-3">
-            <label for="input-gender" class="m-0">연령대</label>
-          </b-col>
-          <b-col cols="8" class="pl-0">
-            <b-form-input class="mytext" v-model="birth" type="date" />
-          </b-col>
-        </b-row>
+    <!-- <b-card bg-variant="light" @submit.stop.prevent="join"> -->
+    <img :src="encar" class="mylogo my-5" alt="encar logo" />
+    <div class="mx-4 mb-5">
+      <h2 class="mb-5">회원가입</h2>
+      <b-row class="align-items-center">
+        <b-col cols="4" class="text-left my-3">
+          <label for="input-id" class="m-0">아이디</label>
+        </b-col>
+        <b-col cols="8" class="pl-0">
+          <b-form-input
+            id="input-id"
+            class="mytext"
+            v-model="form.id"
+            placeholder="아이디를 입력하세요."
+          ></b-form-input>
+        </b-col>
+      </b-row>
+      <b-row class="justify-content-end mr-0">
+        <b-button size="sm" v-if="!isChecked" @click="checkId()" variant="dark"
+          >중복 체크</b-button
+        >
+        <b-button size="sm" v-else disabled variant="secondary"
+          >체크 완료</b-button
+        >
+      </b-row>
+      <b-row class="align-items-center">
+        <b-col cols="4" class="text-left my-3">
+          <label for="input-pw" class="m-0">비밀번호</label>
+        </b-col>
+        <b-col cols="8" class="pl-0">
+          <b-form-input
+            class="mytext"
+            id="input-pw"
+            v-model="form.pw"
+            placeholder="비밀번호를 입력하세요."
+            type="password"
+          ></b-form-input>
+        </b-col>
+      </b-row>
+      <b-row class="align-items-center">
+        <b-col cols="4" class="text-left my-3">
+          <label for="input-chpw" class="m-0">비밀번호 확인</label>
+        </b-col>
+        <b-col cols="8" class="pl-0">
+          <b-form-input
+            class="mytext"
+            id="input-chpw"
+            :state="checkPw"
+            v-model="chpw"
+            placeholder="비밀번호를 다시 입력하세요."
+            type="password"
+          ></b-form-input>
+        </b-col>
+      </b-row>
+      <b-row class="align-items-center">
+        <b-col cols="4" class="text-left my-3">
+          <label for="input-gender" class="m-0">성별</label>
+        </b-col>
+        <b-col cols="8" class="pl-0">
+          <b-form-radio-group
+            v-model="form.gender"
+            :options="gender_options"
+          ></b-form-radio-group>
+        </b-col>
+      </b-row>
+      <b-row class="align-items-center">
+        <b-col cols="4" class="text-left my-3">
+          <label for="input-gender" class="m-0">연령대</label>
+        </b-col>
+        <b-col cols="8" class="pl-0">
+          <b-form-input class="mytext" v-model="birth" type="date" />
+        </b-col>
+      </b-row>
 
-        <b-button class="mytext mr-3 my-4" @click="join()" variant="dark"
-          >회원가입</b-button
-        >
-        <b-button class="mytext" @click="reset()" variant="secondary"
-          >초기화</b-button
-        >
+      <b-button class="mytext mr-3 my-4" @click="join()" variant="dark"
+        >회원가입</b-button
+      >
+      <b-button class="mytext" @click="reset()" variant="secondary"
+        >초기화</b-button
+      >
       <!-- </b-card> -->
-      </div>
+    </div>
   </div>
   <!-- <b-container fluid class="container">
     <b-card bg-variant="light" @submit.stop.prevent="join">
@@ -157,7 +159,6 @@
   </b-container> -->
 </template>
 
-
 <script>
 import encar from "@/assets/encar.png";
 import API from "@/api/API";
@@ -181,19 +182,12 @@ export default {
         { text: "남성", value: "남성" },
         { text: "여성", value: "여성" },
       ],
-      // age_options: [
-      //     {text: '20대', value: 20},
-      //     {text: '30대', value: 30},
-      //     {text: '40대', value: 40},
-      //     {text: '50대', value: 50},
-      //     {text: '60대', value: 60},
-      //     {text: '70대 이상', value: 70},
-      // ],
       isChecked: false,
     };
   },
   computed: {
     checkPw() {
+      if (this.form.pw.length == 0) return false;
       return this.form.pw == this.chpw ? true : false;
     },
   },
@@ -212,9 +206,7 @@ export default {
           } else {
             swal("SUCCESS", "사용 가능한 아이디입니다.", "success");
             this.isChecked = true;
-            document
-              .getElementById("input-id")
-              .setAttribute("readonly", true);
+            document.getElementById("input-id").setAttribute("readonly", true);
           }
         },
         (err) => {
