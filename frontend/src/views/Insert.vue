@@ -101,7 +101,7 @@
         <table>
           <tbody>
             <tr v-for="(row, idx) in rows" :key="idx">
-              <td><input type="text" v-model="rows.url" /></td>
+              <td><input type="text" v-model="row.url" /></td>
               <td>
                 <b-icon-dash-circle @click="removeRow(idx)" />
               </td>
@@ -157,7 +157,6 @@ export default {
         per_a: 50,
         per_b: 50,
       },
-      list: [],
       rows: [{ url: "" }],
     };
   },
@@ -167,11 +166,13 @@ export default {
     },
   },
   methods: {
-    addUrl(u) {
-      this.list.push(u);
-    },
     addRow() {
+      if (this.rows.length >= 5) {
+        alert("최대 5개 까지만 가능합니다.");
+        return;
+      }
       this.rows.push({ url: "" });
+      console.log(this.rows);
     },
     removeRow(idx) {
       this.rows.splice(idx, 1);
