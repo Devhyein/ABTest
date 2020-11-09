@@ -9,9 +9,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 // 필요한 repository 있으면 이렇게 interface로 만들어서 추가하기. 기본 CRUD는 이미 구현돼있어여
 public interface TestRepository extends JpaRepository<Test, Integer> {
 
-	List<TestResponse> findAllByAdminNo(int adminno);
+	List<TestResponse> findAllByAdminNoOrderByTestNoDesc(int adminno);
 
-	List<TestResponse> findAllByAdminNoAndStatus(int adminNo, String status);
+	List<TestResponse> findAllByAdminNoAndStatusOrderByTestNoDesc(int adminNo, String status);
 
 	Test findByAdminNoAndTestTitle(int adminNo, String testTitle);
 

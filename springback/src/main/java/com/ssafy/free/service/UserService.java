@@ -3,7 +3,7 @@ package com.ssafy.free.service;
 import java.util.HashMap;
 import java.util.Optional;
 
-import com.ssafy.free.dto.UserSample;
+import com.ssafy.free.dto.sample.UserSample;
 
 public interface UserService {
 
