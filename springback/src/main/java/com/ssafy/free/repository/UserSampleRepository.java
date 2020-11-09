@@ -13,6 +13,8 @@ public interface UserSampleRepository extends JpaRepository<UserSample, Integer>
 
 	Optional<UserSample> findByEmailAndPw(String string, String string2);
 
-	int countByTestNoAndPageTypeAndJoinDate(int test_no, String string, LocalDate start);
+	int countByTestNoAndPageTypeAndJoinDate(int testNo, String string, LocalDate start);
+
+	int countByTestNoAndPageType(int testNo, String string);
 
 }

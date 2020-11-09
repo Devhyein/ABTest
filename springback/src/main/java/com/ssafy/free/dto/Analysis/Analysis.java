@@ -1,7 +1,6 @@
 package com.ssafy.free.dto.Analysis;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import com.ssafy.free.dto.Admin.*;
 
@@ -11,17 +10,17 @@ public class Analysis {
     private LocalDate start;
     private LocalDate end;
     private String status;
-    private List<Float> conversionA;
-    private List<Float> conversionB;
+    private float conversionA;
+    private float conversionB;
     private float con_rate;
-    private List<Float> bounceA;
-    private List<Float> bounceB;
+    private float bounceA;
+    private float bounceB;
     private float bo_rate;
-    private List<Float> joinA;
-    private List<Float> joinB;
+    private float joinA;
+    private float joinB;
     private float jo_rate;
-    private List<Float> purchaseA;
-    private List<Float> purchaseB;
+    private float purchaseA;
+    private float purchaseB;
     private float pur_rate;
 
     public Analysis() {
@@ -35,10 +34,9 @@ public class Analysis {
         this.status = test.getStatus();
     }
 
-    public Analysis(int test_no, String test_title, LocalDate start, LocalDate end, String status,
-            List<Float> conversionA, List<Float> conversionB, float con_rate, List<Float> bounceA, List<Float> bounceB,
-            float bo_rate, List<Float> joinA, List<Float> joinB, float jo_rate, List<Float> purchaseA,
-            List<Float> purchaseB, float pur_rate) {
+    public Analysis(int test_no, String test_title, LocalDate start, LocalDate end, String status, float conversionA,
+            float conversionB, float con_rate, float bounceA, float bounceB, float bo_rate, float joinA, float joinB,
+            float jo_rate, float purchaseA, float purchaseB, float pur_rate) {
         this.test_no = test_no;
         this.test_title = test_title;
         this.start = start;
@@ -98,19 +96,19 @@ public class Analysis {
         this.status = status;
     }
 
-    public List<Float> getConversionA() {
+    public float getConversionA() {
         return conversionA;
     }
 
-    public void setConversionA(List<Float> conversionA) {
+    public void setConversionA(float conversionA) {
         this.conversionA = conversionA;
     }
 
-    public List<Float> getConversionB() {
+    public float getConversionB() {
         return conversionB;
     }
 
-    public void setConversionB(List<Float> conversionB) {
+    public void setConversionB(float conversionB) {
         this.conversionB = conversionB;
     }
 
@@ -122,19 +120,19 @@ public class Analysis {
         this.con_rate = con_rate;
     }
 
-    public List<Float> getBounceA() {
+    public float getBounceA() {
         return bounceA;
     }
 
-    public void setBounceA(List<Float> bounceA) {
+    public void setBounceA(float bounceA) {
         this.bounceA = bounceA;
     }
 
-    public List<Float> getBounceB() {
+    public float getBounceB() {
         return bounceB;
     }
 
-    public void setBounceB(List<Float> bounceB) {
+    public void setBounceB(float bounceB) {
         this.bounceB = bounceB;
     }
 
@@ -146,19 +144,19 @@ public class Analysis {
         this.bo_rate = bo_rate;
     }
 
-    public List<Float> getJoinA() {
+    public float getJoinA() {
         return joinA;
     }
 
-    public void setJoinA(List<Float> joinA) {
+    public void setJoinA(float joinA) {
         this.joinA = joinA;
     }
 
-    public List<Float> getJoinB() {
+    public float getJoinB() {
         return joinB;
     }
 
-    public void setJoinB(List<Float> joinB) {
+    public void setJoinB(float joinB) {
         this.joinB = joinB;
     }
 
@@ -170,19 +168,19 @@ public class Analysis {
         this.jo_rate = jo_rate;
     }
 
-    public List<Float> getPurchaseA() {
+    public float getPurchaseA() {
         return purchaseA;
     }
 
-    public void setPurchaseA(List<Float> purchaseA) {
+    public void setPurchaseA(float purchaseA) {
         this.purchaseA = purchaseA;
     }
 
-    public List<Float> getPurchaseB() {
+    public float getPurchaseB() {
         return purchaseB;
     }
 
-    public void setPurchaseB(List<Float> purchaseB) {
+    public void setPurchaseB(float purchaseB) {
         this.purchaseB = purchaseB;
     }
 
