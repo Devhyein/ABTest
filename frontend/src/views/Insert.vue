@@ -168,7 +168,7 @@ export default {
   methods: {
     addRow() {
       if (this.rows.length >= 5) {
-        alert("최대 5개 까지만 가능합니다.");
+         swal("추가 실패", "전환율 분석페이지는 최대 5개까지 설정 가능합니다.", "error");
         return;
       }
       this.rows.push({ url: "" });
