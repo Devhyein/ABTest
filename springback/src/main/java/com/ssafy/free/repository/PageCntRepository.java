@@ -1,7 +1,7 @@
 package com.ssafy.free.repository;
 
 import java.util.List;
-import com.ssafy.free.dto.PageCnt;
+import com.ssafy.free.dto.Admin.PageCnt;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

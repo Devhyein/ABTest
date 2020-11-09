@@ -1,4 +1,4 @@
-package com.ssafy.free.dto;
+package com.ssafy.free.dto.Admin;
 
 import java.time.LocalDate;
 
@@ -15,40 +15,40 @@ public class Test {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "test_no")
-    private int testNo; 
+    private int testNo;
 
     @Column(name = "admin_no")
-    private int adminNo; 
+    private int adminNo;
 
     @Column(name = "test_title")
-    private String testTitle; 
+    private String testTitle;
 
     @Column(name = "test_a")
-    private String testA; 
+    private String testA;
 
     @Column(name = "test_b")
-    private String testB; 
+    private String testB;
 
     @Column(name = "start")
-    private LocalDate start; 
+    private LocalDate start;
 
     @Column(name = "end")
-    private LocalDate end; 
+    private LocalDate end;
 
     @Column(name = "per_a")
-    private int perA; 
+    private int perA;
 
     @Column(name = "per_b")
-    private int perB; 
+    private int perB;
 
     @Column(name = "status")
     private String status;
 
     @Column(name = "url_a")
-    private String urlA; 
+    private String urlA;
 
     @Column(name = "url_b")
-    private String urlB; 
+    private String urlB;
 
     public Test() {
     }
@@ -187,6 +187,4 @@ public class Test {
                 + testTitle + ", urlA=" + urlA + ", urlB=" + urlB + "]";
     }
 
- 
-   
 }

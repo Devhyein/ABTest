@@ -2,8 +2,7 @@ package com.ssafy.free.repository;
 
 import java.util.List;
 
-import com.ssafy.free.dto.Test;
-import com.ssafy.free.dto.TestResponse;
+import com.ssafy.free.dto.Admin.*;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -15,5 +14,13 @@ public interface TestRepository extends JpaRepository<Test, Integer> {
 	List<TestResponse> findAllByAdminNoAndStatus(int adminNo, String status);
 
 	Test findByAdminNoAndTestTitle(int adminNo, String testTitle);
+
+	int countByUrlAAndStatus(String urlA, String string);
+
+	int countByUrlBAndStatus(String urlB, String string);
+
+	Test findByurlAAndStatus(String urlA, String Status);
+
+	Test findByurlBAndStatus(String urlB, String Status);
 
 }
