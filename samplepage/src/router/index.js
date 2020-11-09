@@ -19,12 +19,12 @@ const routes = [
     component: SampleB
   },
   {
-    path: 'sample/join',
+    path: '/sample/join',
     name: 'Join',
     component: Join
   },
   {
-    path: 'sample/login',
+    path: '/sample/login',
     name: 'Login',
     component: Login
   },
