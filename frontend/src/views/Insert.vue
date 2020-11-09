@@ -88,7 +88,7 @@
         <label>전환율 분석페이지 :</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input
+        <!-- <b-form-input
           v-for="u in list"
           :key="u"
           style="display:block"
@@ -97,7 +97,19 @@
 
         <b-button @click="addUrl(list.length)">
           url추가
-        </b-button>
+        </b-button> -->
+        <table>
+          <tbody>
+            <tr v-for="(row, idx) in rows" :key="idx">
+              <td><input type="text" v-model="row.url" /></td>
+              <td>
+                <b-icon-dash-circle @click="removeRow(idx)" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <b-button @click="addRow"><b-icon-plus-circle /></b-button> -->
+        <b-icon-plus-circle @click="addRow" />
       </b-col>
     </b-row>
 
@@ -117,12 +129,8 @@
         ></b-form-input>
       </div>
     </div>
-    <b-button @click="dataCheck()" variant="success">
-      생성
-    </b-button>
-    <b-button @click="reset()">
-      초기화
-    </b-button>
+    <b-button @click="dataCheck()" variant="success"> 생성 </b-button>
+    <b-button @click="reset()"> 초기화 </b-button>
   </div>
 </template>
 
@@ -149,7 +157,7 @@ export default {
         per_a: 50,
         per_b: 50,
       },
-      list: [],
+      rows: [{ url: "" }],
     };
   },
   computed: {
@@ -158,8 +166,17 @@ export default {
     },
   },
   methods: {
-    addUrl(u) {
-      this.list.push(u);
+    addRow() {
+      if (this.rows.length >= 5) {
+        alert("최대 5개 까지만 가능합니다.");
+        return;
+      }
+      this.rows.push({ url: "" });
+      console.log(this.rows);
+    },
+    removeRow(idx) {
+      this.rows.splice(idx, 1);
+      console.log(this.rows);
     },
     dataCheck() {
       let err = false;
