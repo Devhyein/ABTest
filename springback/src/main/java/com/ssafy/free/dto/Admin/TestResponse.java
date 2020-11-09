@@ -1,6 +1,7 @@
 package com.ssafy.free.dto.Admin;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class TestResponse {
     private int test_no;
@@ -15,6 +16,7 @@ public class TestResponse {
     private String status;
     private String url_a;
     private String url_b;
+    private List<UrlAttribute> urls;
 
     public TestResponse() {
     }
@@ -35,7 +37,7 @@ public class TestResponse {
     }
 
     public TestResponse(int test_no, int admin_no, String test_title, String test_a, String test_b, LocalDate start,
-            LocalDate end, int per_a, int per_b, String status) {
+            LocalDate end, int per_a, int per_b, String status, List<UrlAttribute> urls) {
         this.test_no = test_no;
         this.admin_no = admin_no;
         this.test_title = test_title;
@@ -46,6 +48,7 @@ public class TestResponse {
         this.per_a = per_a;
         this.per_b = per_b;
         this.status = status;
+        this.urls = urls;
     }
 
     public int getTest_no() {
@@ -142,6 +145,14 @@ public class TestResponse {
 
     public void setUrl_b(String url_b) {
         this.url_b = url_b;
+    }
+
+    public List<UrlAttribute> getUrls() {
+        return urls;
+    }
+
+    public void setUrls(List<UrlAttribute> urls) {
+        this.urls = urls;
     }
 
     @Override
