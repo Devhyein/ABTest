@@ -10,6 +10,8 @@ Vue.use(Vuex)
 
 const state = {
     email: "",
+    sample:{
+    },
 }
 
 export default new Vuex.Store({

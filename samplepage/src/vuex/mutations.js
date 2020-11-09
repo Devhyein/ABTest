@@ -4,5 +4,8 @@ export default {
     },
     deleteUserInfo(state) {
         state.email = "";
+    },
+    addSampleInfo(state, sample){
+        state.sample = sample;
     }
 }
