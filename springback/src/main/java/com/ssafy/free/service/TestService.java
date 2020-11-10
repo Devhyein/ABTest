@@ -8,6 +8,6 @@ public interface TestService {
 
     AnalysisConversionWithUrl getDetailTestConversionWithUrl(int testno);
 
-    // Analysis getDetailRate(Analysis detail);
+    Analysis getDetailTestGender(int test_no);
 
 }
