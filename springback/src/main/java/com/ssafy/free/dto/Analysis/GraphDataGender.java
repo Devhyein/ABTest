@@ -1,7 +1,5 @@
 package com.ssafy.free.dto.Analysis;
 
-import java.util.List;
-
 public class GraphDataGender {
     // private List<String> Date;
     private Float AMaleChartData;

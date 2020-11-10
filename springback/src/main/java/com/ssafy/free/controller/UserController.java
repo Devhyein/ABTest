@@ -1,7 +1,6 @@
 package com.ssafy.free.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 
 import com.ssafy.free.dto.RestResponse;
