@@ -10,7 +10,7 @@
         }}</b-button>
       </h3>
 
-      {{ detail.start }} - {{ detail.end }}
+      {{ detail.start }} ~ {{ detail.end }}
       <b-tabs v-model="tabIndex">
         <b-tab title="전체" :title-link-class="linkClass(0)">
           <b-form-select v-model="selected1" :options="options1" />
@@ -18,6 +18,9 @@
             <b-button variant="info" @click="urlModal()">
               페이지별 전환율 상세보기
             </b-button>
+
+            <canvas id="myChart" width="400" height="400"></canvas>
+
             <b-table hover :items="tableData" :fields="fields"> </b-table>
           </div>
         </b-tab>
@@ -27,7 +30,6 @@
             <b-button variant="info" @click="urlModal()">
               페이지별 전환율 상세보기
             </b-button>
-            <b-table hover :items="tableDataGender" :fields="fields"> </b-table>
           </div>
         </b-tab>
         <b-tab title="나이" :title-link-class="linkClass(2)">
@@ -36,7 +38,6 @@
             <b-button variant="info" @click="urlModal()">
               페이지별 전환율 상세보기
             </b-button>
-            <b-table hover :items="tableDataAge" :fields="fields"> </b-table>
           </div>
         </b-tab>
         <b-tab title="사용자 지정" :title-link-class="linkClass(3)">
@@ -45,7 +46,6 @@
             <b-button variant="info" @click="urlModal()">
               페이지별 전환율 상세보기
             </b-button>
-            <b-table hover :items="tableDataCustom" :fields="fields"> </b-table>
           </div>
         </b-tab>
       </b-tabs>
@@ -53,7 +53,7 @@
         <!-- 모달에 들어 갈 테이블 추가 -->
         <b-table hover :items="detailTableData" :fields="detailFields">
         </b-table>
-        <template #modal-footer> 
+        <template #modal-footer>
           <div></div>
         </template>
       </b-modal>
@@ -63,8 +63,35 @@
 
 <script>
 import API from "@/api/API";
+import Chart from "chart.js";
+import totalData from "../chart/chart-data.js";
 
 import EncarHeader from "@/components/Header";
+
+/* var ctx = document.getElementById("myChart").getContext("2d");
+var myChart = new Chart(ctx, {
+  type: "bar",
+  data: {
+    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    datasets: [
+      {
+        label: "# of Votes",
+        data: [12, 19, 3, 5, 2, 3],
+      },
+    ],
+  },
+  options: {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
+  },
+}); */
 
 export default {
   components: {
@@ -72,12 +99,11 @@ export default {
   },
   data() {
     return {
+      totalData: totalData,
+
       modalShow: false,
       tabIndex: 0,
       tableData: [],
-      tableDataGender: [],
-      tableDataAge: [],
-      tableDataCustom: [],
       detailTableData: [],
       // chart어떤식으로 받아야할지 공부
       //chart:[],
@@ -88,70 +114,6 @@ export default {
         { key: "rate", label: "증감률" },
       ],
       detailFields: [],
-      //백엔드 연동했을땐 여기있는거 주석 해제해서 사용하고 샘플 지우기
-      // detailGender: {},
-      // detailAge: {},
-      // detailCustom: {},
-
-      // 아래는 샘플 값 넣어놓은 거예요 나중에 지우기
-      detailGender: {
-        test_no: 2,
-        test_title: "버튼테스트",
-        start: "2020.10.12",
-        end: "2020.11.11",
-        status: "진행중",
-        conversionA: 10,
-        conversionB: 20,
-        con_rate: 30,
-        bounceA: 40,
-        bounceB: 50,
-        bo_rate: 60,
-        joinA: 70,
-        joinB: 80,
-        jo_rate: 100,
-        purchaseA: 90,
-        purchaseB: 70,
-        pur_rate: 60,
-      },
-      detailAge: {
-        test_no: 2,
-        test_title: "버튼테스트",
-        start: "2020.10.12",
-        end: "2020.11.11",
-        status: "진행중",
-        conversionA: 30,
-        conversionB: 50,
-        con_rate: 35,
-        bounceA: 50,
-        bounceB: 30,
-        bo_rate: -35,
-        joinA: 20,
-        joinB: 40,
-        jo_rate: 100,
-        purchaseA: 40,
-        purchaseB: 10,
-        pur_rate: -75,
-      },
-      detailCustom: {
-        test_no: 2,
-        test_title: "버튼테스트",
-        start: "2020.10.12",
-        end: "2020.11.11",
-        status: "진행중",
-        conversionA: 50,
-        conversionB: 50,
-        con_rate: 0,
-        bounceA: 50,
-        bounceB: 25,
-        bo_rate: -53,
-        joinA: 25,
-        joinB: 50,
-        jo_rate: 25,
-        purchaseA: 10,
-        purchaseB: 20,
-        pur_rate: 100,
-      },
-      /////////////////////////////////////////여기까지 샘플데이터////////////////////////////////////////////
 
       selected1: null,
       selected2: null,
@@ -174,36 +136,6 @@ export default {
     };
   },
   created() {
-    // API.getDetailTestGender(
-    //   "test_no=" + this.$store.state.detail.test_no,
-    //   (res) => {
-    //     console.log(res);
-    //     this.detailGender = res;
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //   }
-    // );
-    // API.getDetailTestAge(
-    //   "test_no=" + this.$store.state.detail.test_no,
-    //   (res) => {
-    //     console.log(res);
-    //     this.detailAge = res;
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //   }
-    // );
-    // API.getDetailTestCustom(
-    //   "test_no=" + this.$store.state.detail.test_no,
-    //   (res) => {
-    //     console.log(res);
-    //     this.detailCustom = res;
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //   }
-    // );
     this.tableData = [
       {
         assortment: "전환율",
@@ -231,92 +163,19 @@ export default {
       },
     ];
 
-    this.tableDataGender = [
-      {
-        assortment: "전환율",
-        testA: this.detailGender.conversionA + "%",
-        testB: this.detailGender.conversionB + "%",
-        rate: this.detailGender.con_rate + "%",
-      },
-      {
-        assortment: "이탈률",
-        testA: this.detailGender.bounceA + "%",
-        testB: this.detailGender.bounceA + "%",
-        rate: this.detailGender.bo_rate + "%",
-      },
-      {
-        assortment: "회원가입률",
-        testA: this.detailGender.joinA + "%",
-        testB: this.detailGender.joinB + "%",
-        rate: this.detailGender.jo_rate + "%",
-      },
-      {
-        assortment: "구매율",
-        testA: this.detailGender.purchaseA + "%",
-        testB: this.detailGender.purchaseB + "%",
-        rate: this.detailGender.pur_rate + "%",
-      },
-    ];
-
-    this.tableDataAge = [
-      {
-        assortment: "전환율",
-        testA: this.detailAge.conversionA + "%",
-        testB: this.detailAge.conversionB + "%",
-        rate: this.detailAge.con_rate + "%",
-      },
-      {
-        assortment: "이탈률",
-        testA: this.detailAge.bounceA + "%",
-        testB: this.detailAge.bounceA + "%",
-        rate: this.detailAge.bo_rate + "%",
-      },
-      {
-        assortment: "회원가입률",
-        testA: this.detailAge.joinA + "%",
-        testB: this.detailAge.joinB + "%",
-        rate: this.detailAge.jo_rate + "%",
-      },
-      {
-        assortment: "구매율",
-        testA: this.detailAge.purchaseA + "%",
-        testB: this.detailAge.purchaseB + "%",
-        rate: this.detailAge.pur_rate + "%",
-      },
-    ];
-
-    this.tableDataCustom = [
-      {
-        assortment: "전환율",
-        testA: this.detailCustom.conversionA + "%",
-        testB: this.detailCustom.conversionB + "%",
-        rate: this.detailCustom.con_rate + "%",
-      },
-      {
-        assortment: "이탈률",
-        testA: this.detailCustom.bounceA + "%",
-        testB: this.detailCustom.bounceA + "%",
-        rate: this.detailCustom.bo_rate + "%",
-      },
-      {
-        assortment: "회원가입률",
-        testA: this.detailCustom.joinA + "%",
-        testB: this.detailCustom.joinB + "%",
-        rate: this.detailCustom.jo_rate + "%",
-      },
-      {
-        assortment: "구매율",
-        testA: this.detailCustom.purchaseA + "%",
-        testB: this.detailCustom.purchaseB + "%",
-        rate: this.detailCustom.pur_rate + "%",
-      },
-    ];
-
     if (this.detail.status == "진행전") this.detail.color = "success";
     else if (this.detail.status == "진행중") this.detail.color = "warning";
     else this.detail.color = "danger";
   },
   methods: {
+    createChart(charID, chartData) {
+      const ctx = document.getElementById(myChart);
+      const myChart = new Chart(ctx, {
+        type: chartData.type,
+        data: chartData.data,
+        options: chartData.options,
+      });
+    },
     urlModal() {
       API.getDetailTestConversionWithUrl(
         "test_no=" + this.detail.test_no,
@@ -362,6 +221,9 @@ export default {
         return ["bg-light", "text-dark"];
       }
     },
+  },
+  mounted() {
+    this.createChart("myChart", this.totalData);
   },
   watch: {
     // 드롭다운 보고있다가 selected에 변화가 생겼을때 API부르기

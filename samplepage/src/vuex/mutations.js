@@ -7,5 +7,8 @@ export default {
     },
     addSampleInfo(state, sample){
         state.sample = sample;
-    }
+    },
+    addTestInfo(state, test){
+        state.test = test;
+    },
 }
