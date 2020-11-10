@@ -1,20 +1,14 @@
 package com.ssafy.free.controller.Admin;
 
 import com.ssafy.free.dto.RestResponse;
-import com.ssafy.free.dto.Admin.TestResponse;
 import com.ssafy.free.dto.Analysis.GraphData;
 import com.ssafy.free.dto.Analysis.GraphDataAge;
 import com.ssafy.free.dto.Analysis.GraphDataGender;
-import com.ssafy.free.service.ManageService;
 import com.ssafy.free.service.Test.GraphService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
