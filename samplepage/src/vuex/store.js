@@ -13,6 +13,9 @@ const state = {
 
     },
     sample:{
+
+    },test:{
+
     },
 }
 
