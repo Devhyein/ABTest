@@ -36,8 +36,10 @@ public class ApiController {
             Context ret = apiService.convert(ctx, url);
             
             if (ret == null) {
+                ret.setPage_type("A");
                 response.status = true;
                 response.msg = "success but end or pre test";
+                response.data = ret;
                 return response;
             }
 
