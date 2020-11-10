@@ -181,9 +181,10 @@
         </b-modal>
       </div>
       <div>
-        <b-button pill class="createBtn" v-bind:to="'insert'"
+        <b-icon-plus :to="insert" class="rounded-circle bg-danger text-white createBtn"></b-icon-plus>
+        <!-- <b-button pill class="createBtn" v-bind:to="'insert'"
           >실험생성</b-button
-        >
+        > -->
       </div>
     </div>
   </div>
@@ -472,8 +473,7 @@ export default {
 <style scoped>
 .createBtn {
   float: right;
-  background-color: red;
-  border: none;
+  font-size: 30px;
 }
 .tabs {
   clear: both;

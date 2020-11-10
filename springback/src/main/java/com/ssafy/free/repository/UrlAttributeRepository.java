@@ -13,4 +13,6 @@ public interface UrlAttributeRepository extends JpaRepository<UrlAttribute, Inte
 
     UrlAttribute findByTestNoAndUrlName(int testno, String url);
 
+    List<String> findUrlNameByTestNo(int test_no);
+
 }
