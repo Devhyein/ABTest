@@ -3,6 +3,7 @@ package com.ssafy.free.controller.Admin;
 import com.ssafy.free.dto.RestResponse;
 import com.ssafy.free.dto.Admin.TestResponse;
 import com.ssafy.free.dto.Analysis.GraphData;
+import com.ssafy.free.dto.Analysis.GraphDataAge;
 import com.ssafy.free.dto.Analysis.GraphDataGender;
 import com.ssafy.free.service.ManageService;
 import com.ssafy.free.service.Test.GraphService;
@@ -164,7 +165,7 @@ public class GraphController {
         response.data = null;
 
         try {
-            GraphDataGender data = graphService.getChartAgeConversion(test_no);
+            GraphDataAge data = graphService.getChartAgeConversion(test_no);
             response.status = true;
             response.msg = "success";
             response.data = data;
@@ -175,4 +176,24 @@ public class GraphController {
         return response;
     }
 
+    @ApiOperation(value = "그래프 조회 - 연령별 이탈률")
+    @GetMapping("/chart/age/bounce")
+    public Object getChartAgeBounce(@RequestParam int test_no) {
+        final RestResponse response = new RestResponse();
+
+        response.status = false;
+        response.msg = "성별 전환율 조회 실패";
+        response.data = null;
+
+        try {
+            GraphDataAge data = graphService.getChartAgeBounce(test_no);
+            response.status = true;
+            response.msg = "success";
+            response.data = data;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return response;
+    }
 }

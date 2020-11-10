@@ -8,6 +8,7 @@ import java.util.List;
 import com.ssafy.free.dto.Admin.PageCnt;
 import com.ssafy.free.dto.Admin.Test;
 import com.ssafy.free.dto.Analysis.GraphData;
+import com.ssafy.free.dto.Analysis.GraphDataAge;
 import com.ssafy.free.dto.Analysis.GraphDataGender;
 import com.ssafy.free.repository.BuyerRepository;
 import com.ssafy.free.repository.ClientConsumerRepository;
@@ -326,31 +327,54 @@ public class GraphServiceImpl implements GraphService {
     }
 
     @Override
-    public GraphDataGender getChartAgeConversion(int test_no) {
-        GraphDataGender data = new GraphDataGender();
+    public GraphDataAge getChartAgeConversion(int test_no) {
+        GraphDataAge data = new GraphDataAge();
+
+        List<Float> aData = new ArrayList<>();
+        List<Float> bData = new ArrayList<>();
 
         try {
-            float maleA = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "A", "남성", null);
-            float totalMaleA = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "A", "남성");
-            // 분자
-            float up = totalMaleA - maleA;
-            data.setAMaleChartData((float) (Math.round((1 - (up / maleA)) * 1000) / 10.0));
+            for (int age = 20; age <= 60; age += 10) {
+                float A = testDataRepository.countByTestNoAndPageTypeAndAgeAndUrlNo(test_no, "A", age, null);
+                float totalA = testDataRepository.countByTestNoAndPageTypeAndAge(test_no, "A", age);
+                float upA = totalA - A;
 
-            float maleB = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "B", "남성", null);
-            float totalMaleB = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "B", "남성");
-            up = totalMaleB - maleB;
-            data.setBMaleChartData((float) (Math.round((1 - (up / maleB)) * 1000) / 10.0));
+                float B = testDataRepository.countByTestNoAndPageTypeAndAgeAndUrlNo(test_no, "B", age, null);
+                float totalB = testDataRepository.countByTestNoAndPageTypeAndAge(test_no, "B", age);
+                float upB = totalB - B;
+                aData.add((float) (Math.round((upA / A) * 1000) / 10.0));
+                bData.add((float) (Math.round((upB / B) * 1000) / 10.0));
+            }
+            data.setAChartData(aData);
+            data.setBChartData(bData);
+            return data;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-            float femaleA = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "A", "여성", null);
-            float totalFemaleA = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "A", "여성");
-            up = totalFemaleA - femaleA;
-            data.setAFemaleChartData((float) (Math.round((1 - (up / femaleA)) * 1000) / 10.0));
+    @Override
+    public GraphDataAge getChartAgeBounce(int test_no) {
+        GraphDataAge data = new GraphDataAge();
 
-            float femaleB = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "B", "여성", null);
-            float totalFemaleB = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "B", "여성");
-            up = totalFemaleB - femaleB;
-            data.setBFemaleChartData((float) (Math.round((1 - (up / femaleB)) * 1000) / 10.0));
+        List<Float> aData = new ArrayList<>();
+        List<Float> bData = new ArrayList<>();
 
+        try {
+            for (int age = 20; age <= 60; age += 10) {
+                float A = testDataRepository.countByTestNoAndPageTypeAndAgeAndUrlNo(test_no, "A", age, null);
+                float totalA = testDataRepository.countByTestNoAndPageTypeAndAge(test_no, "A", age);
+                float upA = totalA - A;
+
+                float B = testDataRepository.countByTestNoAndPageTypeAndAgeAndUrlNo(test_no, "B", age, null);
+                float totalB = testDataRepository.countByTestNoAndPageTypeAndAge(test_no, "B", age);
+                float upB = totalB - B;
+                aData.add((float) (Math.round((1 - (upA / A)) * 1000) / 10.0));
+                bData.add((float) (Math.round((1 - (upB / B)) * 1000) / 10.0));
+            }
+            data.setAChartData(aData);
+            data.setBChartData(bData);
             return data;
         } catch (Exception e) {
             e.printStackTrace();
