@@ -181,7 +181,7 @@
         </b-modal>
       </div>
       <div>
-        <b-icon-plus :to="insert" class="rounded-circle bg-danger text-white createBtn"></b-icon-plus>
+        <b-icon-plus @click="goInsert" class="rounded-circle bg-danger text-white createBtn"></b-icon-plus>
         <!-- <b-button pill class="createBtn" v-bind:to="'insert'"
           >실험생성</b-button
         > -->
@@ -466,6 +466,9 @@ export default {
           }
         );
     },
+    goInsert() {
+      this.$router.push({name: 'Insert'})
+    }
   },
 };
 </script>
@@ -474,6 +477,7 @@ export default {
 .createBtn {
   float: right;
   font-size: 30px;
+  cursor: pointer;
 }
 .tabs {
   clear: both;
