@@ -16,9 +16,9 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = { "*" })
 public class ApiController {
 
     @Autowired
@@ -31,7 +31,6 @@ public class ApiController {
         Context ctx = new Context();
         log.info("url : " + url);
         try {
-            ctx.setKeyword("API");
             ctx.setSession_id(session.getId());
             Context ret = apiService.convert(ctx, url);
             

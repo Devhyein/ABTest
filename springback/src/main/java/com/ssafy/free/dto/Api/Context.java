@@ -8,7 +8,6 @@ public class Context {
     private String session_id;
     private String page_type;
     private int test_no;
-    private String keyword;
     private int bucketNumber;
 
 }
