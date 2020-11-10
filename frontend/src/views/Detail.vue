@@ -14,15 +14,29 @@
       <b-tabs v-model="tabIndex">
         <b-tab title="전체" :title-link-class="linkClass(0)">
           <b-form-select v-model="selected1" :options="options1" />
-          <div>
-            <b-button variant="info" @click="urlModal()">
-              페이지별 전환율 상세보기
-            </b-button>
+          <!-- <div class="d-flex"> -->
+            <b-row class="align-items-center graphChart">
+              <b-col cols="7">
 
-            <canvas id="chartID" width="300" height="300"></canvas>
+                <canvas id="myChart"></canvas>
+              </b-col>
+              <b-col cols="5">
+                <div>
+                  <b-button variant="info" @click="urlModal()">
+                   페이지별 전환율 상세보기
+                  </b-button>
 
-            <b-table hover :items="tableData" :fields="fields"> </b-table>
+                  <b-table hover :items="detailTableData" :fields="detailFields">
+          </b-table>
+
+           
           </div>
+           <b-table hover :items="tableData" :fields="fields" > </b-table>
+              </b-col>
+            </b-row>
+
+          <!-- </div> -->
+
         </b-tab>
         <b-tab title="성별" :title-link-class="linkClass(1)">
           <b-form-select v-model="selected2" :options="options2" />
@@ -51,8 +65,7 @@
       </b-tabs>
       <b-modal title="URL별 페이지 전환율" v-model="modalShow">
         <!-- 모달에 들어 갈 테이블 추가 -->
-        <b-table hover :items="detailTableData" :fields="detailFields">
-        </b-table>
+
         <template #modal-footer>
           <div></div>
         </template>
@@ -68,31 +81,6 @@ import totalData from "../chart/chart-data.js";
 
 import EncarHeader from "@/components/Header";
 
-/* var ctx = document.getElementById("myChart").getContext("2d");
-var myChart = new Chart(ctx, {
-  type: "bar",
-  data: {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-    datasets: [
-      {
-        label: "# of Votes",
-        data: [12, 19, 3, 5, 2, 3],
-      },
-    ],
-  },
-  options: {
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: true,
-          },
-        },
-      ],
-    },
-  },
-}); */
-
 export default {
   components: {
     EncarHeader,
@@ -105,7 +93,11 @@ export default {
       tableData: [],
       detailTableData: [],
       // chart어떤식으로 받아야할지 공부
-      //chart:[],
+      chart:{
+        aChartData : [],
+        bChartData : [],
+        date : []
+      },
       fields: [
         { key: "assortment", label: "구분" },
         { key: "testA", label: "A 안" },
@@ -135,32 +127,59 @@ export default {
     };
   },
   created() {
-    console.log(totalData);
+    // console.log(totalData);
     // this.createChart("myChart", totalData);
-    this.tableData = [
+    // this.tableData = [
+    //   {
+    //     assortment: "전환율",
+    //     testA: this.detail.conversionA + "%",
+    //     testB: this.detail.conversionB + "%",
+    //     rate: this.detail.con_rate + "%",
+    //   },
+    //   {
+    //     assortment: "이탈률",
+    //     testA: this.detail.bounceA + "%",
+    //     testB: this.detail.bounceA + "%",
+    //     rate: this.detail.bo_rate + "%",
+    //   },
+    //   {
+    //     assortment: "회원가입률",
+    //     testA: this.detail.joinA + "%",
+    //     testB: this.detail.joinB + "%",
+    //     rate: this.detail.jo_rate + "%",
+    //   },
+    //   {
+    //     assortment: "구매율",
+    //     testA: this.detail.purchaseA + "%",
+    //     testB: this.detail.purchaseB + "%",
+    //     rate: this.detail.pur_rate + "%",
+    //   },
+    // ];
+
+        this.tableData = [
       {
         assortment: "전환율",
-        testA: this.detail.conversionA + "%",
-        testB: this.detail.conversionB + "%",
-        rate: this.detail.con_rate + "%",
+        testA: "36%",
+        testB: "47%",
+        rate: "+ 11%",
       },
       {
         assortment: "이탈률",
-        testA: this.detail.bounceA + "%",
-        testB: this.detail.bounceA + "%",
-        rate: this.detail.bo_rate + "%",
+        testA: "64%",
+        testB: "53%",
+        rate: "- 11%",
       },
       {
         assortment: "회원가입률",
-        testA: this.detail.joinA + "%",
-        testB: this.detail.joinB + "%",
-        rate: this.detail.jo_rate + "%",
+        testA: "48%",
+        testB: "51%",
+        rate: "+ 3%",
       },
       {
         assortment: "구매율",
-        testA: this.detail.purchaseA + "%",
-        testB: this.detail.purchaseB + "%",
-        rate: this.detail.pur_rate + "%",
+        testA: "57%",
+        testB: "66%",
+        rate: "+ 9%",
       },
     ];
 
@@ -169,15 +188,53 @@ export default {
     else this.detail.color = "danger";
   },
   methods: {
-    createChart(chartID, chartData) {
-      const ctx = document.getElementById(chartID);
-      const myChart = new Chart(ctx, {
-        type: chartData.type,
-        data: chartData.data,
-        options: chartData.options,
-      });
-      console.log("^^" + myChart);
+    createChart() {
+      console.log("START!")
+          var ctx = document.getElementById('myChart').getContext('2d');
+    console.log(this.chart);
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: 'A안 : 메뉴바 왼쪽',
+                data: [40, 35, 42, 29, 37, 34, 22, 25, 27, 39],
+                borderColor : 'rgba(255,99,132,1)',
+                backgroundColor : false,
+                fill: false
+            }, {
+                label: 'B안 : 메뉴바 오른쪽',
+                data: [43, 50, 40, 45, 32, 51, 45, 32, 46, 49],
+
+                // Changes this dataset to become a line
+                type: 'line',
+                borderColor :'rgba(75, 192, 192, 1)',
+                backgroundColor : false,
+                fill: false
+            }],
+            // date
+            labels: ["11/1","11/2","11/3","11/4","11/5","11/6","11/7","11/8","11/9","11/10",]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+        }
+    });
+    console.log(myChart);
     },
+    // createChart(chartID, chartData) {
+    //   const ctx = document.getElementById(chartID);
+    //   const myChart = new Chart(ctx, {
+    //     type: chartData.type,
+    //     data: chartData.data,
+    //     options: chartData.options,
+    //   });
+    //   console.log("^^" + myChart);
+    // },
     urlModal() {
       API.getDetailTestConversionWithUrl(
         "test_no=" + this.detail.test_no,
@@ -195,14 +252,17 @@ export default {
           var obj = {};
           obj.name = "A";
           for (var idx in res.urls) {
-            obj[res.urls[idx]] = res.conversionA[idx];
+            // obj[res.urls[idx]] = res.conversionA[idx];
+            obj[res.urls[idx]] = 38;
+            obj[res.urls[idx2]] = 41;
           }
 
           arr.push(obj);
           obj = {};
           obj.name = "B";
           for (var idx2 in res.urls) {
-            obj[res.urls[idx2]] = res.conversionB[idx2];
+            // obj[res.urls[idx2]] = res.conversionB[idx2];
+            obj[res.urls[idx2]] = 42;
           }
           arr.push(obj);
           this.detailTableData = arr;
@@ -225,24 +285,66 @@ export default {
     },
   },
   mounted() {
-    this.createChart("chartID", totalData);
-  },
+    // this.createChart("chartCanvas", this.tableData);
+    // var ctx = document.getElementById('myChart').getContext('2d');
+    // console.log(this.chart);
+    // var myChart = new Chart(ctx, {
+    //     type: 'line',
+    //     data: {
+    //         datasets: [{
+    //             label: 'A안 : 메뉴바 왼쪽',
+    //             data: [40, 35, 42, 29, 37, 34, 22, 25, 27, 39],
+    //             borderColor : 'rgba(255,99,132,1)',
+    //             backgroundColor : false,
+    //             fill: false
+    //         }, {
+    //             label: 'B안 : 메뉴바 오른쪽',
+    //             data: [43, 50, 40, 45, 32, 51, 45, 32, 46, 49],
+
+    //             // Changes this dataset to become a line
+    //             type: 'line',
+    //             borderColor :'rgba(75, 192, 192, 1)',
+    //             backgroundColor : false,
+    //             fill: false
+    //         }],
+    //         // date
+    //         labels: ["11/1","11/2","11/3","11/4","11/5","11/6","11/7","11/8","11/9","11/10",]
+    //     },
+    //     options: {
+    //         scales: {
+    //             yAxes: [{
+    //                 ticks: {
+    //                     beginAtZero: true
+    //                 }
+    //             }]
+    //         },
+    //     }
+    // });
+    // console.log(myChart);
+    },
   watch: {
     // 드롭다운 보고있다가 selected에 변화가 생겼을때 API부르기
     // chart에 넣기(어떻게 가져와서 각각 라인,바 차트에 넣을지 고민쓰)
     selected1(val) {
       if (val == "전환율") {
         console.log("전체-전환율");
-        API.getChartConversion(
-          "test_no=" + this.detail.test_no,
-          (res) => {
-            console.log(res);
-            //res를 chart로 만들기위해 데이터 넣어줘야함
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
+        this.createChart();
+        // API.getChartConversion(
+        //   "test_no=" + this.detail.test_no,
+        //   (res) => {
+        //     console.log(res);
+        //     // chart = res;
+        //     this.chart.aChartData = res.achartData;
+        //     this.chart.bChartData = res.bchartData;
+        //     this.chart.date = res.date;
+        //     //res를 chart로 만들기위해 데이터 넣어줘야함
+            
+        //     this.createChart();
+        //   },
+        //   (err) => {
+        //     console.log(err);
+        //   },
+        // );
       } else if (val == "이탈률") {
         console.log("전체-이탈률");
         API.getChartBounce(
@@ -418,3 +520,9 @@ export default {
   },
 };
 </script>
+<style>
+.graphChart{
+  margin-top: 40px;
+}
+
+</style>
