@@ -10,7 +10,7 @@
         }}</b-button>
       </h3>
 
-      {{ detail.start }} - {{ detail.end }}
+      {{ detail.start }} ~ {{ detail.end }}
       <b-tabs v-model="tabIndex">
         <b-tab title="전체" :title-link-class="linkClass(0)">
           <b-form-select v-model="selected1" :options="options1" />
