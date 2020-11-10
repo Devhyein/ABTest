@@ -17,17 +17,17 @@ public class TestData {
     @Column(name = "data_no")
     private int dataNo;
 
-    @Column(name = "url_no")
-    private int urlNo;
-
     @Column(name = "test_no")
     private int testNo;
 
-    @Column(name = "user_no")
-    private int userNo;
-
     @Column(name = "page_type")
     private String pageType;
+
+    @Column(name = "url_no")
+    private int urlNo;
+
+    @Column(name = "user_no")
+    private int userNo;
 
     @Column(name = "date")
     private LocalDate date;
