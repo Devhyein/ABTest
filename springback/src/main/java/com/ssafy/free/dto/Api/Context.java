@@ -9,5 +9,6 @@ public class Context {
     private String page_type;
     private int test_no;
     private int bucketNumber;
+    private boolean Progress;
 
 }

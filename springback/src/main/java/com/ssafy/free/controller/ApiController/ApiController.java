@@ -32,9 +32,11 @@ public class ApiController {
         log.info("url : " + url);
         try {
             ctx.setSession_id(session.getId());
+            log.info(session.getId());
             Context ret = apiService.convert(ctx, url);
             
-            if (ret.getPage_type() == null) {
+            
+            if (!ret.isProgress()) {
                 ret.setPage_type("A");
                 response.status = true;
                 response.msg = "success but end or pre test";

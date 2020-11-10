@@ -21,18 +21,18 @@ public class ApiServiceImpl implements ApiService {
     TestRepository testRepository;
 
     public Context convert(Context ctx, String url) {
-
+        Context ret;
         // url을 기반으로 실험 정보를 가져온다.
         try {
-            Test testInfo = testRepository.findByurlAAndStatus(url, "진행중");
+            Test testInfo = testRepository.findByUrlAAndStatus(url, "진행중");
+            ctx.setProgress(true);
             ctx.setTest_no(testInfo.getTestNo());
-            log.info("Get test No : " + ctx.getTest_no());
 
             // 비율에 따라 bucketNo을 분리
             ctx.setBucketNumber(bucketComponent.getBucketNumBySessionId(ctx.getSession_id(), 100));
             log.info("Get bucket No : " + ctx.getBucketNumber());
 
-            Context ret = TestInfoRepository.getTestInfoByBucketNumber(ctx, testInfo);
+            ret = TestInfoRepository.getTestInfoByBucketNumber(ctx, testInfo);
 
             log.info("Test No : " + ctx.getTest_no());
             log.info("Session ID : " + ctx.getSession_id());
@@ -40,7 +40,9 @@ public class ApiServiceImpl implements ApiService {
             log.info("Test Variant : " + ctx.getPage_type());
             return ret;
         } catch (Exception e) {
-            Context ret = null;
+            Test testInfo = testRepository.findByUrlA(url);
+            ret = TestInfoRepository.getTestInfoByBucketNumber(ctx, testInfo);
+            ret.setProgress(false);
             return ret;
         }
     }
