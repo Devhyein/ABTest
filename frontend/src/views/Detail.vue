@@ -18,6 +18,9 @@
             <b-button variant="info" @click="urlModal()">
               페이지별 전환율 상세보기
             </b-button>
+
+            <canvas id="myChart" width="400" height="400"></canvas>
+
             <b-table hover :items="tableData" :fields="fields"> </b-table>
           </div>
         </b-tab>
@@ -50,7 +53,7 @@
         <!-- 모달에 들어 갈 테이블 추가 -->
         <b-table hover :items="detailTableData" :fields="detailFields">
         </b-table>
-        <template #modal-footer> 
+        <template #modal-footer>
           <div></div>
         </template>
       </b-modal>
@@ -60,8 +63,35 @@
 
 <script>
 import API from "@/api/API";
+import Chart from "chart.js";
+import totalData from "../chart/chart-data.js";
 
 import EncarHeader from "@/components/Header";
+
+/* var ctx = document.getElementById("myChart").getContext("2d");
+var myChart = new Chart(ctx, {
+  type: "bar",
+  data: {
+    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    datasets: [
+      {
+        label: "# of Votes",
+        data: [12, 19, 3, 5, 2, 3],
+      },
+    ],
+  },
+  options: {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
+  },
+}); */
 
 export default {
   components: {
@@ -69,6 +99,8 @@ export default {
   },
   data() {
     return {
+      totalData: totalData,
+
       modalShow: false,
       tabIndex: 0,
       tableData: [],
@@ -82,7 +114,7 @@ export default {
         { key: "rate", label: "증감률" },
       ],
       detailFields: [],
-    
+
       selected1: null,
       selected2: null,
       selected3: null,
@@ -136,6 +168,14 @@ export default {
     else this.detail.color = "danger";
   },
   methods: {
+    createChart(charID, chartData) {
+      const ctx = document.getElementById(myChart);
+      const myChart = new Chart(ctx, {
+        type: chartData.type,
+        data: chartData.data,
+        options: chartData.options,
+      });
+    },
     urlModal() {
       API.getDetailTestConversionWithUrl(
         "test_no=" + this.detail.test_no,
@@ -181,6 +221,9 @@ export default {
         return ["bg-light", "text-dark"];
       }
     },
+  },
+  mounted() {
+    this.createChart("myChart", this.totalData);
   },
   watch: {
     // 드롭다운 보고있다가 selected에 변화가 생겼을때 API부르기
