@@ -16,7 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@CrossOrigin(origins = { "*" })
+@CrossOrigin(origins = "*" )
 @RestController
 @RequestMapping("/api")
 public class ApiController {
