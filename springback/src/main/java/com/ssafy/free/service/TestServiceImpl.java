@@ -76,7 +76,7 @@ public class TestServiceImpl implements TestService {
                 analysis.setConversionA((float) (Math.round(tempA * 1000) / 10.0));
                 analysis.setConversionB((float) (Math.round(tempB * 1000) / 10.0));
 
-                analysis.setCon_rate((float) (Math.round((tempA - tempB) * 1000) / 10.0));
+                analysis.setCon_rate((float) (Math.round((tempB - tempA) * 1000) / 10.0));
 
                 // 이탈률
                 analysis.setBounceA((float) (Math.round((1 - (conA / totalA)) * 1000) / 10.0));
@@ -100,7 +100,7 @@ public class TestServiceImpl implements TestService {
                     tempB = (joinB / totalB);
                 analysis.setJoinA((float) (Math.round(tempA * 1000) / 10.0));
                 analysis.setJoinB((float) (Math.round(tempB * 1000) / 10.0));
-                analysis.setJo_rate((float) (Math.round((tempA - tempB) * 1000) / 10.0));
+                analysis.setJo_rate((float) (Math.round((tempB - tempA) * 1000) / 10.0));
 
                 // 구매율
                 // 구매율의 기준은 상품 조회 페이지에 넘어간 유저들 기준인가? 아니면 이 사이트에 접속한 모든 시용자 기준인가?

@@ -43,6 +43,7 @@ public class GraphServiceImpl implements GraphService {
 
     @Override
     public GraphData getChartConversion(int test_no) {
+        System.out.println("전환율 START");
         GraphData data = new GraphData();
         try {
             Test test = testRepository.getOne(test_no);
@@ -91,7 +92,7 @@ public class GraphServiceImpl implements GraphService {
                 data.setAChartData(AChartData);
                 data.setBChartData(BChartData);
                 data.setDate(date);
-
+                System.out.println("END");
                 return data;
             } else {
                 return null;
