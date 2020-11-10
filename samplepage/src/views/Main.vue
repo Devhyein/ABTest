@@ -26,8 +26,6 @@ export default {
     API.abAssign(
       "url=" + url,
       (res) => {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "*");
         console.log(res);
         this.$store.commit("addTestInfo", res);
         this.page_type = this.$store.state.test.page_type;
