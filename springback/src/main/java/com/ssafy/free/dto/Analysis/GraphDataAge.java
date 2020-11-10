@@ -2,26 +2,16 @@ package com.ssafy.free.dto.Analysis;
 
 import java.util.List;
 
-public class GraphData {
-    private List<String> Date;
+public class GraphDataAge {
     private List<Float> AChartData;
     private List<Float> BChartData;
 
-    public GraphData() {
+    public GraphDataAge() {
     }
 
-    public GraphData(List<String> date, List<Float> aChartData, List<Float> bChartData) {
-        Date = date;
+    public GraphDataAge(List<Float> aChartData, List<Float> bChartData) {
         AChartData = aChartData;
         BChartData = bChartData;
-    }
-
-    public List<String> getDate() {
-        return Date;
-    }
-
-    public void setDate(List<String> date) {
-        Date = date;
     }
 
     public List<Float> getAChartData() {
@@ -42,7 +32,7 @@ public class GraphData {
 
     @Override
     public String toString() {
-        return "GraphData [AChartData=" + AChartData + ", BChartData=" + BChartData + ", Date=" + Date + "]";
+        return "GraphDataAge [AChartData=" + AChartData + ", BChartData=" + BChartData + "]";
     }
 
 }

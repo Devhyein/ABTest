@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "clientconsumer")
+public class ClientConsumer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_no")
@@ -29,10 +29,10 @@ public class User {
     @Column(name = "date")
     private LocalDate date;
 
-    public User() {
+    public ClientConsumer() {
     }
 
-    public User(int userNo, int testNo, String sessionId, String pageType, LocalDate date) {
+    public ClientConsumer(int userNo, int testNo, String sessionId, String pageType, LocalDate date) {
         this.userNo = userNo;
         this.testNo = testNo;
         this.sessionId = sessionId;
@@ -40,7 +40,7 @@ public class User {
         this.date = date;
     }
 
-    public User(int testNo, String sessionId, String pageType, LocalDate date) {
+    public ClientConsumer(int testNo, String sessionId, String pageType, LocalDate date) {
         this.testNo = testNo;
         this.sessionId = sessionId;
         this.pageType = pageType;

@@ -3,7 +3,9 @@ export default function makeheader() {
       headers: {
         "Content-type": "application/json",
         "token": sessionStorage.getItem('jwt-token'),
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*"
+        
       }
     }
   }

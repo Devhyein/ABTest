@@ -8,12 +8,16 @@
       </b-navbar-brand>
     </b-navbar>
 
-    <b-sidebar id="sidebar" title="로그인 해주세요" bg-variant="light" backdrop shadow>
+    <b-sidebar
+      id="sidebar"
+      bg-variant="light"
+      shadow
+    >
       <template #footer>
         <div class="mysidefooter d-flex justify-content-around py-3">
           <small class="d-block">이벤트</small>
           <small class="d-block">공지사항</small>
-          <small class="d-block">앱 다운로드</small>
+          <small class="d-block" @click="login">로그인</small>
         </div>
       </template>
       <div class="d-flex justify-content-around px-2 pt-3 bg-white">
@@ -50,20 +54,28 @@
           <small class="text-secondary"> EV포스트</small>
           <hr />
         </div>
-        <small class="d-block text-secondary text-left mx-4 my-3">이차어때? 모카</small>
+        <small class="d-block text-secondary text-left mx-4 my-3"
+          >이차어때? 모카</small
+        >
         <small class="d-block text-secondary text-left mx-4 my-3">미디어</small>
-        <small class="d-block text-secondary text-left mx-4 my-3">진단등록 예약</small>
-        <small class="d-block text-secondary text-left mx-4 my-3">중고차 시세</small>
+        <small class="d-block text-secondary text-left mx-4 my-3"
+          >진단등록 예약</small
+        >
+        <small class="d-block text-secondary text-left mx-4 my-3"
+          >중고차 시세</small
+        >
       </div>
     </b-sidebar>
 
-    <div class="mybody">  
+    <div class="mybody">
       <div class="text-left ml-3 mt-5">
         <strong>내 차를 사고 싶으신가요?</strong>
       </div>
       <b-input-group class="myinputgroup py-2 mx-3 my-3 sticky-top bg-white">
         <b-input-group-prepend>
-          <b-button class="mysearch bg-white"><b-icon-search></b-icon-search></b-button>
+          <b-button class="mysearch bg-white"
+            ><b-icon-search></b-icon-search
+          ></b-button>
         </b-input-group-prepend>
         <b-form-input
           type="text"
@@ -90,13 +102,17 @@
           <small>셀프등록</small>
         </div>
         <div class="d-flex align-items-center">
-          <small class="myarrow"><b-icon-arrow-right></b-icon-arrow-right></small>
+          <small class="myarrow"
+            ><b-icon-arrow-right></b-icon-arrow-right
+          ></small>
         </div>
       </div>
       <div class="mt-5 py-5 bg-secondary text-light">광고 이미지</div>
       <div class="py-3 bg-light">
         <strong>안심하고 구매하는 중고차</strong>
-        <div class="d-flex justify-content-between mx-3 my-3 px-3 py-3 bg-white mydiv">
+        <div
+          class="d-flex justify-content-between mx-3 my-3 px-3 py-3 bg-white mydiv"
+        >
           <div class="d-flex">
             <b-avatar icon="house" variant="light" class="mr-3"></b-avatar>
             <div class="text-left">
@@ -108,7 +124,9 @@
             <b-icon-chevron-right></b-icon-chevron-right>
           </div>
         </div>
-        <div class="d-flex justify-content-between mx-3 my-3 px-3 py-3 bg-white mydiv">
+        <div
+          class="d-flex justify-content-between mx-3 my-3 px-3 py-3 bg-white mydiv"
+        >
           <div class="d-flex">
             <b-avatar icon="award" variant="light" class="mr-3"></b-avatar>
             <div class="text-left">
@@ -120,9 +138,15 @@
             <b-icon-chevron-right></b-icon-chevron-right>
           </div>
         </div>
-        <div class="d-flex justify-content-between mx-3 my-3 px-3 py-3 bg-white mydiv">
+        <div
+          class="d-flex justify-content-between mx-3 my-3 px-3 py-3 bg-white mydiv"
+        >
           <div class="d-flex">
-            <b-avatar icon="check2-circle" variant="light" class="mr-3"></b-avatar>
+            <b-avatar
+              icon="check2-circle"
+              variant="light"
+              class="mr-3"
+            ></b-avatar>
             <div class="text-left">
               <small>진단마스터가 직접 진단한 무사고</small>
               <small class="d-block"><strong>엔카진단 차량</strong></small>
@@ -132,7 +156,9 @@
             <b-icon-chevron-right></b-icon-chevron-right>
           </div>
         </div>
-        <div class="d-flex justify-content-between mx-3 mt-3 px-3 py-3 bg-white mydiv">
+        <div
+          class="d-flex justify-content-between mx-3 mt-3 px-3 py-3 bg-white mydiv"
+        >
           <div class="d-flex">
             <b-avatar icon="gift" variant="light" class="mr-3"></b-avatar>
             <div class="text-left">
@@ -192,55 +218,61 @@ export default {
       encar,
     };
   },
+  methods: {
+    login() {
+      console.log("로그인");
+      this.$router.push("/sample/login");
+    },
+  },
 };
 </script>
 
 <style scoped>
-  .mynavbar {
-    height: 50px;
-  }
-  .myicon {
-    font-size: x-large;
-  }
-  .mylogo {
-    height: 40px;
-  }
-  .mysidebar {
-    height: 565px;
-  }
-  .mysidefooter {
-    border-top: 1px solid lightgray;
-  }
-  .mybody {
-    padding-bottom: 70px;
-  }
-  .myinputgroup {
-    border: 1px solid red;
-    border-radius: 0.25rem;
-    width: auto;
-  }
-  .mysearch {
-    border: none;
-    color: red;
-  }
-  .myinputtext {
-    border: none;
-  }
-  .myarrow {
-    color: red;
-  }
-  .mydiv {
-    border-radius: 0.25rem;
-  }
-  .myfooter {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-  }
-  .mytab {
-    font-size: x-small;
-  }
-  a.nav-link {
-    padding: 0;
-  }
+.mynavbar {
+  height: 50px;
+}
+.myicon {
+  font-size: x-large;
+}
+.mylogo {
+  height: 40px;
+}
+.mysidebar {
+  height: 565px;
+}
+.mysidefooter {
+  border-top: 1px solid lightgray;
+}
+.mybody {
+  padding-bottom: 70px;
+}
+.myinputgroup {
+  border: 1px solid red;
+  border-radius: 0.25rem;
+  width: auto;
+}
+.mysearch {
+  border: none;
+  color: red;
+}
+.myinputtext {
+  border: none;
+}
+.myarrow {
+  color: red;
+}
+.mydiv {
+  border-radius: 0.25rem;
+}
+.myfooter {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.mytab {
+  font-size: x-small;
+}
+a.nav-link {
+  padding: 0;
+}
 </style>
