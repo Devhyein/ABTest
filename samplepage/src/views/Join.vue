@@ -252,13 +252,13 @@ export default {
       data.pw = this.form.pw;
       data.birth = this.birth;
       data.gender = this.form.gender;
-
+      data.session_id = this.$store.state.test.session_id;
       API.join(
         data,
         (res) => {
           console.log(res);
           swal("SUCCESS", "회원가입이 완료되었습니다.", "success");
-          this.$router.push("/login");
+          this.$router.push({name: 'Login'})
         },
         (err) => {
           console.log(err);
@@ -272,6 +272,7 @@ export default {
         (this.chpw = ""),
         (this.form.age = "20"),
         (this.form.gender = "남성");
+        (this.birth = "");
     },
   },
 };

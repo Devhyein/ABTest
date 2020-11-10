@@ -39,6 +39,7 @@ export default {
       let data = {};
       data.id = this.id;
       data.pw = this.pw;
+      console.log(data);
       API.login(
         data,
         (res) => {
@@ -47,7 +48,7 @@ export default {
           this.$store.commit("addUserInfo", res);
           console.log(this.$store.state.user);
           //여기는 이후에 메인으로 가게 변경
-          this.$router.push({name: 'SampleA'})
+          this.$router.push({name: 'Main'})
         },
         (err) => {
           console.log(err);
