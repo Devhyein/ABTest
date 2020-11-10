@@ -71,11 +71,11 @@ const postApi = (url, data, callback, errorCallback) => {
 
 const API = {                                             
 
-    login:(data,callback,errorCallback)=>postApi('/account/login',data,callback,errorCallback),
-    join:(data,callback,errorCallback)=>postApi('/account/join',data,callback,errorCallback),
-    checkId:(data,callback,errorCallback)=>getApi('/account/checkId',data,callback,errorCallback),
+    login:(data,callback,errorCallback)=>postApi('/spring/account/login',data,callback,errorCallback),
+    join:(data,callback,errorCallback)=>postApi('/spring/account/join',data,callback,errorCallback),
+    checkId:(data,callback,errorCallback)=>getApi('/spring/account/checkId',data,callback,errorCallback),
     clickEvent:(data,callback,errorCallback)=>postApi('/spring/event/click',data,callback,errorCallback),
-    abAssign:(data,callback,errorCallback)=>getApi('/spring/api/assign',data,callback,errorCallback),
+    abAssign:(data,callback,errorCallback)=>getApi('/api/assign',data,callback,errorCallback),
 }
 
 export default API
