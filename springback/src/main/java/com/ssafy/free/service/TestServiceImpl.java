@@ -54,24 +54,30 @@ public class TestServiceImpl implements TestService {
                 float conB = testDataRepository.countByTestNoAndPageType(test.getTestNo(), "B");
 
                 List<PageCnt> totalPage = pageRepo.findAllByTestNo(test.getTestNo());
-                float totalA = 1;
-                float totalB = 1;
+                float totalA = 0;
+                float totalB = 0;
 
                 for (PageCnt page : totalPage) {
                     totalA += page.getCntA();
                     totalB += page.getCntB();
                 }
-                totalA--;
-                totalB--;
 
-                analysis.setConversionA((float) (Math.round((conA / totalA) * 1000) / 10.0));
-                analysis.setConversionB((float) (Math.round((conB / totalB) * 1000) / 10.0));
+                float tempA = 0;
+                float tempB = 0;
 
-                analysis.setCon_rate((float) (Math.round((conB / totalB - conA / totalA) * 1000) / 10.0));
+                if (totalA != 0)
+                    tempA = (conA / totalA);
+                if (totalB != 0)
+                    tempB = (conB / totalB);
+
+                analysis.setConversionA((float) (Math.round(tempA * 1000) / 10.0));
+                analysis.setConversionB((float) (Math.round(tempB * 1000) / 10.0));
+
+                analysis.setCon_rate((float) (Math.round((tempA - tempB) * 1000) / 10.0));
 
                 // 이탈률
                 analysis.setBounceA((float) (Math.round((1 - (conA / totalA)) * 1000) / 10.0));
-                analysis.setBounceB((float) (Math.round((1 - (conA / totalB)) * 1000) / 10.0));
+                analysis.setBounceB((float) (Math.round((1 - (conB / totalB)) * 1000) / 10.0));
                 analysis.setBo_rate(
                         (float) (Math.round(((1 - (conB / totalB)) - (1 - (conA / totalA))) * 1000) / 10.0));
 
@@ -82,9 +88,16 @@ public class TestServiceImpl implements TestService {
                 float joinA = userSampleRepo.countByTestNoAndPageType(test.getTestNo(), "A");
                 float joinB = userSampleRepo.countByTestNoAndPageType(test.getTestNo(), "B");
 
-                analysis.setJoinA((float) (Math.round((joinA / totalA) * 1000) / 10.0));
-                analysis.setJoinB((float) (Math.round((joinB / totalB) * 1000) / 10.0));
-                analysis.setJo_rate((float) (Math.round((joinB / totalB - joinA / totalA) * 1000) / 10.0));
+                tempA = 0;
+                tempB = 0;
+
+                if (totalA != 0)
+                    tempA = (joinA / totalA);
+                if (totalB != 0)
+                    tempB = (joinB / totalB);
+                analysis.setJoinA((float) (Math.round(tempA * 1000) / 10.0));
+                analysis.setJoinB((float) (Math.round(tempB * 1000) / 10.0));
+                analysis.setJo_rate((float) (Math.round((tempA - tempB) * 1000) / 10.0));
 
                 // 구매율
                 // 구매율의 기준은 상품 조회 페이지에 넘어간 유저들 기준인가? 아니면 이 사이트에 접속한 모든 시용자 기준인가?
@@ -141,6 +154,12 @@ public class TestServiceImpl implements TestService {
         result.setConversionB(conversionB);
 
         return result;
+    }
+
+    @Override
+    public Analysis getDetailTestGender(int test_no) {
+
+        return null;
     }
 
 }

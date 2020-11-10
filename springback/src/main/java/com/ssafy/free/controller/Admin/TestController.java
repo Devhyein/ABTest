@@ -48,6 +48,34 @@ public class TestController {
         return response;
     }
 
+    @ApiOperation(value = "테스트 상세조회 - 성별")
+    @GetMapping("/detail/gender")
+    public Object getDetailTestGender(@RequestParam int test_no) {
+        final RestResponse response = new RestResponse();
+
+        response.status = false;
+        response.msg = "테스트 상세 조회 실패 - 성별";
+        response.data = null;
+
+        try {
+            Analysis detail = testService.getDetailTestGender(test_no);
+
+            if (detail != null) {
+                response.status = true;
+                response.msg = "success";
+                response.data = detail;
+            } else {
+                response.status = false;
+                response.msg = "해당 번호의 테스트가 없습니다.";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return response;
+    }
+
     @ApiOperation(value = "테스트 상세조회 - url별 전환률")
     @GetMapping("/detail/conversion/url")
     public Object getDetailTestConversionWithUrl(@RequestParam int test_no) {
