@@ -6,52 +6,63 @@
       <b-form-input
         class="mytext my-3"
         placeholder="아이디를 입력하세요."
+        v-model="id"
       ></b-form-input>
       <b-form-input
         class="mytext my-3"
         placeholder="비밀번호를 입력하세요."
         type="password"
+        v-model="pw"
       ></b-form-input>
-      <b-button block class="mytext my-3" variant="dark">로그인</b-button>
-      <h5 class="mytext text-right">회원가입</h5>
+      <b-button block class="mytext my-3" variant="dark" @click="login()">로그인</b-button>
+      <h5 class="mytext text-right" @click="join()">회원가입</h5>
     </div>
   </div>
 </template>
 
 <script>
 import encar from "@/assets/encar.png";
-// import API from "@/api/API";
-// import swal from "sweetalert";
+import API from "@/api/API";
+import swal from "sweetalert";
 
 export default {
   name: "Login",
   data() {
     return {
       encar,
-      // form: {
-      //   id: '',
-      //   pw: '',
-      // }
+      id: "",
+      pw: "",
     };
   },
-  // methods: {
-  //   login() {
-  //     API.login(
-  //       data,
-  //       (res) => {
-  //         console.log(res);
-  //         this.$router.push(-1);
-  //       },
-  //       (err) => {
-  //         console.log(err);
-  //         swal("ERROR", "로그인에 실패하였습니다.", "error");
-  //       }
-  //     );
-  //   },
-  //   join() {
-  //     this.$router.push({name: 'Join'})
-  //   }
-  // },
+  methods: {
+    login() {
+      let data = {};
+      data.id = this.id;
+      data.pw = this.pw;
+      console.log(data);
+      API.login(
+        data,
+        (res) => {
+          console.log(res);
+          swal("로그인 완료", "정상적으로 로그인 되었습니다.", "success");
+          this.$store.commit("addUserInfo", res);
+          console.log(this.$store.state.user);
+          this.$router.push({name: 'Main'})
+        },
+        (err) => {
+          console.log(err);
+          swal("로그인 실패", "로그인에 실패하였습니다.", "error");
+          this.reset();
+        }
+      );
+    },
+    join() {
+      this.$router.push({name: 'Join'})
+    },
+    reset() {
+      (this.id = ""), (this.pw = "");
+    },
+  },
 };
 </script>
 

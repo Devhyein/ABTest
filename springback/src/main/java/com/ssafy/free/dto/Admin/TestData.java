@@ -32,8 +32,8 @@ public class TestData {
     @Column(name = "date")
     private LocalDate date;
 
-    @Column(name = "isJoined")
-    private boolean isJoined;
+    @Column(name = "signed")
+    private boolean signed;
 
     @Column(name = "gender")
     private String gender;
@@ -44,7 +44,7 @@ public class TestData {
     public TestData() {
     }
 
-    public TestData(int dataNo, int urlNo, int testNo, int userNo, String pageType, LocalDate date, boolean isJoined,
+    public TestData(int dataNo, int urlNo, int testNo, int userNo, String pageType, LocalDate date, boolean signed,
             String gender, int age) {
         this.dataNo = dataNo;
         this.urlNo = urlNo;
@@ -52,7 +52,7 @@ public class TestData {
         this.userNo = userNo;
         this.pageType = pageType;
         this.date = date;
-        this.isJoined = isJoined;
+        this.signed = signed;
         this.gender = gender;
         this.age = age;
     }
@@ -105,12 +105,12 @@ public class TestData {
         this.date = date;
     }
 
-    public boolean isJoined() {
-        return isJoined;
+    public boolean signed() {
+        return signed;
     }
 
-    public void setJoined(boolean isJoined) {
-        this.isJoined = isJoined;
+    public void setJoined(boolean signed) {
+        this.signed = signed;
     }
 
     public String getGender() {
@@ -131,8 +131,8 @@ public class TestData {
 
     @Override
     public String toString() {
-        return "TestData [age=" + age + ", dataNo=" + dataNo + ", date=" + date + ", gender=" + gender + ", isJoined="
-                + isJoined + ", pageType=" + pageType + ", testNo=" + testNo + ", urlNo=" + urlNo + ", userNo=" + userNo
+        return "TestData [age=" + age + ", dataNo=" + dataNo + ", date=" + date + ", gender=" + gender + ", signed="
+                + signed + ", pageType=" + pageType + ", testNo=" + testNo + ", urlNo=" + urlNo + ", userNo=" + userNo
                 + "]";
     }
 

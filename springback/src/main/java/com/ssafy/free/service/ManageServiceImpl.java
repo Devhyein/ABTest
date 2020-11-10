@@ -6,7 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-import com.ssafy.free.dto.Admin.*;
+import com.ssafy.free.dto.Admin.AdminUser;
+import com.ssafy.free.dto.Admin.Test;
+import com.ssafy.free.dto.Admin.TestResponse;
+import com.ssafy.free.dto.Admin.UrlAttribute;
 import com.ssafy.free.repository.AdminUserRepository;
 import com.ssafy.free.repository.TestRepository;
 import com.ssafy.free.repository.UrlAttributeRepository;
@@ -36,9 +39,9 @@ public class ManageServiceImpl implements ManageService {
             LocalDate end = LocalDate.parse(request.get("end").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
             String status = "진행전";
-            LocalDate today = LocalDate.now();
+            LocalDate today = LocalDate.parse(LocalDate.now().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-            if (start.isEqual(today)) {
+            if (start.isEqual(today) || start.isBefore(today)) {
                 status = "진행중";
             }
 
@@ -52,13 +55,13 @@ public class ManageServiceImpl implements ManageService {
             }
 
             // if (testRepository.countByUrlBAndStatus(urlB, "진행전")
-            //         + testRepository.countByUrlBAndStatus(urlB, "진행중") > 0) {
-            //     return -2;
+            // + testRepository.countByUrlBAndStatus(urlB, "진행중") > 0) {
+            // return -2;
             // }
 
             Test test = new Test(admin_no, request.get("test_title").toString(), request.get("test_a").toString(),
-                    null, start, end, Integer.parseInt(request.get("per_a").toString()),
-                    Integer.parseInt(request.get("per_b").toString()), status, request.get("url_a").toString(),null);
+                    request.get("test_b").toString(), start, end, Integer.parseInt(request.get("per_a").toString()),
+                    Integer.parseInt(request.get("per_b").toString()), status, request.get("url_a").toString(), null);
             testRepository.save(test);
 
             // 타겟 URL 저장
@@ -99,6 +102,10 @@ public class ManageServiceImpl implements ManageService {
     public List<TestResponse> getTestList(String email) {
         int admin_no = adminDao.findOneByEmail(email).getAdminNo();
         List<TestResponse> testList = testRepository.findAllByAdminNoOrderByTestNoDesc(admin_no);
+        for (TestResponse test : testList) {
+            List<UrlAttribute> urls = urlRepository.findByTestNo(test.getTest_no());
+            test.setUrls(urls);
+        }
         return testList;
     }
 
@@ -106,6 +113,10 @@ public class ManageServiceImpl implements ManageService {
     public List<TestResponse> getTestListBefore(String email) {
         int admin_no = adminDao.findOneByEmail(email).getAdminNo();
         List<TestResponse> testList = testRepository.findAllByAdminNoAndStatusOrderByTestNoDesc(admin_no, "진행전");
+        for (TestResponse test : testList) {
+            List<UrlAttribute> urls = urlRepository.findByTestNo(test.getTest_no());
+            test.setUrls(urls);
+        }
         return testList;
     }
 
@@ -113,6 +124,10 @@ public class ManageServiceImpl implements ManageService {
     public List<TestResponse> getTestListProgress(String email) {
         int admin_no = adminDao.findOneByEmail(email).getAdminNo();
         List<TestResponse> testList = testRepository.findAllByAdminNoAndStatusOrderByTestNoDesc(admin_no, "진행중");
+        for (TestResponse test : testList) {
+            List<UrlAttribute> urls = urlRepository.findByTestNo(test.getTest_no());
+            test.setUrls(urls);
+        }
         return testList;
     }
 
@@ -120,6 +135,10 @@ public class ManageServiceImpl implements ManageService {
     public List<TestResponse> getTestListComplete(String email) {
         int admin_no = adminDao.findOneByEmail(email).getAdminNo();
         List<TestResponse> testList = testRepository.findAllByAdminNoAndStatusOrderByTestNoDesc(admin_no, "진행완료");
+        for (TestResponse test : testList) {
+            List<UrlAttribute> urls = urlRepository.findByTestNo(test.getTest_no());
+            test.setUrls(urls);
+        }
         return testList;
     }
 

@@ -1,12 +1,10 @@
 package com.ssafy.free.service.ApiService;
 
-import java.util.List;
-
 import com.ssafy.free.component.Api.BucketComponent;
-import com.ssafy.free.component.Api.TestInfoRepository;
 import com.ssafy.free.dto.Admin.Test;
 import com.ssafy.free.dto.Api.Context;
 import com.ssafy.free.repository.TestRepository;
+import com.ssafy.free.repository.ApiRepository.TestInfoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

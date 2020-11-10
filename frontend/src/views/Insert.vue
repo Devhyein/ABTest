@@ -1,128 +1,131 @@
 <template>
   <div>
     <EncarHeader />
-    <b-row class="my-1">
-      <b-col sm="3">
-        <label>실험명 :</label>
-      </b-col>
-      <b-col sm="9">
-        <b-form-input
-          v-model="input.test_title"
-          placeholder="실험명을 입력해주세요"
-        />
-      </b-col>
-    </b-row>
+    <div class="mx-5 my-5">
+      <b-row class="mx-5 my-3 align-items-center">
+        <b-col sm="3" class="text-left">
+          <label class="m-0">실험명 :</label>
+        </b-col>
+        <b-col sm="9">
+          <b-form-input
+            v-model="input.test_title"
+            placeholder="실험명을 입력하세요."
+          />
+        </b-col>
+      </b-row>
 
-    <b-row class="my-1">
-      <b-col sm="3">
-        <label>A안 :</label>
-      </b-col>
-      <b-col sm="9">
-        <b-form-input
-          v-model="input.url_a"
-          placeholder="A안의 URL을 입력해주세요"
-        />
-      </b-col>
-    </b-row>
+      <b-row class="mx-5 my-3 align-items-center">
+        <b-col sm="3" class="text-left">
+          <label class="m-0">A안 별칭 :</label>
+        </b-col>
+        <b-col sm="9">
+          <b-form-input
+            v-model="input.test_a"
+            placeholder="A안의 별칭을 입력하세요."
+          />
+        </b-col>
+      </b-row>
 
-    <b-row class="my-1">
-      <b-col sm="3">
-        <label>A 별칭 :</label>
-      </b-col>
-      <b-col sm="9">
-        <b-form-input
-          v-model="input.test_a"
-          placeholder="A안의 별칭을 입력해주세요"
-        />
-      </b-col>
-    </b-row>
+      <b-row class="mx-5 my-3 align-items-center">
+        <b-col sm="3" class="text-left">
+          <label class="m-0">B안 별칭 :</label>
+        </b-col>
+        <b-col sm="9">
+          <b-form-input
+            v-model="input.test_b"
+            placeholder="B안의 별칭을 입력하세요."
+          />
+        </b-col>
+      </b-row>
 
-    <b-row class="my-1">
-      <b-col sm="3">
-        <label>B안 :</label>
-      </b-col>
-      <b-col sm="9">
-        <b-form-input
-          v-model="input.url_b"
-          placeholder="B안의 URL을 입력해주세요"
-        />
-      </b-col>
-    </b-row>
+      <b-row class="mx-5 my-3 align-items-center">
+        <b-col sm="3" class="text-left">
+          <label class="m-0">URL :</label>
+        </b-col>
+        <b-col sm="9">
+          <b-form-input v-model="input.url_a" placeholder="실험을 진행할 페이지의 URL을 입력하세요." />
+        </b-col>
+      </b-row>
 
-    <b-row class="my-1">
-      <b-col sm="3">
-        <label>B안 별칭 :</label>
-      </b-col>
-      <b-col sm="9">
-        <b-form-input
-          v-model="input.test_b"
-          placeholder="B안의 별칭을 입력해주세요"
-        />
-      </b-col>
-    </b-row>
+      <b-row class="mx-5 my-3 align-items-center">
+        <b-col sm="3" class="text-left">
+          <label class="m-0">실험 시작일 :</label>
+        </b-col>
+        <b-col sm="9">
+          <b-form-input
+            v-model="input.start"
+            type="date"
+            :max="input.end"
+            :min="today"
+          />
+        </b-col>
+      </b-row>
+      <b-row class="mx-5 my-3 align-items-center">
+        <b-col sm="3" class="text-left">
+          <label class="m-0">실험 종료일 :</label>
+        </b-col>
+        <b-col sm="9">
+          <b-form-input v-model="input.end" type="date" :min="input.start" />
+        </b-col>
+      </b-row>
 
-    <b-row class="my-1">
-      <b-col sm="3">
-        <label>시작일 :</label>
-      </b-col>
-      <b-col sm="9">
-        <b-form-input
-          v-model="input.start"
-          type="date"
-          :max="input.end"
-          :min="today"
-        />
-      </b-col>
-    </b-row>
-    <b-row class="my-1">
-      <b-col sm="3">
-        <label>종료일 :</label>
-      </b-col>
-      <b-col sm="9">
-        <b-form-input v-model="input.end" type="date" :min="input.start" />
-      </b-col>
-    </b-row>
+      <b-row class="mx-5 my-3 align-items-center">
+        <b-col sm="3" class="text-left">
+          <label class="m-0">전환율 분석 페이지</label>
+          <b-icon-plus-circle @click="addRow" class="text-primary ml-2"></b-icon-plus-circle>
+        </b-col>
+        <b-col sm="9">
+          <div v-for="(row, idx) in rows" :key="idx" class="d-flex justify-content-between align-items-center my-2">
+            <b-form-input v-model="row.url" class="mr-3" placeholder="전환율을 분석할 페이지의 URL을 입력하세요." />
+            <b-icon-dash-circle @click="removeRow(idx)" class="mr-3 text-danger"></b-icon-dash-circle>
+          </div>
+          <!-- <table>
+            <tbody>
+              <tr v-for="(row, idx) in rows" :key="idx">
+                <td><input type="text" v-model="row.url" /></td>
+                <td>
+                  <b-icon-dash-circle @click="removeRow(idx)" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <b-icon-plus-circle @click="addRow" /> -->
+        </b-col>
+        <!-- <b-col sm="9">
+          <table>
+            <tbody>
+              <tr v-for="(row, idx) in rows" :key="idx">
+                <td><input type="text" v-model="row.url" /></td>
+                <td>
+                  <b-icon-dash-circle @click="removeRow(idx)" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <b-icon-plus-circle @click="addRow" />
+        </b-col> -->
+      </b-row>
 
-    <b-row class="my-1">
-      <b-col sm="3">
-        <label>전환율 분석페이지 :</label>
-      </b-col>
-      <b-col sm="9">
-        <b-form-input
-          v-for="u in list"
-          :key="u"
-          style="display:block"
-          placeholder="URL을 입력해주세요"
-        />
-
-        <b-button @click="addUrl(list.length)">
-          url추가
-        </b-button>
-      </b-col>
-    </b-row>
-
-    <div>
-      <div class="mx-3">
-        <div class="d-flex justify-content-between">
-          <div class="mt-2">A안:{{ input.per_a }}%</div>
-          <div class="mt-2">B안:{{ 100 - input.per_a }}%</div>
+      <div>
+        <div class="mx-5 my-3">
+          <div class="d-flex justify-content-between mx-3">
+            <div class="mt-2">A안: {{ input.per_a }}%</div>
+            <div class="mt-2">B안: {{ 100 - input.per_a }}%</div>
+          </div>
+          <b-form-input
+            class="px-3 my-3"
+            id="range"
+            v-model="input.per_a"
+            type="range"
+            min="0"
+            max="100"
+            step="10"
+          ></b-form-input>
         </div>
-        <b-form-input
-          id="range"
-          v-model="input.per_a"
-          type="range"
-          min="0"
-          max="100"
-          step="10"
-        ></b-form-input>
       </div>
+      <b-button @click="dataCheck()" variant="success" class="mybutton mr-4">생성</b-button>
+      <b-button @click="reset()" class="mybutton">초기화</b-button>
     </div>
-    <b-button @click="dataCheck()" variant="success">
-      생성
-    </b-button>
-    <b-button @click="reset()">
-      초기화
-    </b-button>
   </div>
 </template>
 
@@ -137,19 +140,19 @@ export default {
   },
   data() {
     return {
+      urls:[],
       today: new Date(),
       input: {
         test_title: "",
         url_a: "",
         test_a: "",
-        url_b: "",
         test_b: "",
         start: "",
         end: "",
         per_a: 50,
         per_b: 50,
       },
-      list: [],
+      rows: [{ url: "" }],
     };
   },
   computed: {
@@ -158,22 +161,39 @@ export default {
     },
   },
   methods: {
-    addUrl(u) {
-      this.list.push(u);
+    addRow() {
+      if (this.rows.length >= 5) {
+        swal(
+          "추가 실패",
+          "전환율 분석페이지는 최대 5개까지 설정 가능합니다.",
+          "error"
+        );
+        return;
+      }
+      this.rows.push({ url: "" });
+      console.log(this.rows);
+    },
+    removeRow(idx) {
+       if (this.rows.length == 1) {
+        swal(
+          "삭제 실패",
+          "최소 1개의 전환율 분석페이지가 필요합니다.",
+          "error"
+        );
+        return;
+      }
+
+      this.rows.splice(idx, 1);
+      console.log(this.rows);
     },
     dataCheck() {
       let err = false;
       let msg = "";
       !this.input.test_title && ((msg = "실험명을 입력해주세요"), (err = true));
-      !err &&
-        !this.input.url_a &&
-        ((msg = "A안의 URL을 입력해주세요"), (err = true));
+      !err && !this.input.url_a && ((msg = "URL을 입력해주세요"), (err = true));
       !err &&
         !this.input.test_a &&
         ((msg = "A안의 별칭을 입력해주세요"), (err = true));
-      !err &&
-        !this.input.url_b &&
-        ((msg = "B안의 URL을 입력해주세요"), (err = true));
       !err &&
         !this.input.test_b &&
         ((msg = "B안의 별칭을 입력해주세요"), (err = true));
@@ -183,6 +203,14 @@ export default {
       !err &&
         !this.input.end &&
         ((msg = "종료일을 설정해주세요"), (err = true));
+      var urls = [];
+      this.rows.forEach((element) => {
+        urls.push(element.url);
+      });
+      this.urls = urls;
+      !err &&
+        urls[0].length == 0 &&
+        ((msg = "하나의 분석 URL를 설정해주세요"), (err = true));
       if (err) swal(msg);
       else this.createTest();
     },
@@ -194,12 +222,11 @@ export default {
       data.test_a = this.input.test_a;
       data.url_a = this.input.url_a;
       data.test_b = this.input.test_b;
-      data.url_b = this.input.url_b;
       data.start = this.input.start;
       data.end = this.input.end;
       data.per_a = perA;
       data.per_b = 100 - this.input.per_a;
-      data.list = this.list;
+      data.urls = this.urls;
 
       console.log(data);
 
@@ -226,7 +253,7 @@ export default {
         (this.input.end = ""),
         (this.input.per_a = 50),
         (this.input.per_b = 50),
-        (this.list = "");
+        (this.rows = {url:""});
     },
   },
   created() {
@@ -249,3 +276,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.mybutton {
+  width: 80px;
+}
+</style>

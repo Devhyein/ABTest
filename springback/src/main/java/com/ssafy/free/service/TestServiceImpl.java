@@ -1,10 +1,6 @@
 package com.ssafy.free.service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.ssafy.free.dto.Analysis.*;
@@ -14,7 +10,7 @@ import com.ssafy.free.repository.PageCntRepository;
 import com.ssafy.free.repository.TestDataRepository;
 import com.ssafy.free.repository.TestRepository;
 import com.ssafy.free.repository.UrlAttributeRepository;
-import com.ssafy.free.repository.UserRepository;
+import com.ssafy.free.repository.ClientConsumerRepository;
 import com.ssafy.free.repository.UserSampleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +32,7 @@ public class TestServiceImpl implements TestService {
     UrlAttributeRepository urlRepo;
 
     @Autowired
-    UserRepository userRepo;
+    ClientConsumerRepository userRepo;
 
     @Autowired
     UserSampleRepository userSampleRepo;
@@ -58,24 +54,30 @@ public class TestServiceImpl implements TestService {
                 float conB = testDataRepository.countByTestNoAndPageType(test.getTestNo(), "B");
 
                 List<PageCnt> totalPage = pageRepo.findAllByTestNo(test.getTestNo());
-                float totalA = 1;
-                float totalB = 1;
+                float totalA = 0;
+                float totalB = 0;
 
                 for (PageCnt page : totalPage) {
                     totalA += page.getCntA();
                     totalB += page.getCntB();
                 }
-                totalA--;
-                totalB--;
 
-                analysis.setConversionA((float) (Math.round((conA / totalA) * 1000) / 10.0));
-                analysis.setConversionB((float) (Math.round((conB / totalB) * 1000) / 10.0));
+                float tempA = 0;
+                float tempB = 0;
 
-                analysis.setCon_rate((float) (Math.round((conB / totalB - conA / totalA) * 1000) / 10.0));
+                if (totalA != 0)
+                    tempA = (conA / totalA);
+                if (totalB != 0)
+                    tempB = (conB / totalB);
+
+                analysis.setConversionA((float) (Math.round(tempA * 1000) / 10.0));
+                analysis.setConversionB((float) (Math.round(tempB * 1000) / 10.0));
+
+                analysis.setCon_rate((float) (Math.round((tempA - tempB) * 1000) / 10.0));
 
                 // 이탈률
                 analysis.setBounceA((float) (Math.round((1 - (conA / totalA)) * 1000) / 10.0));
-                analysis.setBounceB((float) (Math.round((1 - (conA / totalB)) * 1000) / 10.0));
+                analysis.setBounceB((float) (Math.round((1 - (conB / totalB)) * 1000) / 10.0));
                 analysis.setBo_rate(
                         (float) (Math.round(((1 - (conB / totalB)) - (1 - (conA / totalA))) * 1000) / 10.0));
 
@@ -86,9 +88,16 @@ public class TestServiceImpl implements TestService {
                 float joinA = userSampleRepo.countByTestNoAndPageType(test.getTestNo(), "A");
                 float joinB = userSampleRepo.countByTestNoAndPageType(test.getTestNo(), "B");
 
-                analysis.setJoinA((float) (Math.round((joinA / totalA) * 1000) / 10.0));
-                analysis.setJoinB((float) (Math.round((joinB / totalB) * 1000) / 10.0));
-                analysis.setJo_rate((float) (Math.round((joinB / totalB - joinA / totalA) * 1000) / 10.0));
+                tempA = 0;
+                tempB = 0;
+
+                if (totalA != 0)
+                    tempA = (joinA / totalA);
+                if (totalB != 0)
+                    tempB = (joinB / totalB);
+                analysis.setJoinA((float) (Math.round(tempA * 1000) / 10.0));
+                analysis.setJoinB((float) (Math.round(tempB * 1000) / 10.0));
+                analysis.setJo_rate((float) (Math.round((tempA - tempB) * 1000) / 10.0));
 
                 // 구매율
                 // 구매율의 기준은 상품 조회 페이지에 넘어간 유저들 기준인가? 아니면 이 사이트에 접속한 모든 시용자 기준인가?
@@ -104,115 +113,6 @@ public class TestServiceImpl implements TestService {
         }
         return null;
     }
-
-    // 그래프 - 전체 전환율
-    // @Override
-    // public Analysis getChartConversion(int test_no) {
-    // try {
-    // Test test = testRepository.getOne(test_no);
-    // if (test != null) {
-    // Analysis analysis = new Analysis(test);
-    // LocalDate start = test.getStart();
-    // // 전체 전환율 계산
-    // List<Float> conversionA = new ArrayList<Float>();
-    // List<Float> conversionB = new ArrayList<Float>();
-    // // 전체 페이지 제공 회수
-    // List<PageCnt> pagecnt = pageRepo.findByTestNoOrderByDateAsc(test_no);
-    // for (PageCnt page : pagecnt) {
-    // // 각 날짜의 전체 페이지 제공 횟수
-    // LocalDate date = page.getDate();
-    // while (!start.equals(date)) {
-    // conversionA.add((float) 0);
-    // conversionB.add((float) 0);
-    // start = start.plusDays(1);
-    // }
-    // float cntA = page.getCntA();
-    // float cntB = page.getCntB();
-
-    // // 각 날짜의 전체 페이지 전환 횟수
-    // float clickA = testDataRepository.countByTestNoAndPageTypeAndDate(test_no,
-    // "A", date);
-    // float clickB = testDataRepository.countByTestNoAndPageTypeAndDate(test_no,
-    // "B", date);
-    // float A = clickA / cntA;
-    // conversionA.add((float) (Math.round(A * 1000) / 1000.0) * 100);
-    // float B = clickB / cntB;
-    // conversionB.add((float) (Math.round(B * 1000) / 1000.0) * 100);
-    // start = start.plusDays(1);
-    // }
-    // start = start.minusDays(1);
-    // while (!start.equals(test.getEnd())) {
-    // conversionA.add((float) 0);
-    // conversionB.add((float) 0);
-    // start = start.plusDays(1);
-    // }
-
-    // analysis.setConversionA(conversionA);
-    // analysis.setConversionB(conversionB);
-
-    // // 이탈률 계산 (1 - 전환률)
-    // List<Float> bounceA = new ArrayList<Float>();
-    // List<Float> bounceB = new ArrayList<Float>();
-
-    // for (float a : conversionA) {
-    // bounceA.add((float) (Math.round((100 - a) * 1000) / 1000.0));
-    // }
-    // for (float b : conversionB) {
-    // bounceB.add((float) (Math.round((100 - b) * 1000) / 1000.0));
-    // }
-    // analysis.setBounceA(bounceA);
-    // analysis.setBounceB(bounceB);
-
-    // // 가입률, 구매율 계산
-    // // (근데 구매율이란게 구매페이지에 간 유저 중 산 비율이야? 아님 전체 유저 중 산 비율이야..)
-
-    // List<Float> joinA = new ArrayList<>();
-    // List<Float> joinB = new ArrayList<>();
-    // List<Float> purchaseA = new ArrayList<>();
-    // List<Float> purchaseB = new ArrayList<>();
-    // start = test.getStart();
-    // while (!start.minusDays(1).equals(test.getEnd())) {
-    // float userA = userRepo.countByTestNoAndPageTypeAndDate(test_no, "A", start);
-    // float userB = userRepo.countByTestNoAndPageTypeAndDate(test_no, "B", start);
-
-    // // 가입률
-    // float joinUserA = userSampleRepo.countByTestNoAndPageTypeAndJoinDate(test_no,
-    // "A", start);
-    // float joinUserB = userSampleRepo.countByTestNoAndPageTypeAndJoinDate(test_no,
-    // "B", start);
-
-    // joinA.add((float) (Math.round((joinUserA / userA) * 1000) / 1000.0) * 100);
-    // joinB.add((float) (Math.round((joinUserB / userB) * 1000) / 1000.0) * 100);
-
-    // // 구매율
-    // float purUserA = buyerRepo.countByTestNoAndPageTypeAndDate(test_no, "A",
-    // start);
-    // float purUserB = buyerRepo.countByTestNoAndPageTypeAndDate(test_no, "B",
-    // start);
-
-    // purchaseA.add((float) (Math.round((purUserA / userA) * 1000) / 1000.0) *
-    // 100);
-    // purchaseB.add((float) (Math.round((purUserB / userB) * 1000) / 1000.0) *
-    // 100);
-
-    // start = start.plusDays(1);
-    // }
-
-    // analysis.setJoinA(joinA);
-    // analysis.setJoinB(joinB);
-    // analysis.setPurchaseA(purchaseA);
-    // analysis.setPurchaseB(purchaseB);
-
-    // return analysis;
-    // } else {
-    // return null;
-    // }
-
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
-    // return null;
-    // }
 
     @Override
     public AnalysisConversionWithUrl getDetailTestConversionWithUrl(int testno) {
@@ -254,6 +154,12 @@ public class TestServiceImpl implements TestService {
         result.setConversionB(conversionB);
 
         return result;
+    }
+
+    @Override
+    public Analysis getDetailTestGender(int test_no) {
+
+        return null;
     }
 
 }
