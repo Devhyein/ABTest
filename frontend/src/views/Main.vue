@@ -146,7 +146,7 @@
               <b-form-input v-model="inputs.url_a" disabled />
             </b-col>
           </b-row>
-           <b-row class="my-1">
+          <b-row class="my-1">
             <b-col sm="3">
               <label>전환율 분석 페이지 :</label>
             </b-col>
@@ -181,7 +181,10 @@
         </b-modal>
       </div>
       <div>
-        <b-icon-plus @click="goInsert" class="rounded-circle bg-danger text-white createBtn"></b-icon-plus>
+        <b-icon-plus
+          @click="goInsert"
+          class="rounded-circle bg-danger text-white createBtn"
+        ></b-icon-plus>
         <!-- <b-button pill class="createBtn" v-bind:to="'insert'"
           >실험생성</b-button
         > -->
@@ -214,6 +217,7 @@ export default {
         start: "",
         end: "",
         urls: "",
+        temp:""
       },
       fields: [
         { key: "test_title", label: "실험명" },
@@ -328,9 +332,13 @@ export default {
       this.inputs.test_b = thisTest.test_b;
       this.inputs.start = thisTest.start;
       this.inputs.end = thisTest.end;
-      // 백 연동해서 주석 풀어서 쓰기
-      // this.inputs.urls = thisTest.urls.join();
-
+      this.inputs.urls = thisTest.urls;
+      
+      for(var i = 0; i < this.inputs.urls.length; i++){
+        this.inputs.temp += this.inputs.urls[i].urlName;
+        if(i != this.inputs.urls.length-1) this.inputs.temp += ", ";
+      }
+     this.inputs.urls = this.inputs.temp;
       console.log(thisTest);
       this.modalShow = !this.modalShow;
     },
@@ -402,6 +410,11 @@ export default {
                 test_title: data.test_title,
                 test_no: data.test_no,
               };
+              if (this.tests[index].status == "진행전")
+                this.tests[index].test_title.color = "text-success";
+              else if (this.tests[index].status == "진행중")
+                this.tests[index].test_title.color = "text-warning";
+              else this.tests[index].test_title.color = "text-danger";
             }
             temp.push(this.tests[index]);
           }
@@ -467,8 +480,8 @@ export default {
         );
     },
     goInsert() {
-      this.$router.push({name: 'Insert'})
-    }
+      this.$router.push({ name: "Insert" });
+    },
   },
 };
 </script>
