@@ -47,7 +47,6 @@ export default {
           swal("로그인 완료", "정상적으로 로그인 되었습니다.", "success");
           this.$store.commit("addUserInfo", res);
           console.log(this.$store.state.user);
-          //여기는 이후에 메인으로 가게 변경
           this.$router.push({name: 'Main'})
         },
         (err) => {
