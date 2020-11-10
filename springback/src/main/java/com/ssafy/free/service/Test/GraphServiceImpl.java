@@ -15,7 +15,7 @@ import com.ssafy.free.repository.ClientConsumerRepository;
 import com.ssafy.free.repository.PageCntRepository;
 import com.ssafy.free.repository.TestDataRepository;
 import com.ssafy.free.repository.TestRepository;
-import com.ssafy.free.repository.UserSampleRepository;
+import com.ssafy.free.repository.SampleRepository.UserSampleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

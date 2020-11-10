@@ -1,4 +1,4 @@
-package com.ssafy.free.service;
+package com.ssafy.free.service.SampleService;
 
 import java.time.LocalDate;
 import java.time.Year;
@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Optional;
 
 import com.ssafy.free.dto.sample.UserSample;
-import com.ssafy.free.repository.UserSampleRepository;
+import com.ssafy.free.repository.SampleRepository.UserSampleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

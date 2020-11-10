@@ -3,15 +3,18 @@ package com.ssafy.free.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ssafy.free.dto.Analysis.*;
-import com.ssafy.free.dto.Admin.*;
+import com.ssafy.free.dto.Admin.PageCnt;
+import com.ssafy.free.dto.Admin.Test;
+import com.ssafy.free.dto.Admin.UrlAttribute;
+import com.ssafy.free.dto.Analysis.Analysis;
+import com.ssafy.free.dto.Analysis.AnalysisConversionWithUrl;
 import com.ssafy.free.repository.BuyerRepository;
+import com.ssafy.free.repository.ClientConsumerRepository;
 import com.ssafy.free.repository.PageCntRepository;
 import com.ssafy.free.repository.TestDataRepository;
 import com.ssafy.free.repository.TestRepository;
 import com.ssafy.free.repository.UrlAttributeRepository;
-import com.ssafy.free.repository.ClientConsumerRepository;
-import com.ssafy.free.repository.UserSampleRepository;
+import com.ssafy.free.repository.SampleRepository.UserSampleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

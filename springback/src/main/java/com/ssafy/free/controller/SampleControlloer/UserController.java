@@ -1,11 +1,11 @@
-package com.ssafy.free.controller;
+package com.ssafy.free.controller.SampleControlloer;
 
 import java.util.HashMap;
 import java.util.Optional;
 
 import com.ssafy.free.dto.RestResponse;
 import com.ssafy.free.dto.sample.UserSample;
-import com.ssafy.free.service.UserService;
+import com.ssafy.free.service.SampleService.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
