@@ -15,4 +15,6 @@ public interface GraphService {
 
     public GraphDataGender getChartGenderConversion(int test_no);
 
+    public GraphDataGender getChartGenderBounce(int test_no);
+
 }

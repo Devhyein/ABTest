@@ -262,20 +262,38 @@ public class GraphServiceImpl implements GraphService {
         // 저장하지 않는 이상 이 사람이 가입 한 유저인지 모르기때문에 성별, 나이를 모르지 않나?
 
         // 현재 분모는 가입 한 유저. 이거 전체 유저로 분모를 잡을 건지 논의 필요
-        float numAFemale = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "A", "여성");
-        float numAMale = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "A", "남성");
-        float cntA = testDataRepository.countByTestNoAndPageTypeAndIsJoined(test_no, "A", true);
+        try {
+            float numAFemale = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "A", "여성");
+            float numAMale = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "A", "남성");
+            float cntA = testDataRepository.countByTestNoAndPageTypeAndSigned(test_no, "A", true);
 
-        float numBFemale = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "B", "여성");
-        float numBMale = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "B", "남성");
-        float cntB = testDataRepository.countByTestNoAndPageTypeAndIsJoined(test_no, "B", true);
+            float numBFemale = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "B", "여성");
+            float numBMale = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "B", "남성");
+            float cntB = testDataRepository.countByTestNoAndPageTypeAndSigned(test_no, "B", true);
 
-        data.setAFemaleChartData((float) (Math.round((numAFemale / cntA) * 1000) / 10.0));
-        data.setAMaleChartData((float) (Math.round((numAMale / cntA) * 1000) / 10.0));
-        data.setBFemaleChartData((float) (Math.round((numBFemale / cntB) * 1000) / 10.0));
-        data.setBMaleChartData((float) (Math.round((numBMale / cntB) * 1000) / 10.0));
+            data.setAFemaleChartData((float) (Math.round((numAFemale / cntA) * 1000) / 10.0));
+            data.setAMaleChartData((float) (Math.round((numAMale / cntA) * 1000) / 10.0));
+            data.setBFemaleChartData((float) (Math.round((numBFemale / cntB) * 1000) / 10.0));
+            data.setBMaleChartData((float) (Math.round((numBMale / cntB) * 1000) / 10.0));
 
-        return data;
+            return data;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public GraphDataGender getChartGenderBounce(int test_no) {
+        GraphDataGender data = new GraphDataGender();
+
+        try {
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
