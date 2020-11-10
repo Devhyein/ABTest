@@ -19,7 +19,7 @@
               페이지별 전환율 상세보기
             </b-button>
 
-            <canvas id="myChart" width="400" height="400"></canvas>
+            <canvas id="chartID" width="300" height="300"></canvas>
 
             <b-table hover :items="tableData" :fields="fields"> </b-table>
           </div>
@@ -100,7 +100,6 @@ export default {
   data() {
     return {
       totalData: totalData,
-
       modalShow: false,
       tabIndex: 0,
       tableData: [],
@@ -136,6 +135,8 @@ export default {
     };
   },
   created() {
+    console.log(totalData);
+    // this.createChart("myChart", totalData);
     this.tableData = [
       {
         assortment: "전환율",
@@ -168,13 +169,14 @@ export default {
     else this.detail.color = "danger";
   },
   methods: {
-    createChart(charID, chartData) {
-      const ctx = document.getElementById(myChart);
+    createChart(chartID, chartData) {
+      const ctx = document.getElementById(chartID);
       const myChart = new Chart(ctx, {
         type: chartData.type,
         data: chartData.data,
         options: chartData.options,
       });
+      console.log("^^" + myChart);
     },
     urlModal() {
       API.getDetailTestConversionWithUrl(
@@ -223,7 +225,7 @@ export default {
     },
   },
   mounted() {
-    this.createChart("myChart", this.totalData);
+    this.createChart("chartID", totalData);
   },
   watch: {
     // 드롭다운 보고있다가 selected에 변화가 생겼을때 API부르기

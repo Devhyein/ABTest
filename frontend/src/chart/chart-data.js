@@ -1,6 +1,5 @@
-//d
-export const totalData = {
-    type: "bar",
+export const totalData={
+    type: "line",
   data: {
     labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
     datasets: [
