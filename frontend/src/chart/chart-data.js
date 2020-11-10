@@ -1,5 +1,5 @@
 export const totalData={
-    type: "bar",
+    type: "line",
   data: {
     labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
     datasets: [
