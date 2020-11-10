@@ -154,4 +154,25 @@ public class GraphController {
         return response;
     }
 
+    @ApiOperation(value = "그래프 조회 - 연령별 전환율")
+    @GetMapping("/chart/age/conversion")
+    public Object getChartAgeConversion(@RequestParam int test_no) {
+        final RestResponse response = new RestResponse();
+
+        response.status = false;
+        response.msg = "성별 전환율 조회 실패";
+        response.data = null;
+
+        try {
+            GraphDataGender data = graphService.getChartAgeConversion(test_no);
+            response.status = true;
+            response.msg = "success";
+            response.data = data;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return response;
+    }
+
 }

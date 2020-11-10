@@ -10,7 +10,7 @@ import com.ssafy.free.repository.PageCntRepository;
 import com.ssafy.free.repository.TestDataRepository;
 import com.ssafy.free.repository.TestRepository;
 import com.ssafy.free.repository.UrlAttributeRepository;
-import com.ssafy.free.repository.UserRepository;
+import com.ssafy.free.repository.ClientConsumerRepository;
 import com.ssafy.free.repository.UserSampleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class TestServiceImpl implements TestService {
     UrlAttributeRepository urlRepo;
 
     @Autowired
-    UserRepository userRepo;
+    ClientConsumerRepository userRepo;
 
     @Autowired
     UserSampleRepository userSampleRepo;

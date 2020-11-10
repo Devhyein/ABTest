@@ -22,4 +22,6 @@ public interface TestDataRepository extends JpaRepository<TestData, Integer> {
 
 	public int countByTestNoAndPageTypeAndSigned(int test_no, String string, boolean b);
 
+	public int countByTestNoAndPageTypeAndGenderAndUrlNo(int test_no, String string, String string2, Object urlno);
+
 }
