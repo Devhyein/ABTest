@@ -1,4 +1,4 @@
-package com.ssafy.free.component.Api;
+package com.ssafy.free.repository.ApiRepository;
 
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class TestInfoRepository {
 
-    // TODO: 리팩토링(매직넘버, Stream API 구문 개선 등)
+    // 리팩토링(매직넘버, Stream API 구문 개선 등)
     public static Context getTestInfoByBucketNumber(Context ctx, Test testInfo) {
 
         int aNum = testInfo.getPerA();
@@ -26,7 +26,4 @@ public class TestInfoRepository {
         return ctx;
     }
 
-    private void updateTestInfo() {
-        // TODO: 테스트 정보 업데이트
-    }
 }
