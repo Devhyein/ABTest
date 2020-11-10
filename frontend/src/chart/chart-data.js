@@ -1,4 +1,5 @@
-export const totalData={
+//d
+export const totalData = {
     type: "bar",
   data: {
     labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
