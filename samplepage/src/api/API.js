@@ -75,7 +75,7 @@ const API = {
     join:(data,callback,errorCallback)=>postApi('/account/join',data,callback,errorCallback),
     checkId:(data,callback,errorCallback)=>getApi('/account/checkId',data,callback,errorCallback),
     clickEvent:(data,callback,errorCallback)=>postApi('/spring/event/click',data,callback,errorCallback),
-    abAssign:(data,callback,errorCallback)=>getApi('/api/assign',data,callback,errorCallback),
+    abAssign:(data,callback,errorCallback)=>getApi('/spring/api/assign',data,callback,errorCallback),
 }
 
 export default API

@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/spring/api")
 @CrossOrigin(origins = { "*" })
 public class ApiController {
 
