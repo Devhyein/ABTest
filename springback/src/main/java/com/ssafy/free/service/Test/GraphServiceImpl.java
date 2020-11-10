@@ -10,10 +10,10 @@ import com.ssafy.free.dto.Admin.Test;
 import com.ssafy.free.dto.Analysis.GraphData;
 import com.ssafy.free.dto.Analysis.GraphDataGender;
 import com.ssafy.free.repository.BuyerRepository;
+import com.ssafy.free.repository.ClientConsumerRepository;
 import com.ssafy.free.repository.PageCntRepository;
 import com.ssafy.free.repository.TestDataRepository;
 import com.ssafy.free.repository.TestRepository;
-import com.ssafy.free.repository.UserRepository;
 import com.ssafy.free.repository.UserSampleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class GraphServiceImpl implements GraphService {
     TestDataRepository testDataRepository;
 
     @Autowired
-    UserRepository userRepo;
+    ClientConsumerRepository userRepo;
 
     @Autowired
     UserSampleRepository userSampleRepo;
@@ -263,18 +263,26 @@ public class GraphServiceImpl implements GraphService {
 
         // 현재 분모는 가입 한 유저. 이거 전체 유저로 분모를 잡을 건지 논의 필요
         try {
-            float numAFemale = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "A", "여성");
-            float numAMale = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "A", "남성");
-            float cntA = testDataRepository.countByTestNoAndPageTypeAndSigned(test_no, "A", true);
+            float maleA = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "A", "남성", null);
+            float totalMaleA = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "A", "남성");
+            // 분자
+            float up = totalMaleA - maleA;
+            data.setAMaleChartData((float) (Math.round((up / maleA) * 1000) / 10.0));
 
-            float numBFemale = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "B", "여성");
-            float numBMale = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "B", "남성");
-            float cntB = testDataRepository.countByTestNoAndPageTypeAndSigned(test_no, "B", true);
+            float maleB = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "B", "남성", null);
+            float totalMaleB = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "B", "남성");
+            up = totalMaleB - maleB;
+            data.setBMaleChartData((float) (Math.round((up / maleB) * 1000) / 10.0));
 
-            data.setAFemaleChartData((float) (Math.round((numAFemale / cntA) * 1000) / 10.0));
-            data.setAMaleChartData((float) (Math.round((numAMale / cntA) * 1000) / 10.0));
-            data.setBFemaleChartData((float) (Math.round((numBFemale / cntB) * 1000) / 10.0));
-            data.setBMaleChartData((float) (Math.round((numBMale / cntB) * 1000) / 10.0));
+            float femaleA = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "A", "여성", null);
+            float totalFemaleA = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "A", "여성");
+            up = totalFemaleA - femaleA;
+            data.setAFemaleChartData((float) (Math.round((up / femaleA) * 1000) / 10.0));
+
+            float femaleB = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "B", "여성", null);
+            float totalFemaleB = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "B", "여성");
+            up = totalFemaleB - femaleB;
+            data.setBFemaleChartData((float) (Math.round((up / femaleB) * 1000) / 10.0));
 
             return data;
 
@@ -289,7 +297,61 @@ public class GraphServiceImpl implements GraphService {
         GraphDataGender data = new GraphDataGender();
 
         try {
+            float maleA = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "A", "남성", null);
+            float totalMaleA = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "A", "남성");
+            // 분자
+            float up = totalMaleA - maleA;
+            data.setAMaleChartData((float) (Math.round((1 - (up / maleA)) * 1000) / 10.0));
 
+            float maleB = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "B", "남성", null);
+            float totalMaleB = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "B", "남성");
+            up = totalMaleB - maleB;
+            data.setBMaleChartData((float) (Math.round((1 - (up / maleB)) * 1000) / 10.0));
+
+            float femaleA = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "A", "여성", null);
+            float totalFemaleA = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "A", "여성");
+            up = totalFemaleA - femaleA;
+            data.setAFemaleChartData((float) (Math.round((1 - (up / femaleA)) * 1000) / 10.0));
+
+            float femaleB = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "B", "여성", null);
+            float totalFemaleB = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "B", "여성");
+            up = totalFemaleB - femaleB;
+            data.setBFemaleChartData((float) (Math.round((1 - (up / femaleB)) * 1000) / 10.0));
+
+            return data;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public GraphDataGender getChartAgeConversion(int test_no) {
+        GraphDataGender data = new GraphDataGender();
+
+        try {
+            float maleA = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "A", "남성", null);
+            float totalMaleA = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "A", "남성");
+            // 분자
+            float up = totalMaleA - maleA;
+            data.setAMaleChartData((float) (Math.round((1 - (up / maleA)) * 1000) / 10.0));
+
+            float maleB = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "B", "남성", null);
+            float totalMaleB = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "B", "남성");
+            up = totalMaleB - maleB;
+            data.setBMaleChartData((float) (Math.round((1 - (up / maleB)) * 1000) / 10.0));
+
+            float femaleA = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "A", "여성", null);
+            float totalFemaleA = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "A", "여성");
+            up = totalFemaleA - femaleA;
+            data.setAFemaleChartData((float) (Math.round((1 - (up / femaleA)) * 1000) / 10.0));
+
+            float femaleB = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "B", "여성", null);
+            float totalFemaleB = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "B", "여성");
+            up = totalFemaleB - femaleB;
+            data.setBFemaleChartData((float) (Math.round((1 - (up / femaleB)) * 1000) / 10.0));
+
+            return data;
         } catch (Exception e) {
             e.printStackTrace();
         }
