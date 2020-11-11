@@ -5,9 +5,6 @@ export default {
     deleteUserInfo(state) {
         state.user = "";
     },
-    addSampleInfo(state, sample){
-        state.sample = sample;
-    },
     addTestInfo(state, test){
         state.test = test;
     },
