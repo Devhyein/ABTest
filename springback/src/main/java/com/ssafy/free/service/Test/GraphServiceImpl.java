@@ -39,7 +39,6 @@ public class GraphServiceImpl implements GraphService {
 
     @Override
     public GraphData getChartConversion(int test_no) {
-        System.out.println("전환율 START");
         GraphData data = new GraphData();
         try {
             Test test = testRepository.getOne(test_no);
@@ -52,6 +51,7 @@ public class GraphServiceImpl implements GraphService {
                 List<Float> BChartData = new ArrayList<Float>();
                 List<String> date = new ArrayList<String>();
                 // 전체 페이지 제공 회수
+
                 List<PageCnt> pagecnt = pageRepo.findByTestNoOrderByDateAsc(test_no);
                 for (PageCnt page : pagecnt) {
                     // 각 날짜의 전체 페이지 제공 횟수
@@ -68,8 +68,10 @@ public class GraphServiceImpl implements GraphService {
                     float cntB = page.getCntB();
 
                     // 각 날짜의 전체 페이지 전환 횟수
-                    float clickA = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "A", pageDate);
-                    float clickB = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "B", pageDate);
+                    float clickA = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "A", pageDate)
+                            - testDataRepository.countByTestNoAndPageTypeAndDateAndUrlNo(test_no, "A", pageDate, null);
+                    float clickB = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "B", pageDate)
+                            - testDataRepository.countByTestNoAndPageTypeAndDateAndUrlNo(test_no, "B", pageDate, null);
                     float A = clickA / cntA;
                     AChartData.add((float) (Math.round(A * 1000) / 1000.0) * 100);
                     float B = clickB / cntB;
@@ -88,7 +90,6 @@ public class GraphServiceImpl implements GraphService {
                 data.setAChartData(AChartData);
                 data.setBChartData(BChartData);
                 data.setDate(date);
-                System.out.println("END");
                 return data;
             } else {
                 return null;
@@ -178,8 +179,8 @@ public class GraphServiceImpl implements GraphService {
                 List<String> date = new ArrayList<String>();
 
                 while (!start.minusDays(1).equals(test.getEnd()) && !start.minusDays(1).equals(today)) {
-                    float userA = userRepo.countByTestNoAndPageTypeAndDate(test_no, "A", start);
-                    float userB = userRepo.countByTestNoAndPageTypeAndDate(test_no, "B", start);
+                    float userA = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "A", start);
+                    float userB = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "B", start);
 
                     // 가입률
                     // 중복되는 유저 제거하고 세야함
@@ -187,7 +188,6 @@ public class GraphServiceImpl implements GraphService {
                             "A", true, start);
                     float joinUserB = testDataRepository.countByTestNoAndPageTypeAndSignedAndJoinDate(test.getTestNo(),
                             "B", true, start);
-
                     AChartData.add((float) (Math.round((joinUserA / userA) * 1000) / 1000.0) * 100);
                     BChartData.add((float) (Math.round((joinUserB / userB) * 1000) / 1000.0) * 100);
                     date.add(start.getMonthValue() + "/" + start.getDayOfMonth());

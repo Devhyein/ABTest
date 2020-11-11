@@ -14,7 +14,7 @@ public interface TestDataRepository extends JpaRepository<TestData, Integer> {
 
 	public int countByTestNoAndPageTypeAndDate(int test_no, String string, LocalDate date);
 
-	public int countByTestNoAndPageTypeAndUrlNo(int testno, String string, int urlNo);
+	public int countByTestNoAndPageTypeAndUrlNo(int testno, String string, Object urlNo);
 
 	public int countByTestNoAndPageType(int testNo, String string);
 
@@ -29,5 +29,7 @@ public interface TestDataRepository extends JpaRepository<TestData, Integer> {
 	public int countByTestNoAndPageTypeAndAge(int test_no, String string, int age);
 
 	public int countByTestNoAndPageTypeAndSignedAndJoinDate(int testNo, String string, boolean b, LocalDate start);
+
+	public int countByTestNoAndPageTypeAndDateAndUrlNo(int test_no, String string, LocalDate pageDate, Object object);
 
 }
