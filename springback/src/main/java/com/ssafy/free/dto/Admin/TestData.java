@@ -41,11 +41,14 @@ public class TestData {
     @Column(name = "age")
     private int age;
 
+    @Column(name = "join_date")
+    private LocalDate joinDate;
+
     public TestData() {
     }
 
     public TestData(int dataNo, int urlNo, int testNo, int userNo, String pageType, LocalDate date, boolean signed,
-            String gender, int age) {
+            String gender, int age, LocalDate joinDate) {
         this.dataNo = dataNo;
         this.urlNo = urlNo;
         this.testNo = testNo;
@@ -55,6 +58,7 @@ public class TestData {
         this.signed = signed;
         this.gender = gender;
         this.age = age;
+        this.joinDate = joinDate;
     }
 
     public int getDataNo() {
@@ -129,11 +133,27 @@ public class TestData {
         this.age = age;
     }
 
+    public boolean isSigned() {
+        return signed;
+    }
+
+    public void setSigned(boolean signed) {
+        this.signed = signed;
+    }
+
+    public LocalDate getJoinDate() {
+        return joinDate;
+    }
+
+    public void setJoinDate(LocalDate joinDate) {
+        this.joinDate = joinDate;
+    }
+
     @Override
     public String toString() {
-        return "TestData [age=" + age + ", dataNo=" + dataNo + ", date=" + date + ", gender=" + gender + ", signed="
-                + signed + ", pageType=" + pageType + ", testNo=" + testNo + ", urlNo=" + urlNo + ", userNo=" + userNo
-                + "]";
+        return "TestData [age=" + age + ", dataNo=" + dataNo + ", date=" + date + ", gender=" + gender + ", joinDate="
+                + joinDate + ", pageType=" + pageType + ", signed=" + signed + ", testNo=" + testNo + ", urlNo=" + urlNo
+                + ", userNo=" + userNo + "]";
     }
 
 }
