@@ -13,10 +13,10 @@
       {{ detail.start }} ~ {{ detail.end }}
       <b-tabs v-model="tabIndex">
         <b-tab title="전체" :title-link-class="linkClass(0)">
-          <b-form-select v-model="selected1" :options="options1" />
           <!-- <div class="d-flex"> -->
             <b-row class="align-items-center graphChart">
               <b-col cols="7">
+              <b-form-select v-model="selected1" :options="options1" />
 
                 <canvas id="myChart"></canvas>
               </b-col>
@@ -164,13 +164,13 @@ export default {
         type: 'line',
         data: {
             datasets: [{
-                label: 'A안 : 메뉴바 왼쪽',
+                label: 'A안',
                 data: this.chart.aChartData,
                 borderColor : 'rgba(255,99,132,1)',
                 backgroundColor : false,
                 fill: false
             }, {
-                label: 'B안 : 메뉴바 오른쪽',
+                label: 'B안',
                 data: this.chart.bChartData,
 
                 // Changes this dataset to become a line
