@@ -8,16 +8,13 @@
       </b-navbar-brand>
     </b-navbar>
 
-    <b-sidebar
-      id="sidebar"
-      bg-variant="light"
-      shadow
-    >
+    <b-sidebar id="sidebar" bg-variant="light" shadow>
       <template #footer>
         <div class="mysidefooter d-flex justify-content-around py-3">
           <small class="d-block">이벤트</small>
           <small class="d-block">공지사항</small>
-          <small class="d-block" @click="login">로그인</small>
+          <small class="d-block" v-if="isLogin" @click="login">로그인</small>
+          <small class="d-block" v-else @click ="logout">로그아웃</small>
         </div>
       </template>
       <div class="d-flex justify-content-around px-2 pt-3 bg-white">
@@ -40,7 +37,7 @@
       <div class="mysidebar bg-white">
         <div class="d-flex justify-content-around px-3 pt-4">
           <h5><strong>차량검색</strong></h5>
-          <h5><strong>내차팔기</strong></h5>
+          <h5><strong @click="sell()">내차팔기</strong></h5>
         </div>
         <div class="text-left mx-4">
           <hr />
@@ -210,6 +207,7 @@
 
 <script>
 import encar from "@/assets/encar.png";
+import clickEvent from "@/click/click.js";
 
 export default {
   name: "SampleA",
@@ -221,8 +219,22 @@ export default {
   methods: {
     login() {
       console.log("로그인");
+      clickEvent(this, "/login");
       this.$router.push("/sample/login");
     },
+    sell() {
+      clickEvent(this, "/sell");
+    },
+    logout() {
+      console.log("로그아웃");
+      this.$store.commit("deleteUserInfo");
+      sessionStorage.removeItem("userInfo");
+    },
+  },
+  computed: {
+    isLogin(){
+      return this.$store.state.isLogin;
+    }
   },
 };
 </script>
