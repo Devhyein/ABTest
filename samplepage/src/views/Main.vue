@@ -34,6 +34,9 @@ export default {
         console.log(err);
       }
     );
+    var user = sessionStorage.getItem("userInfo");
+    if(user)
+      this.$store.commit("addUserInfo", user);
   },
 };
 </script>
