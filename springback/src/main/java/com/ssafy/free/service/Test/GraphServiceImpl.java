@@ -15,7 +15,6 @@ import com.ssafy.free.repository.ClientConsumerRepository;
 import com.ssafy.free.repository.PageCntRepository;
 import com.ssafy.free.repository.TestDataRepository;
 import com.ssafy.free.repository.TestRepository;
-import com.ssafy.free.repository.SampleRepository.UserSampleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,9 +33,6 @@ public class GraphServiceImpl implements GraphService {
 
     @Autowired
     ClientConsumerRepository userRepo;
-
-    @Autowired
-    UserSampleRepository userSampleRepo;
 
     @Autowired
     BuyerRepository buyerRepo;
@@ -186,8 +182,11 @@ public class GraphServiceImpl implements GraphService {
                     float userB = userRepo.countByTestNoAndPageTypeAndDate(test_no, "B", start);
 
                     // 가입률
-                    float joinUserA = userSampleRepo.countByTestNoAndPageTypeAndJoinDate(test_no, "A", start);
-                    float joinUserB = userSampleRepo.countByTestNoAndPageTypeAndJoinDate(test_no, "B", start);
+                    // 중복되는 유저 제거하고 세야함
+                    float joinUserA = testDataRepository.countByTestNoAndPageTypeAndSignedAndJoinDate(test.getTestNo(),
+                            "A", true, start);
+                    float joinUserB = testDataRepository.countByTestNoAndPageTypeAndSignedAndJoinDate(test.getTestNo(),
+                            "B", true, start);
 
                     AChartData.add((float) (Math.round((joinUserA / userA) * 1000) / 1000.0) * 100);
                     BChartData.add((float) (Math.round((joinUserB / userB) * 1000) / 1000.0) * 100);
