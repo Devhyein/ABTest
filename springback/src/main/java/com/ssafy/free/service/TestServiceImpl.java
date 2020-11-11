@@ -14,7 +14,6 @@ import com.ssafy.free.repository.PageCntRepository;
 import com.ssafy.free.repository.TestDataRepository;
 import com.ssafy.free.repository.TestRepository;
 import com.ssafy.free.repository.UrlAttributeRepository;
-import com.ssafy.free.repository.SampleRepository.UserSampleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,9 +35,6 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     ClientConsumerRepository userRepo;
-
-    @Autowired
-    UserSampleRepository userSampleRepo;
 
     @Autowired
     BuyerRepository buyerRepo;
@@ -87,9 +83,9 @@ public class TestServiceImpl implements TestService {
                 // 가입률
                 totalA = userRepo.countByTestNoAndPageType(test.getTestNo(), "A");
                 totalB = userRepo.countByTestNoAndPageType(test.getTestNo(), "B");
-
-                float joinA = userSampleRepo.countByTestNoAndPageType(test.getTestNo(), "A");
-                float joinB = userSampleRepo.countByTestNoAndPageType(test.getTestNo(), "B");
+                // 이거 중복되는 유저 제거해서 세야함
+                float joinA = testDataRepository.countByTestNoAndPageTypeAndSigned(test.getTestNo(), "A", true);
+                float joinB = testDataRepository.countByTestNoAndPageTypeAndSigned(test.getTestNo(), "B", true);
 
                 tempA = 0;
                 tempB = 0;

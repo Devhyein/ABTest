@@ -92,6 +92,7 @@ public class UserController {
                 user.put("email", usersample.get().getEmail());
                 user.put("gender", usersample.get().getGender());
                 user.put("age", usersample.get().getAge());
+                user.put("join_date", usersample.get().getJoinDate());
                 data.put("user", user);
                 response.status = true;
                 response.msg = "success";
