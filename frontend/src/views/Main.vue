@@ -98,7 +98,7 @@
           >
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
-                <span class="status" @click="detail(data.value.test_no)">
+                <span class="status" @click="detail(data.value)">
                   {{ data.value.test_title }}
                 </span>
               </template>
