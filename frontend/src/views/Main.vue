@@ -359,6 +359,7 @@ export default {
         if (i != this.inputs.urls.length - 1) this.inputs.temp += ", ";
       }
       this.inputs.urls = this.inputs.temp;
+      this.inputs.temp = "";
       console.log(thisTest);
       this.modalShow = !this.modalShow;
     },
