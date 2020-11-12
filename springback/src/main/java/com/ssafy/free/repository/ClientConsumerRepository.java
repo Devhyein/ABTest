@@ -15,4 +15,5 @@ public interface ClientConsumerRepository
 
     int countByTestNoAndPageType(int testno, String string);
 
+    ClientConsumer findBySessionID(String session_id);
 }
