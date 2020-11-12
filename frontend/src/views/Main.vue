@@ -37,10 +37,14 @@
                 </span>
               </template>
               <template #cell(icon)="data">
-                <span class="edit" @click="edit(data.value)">
+                <span
+                  v-show="!data.value.hide"
+                  class="edit"
+                  @click="edit(data.value.test_no)"
+                >
                   <b-icon icon="pencil-square" />
                 </span>
-                <span class="delete" @click="deleteTest(data.value)">
+                <span class="delete" @click="deleteTest(data.value.test_no)">
                   <b-icon icon="trash" class="ml-2" />
                 </span>
               </template>
@@ -59,10 +63,14 @@
                 </span>
               </template>
               <template #cell(icon)="data">
-                <span class="edit" @click="edit(data.value)">
+                <span
+                  v-show="!data.value.hide"
+                  class="edit"
+                  @click="edit(data.value.test_no)"
+                >
                   <b-icon icon="pencil-square" />
                 </span>
-                <span class="delete" @click="deleteTest(data.value)">
+                <span class="delete" @click="deleteTest(data.value.test_no)">
                   <b-icon icon="trash" class="ml-2" />
                 </span>
               </template>
@@ -81,10 +89,14 @@
                 </span>
               </template>
               <template #cell(icon)="data">
-                <span class="edit" @click="edit(data.value)">
+                <span
+                  v-show="!data.value.hide"
+                  class="edit"
+                  @click="edit(data.value.test_no)"
+                >
                   <b-icon icon="pencil-square" />
                 </span>
-                <span class="delete" @click="deleteTest(data.value)">
+                <span class="delete" @click="deleteTest(data.value.test_no)">
                   <b-icon icon="trash" class="ml-2" />
                 </span>
               </template>
@@ -98,15 +110,19 @@
           >
             <b-table hover :items="tests" :fields="fields">
               <template #cell(test_title)="data">
-                <span class="status" @click="detail(data.value.test_no)">
+                <span class="status" @click="detail(data.value)">
                   {{ data.value.test_title }}
                 </span>
               </template>
               <template #cell(icon)="data">
-                <span class="edit" @click="edit(data.value)">
+                <span
+                  v-show="!data.value.hide"
+                  class="edit"
+                  @click="edit(data.value.test_no)"
+                >
                   <b-icon icon="pencil-square" />
                 </span>
-                <span class="delete" @click="deleteTest(data.value)">
+                <span class="delete" @click="deleteTest(data.value.test_no)">
                   <b-icon icon="trash" class="ml-2" />
                 </span>
               </template>
@@ -217,7 +233,7 @@ export default {
         start: "",
         end: "",
         urls: "",
-        temp:""
+        temp: "",
       },
       fields: [
         { key: "test_title", label: "실험명" },
@@ -284,15 +300,19 @@ export default {
     },
     makeTableData() {
       for (let test of this.tests) {
-        test.icon = test.test_no;
+        test.icon = { test_no: test.test_no, hide: false };
         test.test_title = {
           test_title: test.test_title,
           test_no: test.test_no,
         };
-        if (test.status == "진행전") test.test_title.color = "text-success";
-        else if (test.status == "진행중")
+        if (test.status == "진행전") {
+          test.test_title.color = "text-success";
+        } else if (test.status == "진행중") {
           test.test_title.color = "text-warning";
-        else test.test_title.color = "text-danger";
+        } else {
+          test.test_title.color = "text-danger";
+          test.icon.hide = true;
+        }
 
         test.date = test.start + " - " + test.end;
 
@@ -333,12 +353,12 @@ export default {
       this.inputs.start = thisTest.start;
       this.inputs.end = thisTest.end;
       this.inputs.urls = thisTest.urls;
-      
-      for(var i = 0; i < this.inputs.urls.length; i++){
+
+      for (var i = 0; i < this.inputs.urls.length; i++) {
         this.inputs.temp += this.inputs.urls[i].urlName;
-        if(i != this.inputs.urls.length-1) this.inputs.temp += ", ";
+        if (i != this.inputs.urls.length - 1) this.inputs.temp += ", ";
       }
-     this.inputs.urls = this.inputs.temp;
+      this.inputs.urls = this.inputs.temp;
       console.log(thisTest);
       this.modalShow = !this.modalShow;
     },

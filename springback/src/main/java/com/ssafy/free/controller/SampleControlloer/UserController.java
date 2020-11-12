@@ -20,7 +20,7 @@ import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin(origins = { "*" })
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/spring/account")
 public class UserController {
 
     @Autowired

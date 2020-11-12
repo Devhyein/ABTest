@@ -1,7 +1,7 @@
 <template>
   <div>
     <EncarHeader />
-    <div class="mx-5 my-5">
+    <div class="myinsert">
       <b-row class="mx-5 my-3 align-items-center">
         <b-col sm="3" class="text-left">
           <label class="m-0">실험명 :</label>
@@ -274,6 +274,9 @@ export default {
 </script>
 
 <style scoped>
+.myinsert {
+  margin: 65px 200px;
+}
 .mybutton {
   width: 80px;
 }
