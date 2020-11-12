@@ -31,10 +31,14 @@ public class ClickEventServiceImpl implements ClickEventService {
     public int registEvent(HashMap<String, Object> request) {
         int ret = 0;
         try {
+            System.out.println("start");
             String session_id = request.get("session_id").toString();
             String url = request.get("url").toString();
             int test_no = Integer.parseInt(request.get("test_no").toString());
-            User user = (User) request.get("user");
+            HashMap hashMap = (HashMap) request.get("user");
+            User user = new User(hashMap.get("email").toString(), hashMap.get("gender").toString(),
+                    Integer.parseInt(hashMap.get("age").toString()),
+                    LocalDate.parse(hashMap.get("join_date").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
             // url_no 찾기
             int url_no = (urlAttributeRepository.findByUrlNameAndTestNo(url, test_no)).getUrlNo();
@@ -50,7 +54,7 @@ public class ClickEventServiceImpl implements ClickEventService {
             testData.setPageType(request.get("page_type").toString());
             testData.setDate(
                     LocalDate.parse(request.get("date").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            testData.setSigned(Boolean.parseBoolean(request.get("singed").toString()));
+            testData.setSigned(Boolean.parseBoolean(request.get("signed").toString()));
             testData.setGender(user.getGender());
             testData.setAge(user.getAge());
             testData.setJoinDate(user.getJoin_date());
