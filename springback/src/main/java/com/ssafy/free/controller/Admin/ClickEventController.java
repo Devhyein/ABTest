@@ -3,7 +3,6 @@ package com.ssafy.free.controller.Admin;
 import java.util.HashMap;
 
 import com.ssafy.free.dto.RestResponse;
-import com.ssafy.free.repository.EventRepository.ClickEventRepository;
 import com.ssafy.free.service.EventService.ClickEventService;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,12 +4,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
-import com.ssafy.free.dto.Admin.UrlAttribute;
-import com.ssafy.free.dto.ClickEvent.ClickData;
+import com.ssafy.free.dto.Admin.TestData;
 import com.ssafy.free.dto.ClickEvent.User;
 import com.ssafy.free.repository.ClientConsumerRepository;
+import com.ssafy.free.repository.TestDataRepository;
 import com.ssafy.free.repository.UrlAttributeRepository;
-import com.ssafy.free.repository.EventRepository.ClickEventRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ClickEventServiceImpl implements ClickEventService {
 
     @Autowired
-    ClickEventRepository clickEventRepository;
+    TestDataRepository testDataRepository;
 
     @Autowired
     ClientConsumerRepository clientConsumerRepository;
@@ -34,28 +33,30 @@ public class ClickEventServiceImpl implements ClickEventService {
         try {
             String session_id = request.get("session_id").toString();
             String url = request.get("url").toString();
+            int test_no = Integer.parseInt(request.get("test_no").toString());
             User user = (User) request.get("user");
 
             // url_no 찾기
-            int url_no = (urlAttributeRepository.findByUrlName(url)).getUrlNo();
+            int url_no = (urlAttributeRepository.findByUrlNameAndTestNo(url, test_no)).getUrlNo();
 
             // user_no 탐색
-            int user_no = (clientConsumerRepository.findBySessionID(session_id)).getUserNo();
+            int user_no = (clientConsumerRepository.findBySessionIdAndTestNo(session_id, test_no)).getUserNo();
 
-            ClickData clickData = new ClickData();
-            clickData.setUrl_no(url_no);
-            clickData.setTest_no(Integer.parseInt(request.get("test_no").toString()));
-            clickData.setUser_no(user_no);
-            clickData.setPage_type(request.get("page_type").toString());
-            clickData.setDate(
+            // 넣을 data 생성
+            TestData testData = new TestData();
+            testData.setUrlNo(url_no);
+            testData.setTestNo(test_no);
+            testData.setUserNo(user_no);
+            testData.setPageType(request.get("page_type").toString());
+            testData.setDate(
                     LocalDate.parse(request.get("date").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            clickData.setSigned(Boolean.parseBoolean(request.get("singed").toString()));
-            clickData.setGender(user.getGender());
-            clickData.setAge(user.getAge());
-            clickData.setJoin_date(user.getJoin_date());
+            testData.setSigned(Boolean.parseBoolean(request.get("singed").toString()));
+            testData.setGender(user.getGender());
+            testData.setAge(user.getAge());
+            testData.setJoinDate(user.getJoin_date());
 
-            // 클릭 된 데이터와 일치하는 url찾기
-            clickEventRepository.save(clickData);
+            // 데이터 삽입
+            testDataRepository.save(testData);
             ret = 1;
 
             return ret;
