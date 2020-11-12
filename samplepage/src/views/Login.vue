@@ -59,6 +59,7 @@ export default {
       );
     },
     join() {
+      console.log("회원가입");
       clickEvent(this, "/join");
       this.$router.push({name: 'Join'})
     },
