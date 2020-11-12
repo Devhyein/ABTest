@@ -92,8 +92,8 @@ export default {
   data() {
     return {
       encar,
-      test_no: 2,
-      page_type: "A",
+      test_no: this.$store.state.test.test_no,
+      page_type: this.$store.state.test.page_type,
       birth: "",
       form: {
         id: "",
@@ -170,13 +170,14 @@ export default {
           String(date.getDate());
       let data = {};
       data.test_no = this.test_no;
-      data.page_type = this.page_type;
+      data.page_type =this.page_type;
       data.join_date = join_date;
       data.id = this.form.id;
       data.pw = this.form.pw;
       data.birth = this.birth;
       data.gender = this.form.gender;
       data.session_id = this.$store.state.test.session_id;
+      console.log(data);
       API.join(
         data,
         (res) => {
