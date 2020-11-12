@@ -76,6 +76,7 @@
         <b-col sm="3" class="text-left">
           <label class="m-0">전환율 분석 페이지</label>
           <b-icon-plus-circle
+            v-if="rows.length != 5"
             @click="addRow"
             class="text-primary ml-2"
           ></b-icon-plus-circle>
@@ -92,6 +93,7 @@
               placeholder="전환율을 분석할 페이지의 URL을 입력하세요."
             />
             <b-icon-dash-circle
+              v-if="rows.length > 1"
               @click="removeRow(idx)"
               class="mr-3 text-danger"
             ></b-icon-dash-circle>
@@ -177,7 +179,6 @@ export default {
         );
         return;
       }
-
       this.rows.splice(idx, 1);
       console.log(this.rows);
     },

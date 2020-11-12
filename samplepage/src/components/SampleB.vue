@@ -7,18 +7,15 @@
       </b-navbar-brand>
       <b-icon-list v-b-toggle.sidebar class="myicon mt-3"></b-icon-list>
     </b-navbar>
-    <b-sidebar
-      id="sidebar"
-      bg-variant="light"
-      right
-      backdrop
-      shadow
-    >
+    <b-sidebar id="sidebar" bg-variant="light" right backdrop shadow>
       <template #footer>
         <div class="mysidefooter d-flex justify-content-around py-3">
           <small class="d-block">이벤트</small>
           <small class="d-block">공지사항</small>
-          <small class="d-block" @click="login">로그인</small>
+          <small class="d-block" v-if="isLogin" @click="login"
+            >로그인</small
+          >
+          <small class="d-block" v-else @click="logout">로그아웃</small>
         </div>
       </template>
       <div class="d-flex justify-content-around px-2 pt-3 bg-white">
@@ -209,6 +206,8 @@
 
 <script>
 import encar from "@/assets/encar.png";
+import clickEvent from "@/click/click.js";
+
 export default {
   name: "SampleB",
   data() {
@@ -219,7 +218,18 @@ export default {
   methods: {
     login() {
       console.log("로그인");
+      clickEvent(this, "/login");
       this.$router.push("/sample/login");
+    },
+    logout() {
+      console.log("로그아웃");
+      this.$store.commit("deleteUserInfo");
+      sessionStorage.removeItem("userInfo");
+    },
+  },
+  computed: {
+    isLogin() {
+      return this.$store.state.isLogin;
     },
   },
 };

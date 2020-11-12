@@ -5,7 +5,6 @@ export default function makeheader() {
         "token": sessionStorage.getItem('jwt-token'),
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "*"
-        
       }
     }
   }
