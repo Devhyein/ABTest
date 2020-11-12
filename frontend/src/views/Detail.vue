@@ -19,15 +19,15 @@
               <b-form-select v-model="selected1" :options="options1" />
 
                 <canvas id="myChart"></canvas>
+
               </b-col>
               <b-col cols="5">
                 <div>
                   <b-button variant="info" @click="urlModal()">
                    페이지별 전환율 상세보기
                   </b-button>              
-              </div>
-
-           <b-table hover :items="tableData" :fields="fields" > </b-table>
+                </div>
+                <b-table hover :items="tableData" :fields="fields" > </b-table>
               </b-col>
             </b-row>             
 
@@ -35,11 +35,12 @@
 
         </b-tab>
         <b-tab title="성별" :title-link-class="linkClass(1)">
-          <b-form-select v-model="selected2" :options="options2" />
+          <b-form-select v-model="selected2" :options="options2" class="genderSelectBox" />
           <div>
-            <b-button variant="info" @click="urlModal()">
+            <!-- <b-button variant="info" @click="urlModal()">
               페이지별 전환율 상세보기
-            </b-button>
+            </b-button> -->
+            <canvas id="genderChart" height="100"></canvas>
           </div>
         </b-tab>
         <b-tab title="나이" :title-link-class="linkClass(2)">
@@ -61,8 +62,8 @@
       </b-tabs>
       <b-modal title="URL별 페이지 전환율" v-model="modalShow">
         <!-- 모달에 들어 갈 테이블 추가 -->
-         <b-table hover :items="detailTableData" :fields="detailFields">
-              </b-table>
+          <b-table hover :items="detailTableData" :fields="detailFields">
+          </b-table>
         <template #modal-footer>
           <div></div>
         </template>
@@ -77,7 +78,8 @@ import Chart from "chart.js";
 import totalData from "../chart/chart-data.js";
 
 import EncarHeader from "@/components/Header";
-
+var genderChart;
+var myChart;
 export default {
   components: {
     EncarHeader,
@@ -95,6 +97,13 @@ export default {
         bChartData : [],
         date : []
       },
+      genderChart: {
+        amaleChartData : 0,
+        afemaleChartData : 0,
+        bmaleChartData : 0,
+        bfemaleChartData : 0,
+      },
+      ab : 1,
       fields: [
         { key: "assortment", label: "구분" },
         { key: "testA", label: "A 안" },
@@ -124,8 +133,6 @@ export default {
     };
   },
   created() {
-    console.log(totalData);
-    // this.createChart("myChart", totalData);
     this.tableData = [
       {
         assortment: "전환율",
@@ -158,30 +165,73 @@ export default {
   },
   methods: {
     createChart() {
-      console.log("START!")
-          var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var opt = {
         type: 'line',
         data: {
-            datasets: [{
-                label: 'A안',
-                data: this.chart.aChartData,
-                borderColor : 'rgba(255,99,132,1)',
-                backgroundColor : false,
-                fill: false
-            }, {
-                label: 'B안',
-                data: this.chart.bChartData,
-
-                // Changes this dataset to become a line
-                type: 'line',
-                borderColor :'rgba(75, 192, 192, 1)',
-                backgroundColor : false,
-                fill: false
-            }],
-            // date
-            labels: this.chart.date,
+          datasets: [{
+              label: 'A안',
+              data: this.chart.aChartData,
+              borderColor : 'rgba(255,99,132,1)',
+              backgroundColor : false,
+              fill: false
+          }, {
+              label: 'B안',
+              data: this.chart.bChartData,
+              // Changes this dataset to become a line
+              type: 'line',
+              borderColor :'rgba(75, 192, 192, 1)',
+              backgroundColor : false,
+              fill: false
+          }],
+          // date
+          labels: this.chart.date,
         },
+        options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true,
+                      max: 100,
+                      min: 0,
+                  }
+              }]
+          },
+        }
+      };
+
+      if(myChart) 
+        myChart.destroy();
+      myChart = new Chart(ctx, opt);
+      myChart.update();
+
+      console.log(myChart);
+    },
+
+    createGenderChart() {
+      var ctx = document.getElementById('genderChart').getContext('2d');
+      var opt = {
+        type: 'bar',
+        data: {
+          labels: ['남성', '여성'],
+          datasets: [
+            {
+              label: 'A안',
+              data: [this.genderChart.amaleChartData,this.genderChart.afemaleChartData],
+              borderColor : 'rgba(255,99,132,1)',
+              backgroundColor:'rgba(255,99,132,1)',
+              fill: false,
+            },
+            {
+              type: 'bar',
+              label: 'B안',
+              data: [this.genderChart.bmaleChartData,this.genderChart.bfemaleChartData],
+              borderColor:'rgba(75, 192, 192, 1)',
+              backgroundColor: 'rgba(75, 192, 192, 1)',
+              fill: false,
+            },
+            ]
+          },
         options: {
             scales: {
                 yAxes: [{
@@ -192,10 +242,14 @@ export default {
                     }
                 }]
             },
-        }
-    });
-    console.log("//"+myChart);
-    console.log(this.detail);
+        } 
+      };
+
+      if(genderChart) 
+        genderChart.destroy();
+      genderChart = new Chart(ctx, opt);
+      genderChart.update();
+      console.log(genderChart);
     },
 
     urlModal() {
@@ -256,8 +310,7 @@ export default {
         API.getChartConversion(
           "test_no=" + this.detail.test_no,
           (res) => {
-            console.log(res);
-            // chart = res;
+            // console.log(res);
             this.chart.aChartData = res.achartData;
             this.chart.bChartData = res.bchartData;
             this.chart.date = res.date;
@@ -273,7 +326,7 @@ export default {
         API.getChartBounce(
           "test_no=" + this.detail.test_no,
           (res) => {
-            console.log(res);
+            // console.log(res);
             //res를 chart로 만들기위해 데이터 넣어줘야함            
             this.chart.aChartData = res.achartData;
             this.chart.bChartData = res.bchartData;
@@ -290,7 +343,7 @@ export default {
         API.getChartJoin(
           "test_no=" + this.detail.test_no,
           (res) => {
-            console.log(res);
+            // console.log(res);
             this.chart.aChartData = res.achartData;
             this.chart.bChartData = res.bchartData;
             this.chart.date = res.date;
@@ -305,7 +358,7 @@ export default {
         API.getChartPurchase(
           "test_no=" + this.detail.test_no,
           (res) => {
-            console.log(res);
+            // console.log(res);
             //res를 chart로 만들기위해 데이터 넣어줘야함           
             this.chart.aChartData = res.achartData;
             this.chart.bChartData = res.bchartData;
@@ -325,8 +378,13 @@ export default {
         API.getChartGenderConversion(
           "test_no=" + this.detail.test_no,
           (res) => {
-            console.log(res);
+            console.log("RES : "+res);
             //res를 chart로 만들기위해 데이터 넣어줘야함
+            this.genderChart.amaleChartData = res.amaleChartData;
+            this.genderChart.afemaleChartData = res.afemaleChartData;
+            this.genderChart.bmaleChartData = res.bmaleChartData;
+            this.genderChart.bfemaleChartData = res.bfemaleChartData;
+            this.createGenderChart();
           },
           (err) => {
             console.log(err);
@@ -339,6 +397,11 @@ export default {
           (res) => {
             console.log(res);
             //res를 chart로 만들기위해 데이터 넣어줘야함
+            this.genderChart.amaleChartData = res.amaleChartData;
+            this.genderChart.afemaleChartData = res.afemaleChartData;
+            this.genderChart.bmaleChartData = res.bmaleChartData;
+            this.genderChart.bfemaleChartData = res.bfemaleChartData;
+            this.createGenderChart();
           },
           (err) => {
             console.log(err);
@@ -351,6 +414,11 @@ export default {
           (res) => {
             console.log(res);
             //res를 chart로 만들기위해 데이터 넣어줘야함
+            this.genderChart.amaleChartData = 0;
+            this.genderChart.afemaleChartData = 0;
+            this.genderChart.bmaleChartData = 0;
+            this.genderChart.bfemaleChartData = 0;
+            this.createGenderChart();
           },
           (err) => {
             console.log(err);
@@ -460,5 +528,7 @@ export default {
 .graphChart{
   margin-top: 40px;
 }
-
+.genderSelectBox {
+  margin-top: 40px;
+}
 </style>
