@@ -46,9 +46,10 @@
         <b-tab title="나이" :title-link-class="linkClass(2)">
           <b-form-select v-model="selected3" :options="options2" />
           <div>
-            <b-button variant="info" @click="urlModal()">
+            <!-- <b-button variant="info" @click="urlModal()">
               페이지별 전환율 상세보기
-            </b-button>
+            </b-button> -->
+            <canvas id="ageChart" height="100"></canvas>
           </div>
         </b-tab>
         <b-tab title="사용자 지정" :title-link-class="linkClass(3)">
@@ -80,6 +81,7 @@ import totalData from "../chart/chart-data.js";
 import EncarHeader from "@/components/Header";
 var genderChart;
 var myChart;
+var ageChart;
 export default {
   components: {
     EncarHeader,
@@ -103,7 +105,11 @@ export default {
         bmaleChartData : 0,
         bfemaleChartData : 0,
       },
-      ab : 1,
+      ageChart: {
+        aChartData : [],
+        bChartData : [],
+        label : ["20대","30대","40대","50대","60대 이상",]
+      },
       fields: [
         { key: "assortment", label: "구분" },
         { key: "testA", label: "A 안" },
@@ -143,7 +149,7 @@ export default {
       {
         assortment: "이탈률",
         testA: this.detail.bounceA + "%",
-        testB: this.detail.bounceA + "%",
+        testB: this.detail.bounceB + "%",
         rate: this.detail.bo_rate + "%",
       },
       {
@@ -244,12 +250,60 @@ export default {
             },
         } 
       };
-
       if(genderChart) 
         genderChart.destroy();
       genderChart = new Chart(ctx, opt);
       genderChart.update();
       console.log(genderChart);
+    },
+
+    createAgeChart() {
+      var ctx = document.getElementById('ageChart').getContext('2d');
+      var opt = {
+        type: 'horizontalBar',
+        data: {
+          labels: this.ageChart.label,
+          datasets: [
+            {
+              label: 'A안',
+              data: this.ageChart.aChartData,
+              borderColor : 'rgba(255,99,132,1)',
+              backgroundColor:'rgba(255,99,132,1)',
+              fill: false,
+            },
+            {
+              // type: 'horizontalBar',
+              label: 'B안',
+              data: this.ageChart.bChartData,
+              borderColor:'rgba(75, 192, 192, 1)',
+              backgroundColor:'rgba(75, 192, 192, 1)',
+              fill: false,
+            },
+            ]
+          },
+        options: {
+            legend: { display: true },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        suggestedMin: -100,
+                        suggestedMax: 100,
+                        callback: value => value.toString().replace('-', ''),
+                    }
+                }],
+                yAxes: [{
+                  ticks: {
+                  }
+                }]
+            }
+        }
+      };
+
+      if(ageChart) 
+        ageChart.destroy();
+      ageChart = new Chart(ctx, opt);
+      ageChart.update();
+      console.log(ageChart);
     },
 
     urlModal() {
@@ -434,6 +488,9 @@ export default {
           (res) => {
             console.log(res);
             //res를 chart로 만들기위해 데이터 넣어줘야함
+            this.ageChart.aChartData = res.achartData;
+            this.ageChart.bChartData = res.bchartData;
+            this.createAgeChart();
           },
           (err) => {
             console.log(err);
@@ -445,7 +502,9 @@ export default {
           "test_no=" + this.detail.test_no,
           (res) => {
             console.log(res);
-            //res를 chart로 만들기위해 데이터 넣어줘야함
+            this.ageChart.aChartData = res.achartData;
+            this.ageChart.bChartData = res.bchartData;
+            this.createAgeChart();
           },
           (err) => {
             console.log(err);
@@ -457,7 +516,9 @@ export default {
           "test_no=" + this.detail.test_no,
           (res) => {
             console.log(res);
-            //res를 chart로 만들기위해 데이터 넣어줘야함
+            this.ageChart.aChartData = res.achartData;
+            this.ageChart.bChartData = res.bchartData;
+            this.createAgeChart();
           },
           (err) => {
             console.log(err);
@@ -528,7 +589,7 @@ export default {
 .graphChart{
   margin-top: 40px;
 }
-.genderSelectBox {
+/* .genderSelectBox {
   margin-top: 40px;
-}
+} */
 </style>
