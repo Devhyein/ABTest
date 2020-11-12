@@ -3,7 +3,7 @@ package com.ssafy.free.controller.Admin;
 import java.util.HashMap;
 
 import com.ssafy.free.dto.RestResponse;
-import com.ssafy.free.service.EventService.EventService;
+import com.ssafy.free.service.EventService.ClickEventService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,9 +17,9 @@ import io.swagger.annotations.ApiOperation;
 @CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/spring")
-public class EventController {
+public class ClickEventController {
     @Autowired
-    EventService eventService;
+    ClickEventService eventService;
 
     @ApiOperation(value = "클릭 이벤트 컨트롤러")
     @PostMapping("/event/click")
