@@ -23,6 +23,7 @@ export default {
   },
   created() {
     var url = window.location.href;
+    clickEvent(this, null);
     API.abAssign(
       "url=" + url,
       (res) => {
