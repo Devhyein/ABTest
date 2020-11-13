@@ -69,15 +69,47 @@
             </b-row>
         </b-tab>
 
-        <b-tab title="나이" :title-link-class="linkClass(2)">
+        <b-tab title="나이" :title-link-class="linkClass(2)" @click="ageTab(0)">
           <b-row class="graphChart">
             <b-col cols="3">
               <b-form-select v-model="selected3" :options="options2" />
             </b-col>
           </b-row>
-          <b-row class="graphChart">
-            <canvas id="ageChart"></canvas>
+          <b-row class="align-items-right">
+            <b-col offset="6">
+              <b-button variant="info" @click="ageTab(0)">
+               20
+              </b-button>  
+            </b-col> 
+            <b-col>
+              <b-button variant="info" @click="ageTab(1)">
+               30
+              </b-button>                
+            </b-col>
+            <b-col>
+              <b-button variant="info" @click="ageTab(2)">
+               40
+              </b-button>                
+            </b-col>
+            <b-col>
+              <b-button variant="info" @click="ageTab(3)">
+               50
+              </b-button>                
+            </b-col>
+            <b-col cols="2">
+              <b-button variant="info" @click="ageTab(4)">
+               60대 이상
+              </b-button>                
+            </b-col>
           </b-row>
+          <b-row class="align-items-center graphChart">
+              <b-col cols="7">
+                <canvas id="ageChart"></canvas>
+              </b-col>
+              <b-col cols="5">
+                <b-table hover :items="tableData" :fields="fields" > </b-table>
+              </b-col>
+            </b-row>
         </b-tab>
 
         <!-- <b-tab title="사용자 지정" :title-link-class="linkClass(3)">
@@ -246,7 +278,30 @@ export default {
       }
       );
     },
-
+    ageTab(age) {
+      API.getTableDataAge(
+      "test_no=" + this.detail.test_no,
+      (res) => {
+        this.tableData = [
+          {
+            assortment: "전환율",
+            testA: res.conversionA[age] + "%",
+            testB: res.conversionB[age] + "%",
+            rate: res.con_rate[age] + "%",
+          },
+          {
+            assortment: "이탈률",
+            testA: res.bounceA[age] + "%",
+            testB: res.bounceB[age] + "%",
+            rate: res.bo_rate[age] + "%",
+          }
+        ];
+      },
+      (err) => {
+        console.log(err);
+      }
+      );
+    },
 
     createChart() {
       var ctx = document.getElementById('myChart').getContext('2d');

@@ -152,6 +152,7 @@ const API = {
     getDetailTestCustom: (data, callback, errorCallback) => getApi('/spring/detail/custom/test', data, callback, errorCallback),
     
     getTableDataGender:(data,callback,errorCallback)=>getApi('/spring/detail/table/gender/test',data,callback,errorCallback),
+    getTableDataAge:(data,callback,errorCallback)=>getApi('/spring/detail/table/age/test',data,callback,errorCallback),
 
     getDetailTestConversionWithUrl:(data,callback,errorCallback)=>getApi('/spring/detail/conversion/url',data,callback,errorCallback),
 

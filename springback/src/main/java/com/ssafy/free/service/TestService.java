@@ -12,4 +12,6 @@ public interface TestService {
 
     TableDataGender getTableDataGender(int test_no);
 
+    TableDataAge getTableDataAge(int test_no);
+
 }

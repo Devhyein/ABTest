@@ -7,6 +7,7 @@ import com.ssafy.free.dto.Admin.Test;
 import com.ssafy.free.dto.Admin.UrlAttribute;
 import com.ssafy.free.dto.Analysis.Analysis;
 import com.ssafy.free.dto.Analysis.AnalysisConversionWithUrl;
+import com.ssafy.free.dto.Analysis.TableDataAge;
 import com.ssafy.free.dto.Analysis.TableDataGender;
 import com.ssafy.free.repository.BuyerRepository;
 import com.ssafy.free.repository.ClientConsumerRepository;
@@ -198,4 +199,52 @@ public class TestServiceImpl implements TestService {
         return null;
     }
 
+    @Override
+    public TableDataAge getTableDataAge(int test_no) {
+        try {
+            Test test = testRepository.getOne(test_no);
+            if (test != null) {
+                TableDataAge analysis = new TableDataAge(test);
+
+                List<Float> aData = new ArrayList<>();
+                List<Float> bData = new ArrayList<>();
+                List<Float> bounceA = new ArrayList<>();
+                List<Float> bounceB = new ArrayList<>();
+                List<Float> con_rate = new ArrayList<>();
+                List<Float> bo_rate = new ArrayList<>();
+
+                // 연령별 전환율
+                for (int age = 20; age <= 60; age += 10) {
+                    float A = testDataRepository.countByTestNoAndPageTypeAndAgeAndUrlNo(test_no, "A", age, null);
+                    float totalA = testDataRepository.countByTestNoAndPageTypeAndAge(test_no, "A", age);
+                    float upA = totalA - A;
+
+                    float B = testDataRepository.countByTestNoAndPageTypeAndAgeAndUrlNo(test_no, "B", age, null);
+                    float totalB = testDataRepository.countByTestNoAndPageTypeAndAge(test_no, "B", age);
+                    float upB = totalB - B;
+                    // 전환율
+                    aData.add((float) (Math.round((upA / A) * 1000) / 10.0));
+                    bData.add((float) (Math.round((upB / B) * 1000) / 10.0));
+                    con_rate.add((float) (Math.round(((upB / B) - (upA / A)) * 1000) / 10.0));
+                    // 이탈률
+                    bounceA.add((float) (Math.round((1 - (upA / A)) * 1000) / 10.0));
+                    bounceB.add((float) (Math.round((1 - (upB / B)) * 1000) / 10.0));
+                    bo_rate.add((float) (Math.round(((1 - (upB / B)) - (1 - (upA / A))) * 1000) / 10.0));
+                }
+                analysis.setConversionA(aData);
+                analysis.setConversionB(bData);
+                analysis.setBounceA(bounceA);
+                analysis.setBounceB(bounceB);
+                analysis.setCon_rate(con_rate);
+                analysis.setBo_rate(bo_rate);
+
+                return analysis;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
