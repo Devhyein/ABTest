@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-flex justify-content-between align-items-center mb-3 py-2">
-      <img :src="BorA" class="ml-3" @click="main()" />
+      <img :src="BorA" class="mylogo ml-3" @click="main()" />
       <div class="myprofile mr-5" @click="loginModal()">
         <b-icon icon="person-circle" scale="3" />
       </div>
@@ -120,6 +120,9 @@ img {
 }
 .a {
   clear: both;
+}
+.mylogo {
+  cursor: pointer;
 }
 .myprofile {
   cursor: pointer;
