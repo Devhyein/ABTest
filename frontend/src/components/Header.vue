@@ -1,7 +1,7 @@
 <template>
-  <div class="headerdiv">
+  <div>
     <div class="d-flex justify-content-between align-items-center mb-3 py-2">
-      <img src="/img/logo.png" class="ml-3" @click="main()" />
+      <img :src="BorA" class="ml-3" @click="main()" />
       <div class="myprofile mr-4" @click="loginModal()">
         <b-icon icon="person-circle" scale="2" />
       </div>
@@ -53,6 +53,7 @@
 <script>
 import API from "@/api/API";
 import swal from "sweetalert";
+import BorA from '@/assets/BorA.png'
 
 export default {
   name: "Header",
@@ -62,6 +63,7 @@ export default {
       logoutShow: false,
       id: "",
       pw: "",
+      BorA,
     };
   },
   methods: {
@@ -113,14 +115,11 @@ export default {
 </script>
 <style scoped>
 img {
-  width: 150px;
+  width: 120px;
   height: auto;
 }
 .a {
   clear: both;
-}
-.headerdiv {
-  background-color: lightgray;
 }
 .myprofile {
   cursor: pointer;
