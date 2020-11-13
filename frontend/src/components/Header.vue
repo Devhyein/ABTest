@@ -2,8 +2,8 @@
   <div>
     <div class="d-flex justify-content-between align-items-center mb-3 py-2">
       <img :src="BorA" class="ml-3" @click="main()" />
-      <div class="myprofile mr-4" @click="loginModal()">
-        <b-icon icon="person-circle" scale="2" />
+      <div class="myprofile mr-5" @click="loginModal()">
+        <b-icon icon="person-circle" scale="3" />
       </div>
     </div>
 
