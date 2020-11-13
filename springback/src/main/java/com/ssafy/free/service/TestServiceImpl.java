@@ -7,6 +7,7 @@ import com.ssafy.free.dto.Admin.Test;
 import com.ssafy.free.dto.Admin.UrlAttribute;
 import com.ssafy.free.dto.Analysis.Analysis;
 import com.ssafy.free.dto.Analysis.AnalysisConversionWithUrl;
+import com.ssafy.free.dto.Analysis.TableDataGender;
 import com.ssafy.free.repository.BuyerRepository;
 import com.ssafy.free.repository.ClientConsumerRepository;
 import com.ssafy.free.repository.TestDataRepository;
@@ -137,6 +138,63 @@ public class TestServiceImpl implements TestService {
     @Override
     public Analysis getDetailTestGender(int test_no) {
 
+        return null;
+    }
+
+    @Override
+    public TableDataGender getTableDataGender(int test_no) {
+        try {
+            Test test = testRepository.getOne(test_no);
+            if (test != null) {
+                TableDataGender analysis = new TableDataGender(test);
+
+                // MALE 전환율
+                float clickA = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "A", "남성")
+                        - testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "A", "남성", null);
+                float clickB = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "B", "남성")
+                        - testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "B", "남성", null);
+
+                float totalA = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "A", "남성", null);
+                float totalB = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "B", "남성", null);
+
+                analysis.setConversionAMale((float) (Math.round((clickA / totalA) * 1000) / 10.0));
+                analysis.setConversionBMale((float) (Math.round((clickB / totalB) * 1000) / 10.0));
+
+                analysis.setCon_rateMale((float) (Math.round(((clickB / totalB) - (clickA / totalA)) * 1000) / 10.0));
+
+                // MALE 이탈률
+                analysis.setBounceAMale((float) (Math.round((1 - (clickA / totalA)) * 1000) / 10.0));
+                analysis.setBounceBMale((float) (Math.round((1 - (clickB / totalB)) * 1000) / 10.0));
+                analysis.setBo_rateMale(
+                        (float) (Math.round(((1 - (clickB / totalB)) - (1 - (clickA / totalA))) * 1000) / 10.0));
+
+                // FEMALE 전환율
+                clickA = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "A", "여성")
+                        - testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "A", "여성", null);
+                clickB = testDataRepository.countByTestNoAndPageTypeAndGender(test_no, "B", "여성")
+                        - testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "B", "여성", null);
+
+                totalA = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "A", "여성", null);
+                totalB = testDataRepository.countByTestNoAndPageTypeAndGenderAndUrlNo(test_no, "B", "여성", null);
+
+                analysis.setConversionAFemale((float) (Math.round((clickA / totalA) * 1000) / 10.0));
+                analysis.setConversionBFemale((float) (Math.round((clickB / totalB) * 1000) / 10.0));
+
+                analysis.setCon_rateFemale((float) (Math.round(((clickB / totalB) - (clickA / totalA)) * 1000) / 10.0));
+
+                // FEMALE 이탈률
+                analysis.setBounceAFemale((float) (Math.round((1 - (clickA / totalA)) * 1000) / 10.0));
+                analysis.setBounceBFemale((float) (Math.round((1 - (clickB / totalB)) * 1000) / 10.0));
+                analysis.setBo_rateFemale(
+                        (float) (Math.round(((1 - (clickB / totalB)) - (1 - (clickA / totalA))) * 1000) / 10.0));
+
+                return analysis;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

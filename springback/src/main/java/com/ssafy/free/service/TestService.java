@@ -10,4 +10,6 @@ public interface TestService {
 
     Analysis getDetailTestGender(int test_no);
 
+    TableDataGender getTableDataGender(int test_no);
+
 }

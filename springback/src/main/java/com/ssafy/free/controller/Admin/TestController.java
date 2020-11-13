@@ -102,4 +102,31 @@ public class TestController {
 
         return response;
     }
+
+    @ApiOperation(value = "성별 테이블 데이터")
+    @GetMapping("/detail/table/gender/test")
+    public Object getTableDataGender(@RequestParam int test_no) {
+        final RestResponse response = new RestResponse();
+
+        response.status = false;
+        response.msg = "테스트 상세 조회 실패";
+        response.data = null;
+
+        try {
+            TableDataGender detail = testService.getTableDataGender(test_no);
+            if (detail != null) {
+                response.status = true;
+                response.msg = "success";
+                response.data = detail;
+            } else {
+                response.status = false;
+                response.msg = "해당 번호의 테스트가 없습니다.";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return response;
+    }
 }
