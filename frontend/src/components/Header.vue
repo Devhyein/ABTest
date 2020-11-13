@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="myheader">
     <div class="d-flex justify-content-between align-items-center mb-3 py-2">
       <img :src="BorA" class="mylogo ml-3" @click="main()" />
-      <div class="myprofile mr-5" @click="loginModal()">
+      <div class="myprofile mr-5 text-light" @click="loginModal()">
         <b-icon icon="person-circle" scale="3" />
       </div>
     </div>
@@ -114,14 +114,14 @@ export default {
 };
 </script>
 <style scoped>
-img {
-  width: 120px;
-  height: auto;
+.myheader {
+  background-color: #000099;
 }
 .a {
   clear: both;
 }
 .mylogo {
+  width: 100px;
   cursor: pointer;
 }
 .myprofile {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <encar-header></encar-header>
+    <Header />
     <div class="col-8 col-m-10 m-auto">
       <div class="infoBox my-2">
         <div class="d-flex justify-content-end">
@@ -213,11 +213,11 @@
 import API from "@/api/API";
 import swal from "sweetalert";
 
-import encarHeader from "@/components/Header";
+import Header from "@/components/Header";
 
 export default {
   components: {
-    encarHeader,
+    Header,
   },
   data() {
     return {
