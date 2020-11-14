@@ -55,9 +55,11 @@ public class ClickEventServiceImpl implements ClickEventService {
             testData.setDate(
                     LocalDate.parse(request.get("date").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             testData.setSigned(Boolean.parseBoolean(request.get("signed").toString()));
-            testData.setGender(user.getGender());
-            testData.setAge(user.getAge());
-            testData.setJoinDate(user.getJoin_date());
+            if (Boolean.parseBoolean(request.get("signed").toString())) {
+                testData.setGender(user.getGender());
+                testData.setAge(user.getAge());
+                testData.setJoinDate(user.getJoin_date());
+            }
 
             // 데이터 삽입
             testDataRepository.save(testData);
