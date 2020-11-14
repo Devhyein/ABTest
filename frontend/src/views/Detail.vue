@@ -15,7 +15,7 @@
         </h6>
       </div>
       <b-tabs v-model="tabIndex">
-        <b-tab title="전체" :title-link-class="linkClass(0)">
+        <b-tab title="전체" :title-link-class="linkClass(0)" @click="totalTab()">
           <!-- <div class="d-flex"> -->
             <b-row class="align-items-center graphChart">
               <b-col cols="3">
@@ -261,6 +261,36 @@ export default {
     else this.detail.color = "danger";
   },
   methods: {
+    totalTab() {
+      API.getDetailTest(
+      "test_no=" + this.detail.test_no,
+      (res) => {
+        this.tableData = [
+              {
+                assortment: "전환율",
+                testA: res.conversionA + "%",
+                testB: res.conversionB + "%",
+                rate: res.con_rate + "%",
+              },
+              {
+                assortment: "이탈률",
+                testA: res.bounceA + "%",
+                testB: res.bounceB + "%",
+                rate: res.bo_rate + "%",
+              },
+              {
+                assortment: "회원가입률",
+                testA: res.joinA + "%",
+                testB: res.joinB + "%",
+                rate: res.jo_rate + "%",
+              },
+            ];
+      },
+      (err) => {
+        console.log(err);
+      }
+      );
+    },
     genderTab(gender) {
       API.getTableDataGender(
       "test_no=" + this.detail.test_no,
@@ -352,15 +382,29 @@ export default {
           labels: this.chart.date,
         },
         options: {
-          scales: {
-              yAxes: [{
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100,
+                        min: 0,
+                        fontColor: "rgba(239, 239, 239, 1)"
+                    },
+                    gridLines: {
+                      color: "rgba(239, 239, 239, 0.3)"
+                    }
+                }],
+                xAxes: [{
                   ticks: {
-                      beginAtZero: true,
-                      max: 100,
-                      min: 0,
+                    fontColor: "rgba(239, 239, 239, 1)"
                   }
-              }]
-          },
+                }]
+            },
+            legend: {
+              labels: {
+                fontColor: "rgba(239, 239, 239, 1)"
+              }
+            }
         }
       };
 
@@ -396,16 +440,30 @@ export default {
             },
             ]
           },
-        options: {
+          options: {
             scales: {
                 yAxes: [{
                     ticks: {
                         beginAtZero: true,
                         max: 100,
                         min: 0,
+                        fontColor: "rgba(239, 239, 239, 1)"
+                    },
+                    gridLines: {
+                      color: "rgba(239, 239, 239, 0.3)"
                     }
+                }],
+                xAxes: [{
+                  ticks: {
+                    fontColor: "rgba(239, 239, 239, 1)"
+                  }
                 }]
             },
+            legend: {
+              labels: {
+                fontColor: "rgba(239, 239, 239, 1)"
+              }
+            }
         } 
       };
       if(genderChart) 
@@ -430,7 +488,6 @@ export default {
               fill: false,
             },
             {
-              // type: 'horizontalBar',
               label: 'B안',
               data: this.ageChart.bChartData,
               borderColor:'rgba(75, 192, 192, 1)',
@@ -440,19 +497,35 @@ export default {
             ]
           },
         options: {
-            legend: { display: true },
             scales: {
                 xAxes: [{
                     ticks: {
                         suggestedMin: -100,
                         suggestedMax: 100,
                         callback: value => value.toString().replace('-', ''),
+                        fontColor: "rgba(239, 239, 239, 1)"
+                    },
+                    gridLines: {
+                      color: "rgba(239, 239, 239, 0.3)"
                     }
                 }],
                 yAxes: [{
-                  ticks: {
-                  }
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100,
+                        min: 0,
+                        fontColor: "rgba(239, 239, 239, 1)"
+                    },
+                    gridLines: {
+                      color: "rgba(239, 239, 239, 0.3)"
+                    }
                 }]
+            },
+            legend: {
+              display: true,
+              labels: {
+                fontColor: "rgba(239, 239, 239, 1)"
+              }
             }
         }
       };
