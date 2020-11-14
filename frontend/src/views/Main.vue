@@ -333,7 +333,7 @@ export default {
           return ["bg-danger", "text-light"];
         }
       } else {
-        return ["bg-dark", "text-light"];
+        return ["text-light"];
       }
     },
     edit(id) {
