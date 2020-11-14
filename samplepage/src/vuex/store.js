@@ -15,6 +15,7 @@ const state = {
     test:{
 
     },
+    isLogin: false
 }
 
 export default new Vuex.Store({

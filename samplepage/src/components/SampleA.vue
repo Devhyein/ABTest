@@ -13,7 +13,7 @@
         <div class="mysidefooter d-flex justify-content-around py-3">
           <small class="d-block">이벤트</small>
           <small class="d-block">공지사항</small>
-          <small class="d-block" v-if="isLogin" @click="login">로그인</small>
+          <small class="d-block" v-if="!isLogin" @click="login">로그인</small>
           <small class="d-block" v-else @click="logout">로그아웃</small>
         </div>
       </template>
@@ -244,7 +244,6 @@ export default {
       console.log("로그아웃");
       this.$store.commit("deleteUserInfo");
       sessionStorage.removeItem("userInfo");
-      this.$router.push({ name: "Main" });
     },
   },
   computed: {
