@@ -46,9 +46,8 @@ export default {
         (res) => {
           console.log(res);
           swal("로그인 완료", "정상적으로 로그인 되었습니다.", "success");
-          this.$store.commit("addUserInfo", res);
-          sessionStorage.setItem("userInfo", res);
-          console.log(this.$store.state.user);
+          this.$store.commit("addUserInfo", res.user);
+          sessionStorage.setItem("userInfo", res.user);
           this.$router.push({name: 'Main'})
         },
         (err) => {

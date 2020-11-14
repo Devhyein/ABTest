@@ -89,13 +89,12 @@
           >
             <b-form-input
               v-model="row.url"
-              class="mr-3"
               placeholder="전환율을 분석할 페이지의 URL을 입력하세요."
             />
             <b-icon-dash-circle
               v-if="rows.length > 1"
               @click="removeRow(idx)"
-              class="mr-3 text-danger"
+              class="mx-3 text-danger"
             ></b-icon-dash-circle>
           </div>
         </b-col>
@@ -275,7 +274,7 @@ export default {
 
 <style scoped>
 .myinsert {
-  margin: 65px 200px;
+  margin: 40px 200px;
 }
 .mybutton {
   width: 80px;

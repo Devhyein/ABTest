@@ -1,9 +1,9 @@
 <template>
-  <div class="headerdiv">
-    <div class="d-flex justify-content-between align-items-center mb-3 py-2">
-      <img src="/img/logo.png" class="ml-3" @click="main()" />
-      <div class="myprofile mr-4" @click="loginModal()">
-        <b-icon icon="person-circle" scale="2" />
+  <div class="myheader mb-5">
+    <div class="d-flex justify-content-between align-items-center py-2">
+      <img :src="BorA" class="mylogo ml-3" @click="main()" />
+      <div class="myprofile mr-5 text-light" @click="loginModal()">
+        <b-icon icon="person-circle" scale="3" />
       </div>
     </div>
 
@@ -53,6 +53,7 @@
 <script>
 import API from "@/api/API";
 import swal from "sweetalert";
+import BorA from '@/assets/BorA.png'
 
 export default {
   name: "Header",
@@ -62,6 +63,7 @@ export default {
       logoutShow: false,
       id: "",
       pw: "",
+      BorA,
     };
   },
   methods: {
@@ -112,15 +114,16 @@ export default {
 };
 </script>
 <style scoped>
-img {
-  width: 150px;
-  height: auto;
+.myheader {
+  /* background-color: #000099; */
+  border-bottom: 3px solid gray;
 }
 .a {
   clear: both;
 }
-.headerdiv {
-  background-color: lightgray;
+.mylogo {
+  width: 100px;
+  cursor: pointer;
 }
 .myprofile {
   cursor: pointer;
