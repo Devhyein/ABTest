@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="myinsert pb-5">
     <EncarHeader />
-    <div class="myinsert">
+    <div class="myinsertbox">
       <b-row class="mx-5 my-3 align-items-center">
         <b-col sm="3" class="text-left">
           <label class="m-0">실험명 :</label>
@@ -274,6 +274,10 @@ export default {
 
 <style scoped>
 .myinsert {
+  min-height: 100vh;
+  background-color: #313131;
+}
+.myinsertbox {
   margin: 40px 200px;
 }
 .mybutton {
