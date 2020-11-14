@@ -24,21 +24,18 @@ export default {
   },
   created() {
     var url = window.location.href;
-    clickEvent(this, null);
     API.abAssign(
       "url=" + url,
       (res) => {
         console.log(res);
         this.$store.commit("addTestInfo", res);
         this.page_type = this.$store.state.test.page_type;
+        clickEvent(this, null);
       },
       (err) => {
         console.log(err);
       }
     );
-    var user = sessionStorage.getItem("userInfo");
-    if(user)
-      this.$store.commit("addUserInfo", user);
   },
 };
 </script>

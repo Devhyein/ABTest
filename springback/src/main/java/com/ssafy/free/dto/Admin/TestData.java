@@ -24,7 +24,7 @@ public class TestData {
     private String pageType;
 
     @Column(name = "url_no")
-    private int urlNo;
+    private Integer urlNo;
 
     @Column(name = "user_no")
     private int userNo;
@@ -69,11 +69,11 @@ public class TestData {
         this.dataNo = dataNo;
     }
 
-    public int getUrlNo() {
+    public Integer getUrlNo() {
         return urlNo;
     }
 
-    public void setUrlNo(int urlNo) {
+    public void setUrlNo(Integer urlNo) {
         this.urlNo = urlNo;
     }
 

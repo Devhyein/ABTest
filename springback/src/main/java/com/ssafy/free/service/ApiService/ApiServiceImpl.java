@@ -21,6 +21,7 @@ public class ApiServiceImpl implements ApiService {
     TestRepository testRepository;
 
     public Context convert(Context ctx, String url) {
+        log.info("Enter the API Convert");
         Context ret;
         // url을 기반으로 실험 정보를 가져온다.
         try {
