@@ -29,9 +29,10 @@ public class ClickEventServiceImpl implements ClickEventService {
     UrlAttributeRepository urlAttributeRepository;
 
     public int registEvent(HashMap<String, Object> request) {
+        log.info("Enter the registEvent Service");
         int ret = 0;
         try {
-            System.out.println("start");
+            log.info("registEvent start");
             String session_id = request.get("session_id").toString();
             String url = request.get("url").toString();
             int test_no = Integer.parseInt(request.get("test_no").toString());
@@ -42,9 +43,11 @@ public class ClickEventServiceImpl implements ClickEventService {
 
             // url_no 찾기
             int url_no = (urlAttributeRepository.findByUrlNameAndTestNo(url, test_no)).getUrlNo();
+            log.info("url_no : " + url_no);
 
             // user_no 탐색
             int user_no = (clientConsumerRepository.findBySessionIdAndTestNo(session_id, test_no)).getUserNo();
+            log.info("user_no : " + user_no);
 
             // 넣을 data 생성
             TestData testData = new TestData();
@@ -60,6 +63,7 @@ public class ClickEventServiceImpl implements ClickEventService {
                 testData.setAge(user.getAge());
                 testData.setJoinDate(user.getJoin_date());
             }
+            log.info("testData : " + testData.toString());
 
             // 데이터 삽입
             testDataRepository.save(testData);
