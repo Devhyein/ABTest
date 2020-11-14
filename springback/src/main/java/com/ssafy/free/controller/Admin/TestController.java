@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 
-@CrossOrigin(origins = { "*" })
+@CrossOrigin(origins = { "*" }, allowCredentials = "true")
 @RestController
 @RequestMapping("/spring")
 public class TestController {
