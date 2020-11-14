@@ -3,9 +3,6 @@ import API from  "../api/API.js";
 export default function clickEvent(vue, url) {
     var vueTest = vue.$store.state.test;
     var vueUser = vue.$store.state.user;
-    
-    console.log("vueTest ",vueTest);
-    console.log("vueUser ",vueUser);
 
     let today = new Date();   
 
@@ -23,7 +20,9 @@ export default function clickEvent(vue, url) {
         signed : vueUser.email != undefined,
         user : vueUser
     };
-    
+
+    console.log(info);
+
     API.clickEvent(
         info,
         (res) => {

@@ -44,10 +44,11 @@ export default {
       API.login(
         data,
         (res) => {
-          console.log(res);
+          console.log("login.vue ",res);
           swal("로그인 완료", "정상적으로 로그인 되었습니다.", "success");
           this.$store.commit("addUserInfo", res.user);
           sessionStorage.setItem("userInfo", res.user);
+          console.log("login.vue vuex user", this.$store.state.user);
           this.$router.push({name: 'Main'})
         },
         (err) => {

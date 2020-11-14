@@ -59,7 +59,7 @@ export default {
   name: "Header",
   data() {
     return {
-      modalShow: false,
+      modalShow: this.$store.state.email == "",
       logoutShow: false,
       id: "",
       pw: "",
