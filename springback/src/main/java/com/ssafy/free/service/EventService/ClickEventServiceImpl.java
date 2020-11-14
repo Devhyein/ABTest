@@ -29,21 +29,40 @@ public class ClickEventServiceImpl implements ClickEventService {
     UrlAttributeRepository urlAttributeRepository;
 
     public int registEvent(HashMap<String, Object> request) {
-        log.info("Enter the registEvent Service");
+        log.info("=================Enter the registEvent Service================");
         int ret = 0;
         try {
-            log.info("registEvent start");
             String session_id = request.get("session_id").toString();
-            String url = request.get("url").toString();
-            int test_no = Integer.parseInt(request.get("test_no").toString());
-            HashMap hashMap = (HashMap) request.get("user");
-            User user = new User(hashMap.get("email").toString(), hashMap.get("gender").toString(),
-                    Integer.parseInt(hashMap.get("age").toString()),
-                    LocalDate.parse(hashMap.get("join_date").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            log.info("session_id :" + session_id);
 
-            // url_no 찾기
-            int url_no = (urlAttributeRepository.findByUrlNameAndTestNo(url, test_no)).getUrlNo();
-            log.info("url_no : " + url_no);
+            String url = null;
+            if (request.get("url") != null) {
+                url = request.get("url").toString();
+                log.info("url" + url);
+            }
+
+            int test_no = Integer.parseInt(request.get("test_no").toString());
+            log.info("test_no : " + test_no);
+
+            User user = new User();
+            HashMap hashMap = (HashMap) request.get("user");
+            if (hashMap.get("email") != null) {
+                user.setEmail(hashMap.get("email").toString());
+                user.setGender(hashMap.get("gender").toString());
+                user.setAge(Integer.parseInt(hashMap.get("age").toString()));
+                user.setJoin_date(LocalDate.parse(hashMap.get("join_date").toString(),
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            }
+
+            int url_no;
+            if (url != null) {
+                // url_no 찾기
+                url_no = (urlAttributeRepository.findByUrlNameAndTestNo(url, test_no)).getUrlNo();
+                log.info("url_no : " + url_no);
+            } else {
+                url_no = 0;
+                log.info("url_no : " + url_no);
+            }
 
             // user_no 탐색
             int user_no = (clientConsumerRepository.findBySessionIdAndTestNo(session_id, test_no)).getUserNo();
