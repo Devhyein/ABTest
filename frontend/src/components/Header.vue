@@ -1,6 +1,6 @@
 <template>
-  <div class="myheader">
-    <div class="d-flex justify-content-between align-items-center mb-3 py-2">
+  <div class="myheader mb-5">
+    <div class="d-flex justify-content-between align-items-center py-2">
       <img :src="BorA" class="mylogo ml-3" @click="main()" />
       <div class="myprofile mr-5 text-light" @click="loginModal()">
         <b-icon icon="person-circle" scale="3" />
@@ -115,7 +115,8 @@ export default {
 </script>
 <style scoped>
 .myheader {
-  background-color: #000099;
+  /* background-color: #000099; */
+  border-bottom: 3px solid gray;
 }
 .a {
   clear: both;

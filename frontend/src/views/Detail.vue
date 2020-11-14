@@ -34,7 +34,7 @@
                 <canvas id="myChart"></canvas>
               </b-col>
               <b-col cols="5">
-                <b-table hover :items="tableData" :fields="fields" > </b-table>
+                <b-table :items="tableData" :fields="fields" class="text-light"> </b-table>
               </b-col>
             </b-row>
 
@@ -46,8 +46,16 @@
             <b-col cols="3">
               <b-form-select v-model="selected2" :options="options2" />
             </b-col>
+            <b-col cols="5" offset="4">
+              <b-button variant="info" @click="genderTab('male')" class="mr-5">
+                남성
+              </b-button>
+              <b-button variant="info" @click="genderTab('female')">
+                여성
+              </b-button>
+            </b-col>
           </b-row>
-            <b-row class="align-items-right">
+            <!-- <b-row class="align-items-right">
                 <b-col cols="1" offset="7">
                   <b-button variant="info" @click="genderTab('male')">
                    남성
@@ -58,13 +66,13 @@
                    여성
                   </b-button>                
                 </b-col>
-            </b-row>
+            </b-row> -->
           <b-row class="align-items-center graphChart">
               <b-col cols="7">
                 <canvas id="genderChart"></canvas>
               </b-col>
               <b-col cols="5">
-                <b-table hover :items="tableData" :fields="fields" > </b-table>
+                <b-table :items="tableData" :fields="fields" class="text-light"> </b-table>
               </b-col>
             </b-row>
         </b-tab>
@@ -74,8 +82,25 @@
             <b-col cols="3">
               <b-form-select v-model="selected3" :options="options2" />
             </b-col>
+            <b-col cols="5" offset="4">
+              <b-button variant="info" @click="ageTab(0)" class="mr-4">
+               20
+              </b-button>
+              <b-button variant="info" @click="ageTab(1)" class="mr-4">
+               30
+              </b-button>
+              <b-button variant="info" @click="ageTab(2)" class="mr-4">
+               40
+              </b-button>
+              <b-button variant="info" @click="ageTab(3)" class="mr-4">
+               50
+              </b-button>
+              <b-button variant="info" @click="ageTab(4)">
+               60대 이상
+              </b-button>
+            </b-col>
           </b-row>
-          <b-row class="align-items-right">
+          <!-- <b-row class="align-items-right">
             <b-col offset="6">
               <b-button variant="info" @click="ageTab(0)">
                20
@@ -101,13 +126,13 @@
                60대 이상
               </b-button>                
             </b-col>
-          </b-row>
+          </b-row> -->
           <b-row class="align-items-center graphChart">
               <b-col cols="7">
                 <canvas id="ageChart"></canvas>
               </b-col>
               <b-col cols="5">
-                <b-table hover :items="tableData" :fields="fields" > </b-table>
+                <b-table :items="tableData" :fields="fields" class="text-light"> </b-table>
               </b-col>
             </b-row>
         </b-tab>
@@ -719,7 +744,10 @@ export default {
 };
 </script>
 <style>
-.graphChart{
+.graphChart {
   margin-top: 40px;
+}
+.modal-content {
+  font-family: 'IBMPlexSansKR-SemiBold';
 }
 </style>

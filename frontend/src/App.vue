@@ -10,10 +10,10 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color:#2c3250;
-    /* color: white; */
+    /* color:#2c3250; */
+    color: white;
     height: 100vh;
-    /* background-color: #313131; */
+    background-color: #313131;
     /* background-color: black; */
   }
 </style>
