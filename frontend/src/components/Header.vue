@@ -116,7 +116,7 @@ export default {
 <style scoped>
 .myheader {
   /* background-color: #000099; */
-  border-bottom: 2px solid gray;
+  border-bottom: 3px solid gray;
 }
 .a {
   clear: both;
