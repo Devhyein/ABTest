@@ -25,7 +25,7 @@
             :title-link-class="linkClass(0)"
             @click="getAllTest()"
           >
-            <b-table hover :items="tests" :fields="fields">
+            <b-table :items="tests" :fields="fields" class="text-light">
               <template #cell(test_title)="data">
                 <span class="status" @click="detail(data.value)">
                   {{ data.value.test_title }}
@@ -56,7 +56,7 @@
             :title-link-class="linkClass(1)"
             @click="getBeforeTest()"
           >
-            <b-table hover :items="tests" :fields="fields">
+            <b-table :items="tests" :fields="fields" class="text-light">
               <template #cell(test_title)="data">
                 <span class="status" @click="detail(data.value)">
                   {{ data.value.test_title }}
@@ -82,7 +82,7 @@
             :title-link-class="linkClass(2)"
             @click="getProgressTest()"
           >
-            <b-table hover :items="tests" :fields="fields">
+            <b-table :items="tests" :fields="fields" class="text-light">
               <template #cell(test_title)="data">
                 <span class="status" @click="detail(data.value)">
                   {{ data.value.test_title }}
@@ -108,7 +108,7 @@
             :title-link-class="linkClass(3)"
             @click="getCompleteTest()"
           >
-            <b-table hover :items="tests" :fields="fields">
+            <b-table :items="tests" :fields="fields" class="text-light">
               <template #cell(test_title)="data">
                 <span class="status" @click="detail(data.value)">
                   {{ data.value.test_title }}
@@ -520,5 +520,8 @@ export default {
 .infoBox {
   overflow: hidden;
   width: 100%;
+}
+.status {
+  cursor: pointer;
 }
 </style>
