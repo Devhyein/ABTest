@@ -1,9 +1,10 @@
 package com.ssafy.free.service;
 
 import java.util.HashMap;
-import java.util.List;
 
 import com.ssafy.free.dto.Admin.TestResponse;
+
+import org.springframework.data.domain.Page;
 
 public interface ManageService {
 
@@ -11,13 +12,13 @@ public interface ManageService {
 
 	int modifyTest(HashMap<String, Object> request) throws Exception;
 
-	List<TestResponse> getTestList(String email);
+	Page<TestResponse> getTestList(String email, int page);
 
-	List<TestResponse> getTestListBefore(String email);
+	Page<TestResponse> getTestListBefore(String email, int page);
 
-	List<TestResponse> getTestListProgress(String email);
+	Page<TestResponse> getTestListProgress(String email, int page);
 
-	List<TestResponse> getTestListComplete(String email);
+	Page<TestResponse> getTestListComplete(String email, int page);
 
 	int deleteTest(int testNo);
 
