@@ -34,7 +34,7 @@
                 <canvas id="myChart"></canvas>
               </b-col>
               <b-col cols="5">
-                <b-table hover :items="tableData" :fields="fields" > </b-table>
+                <b-table :items="tableData" :fields="fields" class="text-light"> </b-table>
               </b-col>
             </b-row>
 
@@ -64,7 +64,7 @@
                 <canvas id="genderChart"></canvas>
               </b-col>
               <b-col cols="5">
-                <b-table hover :items="tableData" :fields="fields" > </b-table>
+                <b-table :items="tableData" :fields="fields" class="text-light"> </b-table>
               </b-col>
             </b-row>
         </b-tab>
@@ -107,7 +107,7 @@
                 <canvas id="ageChart"></canvas>
               </b-col>
               <b-col cols="5">
-                <b-table hover :items="tableData" :fields="fields" > </b-table>
+                <b-table :items="tableData" :fields="fields" class="text-light"> </b-table>
               </b-col>
             </b-row>
         </b-tab>
@@ -719,7 +719,10 @@ export default {
 };
 </script>
 <style>
-.graphChart{
+.graphChart {
   margin-top: 40px;
+}
+.modal-content {
+  font-family: 'IBMPlexSansKR-SemiBold';
 }
 </style>
