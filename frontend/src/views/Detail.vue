@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mydetail pb-5">
     <EncarHeader />
     <div class="col-8 col-m-10 mx-auto my-5">
       <!-- 이 부분 예쁘게 해주세요(와이어프레임 참고해주세요) -->
@@ -15,11 +15,11 @@
         </h6>
       </div>
       <b-tabs v-model="tabIndex">
-        <b-tab title="전체" :title-link-class="linkClass(0)">
+        <b-tab title="전체" :title-link-class="linkClass(0)" @click="totalTab()">
           <!-- <div class="d-flex"> -->
             <b-row class="align-items-center graphChart">
               <b-col cols="3">
-                <b-form-select v-model="selected1" :options="options1" />
+                <b-form-select v-model="selected1" :options="options1" class="myselect" />
               </b-col>
               <b-col cols="5" offset="4">
                 <div>
@@ -44,7 +44,7 @@
         <b-tab title="성별" :title-link-class="linkClass(1)" @click="genderTab('male')">
           <b-row class="graphChart">
             <b-col cols="3">
-              <b-form-select v-model="selected2" :options="options2" />
+              <b-form-select v-model="selected2" :options="options2" class="myselect" />
             </b-col>
             <b-col cols="5" offset="4">
               <b-button variant="info" @click="genderTab('male')" class="mr-5">
@@ -77,10 +77,10 @@
             </b-row>
         </b-tab>
 
-        <b-tab title="나이" :title-link-class="linkClass(2)" @click="ageTab(0)">
+        <b-tab title="연령대" :title-link-class="linkClass(2)" @click="ageTab(0)">
           <b-row class="graphChart">
             <b-col cols="3">
-              <b-form-select v-model="selected3" :options="options2" />
+              <b-form-select v-model="selected3" :options="options2" class="myselect" />
             </b-col>
             <b-col cols="5" offset="4">
               <b-button variant="info" @click="ageTab(0)" class="mr-4">
@@ -212,20 +212,20 @@ export default {
       selected1: null,
       selected2: null,
       selected3: null,
-      selected4: null,
+      // selected4: null,
 
       options1: [
         { value: null, text: "구분" },
         { value: "전환율", text: "전환율" },
         { value: "이탈률", text: "이탈률" },
         { value: "회원가입률", text: "회원가입률" },
-        { value: "구매율", text: "구매율" },
+        // { value: "구매율", text: "구매율" },
       ],
       options2: [
         { value: null, text: "구분" },
         { value: "전환율", text: "전환율" },
         { value: "이탈률", text: "이탈률" },
-        { value: "구매율", text: "구매율" },
+        // { value: "구매율", text: "구매율" },
       ],
     };
   },
@@ -249,18 +249,48 @@ export default {
         testB: this.detail.joinB + "%",
         rate: this.detail.jo_rate + "%",
       },
-      {
-        assortment: "구매율",
-        testA: this.detail.purchaseA + "%",
-        testB: this.detail.purchaseB + "%",
-        rate: this.detail.pur_rate + "%",
-      },
+      // {
+      //   assortment: "구매율",
+      //   testA: this.detail.purchaseA + "%",
+      //   testB: this.detail.purchaseB + "%",
+      //   rate: this.detail.pur_rate + "%",
+      // },
     ];
     if (this.detail.status == "진행전") this.detail.color = "success";
     else if (this.detail.status == "진행중") this.detail.color = "warning";
     else this.detail.color = "danger";
   },
   methods: {
+    totalTab() {
+      API.getDetailTest(
+      "test_no=" + this.detail.test_no,
+      (res) => {
+        this.tableData = [
+              {
+                assortment: "전환율",
+                testA: res.conversionA + "%",
+                testB: res.conversionB + "%",
+                rate: res.con_rate + "%",
+              },
+              {
+                assortment: "이탈률",
+                testA: res.bounceA + "%",
+                testB: res.bounceB + "%",
+                rate: res.bo_rate + "%",
+              },
+              {
+                assortment: "회원가입률",
+                testA: res.joinA + "%",
+                testB: res.joinB + "%",
+                rate: res.jo_rate + "%",
+              },
+            ];
+      },
+      (err) => {
+        console.log(err);
+      }
+      );
+    },
     genderTab(gender) {
       API.getTableDataGender(
       "test_no=" + this.detail.test_no,
@@ -352,15 +382,29 @@ export default {
           labels: this.chart.date,
         },
         options: {
-          scales: {
-              yAxes: [{
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100,
+                        min: 0,
+                        fontColor: "rgba(239, 239, 239, 1)"
+                    },
+                    gridLines: {
+                      color: "rgba(239, 239, 239, 0.3)"
+                    }
+                }],
+                xAxes: [{
                   ticks: {
-                      beginAtZero: true,
-                      max: 100,
-                      min: 0,
+                    fontColor: "rgba(239, 239, 239, 1)"
                   }
-              }]
-          },
+                }]
+            },
+            legend: {
+              labels: {
+                fontColor: "rgba(239, 239, 239, 1)"
+              }
+            }
         }
       };
 
@@ -396,16 +440,30 @@ export default {
             },
             ]
           },
-        options: {
+          options: {
             scales: {
                 yAxes: [{
                     ticks: {
                         beginAtZero: true,
                         max: 100,
                         min: 0,
+                        fontColor: "rgba(239, 239, 239, 1)"
+                    },
+                    gridLines: {
+                      color: "rgba(239, 239, 239, 0.3)"
                     }
+                }],
+                xAxes: [{
+                  ticks: {
+                    fontColor: "rgba(239, 239, 239, 1)"
+                  }
                 }]
             },
+            legend: {
+              labels: {
+                fontColor: "rgba(239, 239, 239, 1)"
+              }
+            }
         } 
       };
       if(genderChart) 
@@ -430,7 +488,6 @@ export default {
               fill: false,
             },
             {
-              // type: 'horizontalBar',
               label: 'B안',
               data: this.ageChart.bChartData,
               borderColor:'rgba(75, 192, 192, 1)',
@@ -440,19 +497,35 @@ export default {
             ]
           },
         options: {
-            legend: { display: true },
             scales: {
                 xAxes: [{
                     ticks: {
                         suggestedMin: -100,
                         suggestedMax: 100,
                         callback: value => value.toString().replace('-', ''),
+                        fontColor: "rgba(239, 239, 239, 1)"
+                    },
+                    gridLines: {
+                      color: "rgba(239, 239, 239, 0.3)"
                     }
                 }],
                 yAxes: [{
-                  ticks: {
-                  }
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100,
+                        min: 0,
+                        fontColor: "rgba(239, 239, 239, 1)"
+                    },
+                    gridLines: {
+                      color: "rgba(239, 239, 239, 0.3)"
+                    }
                 }]
+            },
+            legend: {
+              display: true,
+              labels: {
+                fontColor: "rgba(239, 239, 239, 1)"
+              }
             }
         }
       };
@@ -506,7 +579,7 @@ export default {
       if (this.tabIndex === idx) {
         return ["bg-danger", "text-light"];
       } else {
-        return ["bg-light", "text-dark"];
+        return ["text-light"];
       }
     },
   },
@@ -565,24 +638,25 @@ export default {
             console.log(err);
           }
         );
-      } else if (val == "구매율") {
-        console.log("전체-구매율");
-        API.getChartPurchase(
-          "test_no=" + this.detail.test_no,
-          (res) => {
-            // console.log(res);
-            //res를 chart로 만들기위해 데이터 넣어줘야함           
-            this.chart.aChartData = res.achartData;
-            this.chart.bChartData = res.bchartData;
-            this.chart.date = res.date;
-            //res를 chart로 만들기위해 데이터 넣어줘야함
-            this.createChart();
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
       }
+      // } else if (val == "구매율") {
+      //   console.log("전체-구매율");
+      //   API.getChartPurchase(
+      //     "test_no=" + this.detail.test_no,
+      //     (res) => {
+      //       // console.log(res);
+      //       //res를 chart로 만들기위해 데이터 넣어줘야함           
+      //       this.chart.aChartData = res.achartData;
+      //       this.chart.bChartData = res.bchartData;
+      //       this.chart.date = res.date;
+      //       //res를 chart로 만들기위해 데이터 넣어줘야함
+      //       this.createChart();
+      //     },
+      //     (err) => {
+      //       console.log(err);
+      //     }
+      //   );
+      // }
     },
     selected2(val) {
       if (val == "전환율") {
@@ -619,24 +693,25 @@ export default {
             console.log(err);
           }
         );
-      } else if (val == "구매율") {
-        console.log("gender-구매율");
-        API.getChartGenderPurchase(
-          "test_no=" + this.detail.test_no,
-          (res) => {
-            console.log(res);
-            //res를 chart로 만들기위해 데이터 넣어줘야함
-            this.genderChart.amaleChartData = 0;
-            this.genderChart.afemaleChartData = 0;
-            this.genderChart.bmaleChartData = 0;
-            this.genderChart.bfemaleChartData = 0;
-            this.createGenderChart();
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
       }
+      // } else if (val == "구매율") {
+      //   console.log("gender-구매율");
+      //   API.getChartGenderPurchase(
+      //     "test_no=" + this.detail.test_no,
+      //     (res) => {
+      //       console.log(res);
+      //       //res를 chart로 만들기위해 데이터 넣어줘야함
+      //       this.genderChart.amaleChartData = 0;
+      //       this.genderChart.afemaleChartData = 0;
+      //       this.genderChart.bmaleChartData = 0;
+      //       this.genderChart.bfemaleChartData = 0;
+      //       this.createGenderChart();
+      //     },
+      //     (err) => {
+      //       console.log(err);
+      //     }
+      //   );
+      // }
     },
     selected3(val) {
       if (val == "전환율") {
@@ -668,73 +743,75 @@ export default {
             console.log(err);
           }
         );
-      } else if (val == "구매율") {
-        console.log("age-구매율");
-        API.getChartAgePurchase(
-          "test_no=" + this.detail.test_no,
-          (res) => {
-            console.log(res);
-            this.ageChart.aChartData = res.achartData;
-            this.ageChart.bChartData = res.bchartData;
-            this.createAgeChart();
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
       }
+      // } else if (val == "구매율") {
+      //   console.log("age-구매율");
+      //   API.getChartAgePurchase(
+      //     "test_no=" + this.detail.test_no,
+      //     (res) => {
+      //       console.log(res);
+      //       this.ageChart.aChartData = res.achartData;
+      //       this.ageChart.bChartData = res.bchartData;
+      //       this.createAgeChart();
+      //     },
+      //     (err) => {
+      //       console.log(err);
+      //     }
+      //   );
+      // }
     },
-    selected4(val) {
-      if (val == "전환율") {
-        console.log("custom-전환율");
-        API.getChartCustomConversion(
-          "test_no=" + this.detail.test_no,
-          (res) => {
-            console.log(res);
-            //res를 chart로 만들기위해 데이터 넣어줘야함
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
-      } else if (val == "이탈률") {
-        console.log("custom-이탈률");
-        API.getChartCustomBounce(
-          "test_no=" + this.detail.test_no,
-          (res) => {
-            console.log(res);
-            //res를 chart로 만들기위해 데이터 넣어줘야함
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
-      } else if (val == "회원가입률") {
-        console.log("custom-회원가입률");
-        API.getChartCustomJoin(
-          "test_no=" + this.detail.test_no,
-          (res) => {
-            console.log(res);
-            //res를 chart로 만들기위해 데이터 넣어줘야함
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
-      } else if (val == "구매율") {
-        console.log("custom-구매율");
-        API.getChartCustomPurchase(
-          "test_no=" + this.detail.test_no,
-          (res) => {
-            console.log(res);
-            //res를 chart로 만들기위해 데이터 넣어줘야함
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
-      }
-    },
+    // selected4(val) {
+    //   if (val == "전환율") {
+    //     console.log("custom-전환율");
+    //     API.getChartCustomConversion(
+    //       "test_no=" + this.detail.test_no,
+    //       (res) => {
+    //         console.log(res);
+    //         //res를 chart로 만들기위해 데이터 넣어줘야함
+    //       },
+    //       (err) => {
+    //         console.log(err);
+    //       }
+    //     );
+    //   } else if (val == "이탈률") {
+    //     console.log("custom-이탈률");
+    //     API.getChartCustomBounce(
+    //       "test_no=" + this.detail.test_no,
+    //       (res) => {
+    //         console.log(res);
+    //         //res를 chart로 만들기위해 데이터 넣어줘야함
+    //       },
+    //       (err) => {
+    //         console.log(err);
+    //       }
+    //     );
+    //   } else if (val == "회원가입률") {
+    //     console.log("custom-회원가입률");
+    //     API.getChartCustomJoin(
+    //       "test_no=" + this.detail.test_no,
+    //       (res) => {
+    //         console.log(res);
+    //         //res를 chart로 만들기위해 데이터 넣어줘야함
+    //       },
+    //       (err) => {
+    //         console.log(err);
+    //       }
+    //     );
+    //   }
+    //   // } else if (val == "구매율") {
+    //   //   console.log("custom-구매율");
+    //   //   API.getChartCustomPurchase(
+    //   //     "test_no=" + this.detail.test_no,
+    //   //     (res) => {
+    //   //       console.log(res);
+    //   //       //res를 chart로 만들기위해 데이터 넣어줘야함
+    //   //     },
+    //   //     (err) => {
+    //   //       console.log(err);
+    //   //     }
+    //   //   );
+    //   // }
+    // },
   },
   computed: {
     detail() {
@@ -744,10 +821,17 @@ export default {
 };
 </script>
 <style>
+.mydetail {
+  min-height: 100vh;
+  background-color: #313131;
+}
 .graphChart {
   margin-top: 40px;
 }
 .modal-content {
   font-family: 'IBMPlexSansKR-SemiBold';
+}
+.myselect {
+  cursor: pointer;
 }
 </style>

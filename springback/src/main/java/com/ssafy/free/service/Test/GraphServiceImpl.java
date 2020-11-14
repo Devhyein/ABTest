@@ -47,11 +47,12 @@ public class GraphServiceImpl implements GraphService {
                 List<String> date = new ArrayList<String>();
 
                 // 각 날짜의 전체 페이지 제공 횟수
-                while (!start.equals(test.getEnd()) && !start.equals(today)) {
+                while (!start.minusDays(1).equals(test.getEnd()) && !start.minusDays(1).equals(today)) {
                     float totalA = testDataRepository.countByTestNoAndPageTypeAndDateAndUrlNo(test_no, "A", start,
                             null);
                     float totalB = testDataRepository.countByTestNoAndPageTypeAndDateAndUrlNo(test_no, "B", start,
                             null);
+
                     if (totalA == 0) {
                         AChartData.add((float) 0);
                     } else {
@@ -70,13 +71,6 @@ public class GraphServiceImpl implements GraphService {
                     }
                     date.add(start.getMonthValue() + "/" + start.getDayOfMonth());
                     start = start.plusDays(1);
-                }
-                start = start.minusDays(1);
-                while (!start.equals(test.getEnd()) && !start.equals(today)) {
-                    AChartData.add((float) 0);
-                    BChartData.add((float) 0);
-                    start = start.plusDays(1);
-                    date.add(start.getMonthValue() + "/" + start.getDayOfMonth());
                 }
 
                 data.setAChartData(AChartData);
@@ -109,7 +103,7 @@ public class GraphServiceImpl implements GraphService {
                 List<String> date = new ArrayList<String>();
 
                 // 각 날짜의 전체 페이지 제공 횟수
-                while (!start.equals(test.getEnd()) && !start.equals(today)) {
+                while (!start.minusDays(1).equals(test.getEnd()) && !start.minusDays(1).equals(today)) {
                     float totalA = testDataRepository.countByTestNoAndPageTypeAndDateAndUrlNo(test_no, "A", start,
                             null);
                     float totalB = testDataRepository.countByTestNoAndPageTypeAndDateAndUrlNo(test_no, "B", start,
@@ -132,13 +126,6 @@ public class GraphServiceImpl implements GraphService {
                     }
                     date.add(start.getMonthValue() + "/" + start.getDayOfMonth());
                     start = start.plusDays(1);
-                }
-                start = start.minusDays(1);
-                while (!start.equals(test.getEnd()) && !start.equals(today)) {
-                    AChartData.add((float) 0);
-                    BChartData.add((float) 0);
-                    start = start.plusDays(1);
-                    date.add(start.getMonthValue() + "/" + start.getDayOfMonth());
                 }
 
                 data.setAChartData(AChartData);
