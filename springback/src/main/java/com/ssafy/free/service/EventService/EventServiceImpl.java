@@ -58,6 +58,7 @@ public class EventServiceImpl implements EventService {
 
             return ret;
         } catch (Exception e) {
+            e.printStackTrace();
             return ret;
         }
     }
@@ -84,6 +85,7 @@ public class EventServiceImpl implements EventService {
 
             return ret;
         } catch (Exception e) {
+            e.printStackTrace();
             return ret;
         }
     }
@@ -130,7 +132,8 @@ public class EventServiceImpl implements EventService {
             testData.setTestNo(test_no);
             testData.setUserNo(clientUserNo);
             testData.setPageType(request.get("page_type").toString());
-            testData.setDate(LocalDate.parse(request.get("date").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            testData.setDate(
+                    LocalDate.parse(request.get("date").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             testData.setSigned(Boolean.parseBoolean(request.get("signed").toString()));
             if (Boolean.parseBoolean(request.get("signed").toString())) {
                 testData.setGender(user.getGender());
@@ -144,6 +147,7 @@ public class EventServiceImpl implements EventService {
 
             return ret;
         } catch (Exception e) {
+            e.printStackTrace();
             return ret;
         }
     }
@@ -159,14 +163,15 @@ public class EventServiceImpl implements EventService {
             // url_no 찾기
             int url_no = (urlAttributeRepository.findByUrlNameAndTestNo(url, test_no)).getUrlNo();
 
-           // 넣을 data 생성
-           TestData testData = new TestData();
-           testData.setUrlNo(url_no);
-           testData.setTestNo(test_no);
-           testData.setUserNo(clientUserNo);
-           testData.setPageType(request.get("page_type").toString());
-           testData.setDate(LocalDate.parse(request.get("date").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-           testData.setSigned(Boolean.parseBoolean(request.get("signed").toString()));
+            // 넣을 data 생성
+            TestData testData = new TestData();
+            testData.setUrlNo(url_no);
+            testData.setTestNo(test_no);
+            testData.setUserNo(clientUserNo);
+            testData.setPageType(request.get("page_type").toString());
+            testData.setDate(
+                    LocalDate.parse(request.get("date").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            testData.setSigned(Boolean.parseBoolean(request.get("signed").toString()));
 
             // 데이터 삽입
             testDataRepository.save(testData);
@@ -174,6 +179,7 @@ public class EventServiceImpl implements EventService {
 
             return ret;
         } catch (Exception e) {
+            e.printStackTrace();
             return ret;
         }
     }

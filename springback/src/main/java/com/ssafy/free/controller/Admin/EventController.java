@@ -35,6 +35,7 @@ public class EventController {
         // 기록이 없는 경우
         if (clientConsumer == null) {
             try {
+                // 등록
                 clientConsumer = eventService.registUser(request);
             } catch (Exception e) {
                 response.status = false;
