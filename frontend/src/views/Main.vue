@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mymain pb-5">
     <Header />
     <div class="col-8 col-m-10 m-auto">
       <div class="infoBox my-2">
@@ -333,7 +333,7 @@ export default {
           return ["bg-danger", "text-light"];
         }
       } else {
-        return ["bg-light", "text-dark"];
+        return ["text-light"];
       }
     },
     edit(id) {
@@ -508,6 +508,10 @@ export default {
 </script>
 
 <style scoped>
+.mymain {
+  min-height: 100vh;
+  background-color: #313131;
+}
 .createBtn {
   float: right;
   font-size: 30px;
