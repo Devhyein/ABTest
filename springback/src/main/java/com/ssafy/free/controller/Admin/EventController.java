@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @CrossOrigin(origins = { "*" }, allowCredentials = "true")
 @RestController
 @RequestMapping("/spring")
@@ -52,6 +54,7 @@ public class EventController {
             try {
                 // 로그인 여부
                 boolean signed = Boolean.parseBoolean(request.get("signed").toString());
+                log.info("s= : "+signed+"");
 
                 int ret = 0;
                 // 로그인한 회원인 경우
@@ -71,6 +74,7 @@ public class EventController {
                     response.msg = "Fail to regist at basepage";
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 response.status = false;
                 response.msg = "Fail to access service";
             }
@@ -98,6 +102,7 @@ public class EventController {
                     response.msg = "Fail to event regist";
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 response.status = false;
                 response.msg = "Fail to access service";
             }

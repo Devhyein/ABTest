@@ -65,7 +65,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public int unSignedBase(HashMap<String, Object> request, int clientUserNo) {
-        log.info("======Enter the isSignedBase Service======");
+        log.info("======Enter the UnSignedBase Service======");
         int ret = 0;
         try {
             int test_no = Integer.parseInt(request.get("test_no").toString());
@@ -74,6 +74,7 @@ public class EventServiceImpl implements EventService {
             TestData testData = new TestData();
             testData.setTestNo(test_no);
             testData.setUserNo(clientUserNo);
+            testData.setUrlNo(null);
             testData.setPageType(request.get("page_type").toString());
             testData.setDate(
                     LocalDate.parse(request.get("date").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
