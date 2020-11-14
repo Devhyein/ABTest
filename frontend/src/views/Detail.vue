@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mydetail pb-5">
     <EncarHeader />
     <div class="col-8 col-m-10 mx-auto my-5">
       <!-- 이 부분 예쁘게 해주세요(와이어프레임 참고해주세요) -->
@@ -506,7 +506,7 @@ export default {
       if (this.tabIndex === idx) {
         return ["bg-danger", "text-light"];
       } else {
-        return ["bg-light", "text-dark"];
+        return ["text-light"];
       }
     },
   },
@@ -744,6 +744,10 @@ export default {
 };
 </script>
 <style>
+.mydetail {
+  min-height: 100vh;
+  background-color: #313131;
+}
 .graphChart {
   margin-top: 40px;
 }
