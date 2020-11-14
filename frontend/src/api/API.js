@@ -149,7 +149,10 @@ const API = {
     getDetailTest:(data,callback,errorCallback)=>getApi('/spring/detail/test',data,callback,errorCallback),
     getDetailTestGender:(data,callback,errorCallback)=>getApi('/spring/detail/gender/test',data,callback,errorCallback),
     getDetailTestAge:(data,callback,errorCallback)=>getApi('/spring/detail/age/test',data,callback,errorCallback),
-    getDetailTestCustom:(data,callback,errorCallback)=>getApi('/spring/detail/custom/test',data,callback,errorCallback),
+    getDetailTestCustom: (data, callback, errorCallback) => getApi('/spring/detail/custom/test', data, callback, errorCallback),
+    
+    getTableDataGender:(data,callback,errorCallback)=>getApi('/spring/detail/table/gender/test',data,callback,errorCallback),
+    getTableDataAge:(data,callback,errorCallback)=>getApi('/spring/detail/table/age/test',data,callback,errorCallback),
 
     getDetailTestConversionWithUrl:(data,callback,errorCallback)=>getApi('/spring/detail/conversion/url',data,callback,errorCallback),
 
