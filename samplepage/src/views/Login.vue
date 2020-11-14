@@ -24,6 +24,7 @@
 import encar from "@/assets/encar.png";
 import API from "@/api/API";
 import swal from "sweetalert";
+import clickEvent from "@/click/click.js";
 
 export default {
   name: "Login",
@@ -46,6 +47,7 @@ export default {
           console.log(res);
           swal("로그인 완료", "정상적으로 로그인 되었습니다.", "success");
           this.$store.commit("addUserInfo", res);
+          sessionStorage.setItem("userInfo", res);
           console.log(this.$store.state.user);
           this.$router.push({name: 'Main'})
         },
@@ -57,6 +59,8 @@ export default {
       );
     },
     join() {
+      console.log("회원가입");
+      clickEvent(this, "/join");
       this.$router.push({name: 'Join'})
     },
     reset() {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <EncarHeader />
-    <div class="mx-5 my-5">
+    <div class="myinsert">
       <b-row class="mx-5 my-3 align-items-center">
         <b-col sm="3" class="text-left">
           <label class="m-0">실험명 :</label>
@@ -43,7 +43,10 @@
           <label class="m-0">URL :</label>
         </b-col>
         <b-col sm="9">
-          <b-form-input v-model="input.url_a" placeholder="실험을 진행할 페이지의 URL을 입력하세요." />
+          <b-form-input
+            v-model="input.url_a"
+            placeholder="실험을 진행할 페이지의 URL을 입력하세요."
+          />
         </b-col>
       </b-row>
 
@@ -72,38 +75,30 @@
       <b-row class="mx-5 my-3 align-items-center">
         <b-col sm="3" class="text-left">
           <label class="m-0">전환율 분석 페이지</label>
-          <b-icon-plus-circle @click="addRow" class="text-primary ml-2"></b-icon-plus-circle>
+          <b-icon-plus-circle
+            v-if="rows.length != 5"
+            @click="addRow"
+            class="text-primary ml-2"
+          ></b-icon-plus-circle>
         </b-col>
         <b-col sm="9">
-          <div v-for="(row, idx) in rows" :key="idx" class="d-flex justify-content-between align-items-center my-2">
-            <b-form-input v-model="row.url" class="mr-3" placeholder="전환율을 분석할 페이지의 URL을 입력하세요." />
-            <b-icon-dash-circle @click="removeRow(idx)" class="mr-3 text-danger"></b-icon-dash-circle>
+          <div
+            v-for="(row, idx) in rows"
+            :key="idx"
+            class="d-flex justify-content-between align-items-center my-2"
+          >
+            <b-form-input
+              v-model="row.url"
+              class="mr-3"
+              placeholder="전환율을 분석할 페이지의 URL을 입력하세요."
+            />
+            <b-icon-dash-circle
+              v-if="rows.length > 1"
+              @click="removeRow(idx)"
+              class="mr-3 text-danger"
+            ></b-icon-dash-circle>
           </div>
-          <!-- <table>
-            <tbody>
-              <tr v-for="(row, idx) in rows" :key="idx">
-                <td><input type="text" v-model="row.url" /></td>
-                <td>
-                  <b-icon-dash-circle @click="removeRow(idx)" />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <b-icon-plus-circle @click="addRow" /> -->
         </b-col>
-        <!-- <b-col sm="9">
-          <table>
-            <tbody>
-              <tr v-for="(row, idx) in rows" :key="idx">
-                <td><input type="text" v-model="row.url" /></td>
-                <td>
-                  <b-icon-dash-circle @click="removeRow(idx)" />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <b-icon-plus-circle @click="addRow" />
-        </b-col> -->
       </b-row>
 
       <div>
@@ -123,7 +118,9 @@
           ></b-form-input>
         </div>
       </div>
-      <b-button @click="dataCheck()" variant="success" class="mybutton mr-4">생성</b-button>
+      <b-button @click="dataCheck()" variant="success" class="mybutton mr-4"
+        >생성</b-button
+      >
       <b-button @click="reset()" class="mybutton">초기화</b-button>
     </div>
   </div>
@@ -140,7 +137,7 @@ export default {
   },
   data() {
     return {
-      urls:[],
+      urls: [],
       today: new Date(),
       input: {
         test_title: "",
@@ -174,7 +171,7 @@ export default {
       console.log(this.rows);
     },
     removeRow(idx) {
-       if (this.rows.length == 1) {
+      if (this.rows.length == 1) {
         swal(
           "삭제 실패",
           "최소 1개의 전환율 분석페이지가 필요합니다.",
@@ -182,7 +179,6 @@ export default {
         );
         return;
       }
-
       this.rows.splice(idx, 1);
       console.log(this.rows);
     },
@@ -253,7 +249,7 @@ export default {
         (this.input.end = ""),
         (this.input.per_a = 50),
         (this.input.per_b = 50),
-        (this.rows = {url:""});
+        (this.rows = { url: "" });
     },
   },
   created() {
@@ -278,6 +274,9 @@ export default {
 </script>
 
 <style scoped>
+.myinsert {
+  margin: 65px 200px;
+}
 .mybutton {
   width: 80px;
 }

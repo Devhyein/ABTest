@@ -3,14 +3,12 @@ package com.ssafy.free.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ssafy.free.dto.Admin.PageCnt;
 import com.ssafy.free.dto.Admin.Test;
 import com.ssafy.free.dto.Admin.UrlAttribute;
 import com.ssafy.free.dto.Analysis.Analysis;
 import com.ssafy.free.dto.Analysis.AnalysisConversionWithUrl;
 import com.ssafy.free.repository.BuyerRepository;
 import com.ssafy.free.repository.ClientConsumerRepository;
-import com.ssafy.free.repository.PageCntRepository;
 import com.ssafy.free.repository.TestDataRepository;
 import com.ssafy.free.repository.TestRepository;
 import com.ssafy.free.repository.UrlAttributeRepository;
@@ -26,9 +24,6 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     TestDataRepository testDataRepository;
-
-    @Autowired
-    PageCntRepository pageRepo;
 
     @Autowired
     UrlAttributeRepository urlRepo;
@@ -48,47 +43,34 @@ public class TestServiceImpl implements TestService {
                 Analysis analysis = new Analysis(test);
 
                 // 전환율
-                // test_no를 가진 testdata를 모두 가져와서
-                float conA = testDataRepository.countByTestNoAndPageType(test.getTestNo(), "A");
-                float conB = testDataRepository.countByTestNoAndPageType(test.getTestNo(), "B");
+                float clickA = testDataRepository.countByTestNoAndPageType(test_no, "A")
+                        - testDataRepository.countByTestNoAndPageTypeAndUrlNo(test_no, "A", null);
+                float clickB = testDataRepository.countByTestNoAndPageType(test_no, "B")
+                        - testDataRepository.countByTestNoAndPageTypeAndUrlNo(test_no, "B", null);
 
-                List<PageCnt> totalPage = pageRepo.findAllByTestNo(test.getTestNo());
-                float totalA = 0;
-                float totalB = 0;
+                float totalA = testDataRepository.countByTestNoAndPageTypeAndUrlNo(test_no, "A", null);
+                float totalB = testDataRepository.countByTestNoAndPageTypeAndUrlNo(test_no, "B", null);
 
-                for (PageCnt page : totalPage) {
-                    totalA += page.getCntA();
-                    totalB += page.getCntB();
-                }
+                analysis.setConversionA((float) (Math.round((clickA / totalA) * 1000) / 10.0));
+                analysis.setConversionB((float) (Math.round((clickB / totalB) * 1000) / 10.0));
 
-                float tempA = 0;
-                float tempB = 0;
-
-                if (totalA != 0)
-                    tempA = (conA / totalA);
-                if (totalB != 0)
-                    tempB = (conB / totalB);
-
-                analysis.setConversionA((float) (Math.round(tempA * 1000) / 10.0));
-                analysis.setConversionB((float) (Math.round(tempB * 1000) / 10.0));
-
-                analysis.setCon_rate((float) (Math.round((tempB - tempA) * 1000) / 10.0));
+                analysis.setCon_rate((float) (Math.round(((clickB / totalB) - (clickA / totalA)) * 1000) / 10.0));
 
                 // 이탈률
-                analysis.setBounceA((float) (Math.round((1 - (conA / totalA)) * 1000) / 10.0));
-                analysis.setBounceB((float) (Math.round((1 - (conB / totalB)) * 1000) / 10.0));
+                analysis.setBounceA((float) (Math.round((1 - (clickA / totalA)) * 1000) / 10.0));
+                analysis.setBounceB((float) (Math.round((1 - (clickB / totalB)) * 1000) / 10.0));
                 analysis.setBo_rate(
-                        (float) (Math.round(((1 - (conB / totalB)) - (1 - (conA / totalA))) * 1000) / 10.0));
+                        (float) (Math.round(((1 - (clickB / totalB)) - (1 - (clickA / totalA))) * 1000) / 10.0));
 
                 // 가입률
-                totalA = userRepo.countByTestNoAndPageType(test.getTestNo(), "A");
-                totalB = userRepo.countByTestNoAndPageType(test.getTestNo(), "B");
+                totalA = testDataRepository.countByTestNoAndPageType(test.getTestNo(), "A");
+                totalB = testDataRepository.countByTestNoAndPageType(test.getTestNo(), "B");
                 // 이거 중복되는 유저 제거해서 세야함
                 float joinA = testDataRepository.countByTestNoAndPageTypeAndSigned(test.getTestNo(), "A", true);
                 float joinB = testDataRepository.countByTestNoAndPageTypeAndSigned(test.getTestNo(), "B", true);
 
-                tempA = 0;
-                tempB = 0;
+                float tempA = 0;
+                float tempB = 0;
 
                 if (totalA != 0)
                     tempA = (joinA / totalA);
@@ -122,13 +104,9 @@ public class TestServiceImpl implements TestService {
         List<Float> conversionB = new ArrayList<>();
 
         List<UrlAttribute> urlList = urlRepo.findByTestNo(testno);
-        List<PageCnt> pageList = pageRepo.findAllByTestNo(testno);
-        float cntA = 0;
-        float cntB = 0;
-        for (PageCnt page : pageList) {
-            cntA += page.getCntA();
-            cntB += page.getCntB();
-        }
+
+        float cntA = testDataRepository.countByTestNoAndPageTypeAndUrlNo(testno, "A", null);
+        float cntB = testDataRepository.countByTestNoAndPageTypeAndUrlNo(testno, "B", null);
 
         for (UrlAttribute url : urlList) {
             urls.add(url.getUrlName());
@@ -140,12 +118,13 @@ public class TestServiceImpl implements TestService {
 
             float A = 0;
             float B = 0;
+
             if (cntA > 0)
                 A = cntUrlA / cntA;
             if (cntB > 0)
                 B = cntUrlB / cntB;
-            conversionA.add((float) (Math.round(A * 100) / 100.0));
-            conversionB.add((float) (Math.round(B * 100) / 100.0));
+            conversionA.add((float) (Math.round(A * 1000) / 10.0));
+            conversionB.add((float) (Math.round(B * 1000) / 10.0));
 
         }
         result.setUrls(urls);

@@ -5,14 +5,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ssafy.free.dto.Admin.PageCnt;
 import com.ssafy.free.dto.Admin.Test;
 import com.ssafy.free.dto.Analysis.GraphData;
 import com.ssafy.free.dto.Analysis.GraphDataAge;
 import com.ssafy.free.dto.Analysis.GraphDataGender;
 import com.ssafy.free.repository.BuyerRepository;
 import com.ssafy.free.repository.ClientConsumerRepository;
-import com.ssafy.free.repository.PageCntRepository;
 import com.ssafy.free.repository.TestDataRepository;
 import com.ssafy.free.repository.TestRepository;
 
@@ -26,9 +24,6 @@ public class GraphServiceImpl implements GraphService {
     TestRepository testRepository;
 
     @Autowired
-    PageCntRepository pageRepo;
-
-    @Autowired
     TestDataRepository testDataRepository;
 
     @Autowired
@@ -39,7 +34,6 @@ public class GraphServiceImpl implements GraphService {
 
     @Override
     public GraphData getChartConversion(int test_no) {
-        System.out.println("전환율 START");
         GraphData data = new GraphData();
         try {
             Test test = testRepository.getOne(test_no);
@@ -51,29 +45,29 @@ public class GraphServiceImpl implements GraphService {
                 List<Float> AChartData = new ArrayList<Float>();
                 List<Float> BChartData = new ArrayList<Float>();
                 List<String> date = new ArrayList<String>();
-                // 전체 페이지 제공 회수
-                List<PageCnt> pagecnt = pageRepo.findByTestNoOrderByDateAsc(test_no);
-                for (PageCnt page : pagecnt) {
-                    // 각 날짜의 전체 페이지 제공 횟수
-                    LocalDate pageDate = page.getDate();
-                    while (!start.equals(pageDate)) {
-                        AChartData.add((float) 0);
-                        BChartData.add((float) 0);
-                        date.add(start.getMonthValue() + "/" + start.getDayOfMonth());
-                        start = start.plusDays(1);
-                        // System.out.println(LocalDate.parse(start.toString(),
-                        // DateTimeFormatter.ofPattern("MM-dd")));
-                    }
-                    float cntA = page.getCntA();
-                    float cntB = page.getCntB();
 
-                    // 각 날짜의 전체 페이지 전환 횟수
-                    float clickA = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "A", pageDate);
-                    float clickB = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "B", pageDate);
-                    float A = clickA / cntA;
-                    AChartData.add((float) (Math.round(A * 1000) / 1000.0) * 100);
-                    float B = clickB / cntB;
-                    BChartData.add((float) (Math.round(B * 1000) / 1000.0) * 100);
+                // 각 날짜의 전체 페이지 제공 횟수
+                while (!start.equals(test.getEnd()) && !start.equals(today)) {
+                    float totalA = testDataRepository.countByTestNoAndPageTypeAndDateAndUrlNo(test_no, "A", start,
+                            null);
+                    float totalB = testDataRepository.countByTestNoAndPageTypeAndDateAndUrlNo(test_no, "B", start,
+                            null);
+                    if (totalA == 0) {
+                        AChartData.add((float) 0);
+                    } else {
+                        float clickA = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "A", start)
+                                - testDataRepository.countByTestNoAndPageTypeAndDateAndUrlNo(test_no, "A", start, null);
+                        float A = clickA / totalA;
+                        AChartData.add((float) (Math.round(A * 1000) / 1000.0) * 100);
+                    }
+                    if (totalB == 0)
+                        BChartData.add((float) 0);
+                    else {
+                        float clickB = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "B", start)
+                                - testDataRepository.countByTestNoAndPageTypeAndDateAndUrlNo(test_no, "B", start, null);
+                        float B = clickB / totalB;
+                        BChartData.add((float) (Math.round(B * 1000) / 1000.0) * 100);
+                    }
                     date.add(start.getMonthValue() + "/" + start.getDayOfMonth());
                     start = start.plusDays(1);
                 }
@@ -88,7 +82,6 @@ public class GraphServiceImpl implements GraphService {
                 data.setAChartData(AChartData);
                 data.setBChartData(BChartData);
                 data.setDate(date);
-                System.out.println("END");
                 return data;
             } else {
                 return null;
@@ -103,7 +96,6 @@ public class GraphServiceImpl implements GraphService {
 
     @Override
     public GraphData getChartBounce(int test_no) {
-
         GraphData data = new GraphData();
         try {
             Test test = testRepository.getOne(test_no);
@@ -115,34 +107,36 @@ public class GraphServiceImpl implements GraphService {
                 List<Float> AChartData = new ArrayList<Float>();
                 List<Float> BChartData = new ArrayList<Float>();
                 List<String> date = new ArrayList<String>();
-                // 전체 페이지 제공 회수
-                List<PageCnt> pagecnt = pageRepo.findByTestNoOrderByDateAsc(test_no);
-                for (PageCnt page : pagecnt) {
-                    // 각 날짜의 전체 페이지 제공 횟수
-                    LocalDate pageDate = page.getDate();
-                    while (!start.equals(pageDate)) {
-                        AChartData.add((float) 100);
-                        BChartData.add((float) 100);
-                        date.add(start.getMonthValue() + "/" + start.getDayOfMonth());
-                        start = start.plusDays(1);
-                    }
-                    float cntA = page.getCntA();
-                    float cntB = page.getCntB();
 
-                    // 각 날짜의 전체 페이지 전환 횟수
-                    float clickA = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "A", pageDate);
-                    float clickB = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "B", pageDate);
-                    float A = clickA / cntA;
-                    AChartData.add((float) (Math.round((1 - A) * 1000) / 10.0));
-                    float B = clickB / cntB;
-                    BChartData.add((float) (Math.round((1 - B) * 1000) / 10.0));
+                // 각 날짜의 전체 페이지 제공 횟수
+                while (!start.equals(test.getEnd()) && !start.equals(today)) {
+                    float totalA = testDataRepository.countByTestNoAndPageTypeAndDateAndUrlNo(test_no, "A", start,
+                            null);
+                    float totalB = testDataRepository.countByTestNoAndPageTypeAndDateAndUrlNo(test_no, "B", start,
+                            null);
+                    if (totalA == 0) {
+                        AChartData.add((float) 0);
+                    } else {
+                        float clickA = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "A", start)
+                                - testDataRepository.countByTestNoAndPageTypeAndDateAndUrlNo(test_no, "A", start, null);
+                        float A = clickA / totalA;
+                        AChartData.add((float) (Math.round((1 - A) * 1000) / 1000.0) * 100);
+                    }
+                    if (totalB == 0)
+                        BChartData.add((float) 0);
+                    else {
+                        float clickB = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "B", start)
+                                - testDataRepository.countByTestNoAndPageTypeAndDateAndUrlNo(test_no, "B", start, null);
+                        float B = clickB / totalB;
+                        BChartData.add((float) (Math.round((1 - B) * 1000) / 1000.0) * 100);
+                    }
                     date.add(start.getMonthValue() + "/" + start.getDayOfMonth());
                     start = start.plusDays(1);
                 }
                 start = start.minusDays(1);
                 while (!start.equals(test.getEnd()) && !start.equals(today)) {
-                    AChartData.add((float) 100);
-                    BChartData.add((float) 100);
+                    AChartData.add((float) 0);
+                    BChartData.add((float) 0);
                     start = start.plusDays(1);
                     date.add(start.getMonthValue() + "/" + start.getDayOfMonth());
                 }
@@ -150,7 +144,6 @@ public class GraphServiceImpl implements GraphService {
                 data.setAChartData(AChartData);
                 data.setBChartData(BChartData);
                 data.setDate(date);
-
                 return data;
             } else {
                 return null;
@@ -159,6 +152,7 @@ public class GraphServiceImpl implements GraphService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
@@ -178,8 +172,8 @@ public class GraphServiceImpl implements GraphService {
                 List<String> date = new ArrayList<String>();
 
                 while (!start.minusDays(1).equals(test.getEnd()) && !start.minusDays(1).equals(today)) {
-                    float userA = userRepo.countByTestNoAndPageTypeAndDate(test_no, "A", start);
-                    float userB = userRepo.countByTestNoAndPageTypeAndDate(test_no, "B", start);
+                    float userA = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "A", start);
+                    float userB = testDataRepository.countByTestNoAndPageTypeAndDate(test_no, "B", start);
 
                     // 가입률
                     // 중복되는 유저 제거하고 세야함
@@ -187,7 +181,6 @@ public class GraphServiceImpl implements GraphService {
                             "A", true, start);
                     float joinUserB = testDataRepository.countByTestNoAndPageTypeAndSignedAndJoinDate(test.getTestNo(),
                             "B", true, start);
-
                     AChartData.add((float) (Math.round((joinUserA / userA) * 1000) / 1000.0) * 100);
                     BChartData.add((float) (Math.round((joinUserB / userB) * 1000) / 1000.0) * 100);
                     date.add(start.getMonthValue() + "/" + start.getDayOfMonth());
@@ -342,7 +335,7 @@ public class GraphServiceImpl implements GraphService {
                 float B = testDataRepository.countByTestNoAndPageTypeAndAgeAndUrlNo(test_no, "B", age, null);
                 float totalB = testDataRepository.countByTestNoAndPageTypeAndAge(test_no, "B", age);
                 float upB = totalB - B;
-                aData.add((float) (Math.round((upA / A) * 1000) / 10.0));
+                aData.add((float) (Math.round((upA / A) * 1000) / 10.0) * (-1));
                 bData.add((float) (Math.round((upB / B) * 1000) / 10.0));
             }
             data.setAChartData(aData);
@@ -370,7 +363,7 @@ public class GraphServiceImpl implements GraphService {
                 float B = testDataRepository.countByTestNoAndPageTypeAndAgeAndUrlNo(test_no, "B", age, null);
                 float totalB = testDataRepository.countByTestNoAndPageTypeAndAge(test_no, "B", age);
                 float upB = totalB - B;
-                aData.add((float) (Math.round((1 - (upA / A)) * 1000) / 10.0));
+                aData.add((float) (Math.round((1 - (upA / A)) * 1000) / 10.0) * (-1));
                 bData.add((float) (Math.round((1 - (upB / B)) * 1000) / 10.0));
             }
             data.setAChartData(aData);

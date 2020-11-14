@@ -12,9 +12,7 @@ const state = {
     user:{
 
     },
-    sample:{
-
-    },test:{
+    test:{
 
     },
 }

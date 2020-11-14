@@ -8,16 +8,13 @@
       </b-navbar-brand>
     </b-navbar>
 
-    <b-sidebar
-      id="sidebar"
-      bg-variant="light"
-      shadow
-    >
+    <b-sidebar id="sidebar" bg-variant="light" shadow>
       <template #footer>
         <div class="mysidefooter d-flex justify-content-around py-3">
           <small class="d-block">이벤트</small>
           <small class="d-block">공지사항</small>
-          <small class="d-block" @click="login">로그인</small>
+          <small class="d-block" v-if="isLogin" @click="login">로그인</small>
+          <small class="d-block" v-else @click="logout">로그아웃</small>
         </div>
       </template>
       <div class="d-flex justify-content-around px-2 pt-3 bg-white">
@@ -27,7 +24,7 @@
         </div>
         <div>
           <b-icon-search class="myicon mb-1"></b-icon-search>
-          <p>최근검색</p>
+          <p @click="search()">최근검색</p>
         </div>
         <div>
           <b-icon-heart class="myicon mb-1"></b-icon-heart>
@@ -39,12 +36,12 @@
       </div>
       <div class="mysidebar bg-white">
         <div class="d-flex justify-content-around px-3 pt-4">
-          <h5><strong>차량검색</strong></h5>
-          <h5><strong>내차팔기</strong></h5>
+          <h5><strong @click="search()">차량검색</strong></h5>
+          <h5><strong @click="sell()">내차팔기</strong></h5>
         </div>
         <div class="text-left mx-4">
           <hr />
-          <strong>내차사기 홈서비스</strong>
+          <strong @click="buy()">내차사기 홈서비스</strong>
           <hr />
           <strong>금융</strong>
           <hr />
@@ -74,7 +71,7 @@
       <b-input-group class="myinputgroup py-2 mx-3 my-3 sticky-top bg-white">
         <b-input-group-prepend>
           <b-button class="mysearch bg-white"
-            ><b-icon-search></b-icon-search
+            ><b-icon-search @click="search()"></b-icon-search
           ></b-button>
         </b-input-group-prepend>
         <b-form-input
@@ -85,12 +82,14 @@
       </b-input-group>
       <div class="d-flex justify-content-between mx-3">
         <div class="d-flex align-items-center">
-          <small class="mr-2">엔카진단</small>
-          <small class="mr-2">엔카보증</small>
-          <small>엔카홈서비스</small>
+          <small class="mr-2" @click="buy()">엔카진단</small>
+          <small class="mr-2" @click="buy()">엔카보증</small>
+          <small @click="buy()">엔카홈서비스</small>
         </div>
         <div class="d-flex align-items-center">
-          <small>최근검색 <b-icon-chevron-right></b-icon-chevron-right></small>
+          <small @click="search()"
+            >최근검색 <b-icon-chevron-right></b-icon-chevron-right
+          ></small>
         </div>
       </div>
       <div class="text-left ml-3 mt-5">
@@ -98,8 +97,8 @@
       </div>
       <div class="d-flex justify-content-between mx-3 my-3">
         <div class="d-flex align-items-center">
-          <small class="mr-2">비교견적</small>
-          <small>셀프등록</small>
+          <small class="mr-2" @click="sell()">비교견적</small>
+          <small @click="sell()">셀프등록</small>
         </div>
         <div class="d-flex align-items-center">
           <small class="myarrow"
@@ -111,6 +110,7 @@
       <div class="py-3 bg-light">
         <strong>안심하고 구매하는 중고차</strong>
         <div
+          @click="buy()"
           class="d-flex justify-content-between mx-3 my-3 px-3 py-3 bg-white mydiv"
         >
           <div class="d-flex">
@@ -125,6 +125,7 @@
           </div>
         </div>
         <div
+          @click="buy()"
           class="d-flex justify-content-between mx-3 my-3 px-3 py-3 bg-white mydiv"
         >
           <div class="d-flex">
@@ -139,6 +140,7 @@
           </div>
         </div>
         <div
+          @click="buy()"
           class="d-flex justify-content-between mx-3 my-3 px-3 py-3 bg-white mydiv"
         >
           <div class="d-flex">
@@ -157,6 +159,7 @@
           </div>
         </div>
         <div
+          @click="buy()"
           class="d-flex justify-content-between mx-3 mt-3 px-3 py-3 bg-white mydiv"
         >
           <div class="d-flex">
@@ -190,7 +193,7 @@
       </b-nav-item>
       <b-nav-item>
         <b-icon-tag class="text-dark"></b-icon-tag>
-        <p class="mytab text-dark mt-1 mb-2">내차팔기</p>
+        <p class="mytab text-dark mt-1 mb-2" @click="sell()">내차팔기</p>
       </b-nav-item>
       <b-nav-item>
         <b-icon-graph-up class="text-dark"></b-icon-graph-up>
@@ -210,6 +213,7 @@
 
 <script>
 import encar from "@/assets/encar.png";
+import clickEvent from "@/click/click.js";
 
 export default {
   name: "SampleA",
@@ -221,7 +225,31 @@ export default {
   methods: {
     login() {
       console.log("로그인");
+      clickEvent(this, "/login");
       this.$router.push("/sample/login");
+    },
+    sell() {
+      console.log("팔기");
+      clickEvent(this, "/sell");
+    },
+    buy() {
+      console.log("사기");
+      clickEvent(this, "/buy");
+    },
+    search() {
+      console.log("검색");
+      clickEvent(this, "/search");
+    },
+    logout() {
+      console.log("로그아웃");
+      this.$store.commit("deleteUserInfo");
+      sessionStorage.removeItem("userInfo");
+      this.$router.push({ name: "Main" });
+    },
+  },
+  computed: {
+    isLogin() {
+      return this.$store.state.isLogin;
     },
   },
 };
