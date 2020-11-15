@@ -110,7 +110,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ```
 
 API
-===
+=========
 
 ### Get AorB
 Get : http://k3a103.p.ssafy.io/api/assign
@@ -134,7 +134,7 @@ Get : http://k3a103.p.ssafy.io/api/assign
 </pre>
 
 ### Get AorB
-Post : http://k3a103.p.ssafy.io/api/assign
+Post : http://k3a103.p.ssafy.io//spring/event/click
 
 ### request
 <pre>
