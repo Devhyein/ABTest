@@ -47,24 +47,27 @@ A/B Test 솔루션인 저희 AorB의 흐름입니다.
 
 9. 상세(전체) :
 
-개발환경 - Web/API서버/데이터파이프라인
-사용언어
-- Database : My-SQL
-- Back-end : Java(V. 14), Spring (V. 2.3.4)., Kafka
-- Front-end: JavaScript, vue.js (V. 3.x, use yarn)등
-인 프 라
-- EC2 (아마존)
-- GitLab
+## Architecture
+```
+- OS - Ubuntu
+- version
+-- Database : My-SQL
+-- Back-end : Java(V. 14), Spring (V. 2.3.4)., Kafka
+-- Front-end: JavaScript, vue.js (V. 3.x, use yarn)등
+- infra
+-- EC2
+-- GitLab
+```
 
 ## Port Number
 ```
 - Front
- - Dashboard : 8081 
- - Sample page : 8082
+ 1. Dashboard : 8081 
+ 2. Sample page : 8082
 - Back
- - Dashboard : 3030
- - AB API : 3031
- - Sample page : 3032
+ 1. Dashboard : 3030
+ 2. AB API : 3031
+ 3. Sample page : 3032
 - MariaDB : 3306 
 - Jenkins : 8080
 - nginx : 80
