@@ -129,6 +129,7 @@
             </b-table>
           </b-tab>
         </b-tabs>
+
         <b-modal title="실험 수정" v-model="modalShow">
           <b-row class="my-1">
             <b-col sm="3">
@@ -196,11 +197,13 @@
           </template>
         </b-modal>
       </div>
-      <div>
-        <b-icon-plus
+      <div class="d-flex justify-content-end">
+        <h2>
+          <b-icon-plus
           @click="goInsert"
           class="rounded-circle bg-danger text-white createBtn"
         ></b-icon-plus>
+        </h2>
         <!-- <b-button pill class="createBtn" v-bind:to="'insert'"
           >실험생성</b-button
         > -->
@@ -320,7 +323,6 @@ export default {
         test.testB = test.test_b + "(" + test.per_b + "%)";
       }
     },
-
     linkClass(idx) {
       if (this.tabIndex === idx) {
         if (idx === 0) {
@@ -513,13 +515,10 @@ export default {
   background-color: #313131;
 }
 .createBtn {
-  float: right;
-  font-size: 30px;
   cursor: pointer;
 }
 .tabs {
   clear: both;
-  /* height: ; */
 }
 .infoBox {
   overflow: hidden;
