@@ -2,7 +2,6 @@
   <div class="mydetail pb-5">
     <EncarHeader />
     <div class="col-8 col-m-10 mx-auto my-5">
-      <!-- 이 부분 예쁘게 해주세요(와이어프레임 참고해주세요) -->
       <div class="text-left my-4">
         <h3 class="d-flex align-items-center">
           {{ detail.test_title }}
@@ -16,123 +15,77 @@
       </div>
       <b-tabs v-model="tabIndex">
         <b-tab title="전체" :title-link-class="linkClass(0)" @click="totalTab()">
-          <!-- <div class="d-flex"> -->
-            <b-row class="align-items-center graphChart">
-              <b-col cols="3">
+            <b-row class="align-items-center mt-3">
+              <b-col cols="7">
                 <b-form-select v-model="selected1" :options="options1" class="myselect" />
               </b-col>
-              <b-col cols="5" offset="4">
-                <div>
-                  <b-button variant="info" @click="urlModal()">
-                   페이지별 전환율 상세보기
-                  </b-button>              
-                </div>
-              </b-col>
             </b-row>
-            <b-row class="align-items-center graphChart">
+            <b-row class="align-items-center mt-3">
               <b-col cols="7">
                 <canvas id="myChart"></canvas>
               </b-col>
               <b-col cols="5">
+                <div class="mb-4">
+                  <b-button variant="info" @click="urlModal()">
+                   페이지별 전환율 상세보기
+                  </b-button>              
+                </div>
                 <b-table :items="tableData" :fields="fields" class="text-light"> </b-table>
               </b-col>
             </b-row>
 
-          <!-- </div> -->
-
         </b-tab>
         <b-tab title="성별" :title-link-class="linkClass(1)" @click="genderTab('male')">
-          <b-row class="graphChart">
-            <b-col cols="3">
+          <b-row class="mt-3">
+            <b-col cols="7">
               <b-form-select v-model="selected2" :options="options2" class="myselect" />
             </b-col>
-            <b-col cols="5" offset="4">
-              <b-button variant="info" @click="genderTab('male')" class="mr-5">
-                남성
-              </b-button>
-              <b-button variant="info" @click="genderTab('female')">
-                여성
-              </b-button>
-            </b-col>
           </b-row>
-            <!-- <b-row class="align-items-right">
-                <b-col cols="1" offset="7">
-                  <b-button variant="info" @click="genderTab('male')">
-                   남성
-                  </b-button>  
-                </b-col> 
-                <b-col cols="1">
-                  <b-button variant="info" @click="genderTab('female')">
-                   여성
-                  </b-button>                
-                </b-col>
-            </b-row> -->
-          <b-row class="align-items-center graphChart">
+          <b-row class="align-items-center mt-3">
               <b-col cols="7">
                 <canvas id="genderChart"></canvas>
               </b-col>
               <b-col cols="5">
-                <b-table :items="tableData" :fields="fields" class="text-light"> </b-table>
+                <b-tabs v-model="genderIndex">
+                  <b-tab title="남성" :title-link-class="genderClass(0)" @click="genderTab('male')">
+                    <b-table :items="tableData" :fields="fields" class="text-light"> </b-table>
+                  </b-tab>
+                  <b-tab title="여성" :title-link-class="genderClass(1)" @click="genderTab('female')">
+                    <b-table :items="tableData" :fields="fields" class="text-light"> </b-table>
+                  </b-tab>
+                </b-tabs>
               </b-col>
             </b-row>
         </b-tab>
 
         <b-tab title="연령대" :title-link-class="linkClass(2)" @click="ageTab(0)">
-          <b-row class="graphChart">
-            <b-col cols="3">
+          <b-row class="mt-3">
+            <b-col cols="7">
               <b-form-select v-model="selected3" :options="options2" class="myselect" />
             </b-col>
-            <b-col cols="5" offset="4">
-              <b-button variant="info" @click="ageTab(0)" class="mr-4">
-               20
-              </b-button>
-              <b-button variant="info" @click="ageTab(1)" class="mr-4">
-               30
-              </b-button>
-              <b-button variant="info" @click="ageTab(2)" class="mr-4">
-               40
-              </b-button>
-              <b-button variant="info" @click="ageTab(3)" class="mr-4">
-               50
-              </b-button>
-              <b-button variant="info" @click="ageTab(4)">
-               60대 이상
-              </b-button>
-            </b-col>
           </b-row>
-          <!-- <b-row class="align-items-right">
-            <b-col offset="6">
-              <b-button variant="info" @click="ageTab(0)">
-               20
-              </b-button>  
-            </b-col> 
-            <b-col>
-              <b-button variant="info" @click="ageTab(1)">
-               30
-              </b-button>                
-            </b-col>
-            <b-col>
-              <b-button variant="info" @click="ageTab(2)">
-               40
-              </b-button>                
-            </b-col>
-            <b-col>
-              <b-button variant="info" @click="ageTab(3)">
-               50
-              </b-button>                
-            </b-col>
-            <b-col cols="2">
-              <b-button variant="info" @click="ageTab(4)">
-               60대 이상
-              </b-button>                
-            </b-col>
-          </b-row> -->
-          <b-row class="align-items-center graphChart">
+          <b-row class="align-items-center mt-3">
               <b-col cols="7">
                 <canvas id="ageChart"></canvas>
               </b-col>
               <b-col cols="5">
-                <b-table :items="tableData" :fields="fields" class="text-light"> </b-table>
+                <b-tabs v-model="ageIndex">
+                  <b-tab title="20대" :title-link-class="ageClass(0)" @click="ageTab(0)">
+                    <b-table :items="tableData" :fields="fields" class="text-light"> </b-table>
+                  </b-tab>
+                  <b-tab title="30대" :title-link-class="ageClass(1)" @click="ageTab(1)">
+                    <b-table :items="tableData" :fields="fields" class="text-light"> </b-table>
+                  </b-tab>
+                  <b-tab title="40대" :title-link-class="ageClass(2)" @click="ageTab(2)">
+                    <b-table :items="tableData" :fields="fields" class="text-light"> </b-table>
+                  </b-tab>
+                  <b-tab title="50대" :title-link-class="ageClass(3)" @click="ageTab(3)">
+                    <b-table :items="tableData" :fields="fields" class="text-light"> </b-table>
+                  </b-tab>
+                  <b-tab title="60대 이상" :title-link-class="ageClass(4)" @click="ageTab(4)">
+                    <b-table :items="tableData" :fields="fields" class="text-light"> </b-table>
+                  </b-tab>
+                </b-tabs>
               </b-col>
             </b-row>
         </b-tab>
@@ -182,6 +135,8 @@ export default {
       totalData: totalData,
       modalShow: false,
       tabIndex: 0,
+      genderIndex: 0,
+      ageIndex: 0,
       tableData: [],
       detailTableData: [],
       // chart어떤식으로 받아야할지 공부
@@ -202,6 +157,7 @@ export default {
         label : ["20대","30대","40대","50대","60대 이상",]
       },
       fields: [
+        { key: "assortment", label: "구분" },
         { key: "testA", label: "A 안" },
         { key: "testB", label: "B 안" },
         { key: "rate", label: "증감률" },
@@ -227,35 +183,8 @@ export default {
     };
   },
   created() {
-
     this.totalTab();
 
-    // this.tableData = [
-    //   {
-    //     assortment: "전환율",
-    //     testA: this.detail.conversionA + "%",
-    //     testB: this.detail.conversionB + "%",
-    //     rate: this.detail.con_rate + "%",
-    //   },
-    //   {
-    //     assortment: "이탈률",
-    //     testA: this.detail.bounceA + "%",
-    //     testB: this.detail.bounceB + "%",
-    //     rate: this.detail.bo_rate + "%",
-    //   },
-    //   {
-    //     assortment: "회원가입률",
-    //     testA: this.detail.joinA + "%",
-    //     testB: this.detail.joinB + "%",
-    //     rate: this.detail.jo_rate + "%",
-    //   },
-    //   // {
-    //   //   assortment: "구매율",
-    //   //   testA: this.detail.purchaseA + "%",
-    //   //   testB: this.detail.purchaseB + "%",
-    //   //   rate: this.detail.pur_rate + "%",
-    //   // },
-    // ];
     if (this.detail.status == "진행전") this.detail.color = "success";
     else if (this.detail.status == "진행중") this.detail.color = "warning";
     else this.detail.color = "danger";
@@ -286,6 +215,12 @@ export default {
                 testB: res.joinB + "%",
                 rate: res.jo_rate + "%",
               },
+              // {
+              //   assortment: "구매율",
+              //   testA: this.detail.purchaseA + "%",
+              //   testB: this.detail.purchaseB + "%",
+              //   rate: this.detail.pur_rate + "%",
+              // },
             ];
       },
       (err) => {
@@ -676,6 +611,13 @@ export default {
           );
       }
     },
+    genderClass(idx) {
+      if (this.genderIndex === idx) {
+        return ["bg-info", "text-light"];
+      } else {
+        return ["text-light"];
+      }
+    },
     getChartDataAge(val){
         if (val == "전환율") {
           console.log("age-전환율");
@@ -722,6 +664,13 @@ export default {
         //     }
         //   );
         // }
+    },
+    ageClass(idx) {
+      if (this.ageIndex === idx) {
+        return ["bg-info", "text-light"];
+      } else {
+        return ["text-light"];
+      }
     },
   },
   watch: {
@@ -837,9 +786,6 @@ export default {
 .mydetail {
   min-height: 100vh;
   background-color: #313131;
-}
-.graphChart {
-  margin-top: 40px;
 }
 .modal-content {
   font-family: 'IBMPlexSansKR-SemiBold';
