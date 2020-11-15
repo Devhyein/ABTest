@@ -200,9 +200,9 @@
       <div class="d-flex justify-content-end">
         <h2>
           <b-icon-plus
-          @click="goInsert"
-          class="rounded-circle bg-danger text-white createBtn"
-        ></b-icon-plus>
+            @click="goInsert"
+            class="rounded-circle bg-danger text-white createBtn"
+          ></b-icon-plus>
         </h2>
         <!-- <b-button pill class="createBtn" v-bind:to="'insert'"
           >실험생성</b-button
@@ -453,10 +453,9 @@ export default {
     getAllTest() {
       (this.tests = []),
         API.getTestList(
-          "email=" + this.email,
-          "page=0", 
+          "email=" + this.email + "&page=0",
           (res) => {
-            this.tests = res;
+            this.tests = res.content;
             this.makeTableData();
           },
           (err) => {
@@ -467,9 +466,9 @@ export default {
     getBeforeTest() {
       (this.tests = []),
         API.getTestListBefore(
-          "email=" + this.email,
+          "email=" + this.email + "&page=0",
           (res) => {
-            this.tests = res;
+            this.tests = res.content;
             this.makeTableData();
           },
           (err) => {
@@ -480,9 +479,9 @@ export default {
     getProgressTest() {
       (this.tests = []),
         API.getTestListProgress(
-          "email=" + this.email,
+          "email=" + this.email + "&page=0",
           (res) => {
-            this.tests = res;
+            this.tests = res.content;
             this.makeTableData();
           },
           (err) => {
@@ -493,9 +492,9 @@ export default {
     getCompleteTest() {
       (this.tests = []),
         API.getTestListComplete(
-          "email=" + this.email,
+          "email=" + this.email + "&page=0",
           (res) => {
-            this.tests = res;
+            this.tests = res.content;
             this.makeTableData();
           },
           (err) => {
@@ -526,6 +525,12 @@ export default {
   width: 100%;
 }
 .status {
+  cursor: pointer;
+}
+.edit {
+  cursor: pointer;
+}
+.delete {
   cursor: pointer;
 }
 </style>
