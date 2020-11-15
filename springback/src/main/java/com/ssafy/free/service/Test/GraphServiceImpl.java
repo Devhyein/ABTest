@@ -9,10 +9,10 @@ import com.ssafy.free.dto.Admin.Test;
 import com.ssafy.free.dto.Analysis.GraphData;
 import com.ssafy.free.dto.Analysis.GraphDataAge;
 import com.ssafy.free.dto.Analysis.GraphDataGender;
-import com.ssafy.free.repository.BuyerRepository;
-import com.ssafy.free.repository.ClientConsumerRepository;
-import com.ssafy.free.repository.TestDataRepository;
-import com.ssafy.free.repository.TestRepository;
+import com.ssafy.free.repository.adminRepository.BuyerRepository;
+import com.ssafy.free.repository.adminRepository.ClientConsumerRepository;
+import com.ssafy.free.repository.adminRepository.TestDataRepository;
+import com.ssafy.free.repository.adminRepository.TestRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
