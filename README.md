@@ -109,8 +109,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ./mvnw spring-boot:run
 ```
 
-### Compiles and minifies for production
-
-```
-yarn build
-```
+### API
