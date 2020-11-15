@@ -202,27 +202,24 @@ export default {
         label : ["20대","30대","40대","50대","60대 이상",]
       },
       fields: [
-        { key: "assortment", label: "구분" },
         { key: "testA", label: "A 안" },
         { key: "testB", label: "B 안" },
         { key: "rate", label: "증감률" },
       ],
       detailFields: [],
 
-      selected1: null,
-      selected2: null,
-      selected3: null,
+      selected1: "전환율",
+      selected2: "전환율",
+      selected3: "전환율",
       // selected4: null,
 
       options1: [
-        { value: null, text: "구분" },
-        { value: "전환율", text: "전환율" },
+        { value: "전환율", text: "전환율"},
         { value: "이탈률", text: "이탈률" },
         { value: "회원가입률", text: "회원가입률" },
         // { value: "구매율", text: "구매율" },
       ],
       options2: [
-        { value: null, text: "구분" },
         { value: "전환율", text: "전환율" },
         { value: "이탈률", text: "이탈률" },
         // { value: "구매율", text: "구매율" },
@@ -230,38 +227,43 @@ export default {
     };
   },
   created() {
-    this.tableData = [
-      {
-        assortment: "전환율",
-        testA: this.detail.conversionA + "%",
-        testB: this.detail.conversionB + "%",
-        rate: this.detail.con_rate + "%",
-      },
-      {
-        assortment: "이탈률",
-        testA: this.detail.bounceA + "%",
-        testB: this.detail.bounceB + "%",
-        rate: this.detail.bo_rate + "%",
-      },
-      {
-        assortment: "회원가입률",
-        testA: this.detail.joinA + "%",
-        testB: this.detail.joinB + "%",
-        rate: this.detail.jo_rate + "%",
-      },
-      // {
-      //   assortment: "구매율",
-      //   testA: this.detail.purchaseA + "%",
-      //   testB: this.detail.purchaseB + "%",
-      //   rate: this.detail.pur_rate + "%",
-      // },
-    ];
+
+    this.totalTab();
+
+    // this.tableData = [
+    //   {
+    //     assortment: "전환율",
+    //     testA: this.detail.conversionA + "%",
+    //     testB: this.detail.conversionB + "%",
+    //     rate: this.detail.con_rate + "%",
+    //   },
+    //   {
+    //     assortment: "이탈률",
+    //     testA: this.detail.bounceA + "%",
+    //     testB: this.detail.bounceB + "%",
+    //     rate: this.detail.bo_rate + "%",
+    //   },
+    //   {
+    //     assortment: "회원가입률",
+    //     testA: this.detail.joinA + "%",
+    //     testB: this.detail.joinB + "%",
+    //     rate: this.detail.jo_rate + "%",
+    //   },
+    //   // {
+    //   //   assortment: "구매율",
+    //   //   testA: this.detail.purchaseA + "%",
+    //   //   testB: this.detail.purchaseB + "%",
+    //   //   rate: this.detail.pur_rate + "%",
+    //   // },
+    // ];
     if (this.detail.status == "진행전") this.detail.color = "success";
     else if (this.detail.status == "진행중") this.detail.color = "warning";
     else this.detail.color = "danger";
   },
   methods: {
     totalTab() {
+      this.selected1 = "전환율",
+      this.getChartDataTotal(this.selected1),
       API.getDetailTest(
       "test_no=" + this.detail.test_no,
       (res) => {
@@ -292,6 +294,8 @@ export default {
       );
     },
     genderTab(gender) {
+      this.selected2 = "전환율",
+      this.getChartDataGender(this.selected2),
       API.getTableDataGender(
       "test_no=" + this.detail.test_no,
       (res) => {
@@ -334,6 +338,8 @@ export default {
       );
     },
     ageTab(age) {
+      this.selected3 = "전환율",
+      this.getChartDataAge(this.selected3),
       API.getTableDataAge(
       "test_no=" + this.detail.test_no,
       (res) => {
@@ -582,14 +588,7 @@ export default {
         return ["text-light"];
       }
     },
-  },
-  mounted() {
-  
-    },
-  watch: {
-    // 드롭다운 보고있다가 selected에 변화가 생겼을때 API부르기
-    // chart에 넣기(어떻게 가져와서 각각 라인,바 차트에 넣을지 고민쓰)
-    selected1(val) {
+    getChartDataTotal(val) {
       if (val == "전환율") {
         console.log("전체-전환율");
         API.getChartConversion(
@@ -638,7 +637,100 @@ export default {
             console.log(err);
           }
         );
+    }
+    },
+    getChartDataGender(val) {
+      if (val == "전환율") {
+          console.log("gender-전환율");
+          API.getChartGenderConversion(
+            "test_no=" + this.detail.test_no,
+            (res) => {
+              console.log("RES : "+res);
+              //res를 chart로 만들기위해 데이터 넣어줘야함
+              this.genderChart.amaleChartData = res.amaleChartData;
+              this.genderChart.afemaleChartData = res.afemaleChartData;
+              this.genderChart.bmaleChartData = res.bmaleChartData;
+              this.genderChart.bfemaleChartData = res.bfemaleChartData;
+              this.createGenderChart();
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        } else if (val == "이탈률") {
+          console.log("gender-이탈률");
+          API.getChartGenderBounce(
+            "test_no=" + this.detail.test_no,
+            (res) => {
+              console.log(res);
+              //res를 chart로 만들기위해 데이터 넣어줘야함
+              this.genderChart.amaleChartData = res.amaleChartData;
+              this.genderChart.afemaleChartData = res.afemaleChartData;
+              this.genderChart.bmaleChartData = res.bmaleChartData;
+              this.genderChart.bfemaleChartData = res.bfemaleChartData;
+              this.createGenderChart();
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
       }
+    },
+    getChartDataAge(val){
+        if (val == "전환율") {
+          console.log("age-전환율");
+          API.getChartAgeConversion(
+            "test_no=" + this.detail.test_no,
+            (res) => {
+              console.log(res);
+              //res를 chart로 만들기위해 데이터 넣어줘야함
+              this.ageChart.aChartData = res.achartData;
+              this.ageChart.bChartData = res.bchartData;
+              this.createAgeChart();
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        } else if (val == "이탈률") {
+          console.log("age-이탈율");
+          API.getChartAgeBounce(
+            "test_no=" + this.detail.test_no,
+            (res) => {
+              console.log(res);
+              this.ageChart.aChartData = res.achartData;
+              this.ageChart.bChartData = res.bchartData;
+              this.createAgeChart();
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        }
+        // } else if (val == "구매율") {
+        //   console.log("age-구매율");
+        //   API.getChartAgePurchase(
+        //     "test_no=" + this.detail.test_no,
+        //     (res) => {
+        //       console.log(res);
+        //       this.ageChart.aChartData = res.achartData;
+        //       this.ageChart.bChartData = res.bchartData;
+        //       this.createAgeChart();
+        //     },
+        //     (err) => {
+        //       console.log(err);
+        //     }
+        //   );
+        // }
+    },
+  },
+  watch: {
+    // 드롭다운 보고있다가 selected에 변화가 생겼을때 API부르기
+    // chart에 넣기(어떻게 가져와서 각각 라인,바 차트에 넣을지 고민쓰)
+    selected1(val) {
+      console.log(val);
+      this.getChartDataTotal(val)
+    },
       // } else if (val == "구매율") {
       //   console.log("전체-구매율");
       //   API.getChartPurchase(
@@ -657,43 +749,9 @@ export default {
       //     }
       //   );
       // }
-    },
     selected2(val) {
-      if (val == "전환율") {
-        console.log("gender-전환율");
-        API.getChartGenderConversion(
-          "test_no=" + this.detail.test_no,
-          (res) => {
-            console.log("RES : "+res);
-            //res를 chart로 만들기위해 데이터 넣어줘야함
-            this.genderChart.amaleChartData = res.amaleChartData;
-            this.genderChart.afemaleChartData = res.afemaleChartData;
-            this.genderChart.bmaleChartData = res.bmaleChartData;
-            this.genderChart.bfemaleChartData = res.bfemaleChartData;
-            this.createGenderChart();
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
-      } else if (val == "이탈률") {
-        console.log("gender-이탈률");
-        API.getChartGenderBounce(
-          "test_no=" + this.detail.test_no,
-          (res) => {
-            console.log(res);
-            //res를 chart로 만들기위해 데이터 넣어줘야함
-            this.genderChart.amaleChartData = res.amaleChartData;
-            this.genderChart.afemaleChartData = res.afemaleChartData;
-            this.genderChart.bmaleChartData = res.bmaleChartData;
-            this.genderChart.bfemaleChartData = res.bfemaleChartData;
-            this.createGenderChart();
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
-      }
+      this.getChartDataGender(val)
+    },
       // } else if (val == "구매율") {
       //   console.log("gender-구매율");
       //   API.getChartGenderPurchase(
@@ -712,53 +770,8 @@ export default {
       //     }
       //   );
       // }
-    },
     selected3(val) {
-      if (val == "전환율") {
-        console.log("age-전환율");
-        API.getChartAgeConversion(
-          "test_no=" + this.detail.test_no,
-          (res) => {
-            console.log(res);
-            //res를 chart로 만들기위해 데이터 넣어줘야함
-            this.ageChart.aChartData = res.achartData;
-            this.ageChart.bChartData = res.bchartData;
-            this.createAgeChart();
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
-      } else if (val == "이탈률") {
-        console.log("age-이탈율");
-        API.getChartAgeBounce(
-          "test_no=" + this.detail.test_no,
-          (res) => {
-            console.log(res);
-            this.ageChart.aChartData = res.achartData;
-            this.ageChart.bChartData = res.bchartData;
-            this.createAgeChart();
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
-      }
-      // } else if (val == "구매율") {
-      //   console.log("age-구매율");
-      //   API.getChartAgePurchase(
-      //     "test_no=" + this.detail.test_no,
-      //     (res) => {
-      //       console.log(res);
-      //       this.ageChart.aChartData = res.achartData;
-      //       this.ageChart.bChartData = res.bchartData;
-      //       this.createAgeChart();
-      //     },
-      //     (err) => {
-      //       console.log(err);
-      //     }
-      //   );
-      // }
+      this.getChartDataAge(val)
     },
     // selected4(val) {
     //   if (val == "전환율") {
