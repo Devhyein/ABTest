@@ -15,7 +15,10 @@ const state = {
     test:{
 
     },
-    isLogin: false
+    isLogin: false,
+    sampleuser:{
+        
+    }
 }
 
 export default new Vuex.Store({
