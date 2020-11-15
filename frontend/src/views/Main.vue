@@ -454,6 +454,7 @@ export default {
       (this.tests = []),
         API.getTestList(
           "email=" + this.email,
+          "page=0",
           (res) => {
             this.tests = res;
             this.makeTableData();
