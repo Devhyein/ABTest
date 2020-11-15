@@ -110,3 +110,39 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ```
 
 ### API
+get : http://k3a103.p.ssafy.io/api/assign
+
+## request
+<pre>
+sadasd
+<code>
+{
+    url : "String",
+}
+</code>
+</pre>
+
+## response
+<code>
+{
+ "status": true, 
+"data": "success", 
+"object": A
+ }
+
+Post : http://k3a103.p.ssafy.io/api/assign
+</code>
+
+## request
+<pre>
+<code>
+
+<code>
+</pre>
+
+## response
+<pre>
+<code>
+
+<code>
+</pre>
