@@ -16,7 +16,7 @@
       <b-tabs v-model="tabIndex">
         <b-tab title="전체" :title-link-class="linkClass(0)" @click="totalTab()">
             <b-row class="align-items-center mt-3">
-              <b-col cols="7">
+              <b-col cols="2">
                 <b-form-select v-model="selected1" :options="options1" class="myselect" />
               </b-col>
             </b-row>
@@ -37,7 +37,7 @@
         </b-tab>
         <b-tab title="성별" :title-link-class="linkClass(1)" @click="genderTab('male')">
           <b-row class="mt-3">
-            <b-col cols="7">
+            <b-col cols="2">
               <b-form-select v-model="selected2" :options="options2" class="myselect" />
             </b-col>
           </b-row>
@@ -60,7 +60,7 @@
 
         <b-tab title="연령대" :title-link-class="linkClass(2)" @click="ageTab(0)">
           <b-row class="mt-3">
-            <b-col cols="7">
+            <b-col cols="2">
               <b-form-select v-model="selected3" :options="options2" class="myselect" />
             </b-col>
           </b-row>
