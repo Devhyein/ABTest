@@ -27,7 +27,7 @@
 
 <script>
 import bora from "@/assets/bora.png";
-import clickEvent from "@/click/click.js";
+import clickEvent from "@/click/sampleclick.js";
 
 export default {
   name: "TestB",

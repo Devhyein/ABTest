@@ -9,7 +9,7 @@
 import API from '@/api/API'
 import TestA from '@/components/TestA.vue'
 import TestB from '@/components/TestB.vue'
-import clickEvent from '@/click/click.js'
+import clickEvent from '@/click/sampleclick.js'
 
 export default {
   name: 'Test',
