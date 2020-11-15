@@ -35,7 +35,7 @@
             </b-row>
 
         </b-tab>
-        <b-tab title="성별" :title-link-class="linkClass(1)" @click="genderTab('male')">
+        <b-tab title="성별" :title-link-class="linkClass(1)" @click="genderTab('male'), resetSelectedTab()">
           <b-row class="mt-3">
             <b-col cols="2">
               <b-form-select v-model="selected2" :options="options2" class="myselect" />
@@ -58,7 +58,7 @@
             </b-row>
         </b-tab>
 
-        <b-tab title="연령대" :title-link-class="linkClass(2)" @click="ageTab(0)">
+        <b-tab title="연령대" :title-link-class="linkClass(2)" @click="ageTab(0), resetSelectedTab()">
           <b-row class="mt-3">
             <b-col cols="2">
               <b-form-select v-model="selected3" :options="options2" class="myselect" />
@@ -169,6 +169,10 @@ export default {
       selected3: "전환율",
       // selected4: null,
 
+      beforeSelectedAgeTab: "전환율",
+      beforeSelectedGenderTab: "전환율",
+
+
       options1: [
         { value: "전환율", text: "전환율"},
         { value: "이탈률", text: "이탈률" },
@@ -190,6 +194,11 @@ export default {
     else this.detail.color = "danger";
   },
   methods: {
+    resetSelectedTab() {
+      this.selected1 = "전환율",
+      this.selected2 = "전환율",
+      this.selected3 = "전환율"
+    },
     totalTab() {
       this.selected1 = "전환율",
       this.getChartDataTotal(this.selected1),
@@ -229,7 +238,8 @@ export default {
       );
     },
     genderTab(gender) {
-      this.selected2 = "전환율",
+      // this.selected2 = "전환율",
+      // beforeSelectedGenderTab = "전환율",
       this.getChartDataGender(this.selected2),
       API.getTableDataGender(
       "test_no=" + this.detail.test_no,
@@ -273,7 +283,6 @@ export default {
       );
     },
     ageTab(age) {
-      this.selected3 = "전환율",
       this.getChartDataAge(this.selected3),
       API.getTableDataAge(
       "test_no=" + this.detail.test_no,
