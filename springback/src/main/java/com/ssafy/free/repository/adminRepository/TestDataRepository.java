@@ -1,4 +1,4 @@
-package com.ssafy.free.repository;
+package com.ssafy.free.repository.adminRepository;
 
 import java.time.LocalDate;
 import java.util.List;

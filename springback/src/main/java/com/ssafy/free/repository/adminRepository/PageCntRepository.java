@@ -1,4 +1,4 @@
-package com.ssafy.free.repository;
+package com.ssafy.free.repository.adminRepository;
 
 import java.util.List;
 import com.ssafy.free.dto.Admin.PageCnt;

@@ -1,4 +1,4 @@
-package com.ssafy.free.service;
+package com.ssafy.free.service.AdminService;
 
 import com.ssafy.free.dto.Analysis.*;
 

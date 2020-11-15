@@ -1,4 +1,4 @@
-package com.ssafy.free.service;
+package com.ssafy.free.service.AdminService;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,9 +10,9 @@ import com.ssafy.free.dto.Admin.AdminUser;
 import com.ssafy.free.dto.Admin.Test;
 import com.ssafy.free.dto.Admin.TestResponse;
 import com.ssafy.free.dto.Admin.UrlAttribute;
-import com.ssafy.free.repository.AdminUserRepository;
-import com.ssafy.free.repository.TestRepository;
-import com.ssafy.free.repository.UrlAttributeRepository;
+import com.ssafy.free.repository.adminRepository.AdminUserRepository;
+import com.ssafy.free.repository.adminRepository.TestRepository;
+import com.ssafy.free.repository.adminRepository.UrlAttributeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
