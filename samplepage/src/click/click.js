@@ -28,14 +28,7 @@ export default function clickEvent(vue, url) {
     (res) => {
       console.log("click console",res);
       if (url != null) {
-        // if (vue.$router.currentRoute.name == "Main") {
-        //   console.log("reload");
           clickEvent(vue,null);
-        // } else {
-        //   console.log("main으로 컴백");
-        //   clickEvent(vue,null);
-        //   vue.$router.push({ name: "Main" });
-        // }
       }
     },
     (err) => {

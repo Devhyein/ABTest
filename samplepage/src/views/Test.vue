@@ -1,9 +1,7 @@
 <template>
   <div>
-    <TestA />
-    <TestB />
-    <!-- <TestA v-if="page_type === 'A'" />
-    <TestB v-if="page_type === 'B'" /> -->
+    <TestA v-if="page_type === 'A'" />
+    <TestB v-if="page_type === 'B'" />
   </div>
 </template>
 
