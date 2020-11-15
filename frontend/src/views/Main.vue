@@ -453,7 +453,7 @@ export default {
     getAllTest() {
       (this.tests = []),
         API.getTestList(
-          "email=" + this.email + "page=0",
+          "email=" + this.email + "&page=0",
           (res) => {
             this.tests = res;
             this.makeTableData();
@@ -466,7 +466,7 @@ export default {
     getBeforeTest() {
       (this.tests = []),
         API.getTestListBefore(
-          "email=" + this.email + "page=0",
+          "email=" + this.email + "&page=0",
           (res) => {
             this.tests = res;
             this.makeTableData();
@@ -479,7 +479,7 @@ export default {
     getProgressTest() {
       (this.tests = []),
         API.getTestListProgress(
-          "email=" + this.email + "page=0",
+          "email=" + this.email + "&page=0",
           (res) => {
             this.tests = res;
             this.makeTableData();
@@ -492,7 +492,7 @@ export default {
     getCompleteTest() {
       (this.tests = []),
         API.getTestListComplete(
-          "email=" + this.email + "page=0",
+          "email=" + this.email + "&page=0",
           (res) => {
             this.tests = res;
             this.makeTableData();
