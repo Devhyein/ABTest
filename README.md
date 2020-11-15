@@ -1,3 +1,6 @@
+A/B Testing Solution '보라'
+===========================
+
 ## 개요
 
 ## A/B 테스트?
@@ -51,15 +54,15 @@ A/B Test 솔루션인 저희 AorB의 흐름입니다.
 ```
 - OS - Ubuntu
 - version
--- Database : My-SQL
--- Back-end : Java(V. 14), Spring (V. 2.3.4)., Kafka
--- Front-end: JavaScript, vue.js (V. 3.x, use yarn)등
+ Database : My-SQL
+ Back-end : Java(V. 14), Spring (V. 2.3.4)., Kafka
+ Front-end: JavaScript, vue.js (V. 3.x, use yarn)등
 - infra
--- EC2
--- GitLab
+ EC2
+ GitLab
 ```
 
-## Port Number
+## Port
 ```
 - Front
  1. Dashboard : 8081 
