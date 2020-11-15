@@ -218,7 +218,6 @@ export default {
   methods: {
     login() {
       console.log("로그인");
-      clickEvent(this, "/login");
       this.$router.push("/sample/login");
     },
     sell() {
