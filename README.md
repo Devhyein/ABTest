@@ -109,33 +109,36 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ./mvnw spring-boot:run
 ```
 
-### API
+API
+===
+
+### Get AorB
 Get : http://k3a103.p.ssafy.io/api/assign
 
-## request
+### request
 <pre>
-<code>
-{
+<code>{
     url : "String",
 }
 </code>
 </pre>
 
-## response
-<code>
-{
+### response
+<code>{
     "status": true, 
     "data": "success", 
     "object": A or B
  }
 
 </code>
+</pre>
 
+### Get AorB
 Post : http://k3a103.p.ssafy.io/api/assign
-## request
+
+### request
 <pre>
-<code>
-{
+<code>{
     "test_no" : int,
     "page_type" : "string",
     "session_id" : "string",
@@ -149,13 +152,12 @@ Post : http://k3a103.p.ssafy.io/api/assign
         join_date : date
     }
 }
-<code>
+</code>
 </pre>
 
-## response
+### response
 <pre>
-<code>
-{
+<code>{
     "status" : true,
     "data" : "success" ,
     "object" : null
