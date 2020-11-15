@@ -112,7 +112,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 API
 =========
 
-### Get AorB
+Get AorB
+---------
+
 Get : http://k3a103.p.ssafy.io/api/assign
 
 ### request
@@ -124,6 +126,7 @@ Get : http://k3a103.p.ssafy.io/api/assign
 </pre>
 
 ### response
+<pre>
 <code>{
     "status": true, 
     "data": "success", 
@@ -133,7 +136,10 @@ Get : http://k3a103.p.ssafy.io/api/assign
 </code>
 </pre>
 
-### Get AorB
+
+Sending data for analysis
+-------------------------
+
 Post : http://k3a103.p.ssafy.io//spring/event/click
 
 ### request
