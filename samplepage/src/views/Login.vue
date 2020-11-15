@@ -24,7 +24,6 @@
 import encar from "@/assets/encar.png";
 import API from "@/api/API";
 import swal from "sweetalert";
-import clickEvent from "@/click/click.js";
 
 export default {
   name: "Login",
@@ -60,7 +59,6 @@ export default {
     },
     join() {
       console.log("회원가입");
-      clickEvent(this, "/join");
       this.$router.push({name: 'Join'})
     },
     reset() {

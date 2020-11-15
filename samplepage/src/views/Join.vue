@@ -87,6 +87,7 @@
 import encar from "@/assets/encar.png";
 import API from "@/api/API";
 import swal from "sweetalert";
+import clickEvent from "@/click/click.js";
 
 export default {
   data() {
@@ -183,6 +184,7 @@ export default {
         (res) => {
           console.log(res);
           swal("SUCCESS", "회원가입이 완료되었습니다.", "success");
+          clickEvent(this, "/join");
           this.$router.push({ name: "Login" });
         },
         (err) => {
