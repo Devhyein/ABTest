@@ -455,7 +455,7 @@ export default {
         API.getTestList(
           "email=" + this.email + "&page=0",
           (res) => {
-            this.tests = res;
+            this.tests = res.content;
             this.makeTableData();
           },
           (err) => {
@@ -468,7 +468,7 @@ export default {
         API.getTestListBefore(
           "email=" + this.email + "&page=0",
           (res) => {
-            this.tests = res;
+            this.tests = res.content;
             this.makeTableData();
           },
           (err) => {
@@ -481,7 +481,7 @@ export default {
         API.getTestListProgress(
           "email=" + this.email + "&page=0",
           (res) => {
-            this.tests = res;
+            this.tests = res.content;
             this.makeTableData();
           },
           (err) => {
@@ -494,7 +494,7 @@ export default {
         API.getTestListComplete(
           "email=" + this.email + "&page=0",
           (res) => {
-            this.tests = res;
+            this.tests = res.content;
             this.makeTableData();
           },
           (err) => {
