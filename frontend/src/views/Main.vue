@@ -527,4 +527,10 @@ export default {
 .status {
   cursor: pointer;
 }
+.edit {
+  cursor: pointer;
+}
+.delete {
+  cursor: pointer;
+}
 </style>
