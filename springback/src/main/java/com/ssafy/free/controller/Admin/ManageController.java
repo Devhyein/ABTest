@@ -1,11 +1,10 @@
 package com.ssafy.free.controller.Admin;
 
 import java.util.HashMap;
-import java.util.List;
 
 import com.ssafy.free.dto.RestResponse;
 import com.ssafy.free.dto.Admin.TestResponse;
-import com.ssafy.free.service.ManageService;
+import com.ssafy.free.service.AdminService.ManageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
