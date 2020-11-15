@@ -7,9 +7,9 @@ import java.util.HashMap;
 import com.ssafy.free.dto.Admin.TestData;
 import com.ssafy.free.dto.ClickEvent.User;
 import com.ssafy.free.dto.sample.ClientConsumer;
-import com.ssafy.free.repository.ClientConsumerRepository;
-import com.ssafy.free.repository.TestDataRepository;
-import com.ssafy.free.repository.UrlAttributeRepository;
+import com.ssafy.free.repository.adminRepository.ClientConsumerRepository;
+import com.ssafy.free.repository.adminRepository.TestDataRepository;
+import com.ssafy.free.repository.adminRepository.UrlAttributeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.ssafy.free.service;
+package com.ssafy.free.service.AdminService;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,11 +10,15 @@ import com.ssafy.free.dto.Admin.AdminUser;
 import com.ssafy.free.dto.Admin.Test;
 import com.ssafy.free.dto.Admin.TestResponse;
 import com.ssafy.free.dto.Admin.UrlAttribute;
-import com.ssafy.free.repository.AdminUserRepository;
-import com.ssafy.free.repository.TestRepository;
-import com.ssafy.free.repository.UrlAttributeRepository;
+import com.ssafy.free.repository.adminRepository.AdminUserRepository;
+import com.ssafy.free.repository.adminRepository.TestRepository;
+import com.ssafy.free.repository.adminRepository.UrlAttributeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -99,9 +103,10 @@ public class ManageServiceImpl implements ManageService {
     }
 
     @Override
-    public List<TestResponse> getTestList(String email) {
+    public Page<TestResponse> getTestList(String email, int page) {
         int admin_no = adminDao.findOneByEmail(email).getAdminNo();
-        List<TestResponse> testList = testRepository.findAllByAdminNoOrderByTestNoDesc(admin_no);
+        Pageable paging = PageRequest.of(page, 10, Sort.Direction.DESC, "testNo");
+        Page<TestResponse> testList = testRepository.findAllByAdminNo(admin_no, paging);
         for (TestResponse test : testList) {
             List<UrlAttribute> urls = urlRepository.findByTestNo(test.getTest_no());
             test.setUrls(urls);
@@ -110,9 +115,10 @@ public class ManageServiceImpl implements ManageService {
     }
 
     @Override
-    public List<TestResponse> getTestListBefore(String email) {
+    public Page<TestResponse> getTestListBefore(String email, int page) {
         int admin_no = adminDao.findOneByEmail(email).getAdminNo();
-        List<TestResponse> testList = testRepository.findAllByAdminNoAndStatusOrderByTestNoDesc(admin_no, "진행전");
+        Pageable paging = PageRequest.of(page, 10, Sort.Direction.DESC, "testNo");
+        Page<TestResponse> testList = testRepository.findAllByAdminNoAndStatus(admin_no, "진행전", paging);
         for (TestResponse test : testList) {
             List<UrlAttribute> urls = urlRepository.findByTestNo(test.getTest_no());
             test.setUrls(urls);
@@ -121,9 +127,10 @@ public class ManageServiceImpl implements ManageService {
     }
 
     @Override
-    public List<TestResponse> getTestListProgress(String email) {
+    public Page<TestResponse> getTestListProgress(String email, int page) {
         int admin_no = adminDao.findOneByEmail(email).getAdminNo();
-        List<TestResponse> testList = testRepository.findAllByAdminNoAndStatusOrderByTestNoDesc(admin_no, "진행중");
+        Pageable paging = PageRequest.of(page, 10, Sort.Direction.DESC, "testNo");
+        Page<TestResponse> testList = testRepository.findAllByAdminNoAndStatus(admin_no, "진행중", paging);
         for (TestResponse test : testList) {
             List<UrlAttribute> urls = urlRepository.findByTestNo(test.getTest_no());
             test.setUrls(urls);
@@ -132,9 +139,10 @@ public class ManageServiceImpl implements ManageService {
     }
 
     @Override
-    public List<TestResponse> getTestListComplete(String email) {
+    public Page<TestResponse> getTestListComplete(String email, int page) {
         int admin_no = adminDao.findOneByEmail(email).getAdminNo();
-        List<TestResponse> testList = testRepository.findAllByAdminNoAndStatusOrderByTestNoDesc(admin_no, "진행완료");
+        Pageable paging = PageRequest.of(page, 10, Sort.Direction.DESC, "testNo");
+        Page<TestResponse> testList = testRepository.findAllByAdminNoAndStatus(admin_no, "진행완료", paging);
         for (TestResponse test : testList) {
             List<UrlAttribute> urls = urlRepository.findByTestNo(test.getTest_no());
             test.setUrls(urls);

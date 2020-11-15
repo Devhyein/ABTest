@@ -1,13 +1,13 @@
 package com.ssafy.free.controller.Admin;
 
 import java.util.HashMap;
-import java.util.List;
 
 import com.ssafy.free.dto.RestResponse;
 import com.ssafy.free.dto.Admin.TestResponse;
-import com.ssafy.free.service.ManageService;
+import com.ssafy.free.service.AdminService.ManageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -84,7 +84,7 @@ public class ManageController {
 
     @ApiOperation(value = "관리자의 테스트 목록 호출")
     @GetMapping("/testlist")
-    public Object getTestList(@RequestParam String email) {
+    public Object getTestList(@RequestParam String email, int page) {
         final RestResponse response = new RestResponse();
 
         response.status = false;
@@ -92,7 +92,7 @@ public class ManageController {
         response.data = null;
 
         try {
-            List<TestResponse> testList = manageService.getTestList(email);
+            Page<TestResponse> testList = manageService.getTestList(email, page);
             if (!testList.isEmpty()) {
                 response.status = true;
                 response.msg = "success";
@@ -111,7 +111,7 @@ public class ManageController {
 
     @ApiOperation(value = "진행전 테스트 목록 호출")
     @GetMapping("/testlist/before")
-    public Object getTestListBefore(@RequestParam String email) {
+    public Object getTestListBefore(@RequestParam String email, int page) {
         final RestResponse response = new RestResponse();
 
         response.status = false;
@@ -119,7 +119,7 @@ public class ManageController {
         response.data = null;
 
         try {
-            List<TestResponse> testList = manageService.getTestListBefore(email);
+            Page<TestResponse> testList = manageService.getTestListBefore(email, page);
             if (!testList.isEmpty()) {
                 response.status = true;
                 response.msg = "success";
@@ -138,7 +138,7 @@ public class ManageController {
 
     @ApiOperation(value = "진행중 테스트 목록 호출")
     @GetMapping("/testlist/progress")
-    public Object getTestListProgress(@RequestParam String email) {
+    public Object getTestListProgress(@RequestParam String email, int page) {
         final RestResponse response = new RestResponse();
 
         response.status = false;
@@ -146,7 +146,7 @@ public class ManageController {
         response.data = null;
 
         try {
-            List<TestResponse> testList = manageService.getTestListProgress(email);
+            Page<TestResponse> testList = manageService.getTestListProgress(email, page);
             if (!testList.isEmpty()) {
                 response.status = true;
                 response.msg = "success";
@@ -165,7 +165,7 @@ public class ManageController {
 
     @ApiOperation(value = "진행후 테스트 목록 호출")
     @GetMapping("/testlist/complete")
-    public Object getTestListComplete(@RequestParam String email) {
+    public Object getTestListComplete(@RequestParam String email, int page) {
         final RestResponse response = new RestResponse();
 
         response.status = false;
@@ -173,7 +173,7 @@ public class ManageController {
         response.data = null;
 
         try {
-            List<TestResponse> testList = manageService.getTestListComplete(email);
+            Page<TestResponse> testList = manageService.getTestListComplete(email, page);
             if (!testList.isEmpty()) {
                 response.status = true;
                 response.msg = "success";
