@@ -17,7 +17,7 @@ A/B Testing Solution '보라'
 
 ## AorB
 
-A/B Test 솔루션인 저희 AorB의 흐름입니다.
+Bora Dataflow
 
 1. 기업의 입장인 클라이언트는 AorB 솔루션을 통해 실험을 생성합니다.
 2. 실험 생성 후, 소비자인 컨슈머가 클라이언트의 페이지에 접속을 하게 되면 페이지는 API 요청을 합니다.
