@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Main from '@/views/Main.vue'
 import Join from '@/views/Join.vue'
 import Login from '@/views/Login.vue'
+import Test from '@/views/Test.vue'
 
 Vue.use(VueRouter)
 
@@ -25,6 +26,11 @@ const routes = [
     path: '/sample/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/sample/test',
+    name: 'Test',
+    component: Test
   },
 ]
 
