@@ -10,4 +10,12 @@ export default {
     addTestInfo(state, test){
         state.test = test;
     },
+    addSampleUserInfo(state,sampleuser){
+        state.sampleuser = sampleuser;
+        state.isTestLogin = true;
+    },
+    deleteSampleUserInfo(state) {
+        state.sampleuser = {};
+        state.isTestLogin = false;
+    },
 }

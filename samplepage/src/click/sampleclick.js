@@ -2,7 +2,7 @@ import API from "../api/API.js";
 
 export default function clickEvent(vue, url) {
   var vueTest = vue.$store.state.test;
-  var vueUser = {};
+  var vueUser = vue.$store.state.sampleuser;
 
   let today = new Date();
 
