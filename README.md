@@ -1,7 +1,6 @@
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fgjbae1212%2Fhit-counter)](https://lab.ssafy.com/s03-final/s03p31a103/blob/develop/README.md)
 
-A/B Testing Solution '보라'
-===========================
+# A/B Testing Solution '보라'
 
 ## 개요
 
@@ -26,14 +25,16 @@ Bora Dataflow
 
 ## 기능
 
+### 관리자페이지
+
 1. 메인화면(로그인 전) : 로그인을 하지 않으면 서비스가 제공되지 않는다.
-   ![메인](./images/메인.png)
+   ![메인(로그인전)](<./images/메인(로그인전).png>)
 
 2. 로그인 : 오른쪽 위에 사람 모양을 누르면 로그인창이 나옵니다.
    ![로그인](./images/로그인.png)
 
 3. 메인화면(로그인 후) : 현재 진행중인 a/b 테스트의 현황과 상태를 보여줍니다.
-   ![메인2](./images/메인2.png)
+   ![메인(로그인후)](<./images/메인(로그인후).png>)
 
 4. 메인화면(진행전) : 현재 진행대기중인 a/b 테스트를 보여줍니다.
    ![메인(진행전)](<./images/메인(진행전).png>)
@@ -50,26 +51,44 @@ Bora Dataflow
 8. 수정 및 삭제 : 아이콘을 클릭해 수정과 삭제를 할 수 있습니다. 수정은 기본적인 명칭, 종료일은 수정 가능하지만 URL, 전환율분석페이지, 시작일은 수정할 수 없습니다.
    ![수정](./images/수정.png)
 
-9. 상세(전체) :
+9. 상세(전체) : 상세정보를 볼 수 있습니다. 전체, 성별, 연령대별로 탭으로 구분하였고 전체탭에서는 전환율, 이탈률, 회원가입률을 볼 수 있습니다.
+   ![상세(전체)](<./images/상세(전체).png>)
+
+10. 상세(성별) : 성별탭에서는 전환율, 이탈률을 볼 수 있습니다.
+    ![상세(성별)](<./images/상세(성별).png>)
+
+11. 상세(연령대) : 연령대탭에서는 전환율, 이탈률을 볼 수 있습니다.
+    ![상세(연령대)](<./images/상세(연령대).png>)
+
+### 샘플페이지
+
+1. A안을 받을 경우 : 사이드바가 왼쪽에 있습니다.
+   ![A안메인](./images/A안메인.png)
+   ![A안메뉴바](./images/A안메뉴바.png)
+
+2. B안을 받을 경우 : 사이드바가 오른쪽에 있고 A안과 메뉴 구성이 다릅니다.
+   ![B안메인](./images/B안메인.png)
+   ![B안메뉴바](./images/B안메뉴바.png)
 
 ## Architecture
+
 - OS : Ubuntu
 - version
-    - Database : My-SQL
-    - Back-end : Java(V. 14), Spring (V. 2.3.4)., Kafka
-    - Front-end: JavaScript, vue.js (V. 3.x, use yarn)등
+  - Database : My-SQL
+  - Back-end : Java(V. 14), Spring (V. 2.3.4)., Kafka
+  - Front-end: JavaScript, vue.js (V. 3.x, use yarn)등
 - infra
-    - EC2
-    - GitLab
-
+  - EC2
+  - GitLab
 
 ## Port
+
 - Front
-    - Dashboard : 8081 
-    - Sample page : 8082
+  - Dashboard : 8081
+  - Sample page : 8082
 - Back
-    - Server : 3030
-- MariaDB : 3306 
+  - Server : 3030
+- MariaDB : 3306
 - Jenkins : 8080
 - nginx : 80
 
@@ -111,15 +130,14 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ./mvnw spring-boot:run
 ```
 
-API
-=========
+# API
 
-Get AorB
----------
+## Get AorB
 
 Get : http://k3a103.p.ssafy.io/api/assign
 
 ### request
+
 <pre>
 <code>{
     url : "String",
@@ -128,6 +146,7 @@ Get : http://k3a103.p.ssafy.io/api/assign
 </pre>
 
 ### response
+
 <pre>
 <code>{
     "status": true, 
@@ -138,13 +157,12 @@ Get : http://k3a103.p.ssafy.io/api/assign
 </code>
 </pre>
 
-
-Sending data for analysis
--------------------------
+## Sending data for analysis
 
 Post : http://k3a103.p.ssafy.io//spring/event/click
 
 ### request
+
 <pre>
 <code>{
     "test_no" : int,
@@ -164,6 +182,7 @@ Post : http://k3a103.p.ssafy.io//spring/event/click
 </pre>
 
 ### response
+
 <pre>
 <code>{
     "status" : true,
