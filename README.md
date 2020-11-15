@@ -110,11 +110,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ```
 
 ### API
-get : http://k3a103.p.ssafy.io/api/assign
+Get : http://k3a103.p.ssafy.io/api/assign
 
 ## request
 <pre>
-sadasd
 <code>
 {
     url : "String",
@@ -125,24 +124,41 @@ sadasd
 ## response
 <code>
 {
- "status": true, 
-"data": "success", 
-"object": A
+    "status": true, 
+    "data": "success", 
+    "object": A or B
  }
 
-Post : http://k3a103.p.ssafy.io/api/assign
 </code>
 
+Post : http://k3a103.p.ssafy.io/api/assign
 ## request
 <pre>
 <code>
-
+{
+    "test_no" : int,
+    "page_type" : "string",
+    "session_id" : "string",
+    "url" : "string" (넘어갈 유알엘),
+    "date" : date ,
+    signed:boolean,
+    user {
+        email : "string",
+        gender : "string",
+        age : int,
+        join_date : date
+    }
+}
 <code>
 </pre>
 
 ## response
 <pre>
 <code>
-
+{
+    "status" : true,
+    "data" : "success" ,
+    "object" : null
+} 
 <code>
 </pre>
