@@ -102,7 +102,7 @@ public class GraphServiceImpl implements GraphService {
                 List<Float> BChartData = new ArrayList<Float>();
                 List<String> date = new ArrayList<String>();
 
-                // 각 날짜의 전체 페이지 제공 횟수
+                // 각 날짜 별 전체 페이지 제공 횟수
                 while (!start.minusDays(1).equals(test.getEnd()) && !start.minusDays(1).equals(today)) {
                     float totalA = testDataRepository.countByTestNoAndPageTypeAndDateAndUrlNo(test_no, "A", start,
                             null);
